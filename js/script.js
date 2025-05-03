@@ -1,5 +1,5 @@
 // ===========================================================
-//  SCRIPT.JS COMPLETO E AGGIORNATO (CON RECENSIONI/GALLERIA)
+//  SCRIPT.JS COMPLETO - Include gestione recensioni dinamica
 // ===========================================================
 
 const languages = {
@@ -27,10 +27,10 @@ const languages = {
         // --- chi-sono.html ---
         "pageTitleAbout": "Chi Sono - Maria G. Hendriksen",
         "aboutHeading": "Chi Sono",
-        "aboutP1": "Sono Maria Guillermina Hendriksen, una fisioterapista appassionata e istruttrice di Yoga con diversi anni di esperienza, maturata fin dalla laurea, nel campo del recupero funzionale e del benessere psicofisico.", // Modificato anni esperienza
+        "aboutP1": "Sono Maria Guillermina Hendriksen, una fisioterapista appassionata e istruttrice di Yoga con diversi anni di esperienza, maturata fin dalla laurea, nel campo del recupero funzionale e del benessere psicofisico.",
         "aboutP2": "La mia missione è aiutare le persone a ritrovare l'equilibrio tra corpo e mente, superare il dolore e migliorare la qualità della loro vita attraverso un approccio integrato e personalizzato.",
         "aboutFormationTitle": "Formazione e Filosofia",
-        "aboutP3": "Ho conseguito la laurea in Fisioterapia presso l'Università Cattolica di La Plata (UCLP) e ho approfondito le mie conoscenze con corsi di specializzazione in Terapia Manuale e Riabilitazione Funzionale. Parallelamente, ho coltivato la mia passione per lo Yoga, ottenendo la certificazione come Istruttrice Professionale di Yoga presso la Federazione Argentina di Yoga.", // Aggiornato con dati CV
+        "aboutP3": "Ho conseguito la laurea in Fisioterapia presso l'Università Cattolica di La Plata (UCLP) e ho approfondito le mie conoscenze con corsi di specializzazione in Terapia Manuale e Riabilitazione Funzionale. Parallelamente, ho coltivato la mia passione per lo Yoga, ottenendo la certificazione come Istruttrice Professionale di Yoga presso la Federazione Argentina di Yoga.",
         "aboutP4": "Credo fermamente nell'unione tra la scienza della fisioterapia e la pratica millenaria dello Yoga. Questo mi permette di offrire trattamenti che non si limitano a curare il sintomo, ma mirano a comprenderne la causa e a promuovere uno stile di vita più sano e consapevole.",
         "aboutValuesTitle": "Valori",
         "value1": "<strong>Ascolto Attento:</strong> Ogni persona è unica, dedico tempo a comprendere le tue esigenze specifiche.",
@@ -53,7 +53,7 @@ const languages = {
         "yogaTitle": "Yoga",
         "yogaDesc": "Lo Yoga è una disciplina straordinaria per migliorare flessibilità, forza, equilibrio e consapevolezza di sé. Offro lezioni adatte a tutti i livelli:",
         "yogaPoint1": "<strong>Lezioni Individuali (One-to-One):</strong> Percorso personalizzato sulle tue esigenze, obiettivi e condizioni fisiche. Ideale per iniziare, approfondire la pratica o per esigenze terapeutiche specifiche.",
-        "yogaPoint2": "<strong>Lezioni di Gruppo (Piccoli Gruppi):</strong> Classi dinamiche e coinvolgenti per esplorare diversi stili di Yoga (es. Hatha, Vinyasa) e praticare Yoga Terapeutico.", // Aggiornato
+        "yogaPoint2": "<strong>Lezioni di Gruppo (Piccoli Gruppi):</strong> Classi dinamiche e coinvolgenti per esplorare diversi stili di Yoga (es. Hatha, Vinyasa) e praticare Yoga Terapeutico.",
         "yogaPoint3": "<strong>Yoga Terapeutico:</strong> Utilizzo mirato di posizioni (asana), respirazione (pranayama) e meditazione per affrontare specifiche problematiche fisiche o emotive, in integrazione con la fisioterapia.",
         "yogaPoint4": "<strong>Yoga Prenatale/Postnatale:</strong> Supporto specifico per le donne durante la gravidanza e nel periodo successivo al parto.",
         "yogaBenefits": "Benefici: Riduzione dello stress, miglioramento della postura, aumento della flessibilità e della forza, maggiore consapevolezza corporea, miglioramento della capacità respiratoria.",
@@ -63,58 +63,58 @@ const languages = {
         "pageTitlePlans": "Piani e Tariffe - Maria G. Hendriksen",
         "plansHeading": "Piani e Tariffe",
         "plansIntro": "Scegli il piano più adatto alle tue esigenze. Per soluzioni personalizzate o pacchetti combinati Fisioterapia+Yoga, <a href=\"prenota.html\">contattami</a>.",
-        "plansNote": "Nota: I pagamenti verranno gestiti al momento della prenotazione o in studio. Questa sezione è a scopo informativo.",
+        "plansNote": "Nota: I pagamenti si effettuano preferibilmente al momento della seduta (contanti, Bizum). Per pacchetti o pagamenti anticipati è possibile richiedere bonifico bancario o link per pagamento online.", // MODIFICATO PER PAGAMENTI
         "planFisioSingleTitle": "Seduta Fisioterapia Singola",
         "planFisioSingleDesc": "Valutazione e trattamento fisioterapico individuale.",
         "planFisioSingleFeat1": "Durata: circa 60 minuti",
         "planFisioSingleFeat2": "Trattamento personalizzato",
-        "planFisioSinglePrice": "€50", // Verifica prezzo
+        "planFisioSinglePrice": "€50",
         "planFisioSingleButton": "Prenota Ora",
         "planFisio5Title": "Ciclo 5 Sedute Fisioterapia",
         "planFisio5Desc": "Pacchetto conveniente per un percorso riabilitativo completo.",
         "planFisio5Feat1": "5 sedute individuali (60 min/cad.)",
         "planFisio5Feat2": "Monitoraggio progressi",
         "planFisio5Feat3": "Sconto rispetto alla seduta singola",
-        "planFisio5Price": "€220 ", // Verifica prezzo
-        "planFisio5OldPrice": "(€250)", // Verifica prezzo
+        "planFisio5Price": "€220 ",
+        "planFisio5OldPrice": "(€250)",
         "planFisio5Button": "Prenota Ciclo",
         "planYogaIndSingleTitle": "Lezione Yoga Individuale",
         "planYogaIndSingleDesc": "Pratica personalizzata One-to-One.",
-        "planYogaIndSingleFeat1": "Durata: 60 o 75 minuti (da concordare)", // Aggiornato
-        "planYogaIndSingleFeat2": "Adatta a tutti i livelli", // Aggiornato
+        "planYogaIndSingleFeat1": "Durata: 60 o 75 minuti (da concordare)",
+        "planYogaIndSingleFeat2": "Adatta a tutti i livelli",
         "planYogaIndSingleFeat3": "Focus su obiettivi specifici",
-        "planYogaIndSinglePrice": "€45 (60 min)", // Verifica prezzo
+        "planYogaIndSinglePrice": "€45 (60 min)",
         "planYogaIndSingleButton": "Prenota Lezione",
         "planYogaInd5Title": "Pacchetto 5 Lezioni Yoga Individuali",
         "planYogaInd5Desc": "Percorso continuativo per approfondire la pratica.",
         "planYogaInd5Feat1": "5 lezioni individuali (60 min/cad.)",
         "planYogaInd5Feat2": "Flessibilità oraria",
         "planYogaInd5Feat3": "Sconto sul totale",
-        "planYogaInd5Price": "€200 ", // Verifica prezzo
-        "planYogaInd5OldPrice": "(€225)", // Verifica prezzo
+        "planYogaInd5Price": "€200 ",
+        "planYogaInd5OldPrice": "(€225)",
         "planYogaInd5Button": "Acquista Pacchetto",
         "planYogaGroupSingleTitle": "Lezione Yoga di Gruppo (Drop-in)",
         "planYogaGroupSingleDesc": "Partecipa a una delle nostre classi di gruppo.",
         "planYogaGroupSingleFeat1": "Verifica l'orario delle classi",
-        "planYogaGroupSingleFeat2": "Adatta a diversi livelli", // Aggiornato
-        "planYogaGroupSinglePrice": "€15", // Verifica prezzo
+        "planYogaGroupSingleFeat2": "Adatta a diversi livelli",
+        "planYogaGroupSinglePrice": "€15",
         "planYogaGroupSingleButton": "Prenota Classe",
         "planYogaGroup10Title": "Pacchetto 10 Lezioni Yoga di Gruppo",
         "planYogaGroup10Desc": "Frequenta le classi di gruppo con convenienza.",
         "planYogaGroup10Feat1": "Accesso a 10 lezioni di gruppo",
-        "planYogaGroup10Feat2": "Validità: 3 mesi", // Aggiornato
+        "planYogaGroup10Feat2": "Validità: 3 mesi",
         "planYogaGroup10Feat3": "Massima convenienza",
-        "planYogaGroup10Price": "€120 ", // Verifica prezzo
-        "planYogaGroup10OldPrice": "(€150)", // Verifica prezzo
+        "planYogaGroup10Price": "€120 ",
+        "planYogaGroup10OldPrice": "(€150)",
         "planYogaGroup10Button": "Acquista Carnet",
 
         // --- prenota.html ---
         "pageTitleBooking": "Prenota / Contatti - Maria G. Hendriksen",
-        "bookingTitleWidget": "Prenota la Tua Sessione Online",
-        "bookingInstructionsWidget": "Utilizza il calendario interattivo qui sotto per scegliere il servizio desiderato e trovare un orario disponibile per il tuo appuntamento (se disponibile).",
-        "bookingWidgetAltContact": "Se hai difficoltà con la prenotazione online o hai esigenze particolari, puoi utilizzare il modulo di contatto sottostante o gli altri recapiti.",
+        "bookingTitleWidget": "Prenota Incontro Conoscitivo Online", // Modificato per evento singolo
+        "bookingInstructionsWidget": "Utilizza il calendario qui sotto per scegliere un orario disponibile per un incontro conoscitivo gratuito (30 min).", // Modificato
+        "bookingWidgetAltContact": "Per prenotare altri tipi di sessioni o per esigenze particolari, utilizza il modulo di contatto sottostante o gli altri recapiti.", // Modificato
         "contactFormTitle": "Modulo di Contatto / Richiesta Info",
-        "contactFormInstructions": "Compila questo modulo per domande, richieste di informazioni o se preferisci prenotare tramite contatto diretto. Ti risponderò il prima possibile.",
+        "contactFormInstructions": "Compila questo modulo per domande, richieste di informazioni o per prenotare sessioni specifiche. Ti risponderò il prima possibile.", // Modificato
         "labelName": "Nome:",
         "labelEmail": "Email:",
         "labelPhone": "Telefono (Opzionale):",
@@ -133,7 +133,7 @@ const languages = {
         "contactInstagram": "Instagram: <a href=\"https://www.instagram.com/yoguikine?igsh=dDk4bGc3Zm81MWx2\" target=\"_blank\" rel=\"noopener noreferrer\">@yoguikine</a>",
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
         "contactPhone": "Telefono: <a href=\"tel:+393299460634\">+39 3299460634</a>",
-        "contactAddress": "Indirizzo Studio: Palma di Maiorca (contattami per dettagli)",
+        "contactAddress": "Indirizzo Studio: Palma de Maiorca (contattami per dettagli)",
 
         // --- contenuti.html ---
         "pageTitleContent": "I Miei Contenuti - Maria Guillermina Hendriksen",
@@ -151,11 +151,18 @@ const languages = {
         "fisioContent1Desc": "Descrizione del contenuto: esercizi semplici e sicuri da fare a casa per alleviare il dolore lombare.",
         "fisioContent2Title": "Titolo Contenuto Fisio 2 (es. Consigli Posturali per l'Ufficio)",
         "fisioContent2Desc": "Come mantenere una postura corretta lavorando alla scrivania per prevenire dolori cervicali e dorsali.",
-        // --- NUOVE STRINGHE per Recensioni (Solo Galleria) ---
+        // Sezione Recensioni
         "reviewsHeading": "Dicono di Me / Recensioni",
         "testimonialGalleryHeading": "Alcune Testimonianze",
-        "testimonialGalleryIntro": "Qui puoi vedere alcuni dei messaggi e delle esperienze condivise da chi ha seguito un percorso con me."
-        // --- FINE NUOVE STRINGHE ---
+        "testimonialGalleryIntro": "Qui puoi vedere alcuni dei messaggi e delle esperienze condivise da chi ha seguito un percorso con me.",
+        "dynamicReviewsHeading": "Le Vostre Recensioni", // NUOVO
+        "reviewFormHeading": "Lascia la Tua Recensione", // NUOVO
+        "reviewFormIntro": "Hai seguito delle lezioni o un percorso di fisioterapia con me? La tua opinione è preziosa! Compila il modulo qui sotto per condividere la tua esperienza.", // NUOVO
+        "reviewLabelName": "Il tuo nome (o come vuoi apparire):", // NUOVO
+        "reviewLabelRating": "Valutazione (da 1 a 5 stelle):", // NUOVO
+        "reviewLabelMessage": "La tua recensione:", // NUOVO
+        "reviewSubmitButton": "Invia Recensione", // NUOVO
+        "reviewFormNotes": "Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per la tua condivisione!" // NUOVO
     },
     en: {
         // --- Common Strings (Header/Footer) ---
@@ -217,7 +224,7 @@ const languages = {
         "pageTitlePlans": "Plans and Rates - Maria G. Hendriksen",
         "plansHeading": "Plans and Rates",
         "plansIntro": "Choose the plan that best suits your needs. For customized solutions or combined Physiotherapy+Yoga packages, <a href=\"prenota.html\">contact me</a>.",
-        "plansNote": "Note: Payments will be handled at the time of booking or in the studio. This section is for informational purposes.",
+        "plansNote": "Note: Payments are preferably made at the time of the session (cash, Bizum). For packages or advance payments, bank transfer or an online payment link can be requested.", // MODIFIED FOR PAYMENTS
         "planFisioSingleTitle": "Single Physiotherapy Session",
         "planFisioSingleDesc": "Individual physiotherapy assessment and treatment.",
         "planFisioSingleFeat1": "Duration: approx. 60 minutes",
@@ -264,11 +271,11 @@ const languages = {
 
         // --- prenota.html ---
         "pageTitleBooking": "Booking / Contact - Maria G. Hendriksen",
-        "bookingTitleWidget": "Book Your Session Online",
-        "bookingInstructionsWidget": "Use the interactive calendar below to choose the desired service and find an available time slot for your appointment (if available).",
-        "bookingWidgetAltContact": "If you have trouble booking online or have special requirements, you can use the contact form below or the other contact details.",
+        "bookingTitleWidget": "Book Online Discovery Call", // Changed for single event
+        "bookingInstructionsWidget": "Use the calendar below to choose an available time for a free discovery call (30 min).", // Changed
+        "bookingWidgetAltContact": "To book other types of sessions or for special requirements, please use the contact form below or the other contact details.", // Changed
         "contactFormTitle": "Contact Form / Info Request",
-        "contactFormInstructions": "Fill out this form for questions, information requests, or if you prefer to book via direct contact. I will reply as soon as possible.",
+        "contactFormInstructions": "Fill out this form for questions, information requests, or to book specific sessions. I will reply as soon as possible.", // Changed
         "labelName": "Name:",
         "labelEmail": "Email:",
         "labelPhone": "Phone (Optional):",
@@ -305,11 +312,18 @@ const languages = {
         "fisioContent1Desc": "Content description: simple and safe exercises to do at home to relieve low back pain.",
         "fisioContent2Title": "Physio Content Title 2 (e.g., Postural Tips for the Office)",
         "fisioContent2Desc": "How to maintain correct posture while working at a desk to prevent neck and back pain.",
-        // --- NEW STRINGS for Reviews (Gallery Only) ---
+        // Reviews Section
         "reviewsHeading": "Testimonials / Reviews",
         "testimonialGalleryHeading": "Some Testimonials",
-        "testimonialGalleryIntro": "Here you can see some of the messages and experiences shared by those who have followed a path with me."
-        // --- END NEW STRINGS ---
+        "testimonialGalleryIntro": "Here you can see some of the messages and experiences shared by those who have followed a path with me.",
+        "dynamicReviewsHeading": "Your Reviews", // NEW
+        "reviewFormHeading": "Leave Your Review", // NEW
+        "reviewFormIntro": "Have you taken lessons or a physiotherapy path with me? Your opinion is valuable! Fill out the form below to share your experience.", // NEW
+        "reviewLabelName": "Your name (or how you want to appear):", // NEW
+        "reviewLabelRating": "Rating (1 to 5 stars):", // NEW
+        "reviewLabelMessage": "Your review:", // NEW
+        "reviewSubmitButton": "Send Review", // NEW
+        "reviewFormNotes": "Note: Reviews submitted via this form will be moderated before publication. Thank you for sharing!" // NEW
     },
     es: {
         // --- Common Strings (Header/Footer) ---
@@ -371,7 +385,7 @@ const languages = {
         "pageTitlePlans": "Planes y Tarifas - Maria G. Hendriksen",
         "plansHeading": "Planes y Tarifas",
         "plansIntro": "Elige el plan que mejor se adapte a tus necesidades. Para soluciones personalizadas o paquetes combinados Fisioterapia+Yoga, <a href=\"prenota.html\">contáctame</a>.",
-        "plansNote": "Nota: Los pagos se gestionarán en el momento de la reserva o en el estudio. Esta sección es a título informativo.",
+        "plansNote": "Nota: Los pagos se realizan preferentemente en el momento de la sesión (efectivo, Bizum). Para paquetes o pagos anticipados, se puede solicitar transferencia bancaria o enlace para pago online.", // MODIFICADO PARA PAGOS
         "planFisioSingleTitle": "Sesión Única de Fisioterapia",
         "planFisioSingleDesc": "Evaluación y tratamiento fisioterapéutico individual.",
         "planFisioSingleFeat1": "Duración: aprox. 60 minutos",
@@ -418,11 +432,11 @@ const languages = {
 
         // --- prenota.html ---
         "pageTitleBooking": "Reservas / Contacto - Maria G. Hendriksen",
-        "bookingTitleWidget": "Reserva Tu Sesión Online",
-        "bookingInstructionsWidget": "Utiliza el calendario interactivo a continuación para elegir el servicio deseado y encontrar un horario disponible para tu cita (si disponible).",
-        "bookingWidgetAltContact": "Si tienes dificultades para reservar online o tienes necesidades especiales, puedes usar el formulario de contacto de abajo o los otros datos de contacto.",
+        "bookingTitleWidget": "Reserva Encuentro Informativo Online", // Cambiado para evento único
+        "bookingInstructionsWidget": "Utiliza el calendario abajo para elegir un horario disponible para un encuentro informativo gratuito (30 min).", // Cambiado
+        "bookingWidgetAltContact": "Para reservar otros tipos de sesiones o para necesidades particulares, utiliza el formulario de contacto o los otros métodos de contacto.", // Cambiado
         "contactFormTitle": "Formulario de Contacto / Solicitud de Info",
-        "contactFormInstructions": "Rellena este formulario para preguntas, solicitudes de información o si prefieres reservar mediante contacto directo. Te responderé lo antes posible.",
+        "contactFormInstructions": "Rellena este formulario para preguntas, solicitudes de información o para reservar sesiones específicas. Te responderé lo antes posible.", // Cambiado
         "labelName": "Nombre:",
         "labelEmail": "Email:",
         "labelPhone": "Teléfono (Opcional):",
@@ -459,31 +473,36 @@ const languages = {
         "fisioContent1Desc": "Descripción del contenido: ejercicios simples y seguros para hacer en casa y aliviar el dolor lumbar.",
         "fisioContent2Title": "Título Contenido Fisio 2 (ej. Consejos Posturales para la Oficina)",
         "fisioContent2Desc": "Cómo mantener una postura correcta trabajando en el escritorio para prevenir dolores cervicales y dorsales.",
-        // --- NUEVAS CADENAS para Reseñas (Solo Galería) ---
+        // Sección Reseñas
         "reviewsHeading": "Testimonios / Reseñas",
         "testimonialGalleryHeading": "Algunos Testimonios",
-        "testimonialGalleryIntro": "Aquí puedes ver algunos de los mensajes y experiencias compartidas por quienes han seguido un camino conmigo."
-        // --- FIN NUEVAS CADENAS ---
+        "testimonialGalleryIntro": "Aquí puedes ver algunos de los mensajes y experiencias compartidas por quienes han seguido un camino conmigo.",
+        "dynamicReviewsHeading": "Vuestras Reseñas", // NUEVO
+        "reviewFormHeading": "Deja Tu Reseña", // NUEVO
+        "reviewFormIntro": "¿Has seguido clases o un percorso de fisioterapia conmigo? ¡Tu opinión es valiosa! Completa el formulario a continuación para compartir tu experiencia.", // NUEVO
+        "reviewLabelName": "Tu nombre (o como quieres aparecer):", // NUEVO
+        "reviewLabelRating": "Valoración (de 1 a 5 estrellas):", // NUEVO
+        "reviewLabelMessage": "Tu reseña:", // NUEVO
+        "reviewSubmitButton": "Enviar Reseña", // NUEVO
+        "reviewFormNotes": "Nota: Las reseñas enviadas a través de este formulario serán moderadas antes de su publicación. ¡Gracias por compartir!" // NUEVO
     }
 };
 
-// --- Funzioni JavaScript (changeLanguage, updateActiveButton, DOMContentLoaded listener) ---
-// (Il resto delle funzioni rimane invariato come nel tuo file)
-
+// --- Funzioni JavaScript (changeLanguage, updateActiveButton) ---
 function changeLanguage(lang) {
     if (languages[lang]) {
-        document.documentElement.lang = lang; // Imposta l'attributo lang sull'elemento <html>
+        document.documentElement.lang = lang;
         for (const key in languages[lang]) {
             const element = document.getElementById(key);
             if (element) {
-                // Controlla se l'elemento è il titolo della pagina
+                // Special handling for page titles
                 if (key.startsWith('pageTitle')) {
                     document.title = languages[lang][key];
                 } else {
                     element.innerHTML = languages[lang][key];
                 }
             } else {
-                // Gestisce il caso in cui l'ID sia per il titolo della pagina ma non esista un elemento con quell'ID
+                 // Handle titles even if no specific element with that ID exists
                  if (key.startsWith('pageTitle')) {
                      document.title = languages[lang][key];
                  }
@@ -494,7 +513,7 @@ function changeLanguage(lang) {
             updateActiveButton(lang);
         }
 
-        // Codice per cambiare sorgente video (se presente nella pagina)
+        // Code to change video source (if present on the page)
         const videoElement = document.getElementById('presentationVideo');
         if (videoElement) {
             let videoSrc = '';
@@ -511,22 +530,18 @@ function changeLanguage(lang) {
         }
 
     } else {
-        console.error("Lingua non supportata:", lang);
+        console.error("Language not supported:", lang);
     }
 }
-
 
 function updateActiveButton(lang) {
     const buttons = document.querySelectorAll('.language-switcher button');
     buttons.forEach(button => {
         let buttonLang = '';
-        // Estrai la lingua dall'attributo onclick
         if (button.hasAttribute('onclick')) {
             const match = button.getAttribute('onclick').match(/changeLanguage\('(\w+)'\)/);
             if (match) buttonLang = match[1];
-        }
-        // Fallback: estrai la lingua da data-lang se presente
-        else if (button.dataset.lang) {
+        } else if (button.dataset.lang) {
             buttonLang = button.dataset.lang;
         }
 
@@ -538,54 +553,56 @@ function updateActiveButton(lang) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('preferredLanguage');
-    const defaultLang = 'it'; // Imposta l'italiano come predefinito
-    let initialLang = defaultLang;
 
-    // Verifica se esiste una lingua salvata e se è supportata
+// --- Listener DOMContentLoaded ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Code for initial language setting
+    const savedLang = localStorage.getItem('preferredLanguage');
+    const defaultLang = 'it';
+    let initialLang = defaultLang;
     if (savedLang && typeof languages !== 'undefined' && languages[savedLang]){
         initialLang = savedLang;
     } else if (typeof languages === 'undefined') {
-         console.error("L'oggetto 'languages' non è definito quando DOMContentLoaded viene eseguito.");
-         return; // Esce se le lingue non sono definite, evita errori
+         console.error("The 'languages' object is not defined when DOMContentLoaded runs.");
+         return;
     }
-
-    // Applica la lingua iniziale
     if (typeof changeLanguage === 'function') {
         changeLanguage(initialLang);
     } else {
-         console.error("La funzione 'changeLanguage' non è definita.");
+         console.error("The 'changeLanguage' function is not defined.");
     }
 
-    // Aggiunge listener ai pulsanti lingua (assicurandosi che non vengano aggiunti più volte)
+    // Add listeners to language buttons
     const langButtons = document.querySelectorAll('.language-switcher button');
     langButtons.forEach(button => {
-        // Controlla se il listener è già stato aggiunto
         if (!button.hasAttribute('data-listener-set')) {
             let langCode = '';
-            // Estrai la lingua dall'attributo onclick
-            if (button.hasAttribute('onclick')) {
-                const match = button.getAttribute('onclick').match(/changeLanguage\('(\w+)'\)/);
-                if (match) langCode = match[1];
-            }
-            // Fallback: estrai la lingua da data-lang se presente
-             else if (button.dataset.lang) {
-                langCode = button.dataset.lang;
-            }
-
-            if(langCode) {
-                button.addEventListener('click', (event) => {
-                    event.preventDefault(); // Previene comportamenti di default se il bottone è dentro un form o link
-                    if (typeof changeLanguage === 'function') {
-                        changeLanguage(langCode);
-                    }
-                });
-                // Marca il bottone come avente un listener
-                button.setAttribute('data-listener-set', 'true');
-            }
-        }
+             if (button.hasAttribute('onclick')) {
+                 const match = button.getAttribute('onclick').match(/changeLanguage\('(\w+)'\)/);
+                 if (match) langCode = match[1];
+             } else if (button.dataset.lang) {
+                 langCode = button.dataset.lang;
+             }
+             if(langCode) {
+                 button.addEventListener('click', (event) => {
+                      event.preventDefault();
+                      if (typeof changeLanguage === 'function') { changeLanguage(langCode); }
+                 });
+                 button.setAttribute('data-listener-set', 'true');
+             }
+         }
     });
+
+    // <<< QUI VANNO LE CHIAMATE PER LE RECENSIONI >>>
+    // Ad esempio:
+    // const reviewForm = document.getElementById('review-form');
+    // if (reviewForm && typeof handleReviewSubmit === 'function') {
+    //     reviewForm.addEventListener('submit', handleReviewSubmit);
+    // }
+    // if (document.getElementById('reviews-list-container') && typeof loadReviews === 'function') {
+    //     loadReviews();
+    // }
+
 });
 
 // ===========================================================

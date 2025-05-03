@@ -154,13 +154,17 @@
 		
 		</section>
 
-        <hr> <section class="reviews-section">
-            <h2 id="reviewsHeading">Dicono di Me / Recensioni</h2>
+       
+			
+			<section class="reviews-section">
+    <h2 id="reviewsHeading">Dicono di Me / Recensioni</h2>
 
-            <h3 id="testimonialGalleryHeading">Alcune Testimonianze</h3>
-            <p id="testimonialGalleryIntro">Qui puoi vedere alcuni dei messaggi e delle esperienze condivise da chi ha seguito un percorso con me.</p>
-            <div class="testimonial-gallery">
-                <div class="testimonial-image">
+    <h3 id="testimonialGalleryHeading">Alcune Testimonianze</h3>
+    <p id="testimonialGalleryIntro">
+        Qui puoi vedere alcuni dei messaggi e delle esperienze condivise da chi ha seguito un percorso con me.
+    </p>
+    <div class="testimonial-gallery">
+        <div class="testimonial-image">
                     <img src="images/Recensione1_whatsapp.jpeg" alt="Testimonianza cliente 1">
                 </div>
                 <div class="testimonial-image">
@@ -175,9 +179,54 @@
 				<div class="testimonial-image">
                     <img src="images/Recensione5_whatsapp.jpeg" alt="Testimonianza cliente 2">
                 </div>
-                </div>
+    </div>
 
-            </section>
+    <hr style="margin: 30px 0;">
+
+    <h3 id="dynamicReviewsHeading">Le Vostre Recensioni</h3>
+    <div id="reviews-list-container">
+        <p>Caricamento recensioni...</p>
+    </div>
+
+    <hr style="margin: 30px 0;">
+
+    <h3 id="reviewFormHeading">Lascia la Tua Recensione</h3>
+    <p id="reviewFormIntro">
+        Hai seguito delle lezioni o un percorso di fisioterapia con me? La tua opinione è preziosa! Compila il modulo
+        qui sotto per condividere la tua esperienza.
+    </p>
+
+    <form id="review-form">
+        <label for="reviewName" id="reviewLabelName">Il tuo nome (o come vuoi apparire):</label>
+        <input type="text" id="reviewName" name="nome" required>
+
+        <label for="reviewRating" id="reviewLabelRating">Valutazione (da 1 a 5 stelle):</label>
+        <div class="star-rating">
+            <select id="reviewRating" name="valutazione_stelle" required>
+                <option value="">-- Seleziona Valutazione --</option>
+                <option value="5">★★★★★ (Eccellente)</option>
+                <option value="4">★★★★☆ (Molto Buono)</option>
+                <option value="3">★★★☆☆ (Buono)</option>
+                <option value="2">★★☆☆☆ (Sufficiente)</option>
+                <option value="1">★☆☆☆☆ (Insufficiente)</option>
+            </select>
+        </div>
+
+        <label for="reviewComment" id="reviewLabelMessage">La tua recensione:</label>
+        <textarea id="reviewComment" name="messaggio_recensione" rows="5" required></textarea>
+
+        <div id="review-form-message" class="form-message" role="status" aria-live="polite"></div>
+
+        <button type="submit" id="reviewSubmitButton">Invia Recensione</button>
+
+        <p class="review-form-notes" id="reviewFormNotes">
+            Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per
+            la tua condivisione!
+        </p>
+    </form>
+</section>
+
+			
 		
 
     </main>

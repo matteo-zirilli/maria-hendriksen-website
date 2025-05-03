@@ -1,0 +1,10 @@
+[build]
+  # Directory dove si trovano i file statici del sito (assicurati sia corretta)
+  publish = "/"
+  # Directory dove si trovano le funzioni serverless
+  functions = "netlify/functions"
+
+[functions]
+  # Specifica la versione di Node.js per le funzioni
+  node_bundler = "esbuild"
+  included_files = ["node_modules/.prisma/client/*.node", "node_modules/@prisma/client/libquery_engine-*"] # Aggiunto per Prisma

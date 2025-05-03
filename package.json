@@ -1,0 +1,23 @@
+{
+  "name": "sito-web-guille",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matteo-zirilli/maria-hendriksen-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matteo-zirilli/maria-hendriksen-website/issues"
+  },
+  "homepage": "https://github.com/matteo-zirilli/maria-hendriksen-website#readme",
+  "description": "",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.4"
+  }
+}

@@ -492,3 +492,82 @@ form label {
      }
 
 }
+
+
+/* Stili per la lista delle recensioni caricate */
+#reviews-list-container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.review-item {
+    border: 1px solid var(--colore-bordi);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: var(--colore-sfondo-alt);
+    box-shadow: 0 2px 4px var(--colore-ombra);
+}
+
+.review-item .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap; /* Aggiunto per mobile */
+    gap: 10px; /* Aggiunto per mobile */
+}
+
+.review-item .review-name {
+    font-weight: bold;
+    color: var(--colore-primario);
+}
+
+.review-item .review-stars {
+    color: #f0ad4e; /* Colore stelle (giallo/arancio) */
+    font-size: 1.1em;
+}
+
+.review-item .review-date {
+    font-size: 0.85em;
+    color: #777;
+}
+
+.review-item .review-comment {
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+/* Stili per i messaggi del form di recensione */
+.form-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+    display: none; /* Nascosto di default */
+}
+
+.form-message.submitting {
+    display: block;
+    background-color: #e0e8f0; /* Sfondo grigio-blu chiaro */
+    color: #4a4a4a;
+}
+
+.form-message.success {
+    display: block;
+    background-color: #dff0d8; /* Sfondo verde chiaro */
+    color: #3c763d; /* Testo verde scuro */
+    border: 1px solid #d6e9c6;
+}
+
+.form-message.error {
+    display: block;
+    background-color: #f2dede; /* Sfondo rosso chiaro */
+    color: #a94442; /* Testo rosso scuro */
+    border: 1px solid #ebccd1;
+}
+
+/* Stili per select stelle (già presenti nel codice precedente, assicurati ci siano) */
+#reviewForm .star-rating { margin-top: 10px; }
+#reviewForm .star-rating select { width: auto; padding: 8px; }
