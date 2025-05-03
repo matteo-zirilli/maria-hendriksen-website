@@ -1,18 +1,18 @@
 // ===========================================================
-//  SCRIPT.JS COMPLETO - Include gestione recensioni dinamica
+//  SCRIPT.JS COMPLETO - Include funzioni per recensioni dinamiche
 // ===========================================================
 
 const languages = {
     it: {
         // --- Stringhe Comuni (Header/Footer) ---
-        "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia e Yoga", // Titolo per index.html
+        "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia e Yoga",
         "navHome": "Homepage",
         "navAbout": "Chi Sono",
         "navServices": "Servizi",
         "navPlans": "Piani",
         "navContent": "I Miei Contenuti",
         "navBooking": "Prenota/Contatti",
-        "footerText": "&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.", // Aggiornato anno
+        "footerText": "&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.",
 
         // --- index.html ---
         "mainHeading": "Benvenuti nel sito di Maria Guillermina Hendriksen",
@@ -110,11 +110,11 @@ const languages = {
 
         // --- prenota.html ---
         "pageTitleBooking": "Prenota / Contatti - Maria G. Hendriksen",
-        "bookingTitleWidget": "Prenota Incontro Conoscitivo Online", // Modificato per evento singolo
-        "bookingInstructionsWidget": "Utilizza il calendario qui sotto per scegliere un orario disponibile per un incontro conoscitivo gratuito (30 min).", // Modificato
-        "bookingWidgetAltContact": "Per prenotare altri tipi di sessioni o per esigenze particolari, utilizza il modulo di contatto sottostante o gli altri recapiti.", // Modificato
+        "bookingTitleWidget": "Prenota Incontro Conoscitivo Online",
+        "bookingInstructionsWidget": "Utilizza il calendario qui sotto per scegliere un orario disponibile per un incontro conoscitivo gratuito (30 min).",
+        "bookingWidgetAltContact": "Per prenotare altri tipi di sessioni o per esigenze particolari, utilizza il modulo di contatto sottostante o gli altri recapiti.",
         "contactFormTitle": "Modulo di Contatto / Richiesta Info",
-        "contactFormInstructions": "Compila questo modulo per domande, richieste di informazioni o per prenotare sessioni specifiche. Ti risponderò il prima possibile.", // Modificato
+        "contactFormInstructions": "Compila questo modulo per domande, richieste di informazioni o per prenotare sessioni specifiche. Ti risponderò il prima possibile.",
         "labelName": "Nome:",
         "labelEmail": "Email:",
         "labelPhone": "Telefono (Opzionale):",
@@ -151,18 +151,18 @@ const languages = {
         "fisioContent1Desc": "Descrizione del contenuto: esercizi semplici e sicuri da fare a casa per alleviare il dolore lombare.",
         "fisioContent2Title": "Titolo Contenuto Fisio 2 (es. Consigli Posturali per l'Ufficio)",
         "fisioContent2Desc": "Come mantenere una postura corretta lavorando alla scrivania per prevenire dolori cervicali e dorsali.",
-        // Sezione Recensioni
+        // Sezione Recensioni (Include anche testi form per completezza, verranno usati se attivi l'HTML corrispondente)
         "reviewsHeading": "Dicono di Me / Recensioni",
         "testimonialGalleryHeading": "Alcune Testimonianze",
         "testimonialGalleryIntro": "Qui puoi vedere alcuni dei messaggi e delle esperienze condivise da chi ha seguito un percorso con me.",
-        "dynamicReviewsHeading": "Le Vostre Recensioni", // NUOVO
-        "reviewFormHeading": "Lascia la Tua Recensione", // NUOVO
-        "reviewFormIntro": "Hai seguito delle lezioni o un percorso di fisioterapia con me? La tua opinione è preziosa! Compila il modulo qui sotto per condividere la tua esperienza.", // NUOVO
-        "reviewLabelName": "Il tuo nome (o come vuoi apparire):", // NUOVO
-        "reviewLabelRating": "Valutazione (da 1 a 5 stelle):", // NUOVO
-        "reviewLabelMessage": "La tua recensione:", // NUOVO
-        "reviewSubmitButton": "Invia Recensione", // NUOVO
-        "reviewFormNotes": "Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per la tua condivisione!" // NUOVO
+        "dynamicReviewsHeading": "Le Vostre Recensioni",
+        "reviewFormHeading": "Lascia la Tua Recensione",
+        "reviewFormIntro": "Hai seguito delle lezioni o un percorso di fisioterapia con me? La tua opinione è preziosa! Compila il modulo qui sotto per condividere la tua esperienza.",
+        "reviewLabelName": "Il tuo nome (o come vuoi apparire):",
+        "reviewLabelRating": "Valutazione (da 1 a 5 stelle):",
+        "reviewLabelMessage": "La tua recensione:",
+        "reviewSubmitButton": "Invia Recensione",
+        "reviewFormNotes": "Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per la tua condivisione!"
     },
     en: {
         // --- Common Strings (Header/Footer) ---
@@ -224,7 +224,7 @@ const languages = {
         "pageTitlePlans": "Plans and Rates - Maria G. Hendriksen",
         "plansHeading": "Plans and Rates",
         "plansIntro": "Choose the plan that best suits your needs. For customized solutions or combined Physiotherapy+Yoga packages, <a href=\"prenota.html\">contact me</a>.",
-        "plansNote": "Note: Payments are preferably made at the time of the session (cash, Bizum). For packages or advance payments, bank transfer or an online payment link can be requested.", // MODIFIED FOR PAYMENTS
+        "plansNote": "Note: Payments are preferably made at the time of the session (cash, Bizum). For packages or advance payments, bank transfer or an online payment link can be requested.",
         "planFisioSingleTitle": "Single Physiotherapy Session",
         "planFisioSingleDesc": "Individual physiotherapy assessment and treatment.",
         "planFisioSingleFeat1": "Duration: approx. 60 minutes",
@@ -271,11 +271,11 @@ const languages = {
 
         // --- prenota.html ---
         "pageTitleBooking": "Booking / Contact - Maria G. Hendriksen",
-        "bookingTitleWidget": "Book Online Discovery Call", // Changed for single event
-        "bookingInstructionsWidget": "Use the calendar below to choose an available time for a free discovery call (30 min).", // Changed
-        "bookingWidgetAltContact": "To book other types of sessions or for special requirements, please use the contact form below or the other contact details.", // Changed
+        "bookingTitleWidget": "Book Online Discovery Call",
+        "bookingInstructionsWidget": "Use the calendar below to choose an available time for a free discovery call (30 min).",
+        "bookingWidgetAltContact": "To book other types of sessions or for special requirements, please use the contact form below or the other contact details.",
         "contactFormTitle": "Contact Form / Info Request",
-        "contactFormInstructions": "Fill out this form for questions, information requests, or to book specific sessions. I will reply as soon as possible.", // Changed
+        "contactFormInstructions": "Fill out this form for questions, information requests, or to book specific sessions. I will reply as soon as possible.",
         "labelName": "Name:",
         "labelEmail": "Email:",
         "labelPhone": "Phone (Optional):",
@@ -316,14 +316,14 @@ const languages = {
         "reviewsHeading": "Testimonials / Reviews",
         "testimonialGalleryHeading": "Some Testimonials",
         "testimonialGalleryIntro": "Here you can see some of the messages and experiences shared by those who have followed a path with me.",
-        "dynamicReviewsHeading": "Your Reviews", // NEW
-        "reviewFormHeading": "Leave Your Review", // NEW
-        "reviewFormIntro": "Have you taken lessons or a physiotherapy path with me? Your opinion is valuable! Fill out the form below to share your experience.", // NEW
-        "reviewLabelName": "Your name (or how you want to appear):", // NEW
-        "reviewLabelRating": "Rating (1 to 5 stars):", // NEW
-        "reviewLabelMessage": "Your review:", // NEW
-        "reviewSubmitButton": "Send Review", // NEW
-        "reviewFormNotes": "Note: Reviews submitted via this form will be moderated before publication. Thank you for sharing!" // NEW
+        "dynamicReviewsHeading": "Your Reviews",
+        "reviewFormHeading": "Leave Your Review",
+        "reviewFormIntro": "Have you taken lessons or a physiotherapy path with me? Your opinion is valuable! Fill out the form below to share your experience.",
+        "reviewLabelName": "Your name (or how you want to appear):",
+        "reviewLabelRating": "Rating (1 to 5 stars):",
+        "reviewLabelMessage": "Your review:",
+        "reviewSubmitButton": "Send Review",
+        "reviewFormNotes": "Note: Reviews submitted via this form will be moderated before publication. Thank you for sharing!"
     },
     es: {
         // --- Common Strings (Header/Footer) ---
@@ -385,7 +385,7 @@ const languages = {
         "pageTitlePlans": "Planes y Tarifas - Maria G. Hendriksen",
         "plansHeading": "Planes y Tarifas",
         "plansIntro": "Elige el plan que mejor se adapte a tus necesidades. Para soluciones personalizadas o paquetes combinados Fisioterapia+Yoga, <a href=\"prenota.html\">contáctame</a>.",
-        "plansNote": "Nota: Los pagos se realizan preferentemente en el momento de la sesión (efectivo, Bizum). Para paquetes o pagos anticipados, se puede solicitar transferencia bancaria o enlace para pago online.", // MODIFICADO PARA PAGOS
+        "plansNote": "Nota: Los pagos se realizan preferentemente en el momento de la sesión (efectivo, Bizum). Para paquetes o pagos anticipados, se puede solicitar transferencia bancaria o enlace para pago online.",
         "planFisioSingleTitle": "Sesión Única de Fisioterapia",
         "planFisioSingleDesc": "Evaluación y tratamiento fisioterapéutico individual.",
         "planFisioSingleFeat1": "Duración: aprox. 60 minutos",
@@ -432,11 +432,11 @@ const languages = {
 
         // --- prenota.html ---
         "pageTitleBooking": "Reservas / Contacto - Maria G. Hendriksen",
-        "bookingTitleWidget": "Reserva Encuentro Informativo Online", // Cambiado para evento único
-        "bookingInstructionsWidget": "Utiliza el calendario abajo para elegir un horario disponible para un encuentro informativo gratuito (30 min).", // Cambiado
-        "bookingWidgetAltContact": "Para reservar otros tipos de sesiones o para necesidades particulares, utiliza el formulario de contacto o los otros métodos de contacto.", // Cambiado
+        "bookingTitleWidget": "Reserva Encuentro Informativo Online",
+        "bookingInstructionsWidget": "Utiliza el calendario abajo para elegir un horario disponible para un encuentro informativo gratuito (30 min).",
+        "bookingWidgetAltContact": "Para reservar otros tipos de sesiones o para necesidades particulares, utiliza el formulario de contacto o los otros métodos de contacto.",
         "contactFormTitle": "Formulario de Contacto / Solicitud de Info",
-        "contactFormInstructions": "Rellena este formulario para preguntas, solicitudes de información o para reservar sesiones específicas. Te responderé lo antes posible.", // Cambiado
+        "contactFormInstructions": "Rellena este formulario para preguntas, solicitudes de información o para reservar sesiones específicas. Te responderé lo antes posible.",
         "labelName": "Nombre:",
         "labelEmail": "Email:",
         "labelPhone": "Teléfono (Opcional):",
@@ -477,43 +477,33 @@ const languages = {
         "reviewsHeading": "Testimonios / Reseñas",
         "testimonialGalleryHeading": "Algunos Testimonios",
         "testimonialGalleryIntro": "Aquí puedes ver algunos de los mensajes y experiencias compartidas por quienes han seguido un camino conmigo.",
-        "dynamicReviewsHeading": "Vuestras Reseñas", // NUEVO
-        "reviewFormHeading": "Deja Tu Reseña", // NUEVO
-        "reviewFormIntro": "¿Has seguido clases o un percorso de fisioterapia conmigo? ¡Tu opinión es valiosa! Completa el formulario a continuación para compartir tu experiencia.", // NUEVO
-        "reviewLabelName": "Tu nombre (o como quieres aparecer):", // NUEVO
-        "reviewLabelRating": "Valoración (de 1 a 5 estrellas):", // NUEVO
-        "reviewLabelMessage": "Tu reseña:", // NUEVO
-        "reviewSubmitButton": "Enviar Reseña", // NUEVO
-        "reviewFormNotes": "Nota: Las reseñas enviadas a través de este formulario serán moderadas antes de su publicación. ¡Gracias por compartir!" // NUEVO
+        "dynamicReviewsHeading": "Vuestras Reseñas",
+        "reviewFormHeading": "Deja Tu Reseña",
+        "reviewFormIntro": "¿Has seguido clases o un percorso de fisioterapia conmigo? ¡Tu opinión es valiosa! Completa el formulario a continuación para compartir tu experiencia.",
+        "reviewLabelName": "Tu nombre (o como quieres aparecer):",
+        "reviewLabelRating": "Valoración (de 1 a 5 estrellas):",
+        "reviewLabelMessage": "Tu reseña:",
+        "reviewSubmitButton": "Enviar Reseña",
+        "reviewFormNotes": "Nota: Las reseñas enviadas a través de este formulario serán moderadas antes de su publicación. ¡Gracias por compartir!"
     }
 };
 
-// --- Funzioni JavaScript (changeLanguage, updateActiveButton) ---
+// --- Funzioni Esistenti ---
 function changeLanguage(lang) {
-    if (languages[lang]) {
+    // ... (codice esistente) ...
+     if (languages[lang]) {
         document.documentElement.lang = lang;
         for (const key in languages[lang]) {
             const element = document.getElementById(key);
             if (element) {
-                // Special handling for page titles
-                if (key.startsWith('pageTitle')) {
-                    document.title = languages[lang][key];
-                } else {
-                    element.innerHTML = languages[lang][key];
-                }
+                if (key.startsWith('pageTitle')) { document.title = languages[lang][key]; }
+                else { element.innerHTML = languages[lang][key]; }
             } else {
-                 // Handle titles even if no specific element with that ID exists
-                 if (key.startsWith('pageTitle')) {
-                     document.title = languages[lang][key];
-                 }
+                 if (key.startsWith('pageTitle')) { document.title = languages[lang][key]; }
             }
         }
         localStorage.setItem('preferredLanguage', lang);
-        if (typeof updateActiveButton === 'function') {
-            updateActiveButton(lang);
-        }
-
-        // Code to change video source (if present on the page)
+        if (typeof updateActiveButton === 'function') { updateActiveButton(lang); }
         const videoElement = document.getElementById('presentationVideo');
         if (videoElement) {
             let videoSrc = '';
@@ -528,82 +518,214 @@ function changeLanguage(lang) {
                 console.log(`Video source changed to: ${videoSrc}`);
             }
         }
-
-    } else {
-        console.error("Language not supported:", lang);
-    }
+    } else { console.error("Lingua non supportata:", lang); }
 }
 
 function updateActiveButton(lang) {
+    // ... (codice esistente) ...
     const buttons = document.querySelectorAll('.language-switcher button');
     buttons.forEach(button => {
         let buttonLang = '';
         if (button.hasAttribute('onclick')) {
             const match = button.getAttribute('onclick').match(/changeLanguage\('(\w+)'\)/);
             if (match) buttonLang = match[1];
-        } else if (button.dataset.lang) {
-            buttonLang = button.dataset.lang;
-        }
-
-        if (buttonLang === lang) {
-            button.classList.add('active');
-        } else {
-            button.classList.remove('active');
-        }
+        } else if (button.dataset.lang) { buttonLang = button.dataset.lang; }
+        if (buttonLang === lang) { button.classList.add('active'); }
+        else { button.classList.remove('active'); }
     });
 }
 
+// --- NUOVE FUNZIONI PER RECENSIONI ---
 
-// --- Listener DOMContentLoaded ---
+// Funzione Helper per mostrare le stelle
+function displayStars(rating) {
+    const maxStars = 5;
+    let starsHTML = '';
+    const ratingNum = parseInt(rating, 10); // Assicura sia un numero
+    if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > maxStars) {
+        return 'N/A'; // O gestisci l'errore come preferisci
+    }
+    for (let i = 1; i <= maxStars; i++) {
+        starsHTML += (i <= ratingNum) ? '★' : '☆';
+    }
+    return `<span class="review-stars">${starsHTML}</span>`;
+}
+
+// Funzione per Caricare le Recensioni Approvate
+async function loadReviews() {
+    const container = document.getElementById('reviews-list-container');
+    // Esegui solo se siamo nella pagina contenuti.html
+    if (!container) return;
+
+    container.innerHTML = '<p>Caricamento recensioni in corso...</p>'; // Mostra messaggio di caricamento
+
+    try {
+        // Chiama la tua funzione serverless (adatta il percorso se usi Vercel -> /api/get-reviews)
+        const response = await fetch('/.netlify/functions/get-reviews');
+
+        if (!response.ok) {
+            throw new Error(`Errore HTTP: ${response.status}`);
+        }
+
+        const reviews = await response.json();
+
+        container.innerHTML = ''; // Pulisce il messaggio di caricamento
+
+        if (!reviews || reviews.length === 0) {
+            container.innerHTML = '<p>Non ci sono ancora recensioni. Sii il primo a lasciarne una!</p>';
+            return;
+        }
+
+        // Crea e aggiunge l'HTML per ogni recensione
+        reviews.forEach(review => {
+            const reviewElement = document.createElement('div');
+            reviewElement.className = 'review-item';
+
+            // Formatta la data (opzionale)
+            const reviewDate = new Date(review.created_at).toLocaleDateString('it-IT', {
+                year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            reviewElement.innerHTML = `
+                <div class="review-header">
+                    <span class="review-name">${review.name || 'Anonimo'}</span>
+                    ${displayStars(review.rating)}
+                    <span class="review-date">${reviewDate}</span>
+                </div>
+                <div class="review-comment">
+                    <p>${review.comment || ''}</p>
+                </div>
+            `;
+            container.appendChild(reviewElement);
+        });
+
+    } catch (error) {
+        console.error('Errore nel caricamento delle recensioni:', error);
+        container.innerHTML = '<p>Spiacenti, non è stato possibile caricare le recensioni al momento.</p>';
+    }
+}
+
+// Funzione per Gestire l'Invio del Modulo Recensioni
+async function handleReviewSubmit(event) {
+    event.preventDefault(); // Blocca l'invio standard del form
+    const form = event.target;
+    const submitButton = form.querySelector('button[type="submit"]');
+    const messageDiv = document.getElementById('review-form-message');
+
+    // Recupera i dati
+    const name = document.getElementById('reviewName').value.trim();
+    const ratingSelect = document.getElementById('reviewRating');
+    const rating = ratingSelect ? parseInt(ratingSelect.value, 10) : null; // Prende il valore dal select
+    const comment = document.getElementById('reviewComment').value.trim();
+
+    // Validazione semplice
+    if (!name || !rating || !comment) {
+        messageDiv.textContent = 'Per favore, compila tutti i campi obbligatori.';
+        messageDiv.className = 'form-message error'; // Mostra errore
+        messageDiv.style.display = 'block'; // Assicura sia visibile
+        return;
+    }
+     if (isNaN(rating) || rating < 1 || rating > 5) {
+         messageDiv.textContent = 'Seleziona una valutazione valida da 1 a 5 stelle.';
+         messageDiv.className = 'form-message error';
+         messageDiv.style.display = 'block';
+         return;
+     }
+
+    // Mostra stato di invio
+    messageDiv.textContent = 'Invio recensione in corso...';
+    messageDiv.className = 'form-message submitting';
+    messageDiv.style.display = 'block';
+    submitButton.disabled = true; // Disabilita il bottone
+
+    try {
+        // Chiama la funzione serverless (adatta il percorso se usi Vercel -> /api/submit-review)
+        const response = await fetch('/.netlify/functions/submit-review', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, rating, comment }),
+        });
+
+        if (!response.ok) {
+            // Prova a leggere un messaggio di errore specifico dal backend, se disponibile
+            let errorMsg = `Errore HTTP: ${response.status}`;
+            try {
+                 const errorData = await response.json();
+                 errorMsg = errorData.error || errorData.message || errorMsg;
+            } catch(e) { /* Ignora se non c'è JSON valido */ }
+            throw new Error(errorMsg);
+        }
+
+        // Successo!
+        const result = await response.json(); // Legge la risposta (anche se non usata qui)
+        messageDiv.textContent = 'Recensione inviata con successo! Sarà visibile dopo l\'approvazione.';
+        messageDiv.className = 'form-message success';
+        form.reset(); // Pulisce il form
+
+    } catch (error) {
+        console.error('Errore invio recensione:', error);
+        messageDiv.textContent = `Errore nell'invio della recensione: ${error.message}. Riprova più tardi.`;
+        messageDiv.className = 'form-message error';
+    } finally {
+        // Riabilita il bottone in ogni caso (successo o errore)
+        submitButton.disabled = false;
+    }
+}
+
+// --- Listener DOMContentLoaded Esistente ---
 document.addEventListener('DOMContentLoaded', () => {
-    // Code for initial language setting
+    // --- Codice Esistente per Lingua e Bottoni ---
     const savedLang = localStorage.getItem('preferredLanguage');
     const defaultLang = 'it';
     let initialLang = defaultLang;
     if (savedLang && typeof languages !== 'undefined' && languages[savedLang]){
         initialLang = savedLang;
     } else if (typeof languages === 'undefined') {
-         console.error("The 'languages' object is not defined when DOMContentLoaded runs.");
+         console.error("L'oggetto 'languages' non è definito quando DOMContentLoaded viene eseguito.");
          return;
     }
     if (typeof changeLanguage === 'function') {
         changeLanguage(initialLang);
     } else {
-         console.error("The 'changeLanguage' function is not defined.");
+         console.error("La funzione 'changeLanguage' non è definita.");
     }
-
-    // Add listeners to language buttons
     const langButtons = document.querySelectorAll('.language-switcher button');
     langButtons.forEach(button => {
         if (!button.hasAttribute('data-listener-set')) {
             let langCode = '';
-             if (button.hasAttribute('onclick')) {
-                 const match = button.getAttribute('onclick').match(/changeLanguage\('(\w+)'\)/);
-                 if (match) langCode = match[1];
-             } else if (button.dataset.lang) {
-                 langCode = button.dataset.lang;
-             }
-             if(langCode) {
-                 button.addEventListener('click', (event) => {
-                      event.preventDefault();
-                      if (typeof changeLanguage === 'function') { changeLanguage(langCode); }
-                 });
-                 button.setAttribute('data-listener-set', 'true');
-             }
-         }
+            if (button.hasAttribute('onclick')) {
+                const match = button.getAttribute('onclick').match(/changeLanguage\('(\w+)'\)/);
+                if (match) langCode = match[1];
+            } else if (button.dataset.lang) { langCode = button.dataset.lang; }
+            if(langCode) {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    if (typeof changeLanguage === 'function') { changeLanguage(langCode); }
+                });
+                button.setAttribute('data-listener-set', 'true');
+            }
+        }
     });
+    // --- Fine Codice Esistente ---
 
-    // <<< QUI VANNO LE CHIAMATE PER LE RECENSIONI >>>
-    // Ad esempio:
-    // const reviewForm = document.getElementById('review-form');
-    // if (reviewForm && typeof handleReviewSubmit === 'function') {
-    //     reviewForm.addEventListener('submit', handleReviewSubmit);
-    // }
-    // if (document.getElementById('reviews-list-container') && typeof loadReviews === 'function') {
-    //     loadReviews();
-    // }
 
-});
+    // --- CODICE AGGIUNTO per Recensioni ---
+    const reviewForm = document.getElementById('review-form');
+    if (reviewForm && typeof handleReviewSubmit === 'function') {
+        reviewForm.addEventListener('submit', handleReviewSubmit);
+        console.log("Listener per invio recensione aggiunto.");
+    }
+
+    // Carica le recensioni esistenti se siamo sulla pagina giusta
+    if (document.getElementById('reviews-list-container') && typeof loadReviews === 'function') {
+        loadReviews();
+        console.log("Caricamento recensioni avviato.");
+    }
+     // --- FINE CODICE AGGIUNTO ---
+
+}); // Chiusura di DOMContentLoaded
 
 // ===========================================================
 //                  FINE SCRIPT.JS
