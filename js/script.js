@@ -607,6 +607,8 @@ async function loadReviews() {
 
 // Funzione per Gestire l'Invio del Modulo Recensioni
 async function handleReviewSubmit(event) {
+	
+	console.log(">>> SUBMIT CLICCATO - ESEGUO handleReviewSubmit? <<<")
     event.preventDefault(); // Blocca l'invio standard del form
     const form = event.target;
     const submitButton = form.querySelector('button[type="submit"]');
