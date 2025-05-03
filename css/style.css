@@ -1,0 +1,494 @@
+/* ==========================================================================
+   Base, Variabili e Stili Generali
+   ========================================================================== */
+
+/* Import Font */
+/* Assicurati di avere il link a Google Fonts nell'HTML */
+
+/* Definizione Variabili Colori */
+:root {
+  --colore-primario: #2D8B8B;    /* Teal Morbido */
+  --colore-secondario: #F5F1E9; /* Beige Sabbia Chiaro */
+  --colore-accento: #E89F71;     /* Arancio Terracotta */
+  --colore-testo: #4A4A4A;        /* Grigio Scuro */
+  --colore-sfondo: #FEFEFE;      /* Bianco Sporco */
+  --colore-sfondo-alt: #FFFFFF; /* Bianco puro per contrasto (es. box piani) */
+  --colore-sfondo-header-footer: #E0E8F0; /* Grigio Bluastro Chiaro */
+  --colore-bordi: #DDDDDD;       /* Grigio chiaro per bordi/separatori */
+  --colore-testo-chiaro: #FFFFFF; /* Testo su sfondi scuri/colorati */
+  --colore-ombra: rgba(0, 0, 0, 0.08); /* Colore per ombre leggere */
+}
+
+/* Reset e Box Sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif; /* Nuovo Font */
+  font-size: 16px; /* Dimensione base */
+  line-height: 1.7; /* Interlinea migliorata */
+  color: var(--colore-testo);
+  background-color: var(--colore-sfondo);
+  -webkit-font-smoothing: antialiased; /* Migliora resa font */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Contenitore Principale */
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px 0; /* Aumentato padding verticale */
+}
+
+/* Link */
+a {
+  color: var(--colore-primario);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: var(--colore-accento);
+  text-decoration: none; /* Rimuove sottolineatura hover di default */
+}
+
+/* Titoli */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--colore-primario);
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+  line-height: 1.3;
+  font-weight: 700; /* Grassetto per i titoli */
+}
+h1 { font-size: 2.5em; } /* 40px */
+h2 { font-size: 2em; }   /* 32px */
+h3 { font-size: 1.5em; } /* 24px */
+h4 { font-size: 1.25em; }/* 20px */
+
+h2 { /* Stile specifico per titoli di sezione */
+  border-bottom: 3px solid var(--colore-accento);
+  padding-bottom: 8px;
+  display: inline-block; /* Evita che la sottolineatura prenda tutta la larghezza */
+}
+
+/* Paragrafi e Liste */
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+ul, ol {
+  margin-bottom: 1em;
+  padding-left: 20px;
+}
+li {
+  margin-bottom: 0.5em;
+}
+
+/* Immagini */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Rimuove spazio extra sotto le immagini */
+  border-radius: 5px; /* Leggero arrotondamento di default */
+}
+
+/* Utility per float (usata nell'intro homepage) */
+.image-float-left {
+  float: left;
+  margin-right: 25px;
+  margin-bottom: 15px;
+  max-width: 35%; /* Limita larghezza immagine flottante */
+  border-radius: 5px;
+}
+.clear-float {
+  clear: both;
+}
+
+
+/* ==========================================================================
+   Header e Navigazione
+   ========================================================================== */
+header {
+  background-color: var(--colore-sfondo-header-footer);
+  border-bottom: 1px solid var(--colore-bordi);
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+
+.logo {
+  flex-shrink: 0;
+}
+.logo a {
+  font-size: 1.6em;
+  font-weight: 700;
+  color: var(--colore-primario);
+  text-decoration: none;
+  white-space: nowrap; /* Impedisce al logo di andare a capo */
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-shrink: 1; /* Permette al menu di restringersi se necessario */
+  /* gap: 25px; */ /* Vecchio valore */
+  gap: 18px;   /* <<< MODIFICATO: Ridotto spazio tra elementi */
+}
+nav ul li {
+  margin: 0;
+  white-space: nowrap; /* Impedisce al singolo link di andare a capo */
+}
+nav ul li a {
+  text-transform: uppercase;
+  /* font-size: 0.95em; */ /* Vecchio valore */
+  font-size: 0.9em;    /* <<< MODIFICATO: Ridotto font size */
+  font-weight: 700;
+  color: var(--colore-testo);
+  padding: 5px 0;
+  position: relative;
+  text-decoration: none;
+  display: block; /* Utile per padding e linea sotto */
+}
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--colore-accento);
+  transition: width 0.3s ease;
+}
+nav ul li a:hover::after,
+nav ul li a.active::after {
+  width: 100%;
+}
+nav ul li a:hover,
+nav ul li a.active {
+  color: var(--colore-accento);
+}
+
+/* Language Switcher */
+.language-switcher {
+  margin-left: auto; /* Spinge il switcher a destra */
+  flex-shrink: 0; /* Impedisce al switcher di restringersi */
+  display: flex; /* Allinea i bottoni */
+  gap: 5px; /* Spazio ridotto tra i bottoni lingua */
+}
+.language-switcher button {
+  /* margin-left: 8px; */ /* Rimosso margin-left ora che usiamo gap */
+  padding: 5px 8px; /* Leggermente ridotto padding */
+  cursor: pointer;
+  border: 1px solid var(--colore-bordi);
+  background: var(--colore-sfondo);
+  color: var(--colore-testo);
+  border-radius: 4px;
+  font-size: 0.8em; /* Font ancora più piccolo per i bottoni lingua */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.language-switcher button:hover {
+  background: #f0f0f0;
+  border-color: #aaa;
+}
+.language-switcher button.active {
+  font-weight: bold;
+  background-color: var(--colore-primario);
+  color: var(--colore-testo-chiaro);
+  border-color: var(--colore-primario);
+}
+
+/* ==========================================================================
+   Sezioni Principali e Contenuto
+   ========================================================================== */
+main section {
+  margin-bottom: 40px;
+  padding: 20px 0;
+}
+
+/* Hero Section (Homepage) */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: var(--colore-secondario);
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+.hero h1 {
+  font-size: 3em;
+  margin-bottom: 15px;
+  color: var(--colore-primario);
+}
+.hero p {
+  font-size: 1.3em;
+  margin-bottom: 30px;
+  color: var(--colore-testo);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Pulsante Call to Action */
+.cta-button {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: var(--colore-primario);
+  color: var(--colore-testo-chiaro); /* Assicura testo chiaro */
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: 700; /* Testo bottone in grassetto */
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap; /* Evita che il testo del bottone vada a capo */
+}
+.cta-button:hover {
+  background-color: var(--colore-accento);
+  /* color: var(--colore-testo); */ /* Potrebbe essere necessario se l'accento è molto chiaro */
+  text-decoration: none;
+  transform: translateY(-3px); /* Effetto sollevamento più marcato */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Immagine Principale Homepage */
+.main-image-section {
+  text-align: center;
+  margin: 40px 0;
+}
+.main-yoga-image {
+    width: 100%;
+    max-width: 650px; /* Larghezza massima immagine homepage */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 6px 15px var(--colore-ombra);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ==========================================================================
+   Stili Specifici per Pagina
+   ========================================================================== */
+
+/* --- Chi Sono --- */
+.about-photo {
+  float: right;
+  margin: 5px 0 20px 30px; /* Aggiustato margine superiore */
+  max-width: 250px; /* Ridotta leggermente la foto */
+  border-radius: 50%;
+  border: 5px solid var(--colore-sfondo); /* Cornice bianca per staccare */
+  box-shadow: 0 5px 15px var(--colore-ombra);
+}
+#aboutValuesList li strong {
+    color: var(--colore-primario);
+    font-weight: 700;
+}
+
+/* --- Servizi --- */
+.service-section {
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--colore-bordi);
+}
+.service-section:last-of-type {
+  border-bottom: none;
+}
+.service-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  margin-bottom: 25px; /* Più spazio sotto immagine servizio */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px var(--colore-ombra);
+}
+#fisioList li strong,
+#yogaList li strong {
+    color: var(--colore-primario);
+    font-weight: 700;
+}
+
+/* --- Piani --- */
+.plans-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+.plan {
+  border: 1px solid var(--colore-bordi);
+  border-radius: 8px;
+  padding: 30px;
+  background-color: var(--colore-sfondo-alt);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px var(--colore-ombra);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.plan:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+.plan h3 {
+  margin-top: 0;
+  color: var(--colore-primario);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+.plan-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    border-radius: 0;
+    box-shadow: none;
+    border: none; /* Assicura nessun bordo extra */
+    vertical-align: middle; /* Prova ad allineare meglio */
+}
+.plan ul {
+  list-style-type: '✓ '; /* Usa un checkmark per le feature */
+  margin-left: 5px; /* Riduci indentazione lista custom */
+  padding-left: 1.2em; /* Spazio per il checkmark */
+  flex-grow: 1;
+  margin-bottom: 20px;
+  color: var(--colore-testo); /* Assicura colore testo per feature */
+}
+.plan ul li {
+     padding-left: 8px; /* Spazio tra checkmark e testo */
+     margin-bottom: 8px; /* Spazio tra feature */
+}
+.plan .price {
+  font-size: 1.5em;
+  font-weight: 700;
+  margin: 15px 0;
+  color: var(--colore-testo);
+}
+.plan .price span {
+  font-size: 0.7em;
+  text-decoration: line-through;
+  color: #999;
+  margin-left: 5px;
+  font-weight: 400; /* Prezzo vecchio meno marcato */
+}
+.plan .cta-button {
+  margin-top: auto;
+  text-align: center;
+  width: 100%;
+}
+
+/* --- Prenota --- */
+#bookingWidgetSection,
+#contactFormSection,
+#directContacts {
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--colore-bordi);
+}
+#directContacts {
+  border-bottom: none;
+}
+
+/* Stili Form Contatto */
+form label {
+  display: block;
+  margin-top: 15px;
+}
+ /* ==========================================================================
+   Stili Sezione Motto (Homepage)
+   ========================================================================== */
+
+.motto-section {
+    background-color: var(--colore-secondario); /* Sfondo leggermente diverso per staccare */
+    padding: 40px 0; /* Spazio sopra e sotto */
+    text-align: center; /* Centra il testo */
+    margin-top: 40px; /* Spazio dopo l'immagine */
+    margin-bottom: 40px; /* Spazio prima della sezione intro */
+}
+
+.motto-phrase {
+    font-size: 1.5em; /* Dimensione più grande del testo normale */
+    font-weight: 400; /* Peso normale o leggermente più leggero */
+    font-style: italic; /* Corsivo per dare enfasi */
+    color: var(--colore-primario); /* Usa il colore primario o (--colore-testo) */
+    margin-bottom: 0.5em; /* Spazio tra le frasi */
+    line-height: 1.4;
+}
+
+.motto-phrase:last-child {
+    margin-bottom: 0; /* Rimuove margine extra dall'ultima frase */
+}
+
+/* Opzionale: Riduci dimensione su mobile */
+@media (max-width: 768px) {
+    .motto-phrase {
+        font-size: 1.2em; /* Motto leggermente più piccolo su mobile */
+    }
+    .motto-section {
+        padding: 30px 15px; /* Padding laterale su mobile */
+    }
+}
+
+
+/* Stili per allineare titolo e immagine affiancati nei servizi */
+.service-title-image-wrapper {
+    display: flex;         /* Attiva Flexbox */
+    align-items: center;   /* Allinea verticalmente titolo e immagine al centro */
+    gap: 25px;             /* Spazio orizzontale tra titolo e immagine */
+    margin-bottom: 20px;   /* Spazio sotto l'insieme titolo+immagine */
+    flex-wrap: wrap;       /* Permette all'immagine di andare sotto su schermi piccoli */
+}
+
+.service-title-image-wrapper h2 {
+    margin: 0; /* Rimuove margini di default dall'h2 per un miglior allineamento */
+    /* La linea sotto (border-bottom) dovrebbe essere già applicata dalla regola generale per h2 */
+    flex-shrink: 0; /* Impedisce al titolo di restringersi troppo */
+}
+
+.service-image-beside {
+    max-width: 180px;  /* Imposta la larghezza massima desiderata per l'immagine */
+    height: auto;      /* Mantiene le proporzioni originali */
+    border-radius: 5px; /* Mantiene gli angoli arrotondati */
+    display: block;    /* Buona norma per le immagini */
+    vertical-align: middle; /* Aiuta con l'allineamento se flex non bastasse */
+}
+
+/* Responsive: Su schermi piccoli, mettiamo l'immagine sotto il titolo */
+@media (max-width: 768px) {
+    .service-title-image-wrapper {
+        flex-direction: column; /* Impila gli elementi verticalmente */
+        align-items: flex-start; /* Allinea a sinistra */
+        gap: 15px; /* Riduce lo spazio */
+    }
+
+    .service-image-beside {
+        max-width: 100%; /* L'immagine prende tutta la larghezza disponibile */
+        max-height: 250px; /* Puoi impostare un'altezza massima se vuoi */
+        object-fit: cover; /* Utile se imposti max-height */
+        width: 100%; /* Forza la larghezza al 100% del contenitore */
+    }
+    .service-title-image-wrapper h2 {
+         width: 100%; /* Assicura che il titolo prenda tutta la larghezza */
+         text-align: left; /* O 'center' se preferisci */
+     }
+
+}
