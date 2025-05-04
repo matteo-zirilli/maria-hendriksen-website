@@ -24,6 +24,8 @@
             background-color: var(--colore-sfondo-alt);
             box-shadow: 0 4px 10px var(--colore-ombra);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; /* Aggiunto per layout interno flessibile */
+            flex-direction: column; /* Contenuto verticale */
         }
          .content-item:hover {
              transform: translateY(-5px);
@@ -33,11 +35,13 @@
             width: 100%;
             height: 180px; /* Altezza fissa per le anteprime */
             object-fit: cover; /* Copre l'area senza distorcere */
-            border-bottom: 1px solid var(--colore-bordi);
-            border-radius: 8px 8px 0 0; /* Arrotonda solo angoli superiori */
+            /* Rimosso border-bottom e border-radius qui, gestiti da .content-item */
         }
         .content-text {
             padding: 15px 20px;
+            flex-grow: 1; /* Fa espandere il testo per occupare spazio */
+            display: flex; /* Layout flessibile per il testo */
+            flex-direction: column; /* Contenuto testo verticale */
         }
         .content-title {
             font-size: 1.2em;
@@ -48,13 +52,35 @@
         }
         .content-description {
             font-size: 0.95em;
-            margin-bottom: 0;
+            margin-bottom: 15px; /* Aggiunto spazio sotto la descrizione */
+            flex-grow: 1; /* Fa espandere la descrizione */
         }
-         .content-item a { /* Stile per rendere l'intero box cliccabile (opzionale) */
+         /* Stili specifici per i bottoni di acquisto/guarda dentro .content-text */
+         .content-text .cta-button,
+         .content-text .price {
+             margin-top: auto; /* Spinge prezzo e bottoni in fondo alla card */
+             width: 100%;     /* Opzionale: bottoni a larghezza piena */
+             box-sizing: border-box; /* Include padding nel width */
+         }
+          .purchase-buttons {
+              margin-top: 10px;
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+          }
+          /* Nasconde temporaneamente il bottone MP finché non implementato */
+          .mercadopago-buy-button {
+              /* display: none;  */ /* Decommenta se vuoi nasconderlo per ora */
+          }
+           /* Stili per il link "a" se vuoi mantenere il box cliccabile */
+         .content-item a.static-content-link {
             text-decoration: none;
-            color: inherit; /* Eredita colore testo normale */
-        }
-         .content-item a:hover .content-title { /* Cambia colore titolo al hover sul box */
+            color: inherit;
+            display: flex; /* Necessario se l'<a> avvolge il contenuto */
+            flex-direction: column; /* Necessario se l'<a> avvolge il contenuto */
+            height: 100%; /* Necessario se l'<a> avvolge il contenuto */
+         }
+          .content-item a.static-content-link:hover .content-title {
              color: var(--colore-accento);
          }
     </style>
@@ -63,8 +89,7 @@
     <header>
         <div class="container">
             <div class="logo">
-                <a href="index.html">Maria Guillermina</a>
-            </div>
+                <a href="index.html">Maria Guillermina Hendriksen</a> </div>
             <nav>
                 <ul>
                     <li><a href="index.html" id="navHome">Homepage</a></li>
@@ -79,16 +104,15 @@
                     <button onclick="changeLanguage('en')">EN</button>
                     <button onclick="changeLanguage('es')">ES</button>
                 </div>
-				
-				<div id="auth-container" style="margin-left: 15px; display: inline-block; vertical-align: middle; border-left: 1px solid #eee; padding-left: 15px;">
-    <span id="guest-info" style="display: block;">
-        <button id="login-button" class="auth-button">Login</button>
-        <button id="signup-button" class="auth-button">Registrati</button>
-    </span>
-    <span id="user-info" style="display: none;">
-        <span id="user-email" style="font-weight: bold; margin-right: 5px;"></span><button id="logout-button" class="auth-button">Logout</button>
-    </span>
-</div>
+                <div id="auth-container" style="margin-left: 15px; display: inline-block; vertical-align: middle; border-left: 1px solid #eee; padding-left: 15px;">
+                    <span id="guest-info" style="display: block;">
+                        <button id="login-button" class="auth-button">Login</button>
+                        <button id="signup-button" class="auth-button">Registrati</button>
+                    </span>
+                    <span id="user-info" style="display: none;">
+                        <span id="user-email" style="font-weight: bold; margin-right: 5px;"></span><button id="logout-button" class="auth-button">Logout</button>
+                    </span>
+                </div>
             </nav>
         </div>
     </header>
@@ -99,158 +123,136 @@
             <p id="contentIntro">Esplora risorse, video e articoli dedicati allo Yoga e alla Fisioterapia per approfondire la tua pratica e il tuo percorso di benessere.</p>
         </section>
 
-        <section class="content-section">
-            <h2 id="contentYogaTitle">Contenuti Yoga</h2>
-            <p id="contentYogaDesc">Video di lezioni, sequenze specifiche, tecniche di respirazione e meditazione guidata per arricchire la tua pratica yoga a casa.</p>
+        <section class="content-section" id="purchasable-lessons-section">
+            <h2>Video Lezioni Acquistabili</h2>
+            <p>Accedi a lezioni complete e approfondimenti esclusivi acquistando l'accesso qui sotto.</p>
 
-            <div class="content-grid">
+            <div class="content-grid" id="video-lessons-grid">
+                <p>Caricamento contenuti disponibili...</p>
+                </div>
+        </section>
+        <section class="content-section">
+            <h2 id="contentYogaTitle">Contenuti Yoga Gratuiti</h2> <p id="contentYogaDesc">Risorse introduttive e articoli sulla pratica yoga.</p> <div class="content-grid">
                 <div class="content-item">
-                    <a href="#" title="Vai al contenuto"> <div class="content-thumbnail">
+                    <a href="#" title="Vai al contenuto" class="static-content-link">
+                        <div class="content-thumbnail">
                             <img src="images/placeholder-video.png" alt="Anteprima Video Yoga 1">
                         </div>
                         <div class="content-text">
-                            <h3 class="content-title" id="yogaVideo1Title">Titolo Contenuto Yoga 1 (es. Sequenza Mattutina Energizzante)</h3>
-                            <p class="content-description" id="yogaVideo1Desc">Breve descrizione del contenuto del video o dell'articolo. Invita a cliccare per vedere di più.</p>
+                            <h3 class="content-title" id="yogaVideo1Title">Introduzione allo Yoga</h3>
+                            <p class="content-description" id="yogaVideo1Desc">Scopri i benefici base dello yoga e come iniziare la tua pratica.</p>
                         </div>
                     </a>
                 </div>
-
-                <div class="content-item">
-                     <a href="#" title="Vai al contenuto">
+                 <div class="content-item">
+                    <a href="#" title="Vai al contenuto" class="static-content-link">
                         <div class="content-thumbnail">
-                            <img src="images/placeholder-video.png" alt="Anteprima Video Yoga 2">
+                            <img src="images/placeholder-article.png" alt="Anteprima Articolo Yoga 2">
                         </div>
                         <div class="content-text">
-                            <h3 class="content-title" id="yogaVideo2Title">Titolo Contenuto Yoga 2 (es. Meditazione Guidata per il Rilassamento)</h3>
-                            <p class="content-description" id="yogaVideo2Desc">Un'altra descrizione accattivante per questo contenuto specifico.</p>
+                            <h3 class="content-title" id="yogaVideo2Title">L'importanza del Respiro (Pranayama)</h3>
+                            <p class="content-description" id="yogaVideo2Desc">Un breve articolo sulle tecniche base di respirazione nello yoga.</p>
                         </div>
                     </a>
                 </div>
-
-                 </div>
+             </div>
         </section>
 
         <section class="content-section">
-            <h2 id="contentFisioTitle">Contenuti Fisioterapia</h2>
-            <p id="contentFisioDesc">Consigli pratici, esercizi terapeutici spiegati, approfondimenti su patologie comuni e strategie di prevenzione per la tua salute fisica.</p>
-
-            <div class="content-grid">
+            <h2 id="contentFisioTitle">Contenuti Fisioterapia Gratuiti</h2> <p id="contentFisioDesc">Consigli pratici e articoli informativi sulla fisioterapia.</p> <div class="content-grid">
                  <div class="content-item">
-                     <a href="#" title="Vai al contenuto">
+                     <a href="#" title="Vai al contenuto" class="static-content-link">
                         <div class="content-thumbnail">
                             <img src="images/placeholder-article.png" alt="Anteprima Articolo Fisioterapia 1">
                         </div>
                         <div class="content-text">
-                            <h3 class="content-title" id="fisioContent1Title">Titolo Contenuto Fisio 1 (es. Esercizi per il Mal di Schiena)</h3>
-                            <p class="content-description" id="fisioContent1Desc">Descrizione del contenuto: esercizi semplici e sicuri da fare a casa per alleviare il dolore lombare.</p>
+                            <h3 class="content-title" id="fisioContent1Title">5 Consigli per la Schiena</h3>
+                            <p class="content-description" id="fisioContent1Desc">Suggerimenti semplici per prevenire il mal di schiena nella vita quotidiana.</p>
                         </div>
                     </a>
                 </div>
-
                  <div class="content-item">
-                     <a href="#" title="Vai al contenuto">
+                     <a href="#" title="Vai al contenuto" class="static-content-link">
                         <div class="content-thumbnail">
                             <img src="images/placeholder-article.png" alt="Anteprima Articolo Fisioterapia 2">
                         </div>
                         <div class="content-text">
-                            <h3 class="content-title" id="fisioContent2Title">Titolo Contenuto Fisio 2 (es. Consigli Posturali per l'Ufficio)</h3>
-                            <p class="content-description" id="fisioContent2Desc">Come mantenere una postura corretta lavorando alla scrivania per prevenire dolori cervicali e dorsali.</p>
+                            <h3 class="content-title" id="fisioContent2Title">Stretching per Chi Lavora Seduto</h3>
+                            <p class="content-description" id="fisioContent2Desc">Alcuni semplici esercizi di stretching da fare alla scrivania.</p>
                         </div>
                     </a>
                 </div>
-
-                 </div>
+             </div>
         </section>
-		
-		</section>
+        <section class="reviews-section">
+            <h2 id="reviewsHeading">Dicono di Me / Recensioni</h2>
 
-       
-			
-			<section class="reviews-section">
-    <h2 id="reviewsHeading">Dicono di Me / Recensioni</h2>
+            <h3 id="testimonialGalleryHeading">Alcune Testimonianze</h3>
+            <p id="testimonialGalleryIntro">
+                Qui puoi vedere alcuni dei messaggi e delle esperienze condivise da chi ha seguito un percorso con me.
+            </p>
+            <div class="testimonial-gallery">
+                <div class="testimonial-image"><img src="images/Recensione1_whatsapp.jpeg" alt="Testimonianza cliente 1"></div>
+                <div class="testimonial-image"><img src="images/Recensione2_whatsapp.jpeg" alt="Testimonianza cliente 2"></div>
+                <div class="testimonial-image"><img src="images/Recensione3_whatsapp.jpeg" alt="Testimonianza cliente 3"></div>
+                <div class="testimonial-image"><img src="images/Recensione4_whatsapp.jpeg" alt="Testimonianza cliente 4"></div>
+                <div class="testimonial-image"><img src="images/Recensione5_whatsapp.jpeg" alt="Testimonianza cliente 5"></div>
+            </div>
 
-    <h3 id="testimonialGalleryHeading">Alcune Testimonianze</h3>
-    <p id="testimonialGalleryIntro">
-        Qui puoi vedere alcuni dei messaggi e delle esperienze condivise da chi ha seguito un percorso con me.
-    </p>
-    <div class="testimonial-gallery">
-        <div class="testimonial-image">
-                    <img src="images/Recensione1_whatsapp.jpeg" alt="Testimonianza cliente 1">
+            <hr style="margin: 30px 0;">
+
+            <h3 id="dynamicReviewsHeading">Le Vostre Recensioni</h3>
+            <div id="reviews-list-container">
+                <p>Caricamento recensioni...</p> </div>
+
+            <hr style="margin: 30px 0;">
+
+            <h3 id="reviewFormHeading">Lascia la Tua Recensione</h3>
+            <p id="reviewFormIntro">
+                Hai seguito delle lezioni o un percorso di fisioterapia con me? La tua opinione è preziosa! Compila il modulo
+                qui sotto per condividere la tua esperienza.
+            </p>
+
+            <form id="review-form">
+                <label for="reviewName" id="reviewLabelName">Il tuo nome (o come vuoi apparire):</label>
+                <input type="text" id="reviewName" name="nome" required>
+
+                <label for="reviewRating" id="reviewLabelRating">Valutazione (da 1 a 5 stelle):</label>
+                <div class="star-rating">
+                    <select id="reviewRating" name="valutazione_stelle" required>
+                        <option value="">-- Seleziona Valutazione --</option>
+                        <option value="5">★★★★★ (Eccellente)</option>
+                        <option value="4">★★★★☆ (Molto Buono)</option>
+                        <option value="3">★★★☆☆ (Buono)</option>
+                        <option value="2">★★☆☆☆ (Sufficiente)</option>
+                        <option value="1">★☆☆☆☆ (Insufficiente)</option>
+                    </select>
                 </div>
-                <div class="testimonial-image">
-                    <img src="images/Recensione2_whatsapp.jpeg" alt="Testimonianza cliente 2">
-                </div>
-                <div class="testimonial-image">
-                    <img src="images/Recensione3_whatsapp.jpeg" alt="Testimonianza cliente 3">
-                </div>
-				<div class="testimonial-image">
-                    <img src="images/Recensione4_whatsapp.jpeg" alt="Testimonianza cliente 2">
-                </div>
-				<div class="testimonial-image">
-                    <img src="images/Recensione5_whatsapp.jpeg" alt="Testimonianza cliente 2">
-                </div>
-    </div>
 
-    <hr style="margin: 30px 0;">
+                <label for="reviewComment" id="reviewLabelMessage">La tua recensione:</label>
+                <textarea id="reviewComment" name="messaggio_recensione" rows="5" required></textarea>
 
-    <h3 id="dynamicReviewsHeading">Le Vostre Recensioni</h3>
-    <div id="reviews-list-container">
-        <p>Caricamento recensioni...</p>
-    </div>
+                <div id="review-form-message" class="form-message" role="status" aria-live="polite"></div>
 
-    <hr style="margin: 30px 0;">
+                <button type="submit" id="reviewSubmitButton">Invia Recensione</button>
 
-    <h3 id="reviewFormHeading">Lascia la Tua Recensione</h3>
-    <p id="reviewFormIntro">
-        Hai seguito delle lezioni o un percorso di fisioterapia con me? La tua opinione è preziosa! Compila il modulo
-        qui sotto per condividere la tua esperienza.
-    </p>
-
-    <form id="review-form">
-        <label for="reviewName" id="reviewLabelName">Il tuo nome (o come vuoi apparire):</label>
-        <input type="text" id="reviewName" name="nome" required>
-
-        <label for="reviewRating" id="reviewLabelRating">Valutazione (da 1 a 5 stelle):</label>
-        <div class="star-rating">
-            <select id="reviewRating" name="valutazione_stelle" required>
-                <option value="">-- Seleziona Valutazione --</option>
-                <option value="5">★★★★★ (Eccellente)</option>
-                <option value="4">★★★★☆ (Molto Buono)</option>
-                <option value="3">★★★☆☆ (Buono)</option>
-                <option value="2">★★☆☆☆ (Sufficiente)</option>
-                <option value="1">★☆☆☆☆ (Insufficiente)</option>
-            </select>
-        </div>
-
-        <label for="reviewComment" id="reviewLabelMessage">La tua recensione:</label>
-        <textarea id="reviewComment" name="messaggio_recensione" rows="5" required></textarea>
-
-        <div id="review-form-message" class="form-message" role="status" aria-live="polite"></div>
-
-        <button type="submit" id="reviewSubmitButton">Invia Recensione</button>
-
-        <p class="review-form-notes" id="reviewFormNotes">
-            Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per
-            la tua condivisione!
-        </p>
-    </form>
-</section>
-
-			
-		
-
-    </main>
-
-    <footer>
+                <p class="review-form-notes" id="reviewFormNotes">
+                    Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per
+                    la tua condivisione!
+                </p>
+            </form>
+        </section>
+        </main> <footer>
         <div class="container">
             <p id="footerText">&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.</p>
         </div>
     </footer>
 
-	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=IL_TUO_CLIENT_ID_SANDBOX&currency=EUR&disable-funding=card,sepa,giropay&intent=capture"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/script.js"></script>
-	
-	<div id="login-modal" class="auth-modal">
+
+    <div id="login-modal" class="auth-modal">
         <div class="modal-content">
             <span class="close-button" onclick="closeModal('login-modal')">&times;</span>
             <h3>Login</h3>
@@ -280,5 +282,5 @@
             </form>
         </div>
     </div>
-</body>
+    </body>
 </html>

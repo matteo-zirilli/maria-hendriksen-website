@@ -767,6 +767,269 @@ function initializePageBasedOnAuthState(user) {
 }
 
 
+
+// ===========================================================
+//         AGGIUNTE ALLA SEZIONE "FUNZIONI SPECIFICHE"
+// ===========================================================
+
+// --- Funzioni per Caricare Contenuti Video dalla Pagina contenuti.html ---
+
+// Funzione per mostrare messaggio di login
+function displayLoginMessage() {
+    const grid = document.getElementById('video-lessons-grid');
+    if (grid) {
+        grid.innerHTML = '<p>Effettua il <a href="#" onclick="openModal(\'login-modal\'); return false;">login</a> o <a href="#" onclick="openModal(\'signup-modal\'); return false;">registrati</a> per vedere i contenuti disponibili e le opzioni di acquisto.</p>';
+    }
+}
+
+// Funzione per recuperare le lezioni video da Supabase
+async function fetchVideoLessons() {
+    if (!supabase) {
+        console.error("Supabase client non disponibile per fetchVideoLessons");
+        return []; // Ritorna array vuoto in caso di errore
+    }
+    try {
+        const { data, error } = await supabase
+            .from('video_lessons') // Nome tabella lezioni
+            .select('*') // Prendi tutte le colonne
+            .order('created_at', { ascending: true }); // Ordina come preferisci
+
+        if (error) {
+            console.error('Errore nel recupero delle video lezioni:', error);
+            throw error; // Rilancia l'errore per gestirlo nel chiamante
+        }
+        console.log("Lezioni recuperate da Supabase:", data);
+        return data || []; // Ritorna i dati o un array vuoto
+    } catch (err) {
+        console.error("Eccezione durante fetchVideoLessons:", err);
+        return []; // Fallback array vuoto
+    }
+}
+
+// Funzione per recuperare gli ID delle lezioni acquistate dall'utente corrente
+async function fetchUserPurchases(userId) {
+    if (!supabase || !userId) {
+         console.error("Supabase client o User ID non disponibili per fetchUserPurchases");
+         return [];
+    }
+    try {
+        const { data, error } = await supabase
+            .from('purchases') // Nome tabella acquisti
+            .select('lesson_id') // Ci serve solo l'ID della lezione
+            .eq('user_id', userId)
+            .eq('status', 'completed'); // Solo acquisti completati con successo
+
+        if (error) {
+            console.error('Errore nel recupero degli acquisti utente:', error);
+            throw error;
+        }
+        console.log("Acquisti utente recuperati:", data);
+        // Estrai e ritorna solo l'array degli ID delle lezioni acquistate
+        return data.map(purchase => purchase.lesson_id);
+    } catch (err) {
+         console.error("Eccezione durante fetchUserPurchases:", err);
+         return [];
+    }
+}
+
+// Funzione per mostrare le lezioni nell'HTML
+function displayVideoLessons(lessons, purchasedLessonIds) {
+    const grid = document.getElementById('video-lessons-grid');
+    if (!grid) {
+        console.error("Elemento #video-lessons-grid non trovato nel DOM.");
+        return; // Esce se il contenitore non esiste
+    }
+
+    grid.innerHTML = ''; // Pulisce il messaggio "Caricamento..." o contenuti precedenti
+
+    if (lessons.length === 0) {
+        grid.innerHTML = '<p>Nessuna video lezione disponibile al momento.</p>';
+        return; // Esce se non ci sono lezioni
+    }
+
+    lessons.forEach(lesson => {
+        // Controlla se l'ID di questa lezione è nell'array degli acquisti dell'utente
+        const isPurchased = purchasedLessonIds.includes(lesson.id);
+
+        // Crea l'elemento contenitore per la singola lezione
+        const item = document.createElement('div');
+        item.className = 'content-item'; // Usa la stessa classe CSS che avevi per lo stile
+
+        // Formatta il prezzo (adattalo se usi altre valute)
+        let priceFormatted = 'N/D';
+        if (lesson.price_eur !== null && lesson.price_eur !== undefined) {
+            try {
+                 priceFormatted = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(lesson.price_eur);
+                 // Cambia 'es-ES' con 'it-IT' se preferisci formato italiano
+            } catch(e) { console.error("Errore formattazione prezzo:", e); }
+        }
+
+
+        // Costruisce l'HTML interno dell'elemento lezione
+        item.innerHTML = `
+            <div class="content-thumbnail">
+                <img src="${lesson.thumbnail_url || 'images/placeholder-video.png'}" alt="Anteprima ${lesson.name || 'Lezione'}">
+            </div>
+            <div class="content-text">
+                <h3 class="content-title">${lesson.name || 'Titolo Lezione'}</h3>
+                <p class="content-description">${lesson.description || 'Nessuna descrizione.'}</p>
+                ${isPurchased ?
+                    // Se Acquistato: mostra bottone "Guarda Ora"
+                    `<p style="margin-top:10px; font-weight:bold; color:green;">Acquistato</p>
+                     <button class="cta-button watch-button" data-lesson-id="${lesson.id}">Guarda Ora</button>`
+                    :
+                    // Se NON Acquistato: mostra prezzo e bottoni "Acquista"
+                    `<p class="price" style="font-weight: bold; margin-top:10px;">${priceFormatted}</p>
+                     <div class="purchase-buttons" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+                         <button class="cta-button paypal-buy-button" data-lesson-id="${lesson.id}" data-price="${lesson.price_eur}">
+                             Acquista con PayPal
+                         </button>
+                         <button class="cta-button mercadopago-buy-button" data-lesson-id="${lesson.id}" data-price="${lesson.price_eur}">
+                             Acquista con MercadoPago
+                         </button>
+                         <div id="paypal-button-container-${lesson.id}" style="min-height: 40px;"></div>
+                     </div>`
+                }
+            </div>
+        `;
+
+        // Aggiunge l'elemento creato alla griglia nel DOM
+        grid.appendChild(item);
+    });
+
+    // DOPO aver aggiunto tutti gli elementi al DOM, aggiungi i listener ai nuovi bottoni
+    addPurchaseButtonListeners();
+    addWatchButtonListeners();
+}
+
+
+// Funzione PRINCIPALE per caricare le lezioni (questa verrà chiamata da initializePageBasedOnAuthState)
+async function loadVideoLessons() {
+    const grid = document.getElementById('video-lessons-grid');
+    if (!grid) return; // Non fare nulla se non siamo sulla pagina giusta
+
+    if (!currentUser) {
+        console.log("Utente non loggato, mostro messaggio di login.");
+        displayLoginMessage(); // Mostra il messaggio "Effettua il login..."
+        return;
+    }
+
+    console.log("Utente loggato, caricamento lezioni...");
+    grid.innerHTML = '<p>Caricamento lezioni disponibili...</p>'; // Messaggio di attesa
+
+    try {
+        // Recupera le lezioni e gli acquisti IN PARALLELO per velocizzare
+        const [lessons, purchasedIds] = await Promise.all([
+            fetchVideoLessons(),
+            fetchUserPurchases(currentUser.id)
+        ]);
+
+        // Mostra le lezioni recuperate
+        displayVideoLessons(lessons, purchasedIds);
+
+    } catch (error) {
+        console.error("Errore durante il caricamento delle lezioni o degli acquisti:", error);
+        grid.innerHTML = `<p style="color:red;">Errore nel caricamento dei contenuti (${error.message}). Riprova più tardi.</p>`;
+    }
+}
+
+// --- Funzioni Listener per i Bottoni Acquista/Guarda ---
+// (Queste verranno implementate meglio dopo, per ora metti dei placeholder)
+
+function addPurchaseButtonListeners() {
+    document.querySelectorAll('.paypal-buy-button').forEach(button => {
+        // Rimuovi listener esistenti per sicurezza (se questa funzione viene chiamata più volte)
+        button.replaceWith(button.cloneNode(true));
+    });
+     document.querySelectorAll('.paypal-buy-button').forEach(button => {
+         button.addEventListener('click', handlePayPalBuyClick); // Chiama la funzione che gestirà il click
+     });
+
+    document.querySelectorAll('.mercadopago-buy-button').forEach(button => {
+         button.replaceWith(button.cloneNode(true));
+     });
+      document.querySelectorAll('.mercadopago-buy-button').forEach(button => {
+         button.addEventListener('click', handleMercadoPagoBuyClick); // Chiama la funzione che gestirà il click
+     });
+}
+
+function addWatchButtonListeners() {
+    document.querySelectorAll('.watch-button').forEach(button => {
+         button.replaceWith(button.cloneNode(true));
+     });
+     document.querySelectorAll('.watch-button').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const lessonId = event.target.dataset.lessonId;
+            console.log(`Click su "Guarda Ora" per lezione: ${lessonId}`);
+            alert(`Funzionalità "Guarda Ora" per la lezione ${lessonId} non ancora implementata.`);
+            // Qui in futuro reindirizzerai a un player o mostrerai il video
+            // Esempio: window.location.href = `/watch?lesson=${lessonId}`;
+        });
+    });
+}
+
+// Funzioni Handler per il Click sui Bottoni Acquista (Placeholder per ora)
+async function handlePayPalBuyClick(event) {
+    if (!currentUser) {
+        alert("Devi effettuare il login per acquistare.");
+        openModal('login-modal'); // Apri il modale di login
+        return;
+    }
+    const button = event.target;
+    const lessonId = button.dataset.lessonId;
+    const price = button.dataset.price;
+    console.log(`Click Acquista PayPal: Lezione ID ${lessonId}, Prezzo ${price}`);
+    alert(`Procedura acquisto PayPal per Lezione ${lessonId} (Prezzo €${price}) non ancora implementata.\nProssimo passo: chiamare la Netlify Function per creare l'ordine.`);
+
+    // --- Codice futuro (Fase successiva) ---
+    // 1. Mostra caricamento
+    // 2. Chiama Netlify Function 'create-paypal-order' passando lessonId
+    // 3. Ottieni orderID dalla funzione
+    // 4. Chiama renderPayPalButton(orderID, `paypal-button-container-${lessonId}`, lessonId)
+    // -----------------------------------------
+}
+
+async function handleMercadoPagoBuyClick(event) {
+     if (!currentUser) {
+        alert("Devi effettuare il login per acquistare.");
+         openModal('login-modal');
+        return;
+    }
+     const button = event.target;
+    const lessonId = button.dataset.lessonId;
+     const price = button.dataset.price;
+    console.log(`Click Acquista MercadoPago: Lezione ID ${lessonId}, Prezzo ${price}`);
+    alert(`Procedura acquisto MercadoPago per Lezione ${lessonId} (Prezzo €${price}) non ancora implementata.\nProssimo passo: chiamare la Netlify Function per creare la preferenza di pagamento.`);
+
+     // --- Codice futuro (Fase successiva) ---
+     // 1. Mostra caricamento
+     // 2. Chiama Netlify Function 'create-mercadopago-preference' passando lessonId
+     // 3. Ottieni init_point (URL checkout) dalla funzione
+     // 4. Reindirizza l'utente: window.location.href = initPoint;
+     // -----------------------------------------
+}
+
+// Funzione per renderizzare il bottone PayPal SDK (Placeholder)
+// Verrà implementata nella prossima fase
+function renderPayPalButton(orderID, containerId, lessonId) {
+     console.log(`Placeholder: Dovrei renderizzare il bottone PayPal SDK qui nel container ${containerId} per l'ordine ${orderID}`);
+     const container = document.getElementById(containerId);
+     if(container) {
+         container.innerHTML = `<p><i>Bottone PayPal (ordine ${orderID}) apparirebbe qui...</i></p>`;
+         // Qui andrà il codice paypal.Buttons({...}).render('#'+containerId);
+     }
+}
+
+
+// ===========================================================
+// ASSICURATI CHE initializePageBasedOnAuthState SIA CHIAMATO
+// SIA DA onAuthStateChange SIA DA checkInitialAuthState
+// Verifica nel tuo codice DOMContentLoaded e nel listener onAuthStateChange
+// che questa funzione venga chiamata dopo aver aggiornato currentUser.
+// (Dovrebbe essere già così dal codice precedente che ti ho fornito)
+// ===========================================================
+
+
 // -----------------------------------------------------------
 //               LISTENER PRINCIPALE E INIZIALIZZAZIONE
 // -----------------------------------------------------------
