@@ -571,3 +571,103 @@ form label {
 /* Stili per select stelle (già presenti nel codice precedente, assicurati ci siano) */
 #reviewForm .star-rating { margin-top: 10px; }
 #reviewForm .star-rating select { width: auto; padding: 8px; }
+
+
+/* Stili base per bottoni Auth */
+.auth-button {
+    background-color: var(--colore-accento); /* Usa un colore del tuo tema */
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 0.9em;
+}
+.auth-button:hover {
+    background-color: var(--colore-primario);
+}
+#auth-container span { /* Per gestire lo spazio quando si cambia stato */
+   display: inline-block;
+   vertical-align: middle;
+}
+
+
+/* Stili per i Modali */
+.auth-modal {
+    display: none; /* Nascosto di default */
+    position: fixed; /* Rimane fisso sullo schermo */
+    z-index: 1000; /* Sopra gli altri contenuti */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permette scroll se il contenuto è lungo */
+    background-color: rgba(0,0,0,0.5); /* Sfondo semi-trasparente */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% dall'alto e centrato orizzontalmente */
+    padding: 30px;
+    border: 1px solid #888;
+    width: 80%; /* Larghezza del box modale */
+    max-width: 400px; /* Larghezza massima */
+    border-radius: 8px;
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Stili per i form dentro i modali */
+.auth-modal form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+.auth-modal form input[type="email"],
+.auth-modal form input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.auth-modal form button[type="submit"] {
+    background-color: var(--colore-primario);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 1em;
+}
+.auth-modal form button[type="submit"]:hover {
+    background-color: var(--colore-accento);
+}
+.error-message {
+     color: red;
+     font-size: 0.9em;
+     margin-top: 10px;
+}
+ .success-message {
+     color: green;
+     font-size: 0.9em;
+     margin-top: 10px;
+}

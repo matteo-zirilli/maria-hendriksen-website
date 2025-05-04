@@ -81,7 +81,7 @@
 <body>
     <header>
         <div class="container">
-            <div class="logo"><a href="index.html">Maria Guillermina Hendriksen</a></div>
+            <div class="logo"><a href="index.html">Maria Guillermina</a></div>
             <nav>
                 <ul>
                     <li><a href="index.html" id="navHome">Homepage</a></li>
@@ -96,6 +96,16 @@
                     <button onclick="changeLanguage('en')">EN</button>
                     <button onclick="changeLanguage('es')">ES</button>
                 </div>
+				
+				<div id="auth-container" style="margin-left: 15px; display: inline-block; vertical-align: middle; border-left: 1px solid #eee; padding-left: 15px;">
+    <span id="guest-info" style="display: block;">
+        <button id="login-button" class="auth-button">Login</button>
+        <button id="signup-button" class="auth-button">Registrati</button>
+    </span>
+    <span id="user-info" style="display: none;">
+        <span id="user-email" style="font-weight: bold; margin-right: 5px;"></span><button id="logout-button" class="auth-button">Logout</button>
+    </span>
+</div>
             </nav>
         </div>
     </header>
@@ -155,6 +165,38 @@
          </div>
     </footer>
 
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/script.js"></script>
+	
+	<div id="login-modal" class="auth-modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('login-modal')">&times;</span>
+            <h3>Login</h3>
+            <form id="login-form">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" required>
+                <button type="submit">Accedi</button>
+                <p id="login-error" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="auth-modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('signup-modal')">&times;</span>
+            <h3>Registrati</h3>
+            <form id="signup-form">
+                <label for="signup-email">Email:</label>
+                <input type="email" id="signup-email" required>
+                <label for="signup-password">Password (min. 6 caratteri):</label>
+                <input type="password" id="signup-password" required minlength="6">
+                <button type="submit">Registrati</button>
+                <p id="signup-message" class="success-message"></p>
+                <p id="signup-error" class="error-message"></p>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

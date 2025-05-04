@@ -488,62 +488,89 @@ const languages = {
     }
 };
 
-// --- Funzioni Esistenti ---
+// --- INIZIALIZZAZIONE SUPABASE ---
+//    Sostituisci con le tue vere chiavi prese dal tuo progetto Supabase!
+const SUPABASE_URL = 'https://kmnowyskoyordmndfdae.supabase.co';         // <<< SOSTITUISCI QUI
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imttbm93eXNrb3lvcmRtbmRmZGFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyNzUwMTEsImV4cCI6MjA2MTg1MTAxMX0.MdcRpTPTGC8e5wSeqp7chqhP0fsaW50VtiuN2y26eiw'; // <<< SOSTITUISCI QUI
+
+let supabase = null;
+try {
+    // Usa supabaseJs globalmente se la libreria è inclusa via <script>
+    if (window.supabase) {
+       supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+       console.log("Supabase client initialized.");
+    } else {
+       console.error("Supabase library not found. Make sure it's included in your HTML before script.js");
+    }
+} catch (error) {
+    console.error("Error initializing Supabase:", error);
+}
+
+let currentUser = null; // Variabile globale per tenere traccia dell'utente loggato
+
+// -----------------------------------------------------------
+//               FUNZIONI DI UTILITÀ (Lingua, Stelle, Modali)
+// -----------------------------------------------------------
+
 function changeLanguage(lang) {
-    // ... (codice esistente) ...
-     if (languages[lang]) {
-        document.documentElement.lang = lang;
-        for (const key in languages[lang]) {
-            const element = document.getElementById(key);
-            if (element) {
-                if (key.startsWith('pageTitle')) { document.title = languages[lang][key]; }
-                else { element.innerHTML = languages[lang][key]; }
-            } else {
-                 if (key.startsWith('pageTitle')) { document.title = languages[lang][key]; }
-            }
+     if (!languages || !languages[lang]) {
+        console.error("Lingua non supportata o oggetto 'languages' non definito:", lang);
+        return;
+     }
+    document.documentElement.lang = lang;
+    for (const key in languages[lang]) {
+        const element = document.getElementById(key);
+        if (element) {
+            if (key.startsWith('pageTitle')) { document.title = languages[lang][key]; }
+            else { element.innerHTML = languages[lang][key]; }
+        } else {
+             if (key.startsWith('pageTitle')) { document.title = languages[lang][key]; }
         }
-        localStorage.setItem('preferredLanguage', lang);
-        if (typeof updateActiveButton === 'function') { updateActiveButton(lang); }
-        const videoElement = document.getElementById('presentationVideo');
-        if (videoElement) {
-            let videoSrc = '';
-            switch (lang) {
-                case 'en': videoSrc = 'videos/presentation_en.mp4'; break;
-                case 'es': videoSrc = 'videos/presentacion_es.mp4'; break;
-                case 'it': default: videoSrc = 'videos/presentazione_it.mp4'; break;
-            }
-            if (videoElement.getAttribute('src') !== videoSrc) {
-                videoElement.src = videoSrc;
-                videoElement.load();
-                console.log(`Video source changed to: ${videoSrc}`);
-            }
+    }
+    localStorage.setItem('preferredLanguage', lang);
+    if (typeof updateActiveButton === 'function') { updateActiveButton(lang); }
+
+    // Aggiornamento video (se esiste l'elemento) - Mantenuto dal tuo codice originale
+    const videoElement = document.getElementById('presentationVideo');
+    if (videoElement) {
+        let videoSrc = '';
+        switch (lang) {
+            case 'en': videoSrc = 'videos/presentation_en.mp4'; break;
+            case 'es': videoSrc = 'videos/presentacion_es.mp4'; break;
+            case 'it': default: videoSrc = 'videos/presentazione_it.mp4'; break;
         }
-    } else { console.error("Lingua non supportata:", lang); }
+        if (videoElement.getAttribute('src') !== videoSrc) {
+            videoElement.src = videoSrc;
+            videoElement.load();
+            console.log(`Video source changed to: ${videoSrc}`);
+        }
+    }
+    // Ri-applica i testi ai bottoni/label dei form di autenticazione se necessario
+    // (Al momento non ci sono testi specifici della lingua nei modal auth)
 }
 
 function updateActiveButton(lang) {
-    // ... (codice esistente) ...
     const buttons = document.querySelectorAll('.language-switcher button');
     buttons.forEach(button => {
         let buttonLang = '';
+        // Determina la lingua del bottone (dal tuo codice originale)
         if (button.hasAttribute('onclick')) {
             const match = button.getAttribute('onclick').match(/changeLanguage\('(\w+)'\)/);
             if (match) buttonLang = match[1];
         } else if (button.dataset.lang) { buttonLang = button.dataset.lang; }
+
         if (buttonLang === lang) { button.classList.add('active'); }
         else { button.classList.remove('active'); }
     });
 }
 
-// --- NUOVE FUNZIONI PER RECENSIONI ---
-
-// Funzione Helper per mostrare le stelle
 function displayStars(rating) {
+    // ... (Tua funzione displayStars esistente) ...
     const maxStars = 5;
     let starsHTML = '';
-    const ratingNum = parseInt(rating, 10); // Assicura sia un numero
+    const ratingNum = parseInt(rating, 10);
     if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > maxStars) {
-        return 'N/A'; // O gestisci l'errore come preferisci
+        return 'N/A';
     }
     for (let i = 1; i <= maxStars; i++) {
         starsHTML += (i <= ratingNum) ? '★' : '☆';
@@ -551,41 +578,56 @@ function displayStars(rating) {
     return `<span class="review-stars">${starsHTML}</span>`;
 }
 
-// Funzione per Caricare le Recensioni Approvate
+// Funzioni Helper per i Modali di Autenticazione
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'block';
+    } else {
+        console.error(`Modal with id ${modalId} not found.`);
+    }
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+        const errorP = modal.querySelector('.error-message');
+        if (errorP) errorP.textContent = '';
+        const msgP = modal.querySelector('.success-message');
+        if (msgP) msgP.textContent = '';
+        const form = modal.querySelector('form');
+        if (form) form.reset();
+    } else {
+        console.error(`Modal with id ${modalId} not found.`);
+    }
+}
+
+// -----------------------------------------------------------
+//               FUNZIONI SPECIFICHE (Recensioni, Autenticazione)
+// -----------------------------------------------------------
+
+// --- Funzioni Recensioni (Dal tuo codice originale) ---
 async function loadReviews() {
+    // ... (Tua funzione loadReviews esistente) ...
     const container = document.getElementById('reviews-list-container');
-    // Esegui solo se siamo nella pagina contenuti.html
     if (!container) return;
-
-    container.innerHTML = '<p>Caricamento recensioni in corso...</p>'; // Mostra messaggio di caricamento
-
+    container.innerHTML = '<p>Caricamento recensioni in corso...</p>';
     try {
-        // Chiama la tua funzione serverless (adatta il percorso se usi Vercel -> /api/get-reviews)
         const response = await fetch('/.netlify/functions/get-reviews');
-
-        if (!response.ok) {
-            throw new Error(`Errore HTTP: ${response.status}`);
-        }
-
+        if (!response.ok) throw new Error(`Errore HTTP: ${response.status}`);
         const reviews = await response.json();
-
-        container.innerHTML = ''; // Pulisce il messaggio di caricamento
-
+        container.innerHTML = '';
         if (!reviews || reviews.length === 0) {
             container.innerHTML = '<p>Non ci sono ancora recensioni. Sii il primo a lasciarne una!</p>';
             return;
         }
-
-        // Crea e aggiunge l'HTML per ogni recensione
-        reviews.forEach(review => {
-            const reviewElement = document.createElement('div');
+        reviews.forEach(review => { /* ... crea HTML recensione ... */
+             const reviewElement = document.createElement('div');
             reviewElement.className = 'review-item';
-
-            // Formatta la data (opzionale)
             const reviewDate = new Date(review.created_at).toLocaleDateString('it-IT', {
                 year: 'numeric', month: 'long', day: 'numeric'
             });
-
             reviewElement.innerHTML = `
                 <div class="review-header">
                     <span class="review-name">${review.name || 'Anonimo'}</span>
@@ -598,137 +640,343 @@ async function loadReviews() {
             `;
             container.appendChild(reviewElement);
         });
-
     } catch (error) {
         console.error('Errore nel caricamento delle recensioni:', error);
         container.innerHTML = '<p>Spiacenti, non è stato possibile caricare le recensioni al momento.</p>';
     }
 }
 
-// Funzione per Gestire l'Invio del Modulo Recensioni
 async function handleReviewSubmit(event) {
-	
-	console.log(">>> SUBMIT CLICCATO - ESEGUO handleReviewSubmit? <<<")
-    event.preventDefault(); // Blocca l'invio standard del form
+    // ... (Tua funzione handleReviewSubmit esistente) ...
+    console.log(">>> SUBMIT CLICCATO - ESEGUO handleReviewSubmit? <<<") // Tua riga di debug
+    event.preventDefault();
     const form = event.target;
     const submitButton = form.querySelector('button[type="submit"]');
     const messageDiv = document.getElementById('review-form-message');
-
-    // Recupera i dati
     const name = document.getElementById('reviewName').value.trim();
     const ratingSelect = document.getElementById('reviewRating');
-    const rating = ratingSelect ? parseInt(ratingSelect.value, 10) : null; // Prende il valore dal select
+    const rating = ratingSelect ? parseInt(ratingSelect.value, 10) : null;
     const comment = document.getElementById('reviewComment').value.trim();
 
-    // Validazione semplice
-    if (!name || !rating || !comment) {
-        messageDiv.textContent = 'Per favore, compila tutti i campi obbligatori.';
-        messageDiv.className = 'form-message error'; // Mostra errore
-        messageDiv.style.display = 'block'; // Assicura sia visibile
+    if (!name || !rating || !comment || isNaN(rating) || rating < 1 || rating > 5) {
+        messageDiv.textContent = 'Per favore, compila tutti i campi obbligatori con valori validi.';
+        messageDiv.className = 'form-message error';
+        messageDiv.style.display = 'block';
         return;
     }
-     if (isNaN(rating) || rating < 1 || rating > 5) {
-         messageDiv.textContent = 'Seleziona una valutazione valida da 1 a 5 stelle.';
-         messageDiv.className = 'form-message error';
-         messageDiv.style.display = 'block';
-         return;
-     }
 
-    // Mostra stato di invio
     messageDiv.textContent = 'Invio recensione in corso...';
     messageDiv.className = 'form-message submitting';
     messageDiv.style.display = 'block';
-    submitButton.disabled = true; // Disabilita il bottone
+    submitButton.disabled = true;
 
     try {
-        // Chiama la funzione serverless (adatta il percorso se usi Vercel -> /api/submit-review)
         const response = await fetch('/.netlify/functions/submit-review', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, rating, comment }),
         });
-
         if (!response.ok) {
-            // Prova a leggere un messaggio di errore specifico dal backend, se disponibile
             let errorMsg = `Errore HTTP: ${response.status}`;
             try {
                  const errorData = await response.json();
                  errorMsg = errorData.error || errorData.message || errorMsg;
-            } catch(e) { /* Ignora se non c'è JSON valido */ }
+            } catch(e) { /* Ignora */ }
             throw new Error(errorMsg);
         }
-
-        // Successo!
-        const result = await response.json(); // Legge la risposta (anche se non usata qui)
         messageDiv.textContent = 'Recensione inviata con successo! Sarà visibile dopo l\'approvazione.';
         messageDiv.className = 'form-message success';
-        form.reset(); // Pulisce il form
-
+        form.reset();
     } catch (error) {
         console.error('Errore invio recensione:', error);
         messageDiv.textContent = `Errore nell'invio della recensione: ${error.message}. Riprova più tardi.`;
         messageDiv.className = 'form-message error';
     } finally {
-        // Riabilita il bottone in ogni caso (successo o errore)
         submitButton.disabled = false;
     }
 }
 
-// --- Listener DOMContentLoaded Esistente ---
-document.addEventListener('DOMContentLoaded', () => {
-    // --- Codice Esistente per Lingua e Bottoni ---
-    const savedLang = localStorage.getItem('preferredLanguage');
-    const defaultLang = 'it';
-    let initialLang = defaultLang;
-    if (savedLang && typeof languages !== 'undefined' && languages[savedLang]){
-        initialLang = savedLang;
-    } else if (typeof languages === 'undefined') {
-         console.error("L'oggetto 'languages' non è definito quando DOMContentLoaded viene eseguito.");
-         return;
+// --- Funzioni Autenticazione ---
+function updateAuthStateUI(user) {
+    // Recupera gli elementi dell'header (più sicuro farlo qui dentro)
+    const guestInfo = document.getElementById('guest-info');
+    const userInfo = document.getElementById('user-info');
+    const userEmailSpan = document.getElementById('user-email');
+
+    if (!guestInfo || !userInfo || !userEmailSpan) return; // Elementi non presenti in pagina?
+
+    if (user) { // Logged In
+        guestInfo.style.display = 'none';
+        userInfo.style.display = 'inline'; // O 'block'
+        userEmailSpan.textContent = user.email;
+    } else { // Logged Out
+        guestInfo.style.display = 'inline'; // O 'block'
+        userInfo.style.display = 'none';
+        userEmailSpan.textContent = '';
     }
+}
+
+// Funzione asincrona per controllare lo stato iniziale dell'utente all'avvio
+async function checkInitialAuthState() {
+    if (!supabase) {
+        console.warn("Supabase non inizializzato, impossibile controllare stato auth iniziale.");
+        updateAuthStateUI(null); // Mostra UI da sloggato
+        return;
+    }
+    try {
+        console.log("Checking initial auth state...");
+        // Usiamo getSession per non forzare un refresh se il token è valido
+        const { data: { session }, error } = await supabase.auth.getSession();
+         if (error) {
+            // Un errore qui non è necessariamente grave (es. token scaduto)
+            console.warn("Error getting initial session:", error.message);
+            currentUser = null;
+         } else {
+            currentUser = session?.user ?? null;
+         }
+        console.log("Initial user state:", currentUser ? currentUser.email : 'Not logged in');
+        updateAuthStateUI(currentUser); // Aggiorna l'UI
+
+        // Esegui azioni specifiche della pagina (come caricare contenuti video)
+        initializePageBasedOnAuthState(currentUser);
+
+    } catch (err) {
+         console.error("Unexpected error during initial auth check:", err);
+         updateAuthStateUI(null); // Fallback a stato sloggato
+    }
+}
+
+// Funzione per eseguire azioni specifiche della pagina basate sullo stato auth
+function initializePageBasedOnAuthState(user) {
+     const videoGrid = document.getElementById('video-lessons-grid');
+     if (videoGrid) { // Se siamo sulla pagina contenuti
+         if (user) {
+             if (typeof loadVideoLessons === 'function') {
+                 loadVideoLessons(); // Sarà definita più avanti
+             } else { console.warn('Function loadVideoLessons not defined yet.'); }
+         } else {
+             if (typeof displayLoginMessage === 'function') {
+                 displayLoginMessage(); // Sarà definita più avanti
+             } else {
+                videoGrid.innerHTML = '<p>Effettua il login per vedere i contenuti e le opzioni di acquisto.</p>';
+                console.warn('Function displayLoginMessage not defined yet.');
+             }
+         }
+     }
+     // Qui potresti aggiungere logica per altre pagine se necessario
+}
+
+
+// -----------------------------------------------------------
+//               LISTENER PRINCIPALE E INIZIALIZZAZIONE
+// -----------------------------------------------------------
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM completamente caricato e analizzato.");
+
+    // --- Inizializzazione Lingua (dal tuo codice) ---
+    const savedLang = localStorage.getItem('preferredLanguage');
+    const defaultLang = 'it'; // Lingua predefinita
+    let initialLang = defaultLang;
+     // Verifica che 'languages' sia definito prima di usarlo
+    if (typeof languages !== 'undefined') {
+        if (savedLang && languages[savedLang]){
+            initialLang = savedLang;
+        }
+    } else {
+         console.error("L'oggetto 'languages' non è definito.");
+    }
+    // Verifica che 'changeLanguage' sia definito
     if (typeof changeLanguage === 'function') {
         changeLanguage(initialLang);
     } else {
          console.error("La funzione 'changeLanguage' non è definita.");
     }
+    // Aggiunta listener ai bottoni lingua (dal tuo codice, leggermente adattato)
     const langButtons = document.querySelectorAll('.language-switcher button');
     langButtons.forEach(button => {
         if (!button.hasAttribute('data-listener-set')) {
             let langCode = '';
-            if (button.hasAttribute('onclick')) {
+            if (button.hasAttribute('onclick')) { // Supporta vecchio metodo onclick
                 const match = button.getAttribute('onclick').match(/changeLanguage\('(\w+)'\)/);
                 if (match) langCode = match[1];
-            } else if (button.dataset.lang) { langCode = button.dataset.lang; }
+                 // Rimuove onclick per preferire addEventListener
+                 button.removeAttribute('onclick');
+            } else if (button.dataset.lang) { // Supporta data-lang="..."
+                langCode = button.dataset.lang;
+            }
+
             if(langCode) {
                 button.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    if (typeof changeLanguage === 'function') { changeLanguage(langCode); }
+                    event.preventDefault(); // Previene comportamenti predefiniti se il bottone è in un form
+                    if (typeof changeLanguage === 'function') {
+                        changeLanguage(langCode);
+                    } else {
+                         console.error("La funzione 'changeLanguage' non è definita.");
+                    }
                 });
-                button.setAttribute('data-listener-set', 'true');
+                button.setAttribute('data-listener-set', 'true'); // Evita di aggiungere più volte
+            } else {
+                 console.warn("Bottone lingua senza codice lingua identificabile:", button);
             }
         }
     });
-    // --- Fine Codice Esistente ---
+    // --- Fine Inizializzazione Lingua ---
 
 
-    // --- CODICE AGGIUNTO per Recensioni ---
+    // --- Setup Listener per Autenticazione ---
+    // Recupera elementi UI Auth
+    const loginButton = document.getElementById('login-button');
+    const signupButton = document.getElementById('signup-button');
+    const logoutButton = document.getElementById('logout-button');
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const loginErrorP = document.getElementById('login-error'); // Assicurati esista nel modal
+    const signupErrorP = document.getElementById('signup-error'); // Assicurati esista nel modal
+    const signupMessageP = document.getElementById('signup-message'); // Assicurati esista nel modal
+
+    // Listener per Bottoni Header
+    loginButton?.addEventListener('click', () => openModal('login-modal'));
+    signupButton?.addEventListener('click', () => openModal('signup-modal'));
+    logoutButton?.addEventListener('click', async () => {
+        if (!supabase) return;
+        logoutButton.disabled = true;
+        logoutButton.textContent = 'Uscendo...'; // Feedback visivo
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            console.error("Error logging out:", error);
+            alert(`Errore durante il logout: ${error.message}`);
+            // Riabilita il bottone solo in caso di errore, altrimenti onAuthStateChange aggiorna UI
+            logoutButton.disabled = false;
+            logoutButton.textContent = 'Logout';
+        } else {
+            console.log("User logged out successfully.");
+            // Non serve riabilitare qui, onAuthStateChange nasconderà il bottone
+        }
+    });
+
+    // Listener per Form Login
+    loginForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!supabase) return;
+        if(loginErrorP) loginErrorP.textContent = '';
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        const submitButton = loginForm.querySelector('button[type="submit"]');
+        if(submitButton) submitButton.disabled = true;
+
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+        if (error) {
+            console.error("Login error:", error);
+            if(loginErrorP) loginErrorP.textContent = `Credenziali non valide. Riprova.`; // Messaggio generico
+            if(submitButton) submitButton.disabled = false;
+        } else {
+            console.log("Login successful:", data.user.email);
+            closeModal('login-modal');
+            // onAuthStateChange farà il resto
+        }
+    });
+
+    // Listener per Form Signup
+    signupForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!supabase) return;
+        if(signupErrorP) signupErrorP.textContent = '';
+        if(signupMessageP) signupMessageP.textContent = '';
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+        const submitButton = signupForm.querySelector('button[type="submit"]');
+         if(submitButton) submitButton.disabled = true;
+
+        const { data, error } = await supabase.auth.signUp({ email, password });
+
+        if (error) {
+            console.error("Signup error:", error);
+             if(signupErrorP) signupErrorP.textContent = `Errore Registrazione: ${error.message}`;
+             if(submitButton) submitButton.disabled = false;
+        } else {
+            console.log("Signup request successful:", data);
+             if(submitButton) submitButton.disabled = false;
+             if (data.user && !data.session) { // Conferma email richiesta
+                 if(signupMessageP) signupMessageP.textContent = 'Registrazione avvenuta! Controlla la tua email per confermare l\'account.';
+                 // Non chiudere il modale
+             } else if (data.user && data.session){ // Login immediato (conferma disabilitata)
+                 if(signupMessageP) signupMessageP.textContent = 'Registrazione e login avvenuti con successo!';
+                  setTimeout(() => closeModal('signup-modal'), 2000);
+             } else { // Caso imprevisto o utente già esistente senza sessione attiva
+                 if(signupMessageP) signupMessageP.textContent = 'Richiesta di registrazione inviata.';
+             }
+        }
+    });
+    // --- Fine Setup Listener Autenticazione ---
+
+
+    // --- Setup Listener Recensioni (dal tuo codice) ---
     const reviewForm = document.getElementById('review-form');
-    if (reviewForm && typeof handleReviewSubmit === 'function') {
-        reviewForm.addEventListener('submit', handleReviewSubmit);
-        console.log("Listener per invio recensione aggiunto.");
+    if (reviewForm) {
+        if (typeof handleReviewSubmit === 'function') {
+            reviewForm.addEventListener('submit', handleReviewSubmit);
+            console.log("Listener per invio recensione aggiunto.");
+        } else {
+            console.error("Funzione handleReviewSubmit non definita.");
+        }
     }
+    // --- Fine Setup Listener Recensioni ---
 
-    // Carica le recensioni esistenti se siamo sulla pagina giusta
-    if (document.getElementById('reviews-list-container') && typeof loadReviews === 'function') {
-        loadReviews();
-        console.log("Caricamento recensioni avviato.");
+
+    // --- Check Iniziale Stato Autenticazione ---
+    // Esegui il check DOPO che tutti i listener sono stati impostati
+    if (typeof checkInitialAuthState === 'function') {
+        checkInitialAuthState();
+    } else {
+        console.error("Funzione checkInitialAuthState non definita.");
+        // Prova comunque ad aggiornare l'UI come fallback
+        if(typeof updateAuthStateUI === 'function') {
+            updateAuthStateUI(null);
+        }
     }
-     // --- FINE CODICE AGGIUNTO ---
+    // --- Fine Check Iniziale ---
 
-}); // Chiusura di DOMContentLoaded
 
-// ===========================================================
-//                  FINE SCRIPT.JS
-// ===========================================================
+    // --- Caricamento Iniziale Recensioni (dal tuo codice) ---
+    if (document.getElementById('reviews-list-container')) {
+        if (typeof loadReviews === 'function') {
+            loadReviews();
+            console.log("Caricamento iniziale recensioni avviato.");
+        } else {
+             console.error("Funzione loadReviews non definita.");
+        }
+    }
+     // --- Fine Caricamento Iniziale Recensioni ---
+
+}); // --- Chiusura di DOMContentLoaded ---
+
+
+// -----------------------------------------------------------
+//               LISTENER GLOBALI (es. Auth State Change)
+// -----------------------------------------------------------
+
+// Listener Supabase Auth State Change (viene messo fuori da DOMContentLoaded)
+if (supabase) {
+    supabase.auth.onAuthStateChange((event, session) => {
+        console.log('Auth Event:', event, session);
+        currentUser = session?.user ?? null;
+
+        // Aggiorna sempre l'UI generale (header)
+        if (typeof updateAuthStateUI === 'function') {
+            updateAuthStateUI(currentUser);
+        } else {
+             console.error("Funzione updateAuthStateUI non definita.");
+        }
+
+        // Esegui azioni specifiche della pagina
+        if (typeof initializePageBasedOnAuthState === 'function') {
+             initializePageBasedOnAuthState(currentUser);
+        } else {
+            console.error("Funzione initializePageBasedOnAuthState non definita.");
+        }
+    });
+} else {
+    console.warn("Supabase client non disponibile, onAuthStateChange non verrà monitorato.");
+}
