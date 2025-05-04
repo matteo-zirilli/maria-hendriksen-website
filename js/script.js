@@ -968,25 +968,108 @@ function addWatchButtonListeners() {
     });
 }
 
-// Funzioni Handler per il Click sui Bottoni Acquista (Placeholder per ora)
+// Funzione Handler AGGIORNATA per il Click sul Bottone "Acquista con PayPal"
 async function handlePayPalBuyClick(event) {
+    const button = event.target; // Il bottone "Acquista con PayPal" cliccato
+    const lessonId = button.dataset.lessonId;
+    const price = button.dataset.price;
+    const purchaseButtonsDiv = button.closest('.purchase-buttons'); // Trova il div che contiene i bottoni
+    const payPalContainerId = `paypal-button-container-${lessonId}`;
+    const payPalContainer = document.getElementById(payPalContainerId);
+    const mpButton = purchaseButtonsDiv ? purchaseButtonsDiv.querySelector('.mercadopago-buy-button') : null; // Trova il bottone MP
+
+    // Controlla se l'utente è loggato
     if (!currentUser) {
         alert("Devi effettuare il login per acquistare.");
         openModal('login-modal'); // Apri il modale di login
+        return; // Interrompe l'esecuzione
+    }
+
+    // Controlla se Supabase è pronto e se abbiamo una sessione
+     if (!supabase || !supabase.auth || typeof supabase.auth.getSession !== 'function') {
+         console.error("Supabase client o auth non inizializzato correttamente.");
+         alert("Errore: impossibile verificare l'autenticazione. Riprova più tardi.");
+         return;
+     }
+     const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+     if (sessionError || !session) {
+         console.error("Errore nel recupero della sessione Supabase:", sessionError);
+         alert("Errore: impossibile ottenere la sessione utente. Prova a fare logout e login.");
+         return;
+     }
+     const accessToken = session.access_token;
+
+
+    console.log(`Avvio procedura acquisto PayPal: Lezione ID ${lessonId}, Prezzo ${price}`);
+
+    // Feedback Visivo e Disabilitazione Bottoni
+    button.disabled = true;
+    button.textContent = 'Creazione ordine...';
+    if (mpButton) mpButton.style.display = 'none'; // Nasconde bottone MP
+    if (payPalContainer) {
+        payPalContainer.innerHTML = '<p><em>Inizializzazione pagamento...</em></p>';
+        payPalContainer.style.display = 'block'; // Assicurati sia visibile
+    } else {
+        console.error(`Container PayPal ${payPalContainerId} non trovato!`);
+        alert(`Errore: Impossibile trovare l'area per il bottone di pagamento.`);
+        button.disabled = false; // Riabilita bottone Acquista
+        button.textContent = 'Acquista con PayPal';
+        if (mpButton) mpButton.style.display = 'block'; // Ri-mostra bottone MP
         return;
     }
-    const button = event.target;
-    const lessonId = button.dataset.lessonId;
-    const price = button.dataset.price;
-    console.log(`Click Acquista PayPal: Lezione ID ${lessonId}, Prezzo ${price}`);
-    alert(`Procedura acquisto PayPal per Lezione ${lessonId} (Prezzo €${price}) non ancora implementata.\nProssimo passo: chiamare la Netlify Function per creare l'ordine.`);
 
-    // --- Codice futuro (Fase successiva) ---
-    // 1. Mostra caricamento
-    // 2. Chiama Netlify Function 'create-paypal-order' passando lessonId
-    // 3. Ottieni orderID dalla funzione
-    // 4. Chiama renderPayPalButton(orderID, `paypal-button-container-${lessonId}`, lessonId)
-    // -----------------------------------------
+    try {
+        // Chiama la Netlify Function per creare l'ordine PayPal
+        console.log("Chiamata a /.netlify/functions/create-paypal-order");
+        const response = await fetch('/.netlify/functions/create-paypal-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}` // Invia token Supabase
+            },
+            body: JSON.stringify({ lessonId: lessonId }) // Invia l'ID della lezione
+        });
+
+        // Controlla se la risposta dalla funzione è OK
+        if (!response.ok) {
+            let errorData = { error: `Errore server (${response.status})` };
+            try {
+                errorData = await response.json(); // Prova a leggere l'errore specifico
+            } catch(e) { /* ignora se non c'è JSON */ }
+            console.error("Errore dalla funzione Netlify:", errorData);
+            throw new Error(errorData.error || `Errore ${response.status} nella creazione ordine.`);
+        }
+
+        // Estrai l'orderID dalla risposta JSON
+        const orderData = await response.json();
+        const orderID = orderData.orderId;
+
+        if (!orderID) {
+            throw new Error("ID Ordine PayPal non ricevuto dalla funzione backend.");
+        }
+
+        console.log("Ordine PayPal creato con ID:", orderID);
+
+        // Nascondi il bottone "Acquista con PayPal" originale
+        button.style.display = 'none';
+
+        // Chiama la funzione per renderizzare il bottone PayPal SDK
+        renderPayPalButton(orderID, payPalContainerId, lessonId); // Passa l'ID del container e lessonId
+
+    } catch (error) {
+        console.error("Errore durante la chiamata alla funzione Netlify o creazione ordine:", error);
+        if (payPalContainer) {
+             payPalContainer.innerHTML = `<p style="color:red;">Errore: ${error.message}</p>`;
+        } else {
+             alert(`Errore: ${error.message}`);
+        }
+        // Ripristina i bottoni originali in caso di errore grave
+        button.disabled = false;
+        button.textContent = 'Acquista con PayPal';
+        button.style.display = 'block'; // O 'inline-block' a seconda del tuo CSS
+        if (mpButton) mpButton.style.display = 'block'; // O 'inline-block'
+        if (payPalContainer) setTimeout(() => { payPalContainer.style.display = 'none'; payPalContainer.innerHTML=''; }, 4000); // Nasconde messaggio errore dopo un po'
+    }
 }
 
 async function handleMercadoPagoBuyClick(event) {
@@ -1009,15 +1092,95 @@ async function handleMercadoPagoBuyClick(event) {
      // -----------------------------------------
 }
 
-// Funzione per renderizzare il bottone PayPal SDK (Placeholder)
-// Verrà implementata nella prossima fase
+// Funzione AGGIORNATA per Renderizzare il Bottone PayPal SDK
 function renderPayPalButton(orderID, containerId, lessonId) {
-     console.log(`Placeholder: Dovrei renderizzare il bottone PayPal SDK qui nel container ${containerId} per l'ordine ${orderID}`);
-     const container = document.getElementById(containerId);
-     if(container) {
-         container.innerHTML = `<p><i>Bottone PayPal (ordine ${orderID}) apparirebbe qui...</i></p>`;
-         // Qui andrà il codice paypal.Buttons({...}).render('#'+containerId);
-     }
+    const container = document.getElementById(containerId);
+    if (!container) {
+        console.error(`Container ${containerId} non trovato per il bottone PayPal`);
+        // Potresti voler mostrare un errore all'utente o ripristinare i bottoni originali qui
+        return;
+    }
+    container.innerHTML = ''; // Pulisce il messaggio "Inizializzazione..."
+
+    // Trova i bottoni originali per poterli ripristinare in caso di errore/cancel
+    const originalBuyButton = document.querySelector(`.paypal-buy-button[data-lesson-id="${lessonId}"]`);
+    const originalMpButton = document.querySelector(`.mercadopago-buy-button[data-lesson-id="${lessonId}"]`);
+
+    function restoreOriginalButtons() {
+        if(originalBuyButton) {
+            originalBuyButton.style.display = 'block'; // O 'inline-block'
+            originalBuyButton.disabled = false;
+            originalBuyButton.textContent = 'Acquista con PayPal';
+        }
+        if(originalMpButton) {
+             originalMpButton.style.display = 'block'; // O 'inline-block'
+             // Assicurati che anche il bottone MP non sia disabilitato se necessario
+        }
+         // Nascondi il container del bottone SDK dopo un po'
+         if(container) setTimeout(() => { container.style.display = 'none'; container.innerHTML = '';}, 3000);
+    }
+
+
+    try {
+        // Controlla se l'SDK PayPal è caricato
+        if (typeof paypal === 'undefined' || !paypal.Buttons) {
+            throw new Error("SDK PayPal non caricato correttamente.");
+        }
+
+        // Renderizza i bottoni PayPal
+        paypal.Buttons({
+            // Funzione che viene chiamata quando PayPal ha bisogno dell'ID transazione
+            createOrder: function(data, actions) {
+                console.log("PayPal SDK: createOrder - Using pre-created Order ID:", orderID);
+                // Restituisce l'orderID che abbiamo già creato tramite la nostra Netlify function
+                return orderID;
+            },
+
+            // Funzione chiamata QUANDO l'utente APPROVA il pagamento nel popup PayPal
+            onApprove: function(data, actions) {
+                console.log('PayPal SDK: onApprove - Dati:', data);
+                // Il pagamento è stato approvato nel popup Sandbox.
+                // NON registriamo l'acquisto qui nel frontend. Sarà il WEBHOOK a farlo nel backend.
+                // Qui possiamo solo dare un feedback all'utente e magari aggiornare l'UI.
+
+                container.innerHTML = '<p style="color:green; font-weight:bold;">Pagamento approvato! ✅<br>Accesso al contenuto in corso...</p>';
+
+                // OPZIONALE: Ricarica le lezioni dopo un breve ritardo per mostrare "Guarda Ora".
+                // Attenzione: questo dipende dalla velocità del webhook. Potrebbe non essere immediato.
+                // Una pagina di successo dedicata sarebbe una soluzione migliore.
+                setTimeout(() => {
+                    console.log("Tentativo di ricaricare le lezioni dopo approvazione...");
+                     if (typeof loadVideoLessons === 'function') {
+                        loadVideoLessons(); // Ricarica la lista per vedere se appare "Guarda Ora"
+                    }
+                }, 4000); // Attendi 4 secondi (tempo indicativo)
+
+                // Non è necessario chiamare actions.order.capture() qui se l'intent è CAPTURE
+                // e se il webhook gestirà la logica post-pagamento.
+            },
+
+            // Funzione chiamata se c'è un ERRORE durante il flusso di pagamento PayPal
+            onError: function(err) {
+                console.error('PayPal SDK: onError - Errore:', err);
+                container.innerHTML = `<p style="color:red;">Errore durante il pagamento PayPal. Riprova o contatta l'assistenza.</p>`;
+                restoreOriginalButtons(); // Mostra di nuovo i bottoni "Acquista"
+            },
+
+            // Funzione chiamata se l'utente CHIUDE il popup PayPal senza pagare
+            onCancel: function (data) {
+                console.log('PayPal SDK: onCancel - Pagamento annullato dall\'utente:', data);
+                container.innerHTML = `<p>Pagamento annullato.</p>`;
+                restoreOriginalButtons(); // Mostra di nuovo i bottoni "Acquista"
+            }
+        }).render(`#${containerId}`); // Dice a PayPal di disegnare i bottoni dentro il nostro div specifico
+
+        console.log(`PayPal Buttons rendering initialized for container #${containerId}`);
+
+    } catch (sdkError) {
+        console.error("Errore durante l'inizializzazione o rendering dei bottoni PayPal SDK:", sdkError);
+        container.innerHTML = `<p style="color:red;">Errore nell'inizializzazione del pagamento PayPal.</p>`;
+        restoreOriginalButtons();
+    }
 }
 
 
