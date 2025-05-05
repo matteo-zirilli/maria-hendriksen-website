@@ -1,280 +1,312 @@
-// netlify/functions/paypal-webhook.js - VERSIONE CORRETTA (si spera) con @paypal/checkout-server-sdk (VECCHIO SDK) e LOG AGGIUNTIVI
+// netlify/functions/paypal-webhook.js - VERSIONE CON VERIFICA MANUALE DELLA FIRMA
 
-// MODIFICA: Cambia il nome della variabile importata per chiarezza e usa quello ovunque
-const checkoutNodeJssdk = require('@paypal/checkout-server-sdk'); // VECCHIO SDK
+// Import moduli necessari
 const { createClient } = require('@supabase/supabase-js');
+const crypto = require('crypto'); // Modulo crypto di Node.js (integrato)
+const axios = require('axios');   // Per le richieste HTTP (necessita 'npm install axios')
+const crc = require('crc');       // Per il calcolo del CRC32 (necessita 'npm install crc')
 
-// Helper ambiente PayPal (VECCHIO SDK)
-function environment() {
-    const clientId = process.env.PAYPAL_CLIENT_ID;
-    const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
-    // LOG AGGIUNTO: Verifica presenza credenziali PayPal (senza loggarle!)
-    console.log("[paypal-webhook] PAYPAL_CLIENT_ID presente:", !!clientId);
-    console.log("[paypal-webhook] PAYPAL_CLIENT_SECRET presente:", !!clientSecret);
-    if (!clientId || !clientSecret) {
-        console.error("[paypal-webhook] FATAL: PayPal Client ID e/o Client Secret mancanti nelle variabili d'ambiente Netlify.");
-        // Considera di lanciare un errore qui o gestire diversamente
-        // throw new Error("PayPal credentials missing in environment variables");
-    }
-    // MODIFICA: Usa checkoutNodeJssdk
-    // return new checkoutNodeJssdk.core.LiveEnvironment(clientId, clientSecret); // Produzione
-    return new checkoutNodeJssdk.core.SandboxEnvironment(clientId, clientSecret); // Test
-}
-
-// Helper client PayPal (VECCHIO SDK)
-function client() {
-    // MODIFICA: Usa checkoutNodeJssdk
-    return new checkoutNodeJssdk.core.PayPalHttpClient(environment());
-}
-
-// Client Supabase
+// --- Configurazione Client Supabase ---
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-// LOG AGGIUNTO: Verifica presenza credenziali Supabase (senza loggarle!)
+
+// Log e controllo variabili d'ambiente Supabase all'avvio
+console.log("[paypal-webhook] Initializing...");
 console.log("[paypal-webhook] SUPABASE_URL presente:", !!supabaseUrl);
 console.log("[paypal-webhook] SUPABASE_SERVICE_ROLE_KEY presente:", !!supabaseServiceKey);
 if (!supabaseUrl || !supabaseServiceKey) {
     console.error("[paypal-webhook] FATAL: SUPABASE_URL e/o SUPABASE_SERVICE_ROLE_KEY mancanti nelle variabili d'ambiente Netlify.");
-    // Gestire l'errore criticamente
-    // throw new Error("Supabase credentials missing in environment variables");
+    // In un ambiente reale, potresti voler impedire l'avvio della funzione
 }
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
+console.log("[paypal-webhook] Supabase client initialized.");
+// --- Fine Configurazione Client Supabase ---
 
+
+// --- Funzione Helper per Verifica Firma Manuale ---
+async function verifyPayPalSignature(headers, rawBody, webhookId) {
+    console.log("[verifyPayPalSignature] Inizio verifica manuale...");
+
+    // Estrarre gli header necessari
+    const transmissionId = headers['paypal-transmission-id'];
+    const transmissionTime = headers['paypal-transmission-time'];
+    const transmissionSig = headers['paypal-transmission-sig']; // Firma in Base64
+    const certUrl = headers['paypal-cert-url'];
+    const authAlgo = headers['paypal-auth-algo']; // Es: "SHA256withRSA"
+
+    // Controlli preliminari
+    if (!transmissionId || !transmissionTime || !transmissionSig || !certUrl || !authAlgo || !webhookId || rawBody === undefined || rawBody === null) {
+        console.error("[verifyPayPalSignature] Dati mancanti per la verifica:", { transmissionId: !!transmissionId, transmissionTime: !!transmissionTime, transmissionSig: !!transmissionSig, certUrl: !!certUrl, authAlgo: !!authAlgo, webhookId: !!webhookId, rawBodyProvided: !(rawBody === undefined || rawBody === null) });
+        return false;
+    }
+    // Assicurati che rawBody sia una stringa (Netlify di solito lo passa come stringa)
+    if (typeof rawBody !== 'string') {
+        console.error(`[verifyPayPalSignature] Errore: rawBody non è una stringa (tipo: ${typeof rawBody}). Impossibile calcolare CRC32.`);
+        return false;
+    }
+    console.log("[verifyPayPalSignature] Dati necessari presenti.");
+    console.log("[verifyPayPalSignature] Algoritmo dichiarato:", authAlgo);
+
+    try {
+        // 1. Scaricare il certificato pubblico di PayPal
+        console.log(`[verifyPayPalSignature] Scaricamento certificato da: ${certUrl}`);
+        const response = await axios.get(certUrl, { timeout: 10000 }); // Timeout 10s
+        const certificatePem = response.data;
+        if (response.status !== 200 || !certificatePem) {
+             console.error(`[verifyPayPalSignature] Fallito scaricamento certificato. Status: ${response.status}`);
+             return false;
+        }
+        console.log("[verifyPayPalSignature] Certificato scaricato con successo.");
+
+        // 2. Estrarre la chiave pubblica dal certificato
+        const publicKey = crypto.createPublicKey(certificatePem);
+        console.log("[verifyPayPalSignature] Chiave pubblica estratta dal certificato.");
+
+        // 3. Calcolare il CRC32 del corpo della richiesta raw (come numero)
+        const crc32OfBody = crc.crc32(rawBody); // Calcola il CRC32
+        console.log("[verifyPayPalSignature] CRC32 calcolato:", crc32OfBody);
+
+        // 4. Costruire la stringa da verificare
+        // Formato: transmissionId|transmissionTime|webhookId|crc32(rawRequestBody)
+        const signatureString = `${transmissionId}|${transmissionTime}|${webhookId}|${crc32OfBody}`;
+        // Non loggare la stringa completa per sicurezza/brevità di default
+        console.log("[verifyPayPalSignature] Stringa da verificare costruita.");
+
+        // 5. Mappare l'algoritmo PayPal al nome usato da Node Crypto
+        let nodeAuthAlgo;
+        // Mappa comune, potrebbe servire estenderla se PayPal usa altri algoritmi
+        const algoMap = {
+             'SHA256WITHRSA': 'RSA-SHA256',
+             // Aggiungere altre mappature se necessario
+        };
+        nodeAuthAlgo = algoMap[authAlgo?.toUpperCase()]; // Cerca nel map (case-insensitive)
+
+        if (!nodeAuthAlgo) {
+            console.error(`[verifyPayPalSignature] Algoritmo di autenticazione non supportato o mappatura mancante: ${authAlgo}`);
+            return false;
+        }
+        console.log(`[verifyPayPalSignature] Algoritmo mappato per Node Crypto: ${nodeAuthAlgo}`);
+
+        // 6. Verificare la firma
+        const verifier = crypto.createVerify(nodeAuthAlgo);
+        verifier.update(signatureString); // Passa la stringa costruita
+
+        // Verifica la firma (transmissionSig è in Base64)
+        const isVerified = verifier.verify(publicKey, transmissionSig, 'base64');
+
+        console.log(`[verifyPayPalSignature] Esito verifica crittografica: ${isVerified}`);
+        return isVerified;
+
+    } catch (error) {
+        console.error("[verifyPayPalSignature] Errore durante il processo di verifica manuale:", error);
+        if (error.isAxiosError) {
+            console.error("[verifyPayPalSignature] Errore Axios (richiesta certificato):", error.message, error.response?.status);
+        } else if (error.code) { // Spesso errori crypto hanno un codice
+             console.error("[verifyPayPalSignature] Errore Crypto:", error.message, error.code);
+        } else {
+             console.error("[verifyPayPalSignature] Errore generico in verifica:", error.message, error.stack);
+        }
+        return false; // In caso di qualsiasi errore, la verifica fallisce per sicurezza
+    }
+}
+// --- Fine Funzione Helper ---
+
+
+// --- Handler Principale Netlify Function ---
 exports.handler = async (event, context) => {
-    // LOG AGGIUNTO: Log iniziale più dettagliato
+    const invocationId = context.awsRequestId || `local-${Date.now()}`; // ID per tracciare l'invocazione
     console.log("------------------------------------------------------");
-    console.log(`[paypal-webhook] Invocazione ricevuta (OLD SDK version) - ID: ${context.awsRequestId}`); // Aggiunto ID richiesta Netlify
+    console.log(`[paypal-webhook] Invocazione ricevuta (VERIFICA MANUALE) - ID: ${invocationId}`);
     console.log("[paypal-webhook] Metodo HTTP:", event.httpMethod);
     console.log("[paypal-webhook] Path:", event.path);
 
+    // 0. Controllo Metodo HTTP
     if (event.httpMethod !== 'POST') {
-        console.warn("[paypal-webhook] Metodo non consentito:", event.httpMethod);
+        console.warn(`[${invocationId}] Metodo non consentito: ${event.httpMethod}`);
         return { statusCode: 405, body: 'Method Not Allowed' };
     }
 
-    // 1. Verifica Firma con VECCHIO SDK
+    // 1. Estrazione Dati per Verifica
     const headers = event.headers;
-    const webhookId = process.env.PAYPAL_WEBHOOK_ID;
+    const webhookId = process.env.PAYPAL_WEBHOOK_ID; // Da variabili d'ambiente Netlify
+    const rawBody = event.body; // Body grezzo (stringa JSON)
 
-    // LOG AGGIUNTO: Log header rilevanti e Webhook ID
-    console.log("[paypal-webhook] PAYPAL_WEBHOOK_ID:", webhookId ? 'Presente' : 'MANCANTE!');
-    console.log("[paypal-webhook] Headers ricevuti per verifica:", JSON.stringify({
-        'paypal-transmission-id': headers['paypal-transmission-id'],
-        'paypal-transmission-time': headers['paypal-transmission-time'],
-        'paypal-transmission-sig': headers['paypal-transmission-sig'] ? 'Presente' : 'MANCANTE!', // Non loggare la firma completa
-        'paypal-auth-algo': headers['paypal-auth-algo'],
-        'paypal-cert-url': headers['paypal-cert-url'],
-        'content-type': headers['content-type']
-    }));
+    // Log e controlli preliminari
+    console.log(`[${invocationId}] PAYPAL_WEBHOOK_ID presente:`, !!webhookId);
+    console.log(`[${invocationId}] Headers ricevuti (chiavi):`, Object.keys(headers).join(', '));
+    // Non loggare l'intera firma Base64 per sicurezza
+    console.log(`[${invocationId}] Header paypal-transmission-sig presente:`, !!headers['paypal-transmission-sig']);
 
-    // LOG AGGIUNTO: Controlli espliciti su ID e header necessari
     if (!webhookId) {
-        console.error("[paypal-webhook] Errore: PAYPAL_WEBHOOK_ID non configurato nelle variabili d'ambiente.");
+        console.error(`[${invocationId}] Errore: PAYPAL_WEBHOOK_ID non configurato.`);
         return { statusCode: 500, body: 'Server configuration error: Missing webhook ID' };
     }
     if (!headers['paypal-transmission-id'] || !headers['paypal-transmission-time'] || !headers['paypal-transmission-sig'] || !headers['paypal-auth-algo'] || !headers['paypal-cert-url']) {
-        console.error("[paypal-webhook] Errore: Header PayPal mancanti per la verifica della firma.");
+        console.error(`[${invocationId}] Errore: Header PayPal essenziali per la verifica mancanti.`);
         return { statusCode: 400, body: 'Bad Request: Missing PayPal headers' };
     }
+    if (rawBody === undefined || rawBody === null || typeof rawBody !== 'string') {
+         console.error(`[${invocationId}] Errore: Body della richiesta mancante o non è una stringa.`);
+         return { statusCode: 400, body: 'Bad Request: Missing or invalid body' };
+    }
+    console.log(`[${invocationId}] Raw body ricevuto (lunghezza): ${rawBody.length}`);
 
-    // LOG AGGIUNTO: Log del body *prima* del parsing per la verifica
-    console.log("[paypal-webhook] Raw body ricevuto (lunghezza):", event.body?.length || 0);
-    console.log("[paypal-webhook] Tipo del body:", typeof event.body);
-
-    // MODIFICA CRUCIALE: Usa checkoutNodeJssdk per accedere a webhooks.WebhooksVerifySignatureRequest
-    let request;
+    // 2. Esecuzione Verifica Firma Manuale
+    let isVerified = false;
     try {
-        // Istanzia la richiesta usando il nome corretto dell'import
-        request = new checkoutNodeJssdk.webhooks.WebhooksVerifySignatureRequest();
-        console.log("[paypal-webhook] Oggetto WebhooksVerifySignatureRequest istanziato correttamente.");
-    } catch (instantiationError) {
-        // Questo catch è un'ulteriore misura di sicurezza
-        console.error("[paypal-webhook] ERRORE CRITICO: Impossibile istanziare WebhooksVerifySignatureRequest. SDK non caricato/strutturato come atteso?", instantiationError);
-        // Logga l'oggetto importato per vedere cosa contiene effettivamente
-        console.error("[paypal-webhook] Struttura di checkoutNodeJssdk:", Object.keys(checkoutNodeJssdk).join(', '));
-        return { statusCode: 500, body: 'Internal Server Error: SDK setup issue' };
+        console.log(`[${invocationId}] Avvio chiamata a verifyPayPalSignature...`);
+        isVerified = await verifyPayPalSignature(headers, rawBody, webhookId);
+    } catch (verificationError) {
+        console.error(`[${invocationId}] Errore imprevisto durante la chiamata a verifyPayPalSignature:`, verificationError);
+        isVerified = false; // Assicurati che sia false
     }
 
-    let parsedRequestBody; // Variabile per memorizzare il corpo parsato
-
-    try {
-        if (typeof event.body !== 'string' || event.body.trim() === '') {
-             throw new Error('Request body is not a non-empty string');
-        }
-        parsedRequestBody = JSON.parse(event.body); // Parsa qui una volta
-        // L'SDK VECCHIO per la verifica si aspetta l'OGGETTO JS parsato, NON la stringa JSON
-        request.requestBody(parsedRequestBody);
-        console.log("[paypal-webhook] Body parsato con successo per la verifica.");
-
-        // Imposta gli altri parametri della richiesta di verifica
-        request.webhookId(webhookId);
-        request.transmissionId(headers['paypal-transmission-id']);
-        request.transmissionTime(headers['paypal-transmission-time']);
-        request.transmissionSig(headers['paypal-transmission-sig']);
-        request.authAlgo(headers['paypal-auth-algo']);
-        request.certUrl(headers['paypal-cert-url']);
-        console.log("[paypal-webhook] Parametri richiesta verifica impostati.");
-
-    } catch (e) {
-        console.error("[paypal-webhook] Errore nel parsing del JSON body o body non valido:", e.message);
-        console.error("[paypal-webhook] Body ricevuto che ha causato l'errore (primi 500 caratteri):", event.body?.substring(0, 500));
-        return { statusCode: 400, body: 'Bad Request: Invalid or empty body' };
+    // 3. Controllo Esito Verifica
+    if (!isVerified) {
+        console.warn(`[${invocationId}] === VERIFICA FIRMA MANUALE FALLITA ===`);
+        // Rispondere 401 Unauthorized a PayPal
+        return { statusCode: 401, body: 'Webhook signature verification failed.' };
     }
 
+    console.log(`[${invocationId}] === VERIFICA FIRMA MANUALE RIUSCITA ===`);
+
+    // 4. Parsing del Body (solo dopo verifica OK)
+    let webhookEvent;
     try {
-        console.log("[paypal-webhook] Tentativo di verifica firma con SDK PayPal VECCHIO...");
-        // Assicurati che client() restituisca un'istanza valida di PayPalHttpClient
-        const paypalClient = client();
-        if (!paypalClient || typeof paypalClient.execute !== 'function') {
-             console.error("[paypal-webhook] Errore: client PayPal non inizializzato correttamente.");
-             return { statusCode: 500, body: 'Internal Server Error: PayPal client setup issue' };
-        }
-        const verification = await paypalClient.execute(request); // Usa client VECCHIO SDK
+        webhookEvent = JSON.parse(rawBody);
+        console.log(`[${invocationId}] Evento verificato parsato. Tipo: ${webhookEvent?.event_type}, ID: ${webhookEvent?.id}`);
+    } catch (parseError) {
+        console.error(`[${invocationId}] Errore parsing JSON dopo verifica:`, parseError);
+        console.error(`[${invocationId}] Body (inizio):`, rawBody.substring(0, 500));
+        // Se il JSON non è valido, non possiamo processarlo
+        return { statusCode: 400, body: 'Bad Request: Invalid JSON body after verification.' };
+    }
 
-        // LOG AGGIUNTO: Log del risultato della verifica
-        console.log("[paypal-webhook] Risultato grezzo della verifica:", JSON.stringify(verification, null, 2));
+    // 5. Processamento dell'Evento Verificato
+    try {
+        const eventType = webhookEvent.event_type;
+        const resource = webhookEvent.resource; // Oggetto risorsa (es. ordine)
 
-        if (verification.result?.verification_status !== 'SUCCESS') { // Aggiunto optional chaining (?) per sicurezza
-            console.warn('[paypal-webhook] VERIFICA FIRMA FALLITA (old SDK). Status:', verification.result?.verification_status);
-            // Potrebbe essere utile loggare anche gli header inviati per confronto manuale
-            return { statusCode: 401, body: 'Verification failed.' };
-        }
-        console.log("[paypal-webhook] === VERIFICA FIRMA RIUSCITA (old SDK) ===");
+        console.log(`[${invocationId}] Processando evento: ${eventType}`);
 
-        // 2. Processa Evento Verificato
-        // Usa l'oggetto già parsato 'parsedRequestBody' invece di ri-parsare event.body
-        const webhookEvent = parsedRequestBody;
-        // LOG AGGIUNTO: Log dell'evento completo dopo la verifica
-        // console.log("[paypal-webhook] Evento verificato ricevuto:", JSON.stringify(webhookEvent, null, 2)); // Log molto verboso, commentare se non necessario
-        console.log(`[paypal-webhook] Tipo Evento: ${webhookEvent.event_type}`);
-        console.log(`[paypal-webhook] ID Evento: ${webhookEvent.id}`);
-        console.log(`[paypal-webhook] ID Risorsa (Ordine): ${webhookEvent.resource?.id}`);
+        if (eventType === 'CHECKOUT.ORDER.APPROVED') {
+            const orderId = resource?.id;
+            const status = resource?.status;
+            const purchaseUnit = resource?.purchase_units?.[0]; // Prima (e spesso unica) unità d'acquisto
+            const amount = purchaseUnit?.amount?.value;
+            const currency = purchaseUnit?.amount?.currency_code;
+            const payerEmail = resource?.payer?.email_address;
+            const customData = purchaseUnit?.custom_id; // Es: "lessonId;userId"
 
+            console.log(`[${invocationId}] Dati evento: orderId=${orderId}, status=${status}, customData='${customData}'`);
 
-        if (webhookEvent.event_type === 'CHECKOUT.ORDER.APPROVED') {
-             console.log("[paypal-webhook] Processando evento CHECKOUT.ORDER.APPROVED...");
+            let lessonId = null;
+            let userId = null;
+            if (customData && typeof customData === 'string') {
+                const parts = customData.split(';');
+                lessonId = parts[0]; // Prima parte è lessonId
+                if (parts.length === 2 && parts[1]) { // Se c'è una seconda parte non vuota
+                    userId = parts[1];
+                }
+                console.log(`[${invocationId}] Parsed custom_id: lessonId='${lessonId}', userId='${userId || 'N/A'}'`);
+            } else {
+                console.warn(`[${invocationId}] custom_id mancante o non è stringa.`);
+            }
 
-             // LOG AGGIUNTO: Estrazione dati con log più specifici
-             const orderId = webhookEvent.resource?.id;
-             const status = webhookEvent.resource?.status;
-             const amount = webhookEvent.resource?.purchase_units?.[0]?.amount?.value;
-             const currency = webhookEvent.resource?.purchase_units?.[0]?.amount?.currency_code;
-             const payerEmail = webhookEvent.resource?.payer?.email_address;
-             const customData = webhookEvent.resource?.purchase_units?.[0]?.custom_id;
+            // Verifica dati essenziali per questo evento
+            if (orderId && status === 'APPROVED' && lessonId) {
+                console.log(`[${invocationId}] Dati sufficienti. Controllo duplicati per orderId: ${orderId}`);
 
-             console.log(`[webhook] Dati estratti: orderId=${orderId}, status=${status}, amount=${amount}, currency=${currency}, payerEmail=${payerEmail}, customData='${customData}'`);
+                // Controllo Idempotenza (evita doppi inserimenti se PayPal invia più volte)
+                let existingPurchase = null;
+                let checkError = null;
+                try {
+                    const { data: existing, error: checkErr } = await supabase
+                        .from('purchases')
+                        .select('id')
+                        .eq('payment_provider', 'paypal')
+                        .eq('payment_id', orderId)
+                        .maybeSingle();
+                    existingPurchase = existing;
+                    checkError = checkErr;
+                } catch (e) {
+                    console.error(`[${invocationId}] Eccezione controllo duplicati Supabase:`, e);
+                    checkError = e;
+                }
 
-             let lessonId = null;
-             let userId = null;
-             if (customData && typeof customData === 'string') {
-                 const parts = customData.split(';');
-                 lessonId = parts[0]; // Prendi sempre la prima parte come lessonId
-                 if (parts.length === 2 && parts[1]) { // Se c'è una seconda parte non vuota, è userId
-                     userId = parts[1];
-                     console.log(`[webhook] custom_id parsato: lessonId='${lessonId}', userId='${userId}'`);
-                 } else if (parts.length === 1 && parts[0]) { // Modificato per controllare che parts[0] non sia vuota
-                     console.log(`[webhook] custom_id parsato: lessonId='${lessonId}', userId mancante (formato solo lessonId)`);
-                 } else { // Casi: vuoto, solo ';', 'id;', ';id', 'id;id;altro', ecc.
-                     console.warn("[webhook] Formato custom_id non riconosciuto o parzialmente vuoto (atteso 'lessonId;userId' o 'lessonId'):", customData);
-                     if(!lessonId) console.warn("[webhook] Impossibile estrarre lessonId valido da custom_id.");
-                 }
-             } else {
-                 console.warn("[webhook] custom_id mancante o non è una stringa.");
-             }
+                if (checkError) {
+                    console.error(`[${invocationId}] Errore Supabase controllo duplicati:`, JSON.stringify(checkError));
+                    // Considera se restituire 500 o 200 con errore
+                    return { statusCode: 500, body: JSON.stringify({ received: true, error: 'DB check failed' }) };
+                }
 
-             // Verifica dati necessari per l'inserimento
-             // È essenziale avere orderId e lessonId. userId è opzionale.
-             if (orderId && status === 'APPROVED' && lessonId) {
-                  console.log(`[webhook] Dati validi per l'inserimento (UserID: ${userId || 'Non fornito'}). Controllo duplicati per orderId: ${orderId}`);
+                if (existingPurchase) {
+                    console.log(`[${invocationId}] Ordine ${orderId} GIA' PRESENTE (ID: ${existingPurchase.id}). Evento duplicato ignorato.`);
+                    return { statusCode: 200, body: JSON.stringify({ received: true, message: 'Duplicate event ignored' }) };
+                }
 
-                  let existingPurchase = null;
-                  let checkError = null;
-                  try {
-                      console.log(`[webhook] Eseguendo query: supabase.from('purchases').select('id').eq('payment_provider', 'paypal').eq('payment_id', '${orderId}').maybeSingle()`);
-                      const { data: existing, error: checkErr } = await supabase
-                          .from('purchases')
-                          .select('id')
-                          .eq('payment_provider', 'paypal')
-                          .eq('payment_id', orderId)
-                          .maybeSingle();
+                // Inserimento nel Database
+                console.log(`[${invocationId}] Ordine ${orderId} non presente. Inserimento in 'purchases'...`);
+                const purchaseRecord = {
+                    user_id: userId || null, // Permetti NULL se userId non c'è
+                    lesson_id: lessonId,
+                    payment_provider: 'paypal',
+                    payment_id: orderId,
+                    status: 'completed', // Mappa 'APPROVED' a 'completed' (o 'pending' se fai capture separato)
+                    amount: amount ? parseFloat(amount) : null,
+                    currency: currency || null,
+                    payer_email: payerEmail || null,
+                    raw_payload: webhookEvent // Salva il payload per debug
+                };
+                console.log(`[${invocationId}] Record da inserire:`, JSON.stringify(purchaseRecord));
 
-                      existingPurchase = existing;
-                      checkError = checkErr;
-                  } catch (e) {
-                      console.error("[webhook] Eccezione durante il controllo duplicati Supabase:", e);
-                      checkError = e; // Tratta l'eccezione come un errore di controllo
-                  }
+                try {
+                    const { data: newPurchase, error: insertError } = await supabase
+                        .from('purchases')
+                        .insert([purchaseRecord])
+                        .select();
 
-                  if (checkError) {
-                      console.error("[webhook] Errore Supabase durante il controllo duplicati:", JSON.stringify(checkError, null, 2));
-                       return { statusCode: 500, body: JSON.stringify({ received: true, error: 'DB check failed' }) };
-                  }
+                    if (insertError) {
+                        console.error(`[${invocationId}] Errore Supabase durante l'inserimento:`, JSON.stringify(insertError));
+                        console.error(`[${invocationId}] Dettaglio Errore Supabase: message='${insertError.message}', details='${insertError.details}', hint='${insertError.hint}', code='${insertError.code}'`);
+                        // Rispondi 200 a PayPal per evitare retries, ma logga l'errore DB
+                        return { statusCode: 200, body: JSON.stringify({ received: true, error: 'DB save failed', details: insertError.message }) };
+                    }
 
-                  if (existingPurchase) {
-                      console.log(`[webhook] Ordine ${orderId} GIA' PRESENTE nel database (ID: ${existingPurchase.id}). Salto inserimento.`);
-                      return { statusCode: 200, body: JSON.stringify({ received: true, message: 'Duplicate event ignored' }) };
-                  }
+                    console.log(`[${invocationId}] === INSERIMENTO SU SUPABASE RIUSCITO ===`);
+                    console.log(`[${invocationId}] Record inserito:`, JSON.stringify(newPurchase));
 
-                  console.log(`[webhook] Ordine ${orderId} non trovato. Procedo con l'inserimento nella tabella 'purchases'.`);
-                  const purchaseRecord = {
-                      user_id: userId || null, // Inserisci null se userId non è stato trovato/fornito
-                      lesson_id: lessonId,
-                      payment_provider: 'paypal',
-                      payment_id: orderId,
-                      status: 'completed', // Potresti voler mappare 'APPROVED' a 'pending' e usare un altro evento (es. CAPTURE) per 'completed'
-                      amount: amount ? parseFloat(amount) : null,
-                      currency: currency || null,
-                      payer_email: payerEmail || null,
-                      raw_payload: webhookEvent // Salva l'intero payload per analisi future
-                  };
-                  console.log('[webhook] Record da inserire:', JSON.stringify(purchaseRecord, null, 2)); // Logga l'oggetto completo
+                } catch (e) { // Eccezione generica durante insert
+                    console.error(`[${invocationId}] Eccezione durante l'inserimento Supabase:`, e);
+                    return { statusCode: 500, body: JSON.stringify({ received: true, error: 'DB insert exception', details: e.message }) };
+                }
 
-                  try {
-                       console.log(`[webhook] Eseguendo query: supabase.from('purchases').insert([{...}]).select()`);
-                       const { data: newPurchase, error: insertError } = await supabase
-                           .from('purchases')
-                           .insert([purchaseRecord])
-                           .select();
+            } else { // Dati incompleti (orderId, status o lessonId mancanti)
+                console.warn(`[${invocationId}] Dati evento incompleti o status non 'APPROVED'. Impossibile registrare acquisto.`);
+                console.warn(`[${invocationId}] Dati ricevuti: orderId=${orderId}, status=${status}, lessonId=${lessonId}`);
+                // Rispondere 200 OK comunque, perché l'evento è stato ricevuto e capito, ma non processabile.
+                return { statusCode: 200, body: JSON.stringify({ received: true, message: 'Event received but data incomplete or status invalid.' }) };
+            }
 
-                       if (insertError) {
-                           console.error('[webhook] Errore Supabase durante l\'inserimento:', JSON.stringify(insertError, null, 2));
-                           // Dettaglio errore per il log
-                           console.error(`[webhook] Dettaglio Errore Supabase: message='${insertError.message}', details='${insertError.details}', hint='${insertError.hint}', code='${insertError.code}'`);
-                           return { statusCode: 200, body: JSON.stringify({ received: true, error: 'DB save failed', details: insertError.message }) };
-                       }
-
-                       console.log('[webhook] === INSERIMENTO SU SUPABASE RIUSCITO ===');
-                       console.log('[webhook] Record inserito:', JSON.stringify(newPurchase, null, 2));
-
-                  } catch(e) {
-                       console.error("[webhook] Eccezione durante l'inserimento Supabase:", e);
-                       return { statusCode: 500, body: JSON.stringify({ received: true, error: 'DB insert exception', details: e.message }) };
-                  }
-
-             } else {
-                 console.warn("[webhook] Dati incompleti o status non 'APPROVED' per processare l'evento. Dati mancanti o non validi:", JSON.stringify({ orderId, status, lessonId, userId }));
-             }
-
-        } else {
-             console.log(`[webhook] Tipo evento ${webhookEvent.event_type} (${webhookEvent.id}) ricevuto ma ignorato.`);
+        } else { // EventType non gestito
+            console.log(`[${invocationId}] Tipo evento ${eventType} (${webhookEvent.id}) ricevuto ma non gestito da questo codice.`);
+            // Rispondere 200 OK per confermare ricezione a PayPal
+             return { statusCode: 200, body: JSON.stringify({ received: true, message: 'Event type ignored.' }) };
         }
 
-        console.log("[paypal-webhook] Processamento completato con successo (o evento ignorato). Invio risposta 200 a PayPal.");
+        // Se siamo arrivati qui, il processamento è andato a buon fine (o l'evento è stato ignorato correttamente)
+        console.log(`[${invocationId}] Processamento completato con successo. Invio risposta 200 a PayPal.`);
         return { statusCode: 200, body: JSON.stringify({ received: true, message: 'Webhook processed successfully or ignored' }) };
 
-    } catch (err) { // Cattura errori dalla verifica o dal processamento generale
-        console.error('[paypal-webhook] ERRORE FATALE durante il processamento del webhook:', err);
-        console.error('[paypal-webhook] Dettagli Errore:', err.message, err.stack);
-        // Se l'errore ha una risposta (es. errore HTTP dall'SDK)
-        if (err.response) {
-             console.error('[paypal-webhook] Dati Risposta Errore SDK:', JSON.stringify(err.response, null, 2));
-        }
-        // Se l'errore ha uno status code (come gli errori di verifica dell'SDK vecchio)
-        const errorStatusCode = err.statusCode || 500; // Usa statusCode dell'errore se esiste, altrimenti 500
-        console.log(`[paypal-webhook] Invio risposta ${errorStatusCode} a PayPal a causa dell'errore.`);
-        return { statusCode: errorStatusCode, body: JSON.stringify({ error: 'Webhook processing error', details: err.message || 'Unknown error' }) };
+    } catch (processingError) {
+        // Errore durante il processamento DOPO la verifica (es. errore logica Supabase, parsing custom_id)
+        console.error(`[${invocationId}] ERRORE durante il processamento dell'evento DOPO la verifica:`, processingError);
+        console.error(`[${invocationId}] Dettagli Errore:`, processingError.message, processingError.stack);
+        // È preferibile rispondere 500 per segnalare un problema interno
+        return { statusCode: 500, body: JSON.stringify({ error: 'Event processing failed after verification', details: processingError.message }) };
     } finally {
-        console.log(`[paypal-webhook] Esecuzione terminata per invocazione ${context.awsRequestId}.`);
+        console.log(`[${invocationId}] Esecuzione terminata.`);
         console.log("------------------------------------------------------");
     }
 };
+// --- Fine Handler Principale ---
