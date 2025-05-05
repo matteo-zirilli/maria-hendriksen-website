@@ -56,7 +56,8 @@ exports.handler = async (event, context) => {
             purchase_units: [{
                 amount: { currency_code: 'EUR', value: price },
                 description: lessonName,
-                custom_id: `<span class="math-inline">\{lessonId\}</span>{userId ? ';' + userId : ''}`,
+                // QUESTA È LA RIGA CORRETTA DA USARE:
+				custom_id: `${lessonId}${userId ? ';' + userId : ''}`,
             }]
         });
 
