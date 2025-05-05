@@ -39,6 +39,14 @@ exports.handler = async (event, context) => {
         if (lesson.price_eur == null || isNaN(parseFloat(lesson.price_eur)) || parseFloat(lesson.price_eur) <= 0) { /* ... gestione prezzo non valido ... */ }
         const price = parseFloat(lesson.price_eur).toFixed(2);
         const lessonName = lesson.name || `Lezione ${lessonId}`;
+		
+		// --- AGGIUNGI QUESTI LOG PER DEBUG ---
+		console.log(`[create-paypal-order] Verifying data before building request body:`);
+		console.log(`  - lessonId: '${lessonId}' (Tipo: ${typeof lessonId})`);
+		console.log(`  - userId: '${userId}' (Tipo: ${typeof userId})`);
+		const final_custom_id = `<span class="math-inline">\{lessonId\}</span>{userId ? ';' + userId : ''}`;
+		console.log(`  - Generated custom_id: '${final_custom_id}'`);
+// --- FINE LOG AGGIUNTI ---
 
         // Crea richiesta ordine con VECCHIO SDK
         const request = new paypal.orders.OrdersCreateRequest();
