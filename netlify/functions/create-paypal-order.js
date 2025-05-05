@@ -1,157 +1,120 @@
-// netlify/functions/create-paypal-order.js - VERSIONE CON @paypal/paypal-server-sdk
+// netlify/functions/create-paypal-order.js - Attempt to fix SDK import issue
 
-// Importa le librerie necessarie
-const paypal = require('@paypal/paypal-server-sdk'); // NUOVO SDK
 const { createClient } = require('@supabase/supabase-js');
 
-// Helper per creare l'ambiente PayPal (Sandbox o Live) - Leggermente diverso
-function environment() {
-    const clientId = process.env.PAYPAL_CLIENT_ID;
-    const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
-
-    if (!clientId || !clientSecret) {
-        console.error("FATAL: PayPal Client ID or Secret not found in environment variables.");
-        // In un caso reale, potresti voler lanciare un errore o gestire diversamente
-    }
-
-    // Usa process.env.CONTEXT === 'production' per distinguere se sei in produzione su Netlify
-    // return new paypal.core.LiveEnvironment(clientId, clientSecret); // Per produzione
-    return new paypal.core.SandboxEnvironment(clientId, clientSecret); // Per sviluppo e test
-}
-
-// Helper per creare il client PayPal - Uguale a prima
-function client() {
-    return new paypal.core.PayPalHttpClient(environment());
-}
-
-// Inizializza il client Supabase (uguale a prima)
+// Initialize Supabase client (outside handler is fine)
 const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
 exports.handler = async (event, context) => {
-    // 1. Verifica Metodo HTTP (uguale a prima)
+    // 1. Verify POST method
     if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, body: JSON.stringify({ error: 'Metodo non permesso' }), headers: { 'Content-Type': 'application/json' } };
+         return { statusCode: 405, body: JSON.stringify({ error: 'Metodo non permesso' }), headers: { 'Content-Type': 'application/json' } };
     }
 
-    // 2. Verifica Autenticazione Utente (uguale a prima - CON AVVERTENZA)
+    // --- Initialize PayPal SDK INSIDE the handler ---
+    let paypal;
+    let paypalClient;
+    try {
+        paypal = require('@paypal/paypal-server-sdk'); // Try requiring inside
+        const clientId = process.env.PAYPAL_CLIENT_ID;
+        const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
+        if (!clientId || !clientSecret) throw new Error("PayPal credentials missing in env");
+
+        // Select environment based on Netlify context or default to Sandbox
+        const environment = process.env.CONTEXT === 'production'
+            ? new paypal.core.LiveEnvironment(clientId, clientSecret) // Usa paypal.core
+            : new paypal.core.SandboxEnvironment(clientId, clientSecret); // Usa paypal.core
+
+        paypalClient = new paypal.core.PayPalHttpClient(environment); // Usa paypal.core.PayPalHttpClient
+        console.log("PayPal Client initialized inside handler.");
+
+    } catch (sdkError) {
+         console.error("FATAL: Failed to initialize PayPal SDK:", sdkError);
+         // Mostra un messaggio di errore più dettagliato se possibile
+         const errorMessage = sdkError.message || 'PayPal SDK initialization failed.';
+         return { statusCode: 500, body: JSON.stringify({ error: `PayPal SDK initialization failed: ${errorMessage}` }), headers: { 'Content-Type': 'application/json' } };
+    }
+    // --- End PayPal SDK Initialization ---
+
+
+    // 2. Verify User Auth (same logic as before)
     const user = context.clientContext?.user;
-     let userId = null;
-     if (!user) {
-          console.warn("User context non trovato. Autenticazione non verificata nel backend.");
-          // QUI DOVREMMO RESTITUIRE 401 IN PRODUZIONE!
-          // return { statusCode: 401, body: JSON.stringify({ error: 'Autenticazione richiesta' }), headers: { 'Content-Type': 'application/json' } };
-     } else {
-         userId = user.sub; // 'sub' è solitamente l'ID utente nel token JWT
-         console.log("Richiesta dall'utente ID (dal context):", userId);
-     }
-     // Se userId è ancora null, l'ordine non includerà l'ID utente (problema per webhook)
+    let userId = user?.sub;
+    if (!userId) { console.warn("User context not found."); /* Handle missing user */ }
+    else { console.log("Request from User ID:", userId); }
 
-
-    // 3. Estrai l'ID della lezione (uguale a prima)
+    // 3. Extract lessonId (same logic as before)
     let lessonId;
     try {
-        const body = JSON.parse(event.body);
-        lessonId = body.lessonId;
-        if (!lessonId) throw new Error('lessonId mancante');
+         const body = JSON.parse(event.body);
+         lessonId = body.lessonId;
+         if (!lessonId) throw new Error('lessonId mancante');
     } catch (error) {
-        console.error("Errore parsing body:", error);
-        return { statusCode: 400, body: JSON.stringify({ error: 'Richiesta malformata o lessonId mancante' }), headers: { 'Content-Type': 'application/json' } };
+         console.error("Errore parsing body:", error);
+         return { statusCode: 400, body: JSON.stringify({ error: 'Richiesta malformata' }), headers: { 'Content-Type': 'application/json' } };
     }
 
-    console.log(`Richiesta creazione ordine PayPal (nuovo SDK) per lezione ID: ${lessonId}`);
+    console.log(`Requesting PayPal order (new SDK - handler init) for lessonId: ${lessonId}`);
 
     try {
-        // 4. Recupera i dettagli lezione da Supabase (uguale a prima)
-        const { data: lesson, error: lessonError } = await supabase
-            .from('video_lessons')
-            .select('name, price_eur')
-            .eq('id', lessonId)
-            .single();
-
-        if (lessonError || !lesson) { /* ... gestione errore Supabase uguale a prima ... */
-             console.error(`Errore recupero lezione ${lessonId}:`, lessonError);
-             const statusCode = lessonError?.code === 'PGRST116' ? 404 : 500;
-             const errorMessage = statusCode === 404 ? 'Lezione non trovata' : 'Errore recupero dettagli lezione';
-             return { statusCode, body: JSON.stringify({ error: errorMessage }), headers: { 'Content-Type': 'application/json' } };
-         }
-         if (lesson.price_eur == null || isNaN(parseFloat(lesson.price_eur)) || parseFloat(lesson.price_eur) <= 0) {
+        // 4. Get lesson details from Supabase (same logic as before)
+        const { data: lesson, error: lessonError } = await supabase.from('video_lessons').select('name, price_eur').eq('id', lessonId).single();
+        if (lessonError || !lesson) {
+            console.error(`Errore recupero lezione ${lessonId}:`, lessonError);
+            const statusCode = lessonError?.code === 'PGRST116' ? 404 : 500;
+            return { statusCode, body: JSON.stringify({ error: 'Lezione non trovata o errore DB' }), headers: { 'Content-Type': 'application/json' } };
+        }
+        if (lesson.price_eur == null || isNaN(parseFloat(lesson.price_eur)) || parseFloat(lesson.price_eur) <= 0) {
              console.error(`Prezzo non valido per lezione ${lessonId}:`, lesson.price_eur);
              return { statusCode: 400, body: JSON.stringify({ error: 'Prezzo lezione non valido.' }), headers: { 'Content-Type': 'application/json' } };
-         }
-
+        }
         const price = parseFloat(lesson.price_eur).toFixed(2);
         const lessonName = lesson.name || `Lezione ${lessonId}`;
-        console.log(`Dettagli lezione: Nome='${lessonName}', Prezzo=${price} EUR`);
+        console.log(`Lesson details: Name='<span class="math-inline">\{lessonName\}', Price\=</span>{price} EUR`);
 
-        // 5. Crea la richiesta ordine con il NUOVO SDK
-        // Il nuovo SDK usa un approccio più diretto basato sulla API REST
+
+        // 5. Create PayPal order request payload (same logic as before)
         const requestPayload = {
             intent: 'CAPTURE',
             purchase_units: [{
-                amount: {
-                    currency_code: 'EUR',
-                    value: price
-                },
+                amount: { currency_code: 'EUR', value: price },
                 description: lessonName,
-                // Combiniamo lessonId e userId qui, se userId è disponibile
-                custom_id: `${lessonId}${userId ? ';' + userId : ''}`,
+                custom_id: `<span class="math-inline">\{lessonId\}</span>{userId ? ';' + userId : ''}`, // Include lessonId;userId
             }]
         };
+        const request = { verb: 'POST', path: '/v2/checkout/orders', body: requestPayload, headers: { 'Content-Type': 'application/json' } };
 
-        // Crea l'oggetto richiesta per l'endpoint v2/checkout/orders
-        const request = {
-             verb: 'POST',
-             path: '/v2/checkout/orders',
-             body: requestPayload,
-             headers: {
-                 'Content-Type': 'application/json',
-                 // 'PayPal-Request-Id': 'OPTIONAL_UNIQUE_ID' // Opzionale per idempotenza
-                 // Potrebbe essere necessario aggiungere 'Prefer': 'return=representation' se non è default
-             }
-         };
 
-        // 6. Esegui la richiesta usando il client del nuovo SDK
-        console.log("Invio richiesta creazione ordine a PayPal (nuovo SDK)...");
-        const response = await client().execute(request); // Usa execute generico
-        console.log("Risposta da PayPal (nuovo SDK): Status=", response.statusCode);
-        // console.log("Risposta completa PayPal:", JSON.stringify(response.result, null, 2)); // Log dettagliato opzionale
+        // 6. Execute request using the client initialized INSIDE the handler
+        console.log("Executing PayPal order creation request (new SDK)...");
+        const response = await paypalClient.execute(request); // Use paypalClient directly
+        console.log("PayPal response (new SDK): Status=", response.statusCode);
 
-        // 7. Estrai l'ID ordine dalla risposta (la struttura è simile)
+
+        // 7. Extract orderId (same logic as before)
         const orderId = response.result?.id;
-        const orderStatus = response.result?.status;
-
         if (!orderId || response.statusCode < 200 || response.statusCode >= 300) {
-             console.error("Errore nella risposta da PayPal:", response.statusCode, response.result);
-             throw new Error(`Creazione ordine PayPal fallita con stato ${response.statusCode}`);
+            console.error("Errore nella risposta da PayPal:", response.statusCode, response.result);
+            throw new Error(`Creazione ordine PayPal fallita (${response.statusCode})`);
         }
-        console.log(`Ordine PayPal creato (nuovo SDK): ID=${orderId}, Status=${orderStatus}`);
+        console.log(`PayPal order created (new SDK): ID=<span class="math-inline">\{orderId\}, Status\=</span>{response.result?.status}`);
 
 
-        // 8. Restituisci l'ID ordine al frontend (uguale a prima)
-        return {
-            statusCode: 200, // Risposta OK al frontend
-            body: JSON.stringify({ orderId: orderId }),
-            headers: { 'Content-Type': 'application/json' }
-        };
+        // 8. Return orderId (same logic as before)
+        return { statusCode: 200, body: JSON.stringify({ orderId: orderId }), headers: { 'Content-Type': 'application/json' } };
 
     } catch (err) {
-        console.error("Errore durante creazione ordine PayPal o interazione Supabase (nuovo SDK):", err);
-        let errorMessage = 'Errore interno del server.';
+        console.error("ERROR during order creation or Supabase interaction (new SDK):", err);
+        let errorMessage = err.message || 'Errore interno del server.';
         let errorStatusCode = 500;
-        if (err.statusCode) { // Errore specifico da PayPal SDK
-             console.error("Errore PayPal SDK:", err.statusCode, err.message, err.result);
-             errorMessage = `Errore PayPal (${err.statusCode}). Riprova.`;
+        if (err.statusCode) { // PayPal SDK specific error
+             console.error("PayPal SDK Error:", err.statusCode, err.message, err.result);
+             errorMessage = `Errore PayPal (${err.statusCode}).`;
              errorStatusCode = err.statusCode;
-        } else if (err.message) {
-             errorMessage = err.message;
         }
-        return {
-            statusCode: errorStatusCode,
-            body: JSON.stringify({ error: errorMessage }),
-            headers: { 'Content-Type': 'application/json' }
-        };
+        return { statusCode: errorStatusCode, body: JSON.stringify({ error: errorMessage }), headers: { 'Content-Type': 'application/json' } };
     }
 };
