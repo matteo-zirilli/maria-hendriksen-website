@@ -18,6 +18,7 @@ const languages = {
         "mainHeading": "Benvenuti nel sito di Maria Guillermina Hendriksen",
         "mainSubtitle": "Fisioterapista esperta e Istruttrice di Yoga certificata, dedicata al tuo benessere.",
         "ctaButton": "Scopri di più e Prenota",
+		"signup-button": "Registrati",
         "mottoPart1": "Ascolta il tuo corpo.",
         "mottoPart2": "Respira nel presente.",
         "mottoPart3": "Muoviti verso il benessere.",
@@ -27,6 +28,7 @@ const languages = {
         // --- chi-sono.html ---
         "pageTitleAbout": "Chi Sono - Maria G. Hendriksen",
         "aboutHeading": "Chi Sono",
+		"signup-button": "Registrati",
         "aboutP1": "Sono Maria Guillermina Hendriksen, una fisioterapista appassionata e istruttrice di Yoga con diversi anni di esperienza, maturata fin dalla laurea, nel campo del recupero funzionale e del benessere psicofisico.",
         "aboutP2": "La mia missione è aiutare le persone a ritrovare l'equilibrio tra corpo e mente, superare il dolore e migliorare la qualità della loro vita attraverso un approccio integrato e personalizzato.",
         "aboutFormationTitle": "Formazione e Filosofia",
@@ -41,6 +43,7 @@ const languages = {
         // --- servizi.html ---
         "pageTitleServices": "Servizi - Fisioterapia e Yoga - Maria G. Hendriksen",
         "servicesHeading": "I Miei Servizi",
+		"signup-button": "Registrati",
         "servicesIntro": "Ogni percorso, sia esso fisioterapico, yogico o una combinazione dei due, è attentamente personalizzato. Lavoro insieme a te per definire obiettivi realistici e per fornirti gli strumenti e la consapevolezza necessari non solo per raggiungere il benessere, ma anche per mantenerlo nel tempo, prevenendo future problematiche.",
         "fisioTitle": "Fisioterapia",
         "fisioDesc": "La fisioterapia è fondamentale per il recupero da infortuni, la gestione del dolore cronico e il miglioramento della mobilità. Il mio approccio include:",
@@ -62,6 +65,7 @@ const languages = {
         // --- piani.html ---
         "pageTitlePlans": "Piani e Tariffe - Maria G. Hendriksen",
         "plansHeading": "Piani e Tariffe",
+		"signup-button": "Registrati",
         "plansIntro": "Scegli il piano più adatto alle tue esigenze. Per soluzioni personalizzate o pacchetti combinati Fisioterapia+Yoga, <a href=\"prenota.html\">contattami</a>.",
         "plansNote": "Nota: I pagamenti si effettuano preferibilmente al momento della seduta (contanti, Bizum). Per pacchetti o pagamenti anticipati è possibile richiedere bonifico bancario o link per pagamento online.", // MODIFICATO PER PAGAMENTI
         "planFisioSingleTitle": "Seduta Fisioterapia Singola",
@@ -111,6 +115,7 @@ const languages = {
         // --- prenota.html ---
         "pageTitleBooking": "Prenota / Contatti - Maria G. Hendriksen",
         "bookingTitleWidget": "Prenota Incontro Conoscitivo Online",
+		"signup-button": "Registrati",
         "bookingInstructionsWidget": "Utilizza il calendario qui sotto per scegliere un orario disponibile per un incontro conoscitivo gratuito (30 min).",
         "bookingWidgetAltContact": "Per prenotare altri tipi di sessioni o per esigenze particolari, utilizza il modulo di contatto sottostante o gli altri recapiti.",
         "contactFormTitle": "Modulo di Contatto / Richiesta Info",
@@ -138,10 +143,12 @@ const languages = {
         // --- contenuti.html ---
         "pageTitleContent": "I Miei Contenuti - Maria Guillermina Hendriksen",
         "contentHeading": "I Miei Contenuti",
+		"signup-button": "Registrati",
         "contentIntro": "Esplora risorse, video e articoli dedicati allo Yoga e alla Fisioterapia per approfondire la tua pratica e il tuo percorso di benessere.",
         "contentYogaTitle": "Contenuti Yoga",
         "contentYogaDesc": "Video di lezioni, sequenze specifiche, tecniche di respirazione e meditazione guidata per arricchire la tua pratica yoga a casa.",
 		"purchasable-lessons-section1": "Video Lezioni Acquistabili",
+		"dynamic_login_prompt": 'Effettua il <a href="#" onclick="openModal(\'login-modal\'); return false;">login</a> o <a href="#" onclick="openModal(\'signup-modal\'); return false;">registrati</a> per vedere i contenuti disponibili e le opzioni di acquisto.',
 		"purchasable-lessons-paragraph": "Accedi a lezioni complete e approfondimenti esclusivi acquistando l'accesso qui sotto.",
 		/*"video-lessons-grid": "Caricamento contenuti disponibili...",*/
         "yogaVideo1Title": "Titolo Contenuto Yoga 1 (es. Sequenza Mattutina Energizzante)",
@@ -182,6 +189,7 @@ const languages = {
         "mainHeading": "Welcome to the website of Maria Guillermina Hendriksen",
         "mainSubtitle": "Experienced Physiotherapist and Certified Yoga Instructor, dedicated to your well-being.",
         "ctaButton": "Learn More and Book",
+		"signup-button": "Sign Up",
         "mottoPart1": "Listen to your body.",
         "mottoPart2": "Breathe into the present.",
         "mottoPart3": "Move towards well-being.",
@@ -191,6 +199,7 @@ const languages = {
         // --- chi-sono.html ---
         "pageTitleAbout": "About Me - Maria G. Hendriksen",
         "aboutHeading": "About Me",
+		"signup-button": "Sign Up",
         "aboutP1": "I am Maria Guillermina Hendriksen, a passionate physiotherapist and Yoga instructor with several years of experience, gained since graduation, in the field of functional recovery and psychophysical well-being.",
         "aboutP2": "My mission is to help people rediscover the balance between body and mind, overcome pain, and improve their quality of life through an integrated and personalized approach.",
         "aboutFormationTitle": "Training and Philosophy",
@@ -207,6 +216,7 @@ const languages = {
         "servicesHeading": "My Services",
         "servicesIntro": "Every path, whether it be physiotherapy, yoga, or a combination of both, is carefully personalized. I work together with you to define realistic goals and provide you with the tools and awareness necessary not only to achieve well-being but also to maintain it over time, preventing future issues.",
         "fisioTitle": "Physiotherapy",
+		"signup-button": "Sign Up",
         "fisioDesc": "Physiotherapy is essential for recovering from injuries, managing chronic pain, and improving mobility. My approach includes:",
         "fisioPoint1": "<strong>Complete Functional Assessment:</strong> Detailed analysis of posture, movement, and problem areas.",
         "fisioPoint2": "<strong>Manual Therapy:</strong> Specific techniques (mobilizations, manipulations, therapeutic massage) to reduce pain and restore joint and muscle function.",
@@ -226,6 +236,7 @@ const languages = {
         // --- piani.html ---
         "pageTitlePlans": "Plans and Rates - Maria G. Hendriksen",
         "plansHeading": "Plans and Rates",
+		"signup-button": "Sign Up",
         "plansIntro": "Choose the plan that best suits your needs. For customized solutions or combined Physiotherapy+Yoga packages, <a href=\"prenota.html\">contact me</a>.",
         "plansNote": "Note: Payments are preferably made at the time of the session (cash, Bizum). For packages or advance payments, bank transfer or an online payment link can be requested.",
         "planFisioSingleTitle": "Single Physiotherapy Session",
@@ -275,6 +286,7 @@ const languages = {
         // --- prenota.html ---
         "pageTitleBooking": "Booking / Contact - Maria G. Hendriksen",
         "bookingTitleWidget": "Book Online Discovery Call",
+		"signup-button": "Sign Up",
         "bookingInstructionsWidget": "Use the calendar below to choose an available time for a free discovery call (30 min).",
         "bookingWidgetAltContact": "To book other types of sessions or for special requirements, please use the contact form below or the other contact details.",
         "contactFormTitle": "Contact Form / Info Request",
@@ -302,10 +314,12 @@ const languages = {
         // --- contenuti.html ---
         "pageTitleContent": "My Content - Maria Guillermina Hendriksen",
         "contentHeading": "My Content",
+		"signup-button": "Sign Up",
         "contentIntro": "Explore resources, videos, and articles dedicated to Yoga and Physiotherapy to deepen your practice and wellness journey.",
         "contentYogaTitle": "Yoga Content",
         "contentYogaDesc": "Lesson videos, specific sequences, breathing techniques, and guided meditations to enrich your home yoga practice.",
 		"purchasable-lessons-section1": "Purchasable Video Lessons",
+		"dynamic_login_prompt": 'Please <a href="#" onclick="openModal(\'login-modal\'); return false;">log in</a> or <a href="#" onclick="openModal(\'signup-modal\'); return false;">sign up</a> to see available content and purchase options.',
 		"purchasable-lessons-paragraph": "Access full lessons and exclusive insights by purchasing access below.",
 		/*"video-lessons-grid": "Loading available content...",*/
         "yogaVideo1Title": "Yoga Content Title 1 (e.g., Energizing Morning Sequence)",
@@ -346,6 +360,7 @@ const languages = {
         "mainHeading": "Bienvenidos al sitio web de Maria Guillermina Hendriksen",
         "mainSubtitle": "Fisioterapeuta experta e Instructora de Yoga certificada, dedicada a tu bienestar.",
         "ctaButton": "Descubre Más y Reserva",
+		"signup-button": "Regístrate",
          "mottoPart1": "Escucha a tu cuerpo.",
         "mottoPart2": "Respira en el presente.",
         "mottoPart3": "Muévete hacia el bienestar.",
@@ -355,6 +370,7 @@ const languages = {
         // --- chi-sono.html ---
         "pageTitleAbout": "Sobre Mí - Maria G. Hendriksen",
         "aboutHeading": "Sobre Mí",
+		"signup-button": "Regístrate",
         "aboutP1": "Soy Maria Guillermina Hendriksen, una fisioterapeuta apasionada e instructora de Yoga con varios años de experiencia, adquirida desde la graduación, en el campo de la recuperación funcional y el bienestar psicofísico.",
         "aboutP2": "Mi misión es ayudar a las personas a reencontrar el equilibrio entre cuerpo y mente, superar el dolor y mejorar la calidad de su vida a través de un enfoque integrado y personalizado.",
         "aboutFormationTitle": "Formación y Filosofía",
@@ -371,6 +387,7 @@ const languages = {
         "servicesHeading": "Mis Servicios",
         "servicesIntro": "Cada camino, ya sea fisioterapéutico, yóguico o una combinación de ambos, es cuidadosamente personalizado. Trabajo contigo para definir objetivos realistas y proporcionarte las herramientas y la conciencia necesarias no solo para alcanzar el bienestar, sino también para mantenerlo en el tiempo, previniendo problemas futuros.",
         "fisioTitle": "Fisioterapia",
+		"signup-button": "Regístrate",
         "fisioDesc": "La fisioterapia es fundamental para la recuperación de lesiones, el manejo del dolor crónico y la mejora de la movilidad. Mi enfoque incluye:",
         "fisioPoint1": "<strong>Evaluación Funcional Completa:</strong> Análisis detallado de la postura, el movimiento y las áreas problemáticas.",
         "fisioPoint2": "<strong>Terapia Manual:</strong> Técnicas específicas (movilizaciones, manipulaciones, masaje terapéutico) para reducir el dolor y restaurar la función articular y muscular.",
@@ -390,6 +407,7 @@ const languages = {
         // --- piani.html ---
         "pageTitlePlans": "Planes y Tarifas - Maria G. Hendriksen",
         "plansHeading": "Planes y Tarifas",
+		"signup-button": "Regístrate",
         "plansIntro": "Elige el plan que mejor se adapte a tus necesidades. Para soluciones personalizadas o paquetes combinados Fisioterapia+Yoga, <a href=\"prenota.html\">contáctame</a>.",
         "plansNote": "Nota: Los pagos se realizan preferentemente en el momento de la sesión (efectivo, Bizum). Para paquetes o pagos anticipados, se puede solicitar transferencia bancaria o enlace para pago online.",
         "planFisioSingleTitle": "Sesión Única de Fisioterapia",
@@ -439,6 +457,7 @@ const languages = {
         // --- prenota.html ---
         "pageTitleBooking": "Reservas / Contacto - Maria G. Hendriksen",
         "bookingTitleWidget": "Reserva Encuentro Informativo Online",
+		"signup-button": "Regístrate",
         "bookingInstructionsWidget": "Utiliza el calendario abajo para elegir un horario disponible para un encuentro informativo gratuito (30 min).",
         "bookingWidgetAltContact": "Para reservar otros tipos de sesiones o para necesidades particulares, utiliza el formulario de contacto o los otros métodos de contacto.",
         "contactFormTitle": "Formulario de Contacto / Solicitud de Info",
@@ -466,8 +485,10 @@ const languages = {
         // --- contenuti.html ---
         "pageTitleContent": "Mis Contenidos - Maria Guillermina Hendriksen",
         "contentHeading": "Mis Contenidos",
+		"signup-button": "Regístrate",
         "contentIntro": "Explora recursos, videos y artículos dedicados al Yoga y la Fisioterapia para profundizar tu práctica y tu camino hacia el bienestar.",
         "contentYogaTitle": "Contenidos de Yoga",
+		"dynamic_login_prompt": 'Por favor, <a href="#" onclick="openModal(\'login-modal\'); return false;">inicia sesión</a> o <a href="#" onclick="openModal(\'signup-modal\'); return false;">regístrate</a> para ver el contenido disponible y las opciones de compra.',
         "contentYogaDesc": "Videos de clases, secuencias específicas, técnicas de respiración y meditación guiada para enriquecer tu práctica de yoga en casa.",
 		"purchasable-lessons-section1": "Videolecciones Disponibles para Comprar",
 		"purchasable-lessons-paragraph": "Accede a lecciones completas y contenidos exclusivos comprando el acceso aquí abajo.",
@@ -784,10 +805,26 @@ function initializePageBasedOnAuthState(user) {
 // --- Funzioni per Caricare Contenuti Video dalla Pagina contenuti.html ---
 
 // Funzione per mostrare messaggio di login
+// In script.js (attorno alla riga 777)
 function displayLoginMessage() {
     const grid = document.getElementById('video-lessons-grid');
     if (grid) {
-        grid.innerHTML = '<p>Effettua il <a href="#" onclick="openModal(\'login-modal\'); return false;">login</a> o <a href="#" onclick="openModal(\'signup-modal\'); return false;">registrati</a> per vedere i contenuti disponibili e le opzioni di acquisto.</p>';
+        const currentLang = localStorage.getItem('preferredLanguage') || 'it'; // Prendi la lingua corrente
+        let messageHtml = '';
+
+        // Cerca la traduzione per la lingua corrente
+        if (languages[currentLang] && languages[currentLang].dynamic_login_prompt) {
+            messageHtml = languages[currentLang].dynamic_login_prompt;
+        } else if (languages['it'] && languages['it'].dynamic_login_prompt) {
+            // Fallback alla traduzione italiana se quella corrente non esiste
+            console.warn(`Traduzione mancante per 'dynamic_login_prompt' in lingua '${currentLang}'. Uso italiano.`);
+            messageHtml = languages['it'].dynamic_login_prompt;
+        } else {
+            // Fallback estremo se anche l'italiano manca (improbabile se l'hai definito)
+            console.error("Traduzione mancante per 'dynamic_login_prompt' anche in italiano.");
+            messageHtml = '<p>Please log in or sign up to view content.</p>';
+        }
+        grid.innerHTML = messageHtml; // Imposta l'HTML tradotto nella griglia
     }
 }
 
