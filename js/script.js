@@ -29,6 +29,11 @@ const languages = {
         "pageTitleAbout": "Chi Sono - Maria G. Hendriksen",
         "aboutHeading": "Chi Sono",
 		"signup-button": "Registrati",
+		"aboutQualifications": "Le mie qualifiche",
+        "Qualification1": "Laurea in Kinesiologia e Fisiatria conseguita presso l'Universidad Católica de La Plata, Argentina, con Apostilla de La Haya che ne certifica l'autenticità internazionale.",
+        "caption_degree_certificate": "Estratto del Certificato di Laurea",
+        "caption_apostille": "Apostilla de La Haya",
+        "Qualification2": "Certificato Istruttrice di Yoga",
         "aboutP1": "Sono Maria Guillermina Hendriksen, una fisioterapista appassionata e istruttrice di Yoga con diversi anni di esperienza, maturata fin dalla laurea, nel campo del recupero funzionale e del benessere psicofisico.",
         "aboutP2": "La mia missione è aiutare le persone a ritrovare l'equilibrio tra corpo e mente, superare il dolore e migliorare la qualità della loro vita attraverso un approccio integrato e personalizzato.",
         "aboutFormationTitle": "Formazione e Filosofia",
@@ -206,6 +211,11 @@ const languages = {
         "pageTitleAbout": "About Me - Maria G. Hendriksen",
         "aboutHeading": "About Me",
 		"signup-button": "Sign Up",
+		"aboutQualifications": "My Qualifications",
+        "Qualification1": "Degree in Kinesiology and Physiatry obtained from the Universidad Católica de La Plata, Argentina, with Hague Apostille certifying its international authenticity.",
+        "caption_degree_certificate": "Excerpt from Degree Certificate",
+        "caption_apostille": "Haya Apostille",
+        "Qualification2": "Yoga Instructor Certificate",
         "aboutP1": "I am Maria Guillermina Hendriksen, a passionate physiotherapist and Yoga instructor with several years of experience, gained since graduation, in the field of functional recovery and psychophysical well-being.",
         "aboutP2": "My mission is to help people rediscover the balance between body and mind, overcome pain, and improve their quality of life through an integrated and personalized approach.",
         "aboutFormationTitle": "Training and Philosophy",
@@ -383,6 +393,11 @@ const languages = {
         "pageTitleAbout": "Sobre Mí - Maria G. Hendriksen",
         "aboutHeading": "Sobre Mí",
 		"signup-button": "Regístrate",
+		"aboutQualifications": "Mis Cualificaciones",
+        "Qualification1": "Licenciatura en Kinesiología y Fisiatría obtenida en la Universidad Católica de La Plata, Argentina, con Apostilla de La Haya que certifica su autenticidad internacional.",
+        "caption_degree_certificate": "Extracto del Certificado de Grado",
+        "caption_apostille": "Apostilla de La Haya",
+        "Qualification2": "Certificado de Instructora de Yoga",
         "aboutP1": "Soy Maria Guillermina Hendriksen, una fisioterapeuta apasionada e instructora de Yoga con varios años de experiencia, adquirida desde la graduación, en el campo de la recuperación funcional y el bienestar psicofísico.",
         "aboutP2": "Mi misión es ayudar a las personas a reencontrar el equilibrio entre cuerpo y mente, superar el dolor y mejorar la calidad de su vida a través de un enfoque integrado y personalizado.",
         "aboutFormationTitle": "Formación y Filosofía",
@@ -566,15 +581,41 @@ function changeLanguage(lang) {
         return;
      }
     document.documentElement.lang = lang;
+    // 1. Traduci elementi con ID
     for (const key in languages[lang]) {
-        const element = document.getElementById(key);
-        if (element) {
-            if (key.startsWith('pageTitle')) { document.title = languages[lang][key]; }
-            else { element.innerHTML = languages[lang][key]; }
-        } else {
-             if (key.startsWith('pageTitle')) { document.title = languages[lang][key]; }
+        const elementById = document.getElementById(key);
+        if (elementById) {
+            // La tua logica per OPTION, pageTitle, e innerHTML generico
+            if (elementById.tagName === 'OPTION') {
+                elementById.textContent = languages[lang][key];
+            } else if (key.startsWith('pageTitle')) {
+                document.title = languages[lang][key];
+            } else {
+                // CONTROLLA QUI: `aboutQualifications`, `Qualification1`, `Qualification2`
+                // verranno presi qui e il loro innerHTML verrà aggiornato.
+                elementById.innerHTML = languages[lang][key];
+            }
         }
     }
+
+    // 2. Traduci elementi con data-translate-key
+    document.querySelectorAll('[data-translate-key]').forEach(element => {
+        const key = element.dataset.translateKey;
+        if (languages[lang] && languages[lang][key]) {
+            // CONTROLLA QUI: `caption_degree_certificate` e `caption_apostille`
+            // verranno presi qui.
+            // Per FIGCAPTION, textContent è solitamente più sicuro se non c'è HTML nella traduzione.
+            if (element.tagName === 'FIGCAPTION' || !languages[lang][key].includes('<')) {
+                 element.textContent = languages[lang][key];
+            } else {
+                 element.innerHTML = languages[lang][key];
+            }
+        } else {
+            // Considera un console.warn qui se la chiave non viene trovata,
+            // per aiutarti a debuggare chiavi mancanti nelle tue traduzioni.
+            // console.warn(`Chiave data-translate-key non trovata o lingua non definita: ${key} per ${lang}`);
+        }
+    });
     localStorage.setItem('preferredLanguage', lang);
     if (typeof updateActiveButton === 'function') { updateActiveButton(lang); }
 
