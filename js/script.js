@@ -143,7 +143,7 @@ const languages = {
         "contentYogaDesc": "Video di lezioni, sequenze specifiche, tecniche di respirazione e meditazione guidata per arricchire la tua pratica yoga a casa.",
 		"purchasable-lessons-section1": "Video Lezioni Acquistabili",
 		"purchasable-lessons-paragraph": "Accedi a lezioni complete e approfondimenti esclusivi acquistando l'accesso qui sotto.",
-		"video-lessons-grid": "Caricamento contenuti disponibili...",
+		/*"video-lessons-grid": "Caricamento contenuti disponibili...",*/
         "yogaVideo1Title": "Titolo Contenuto Yoga 1 (es. Sequenza Mattutina Energizzante)",
         "yogaVideo1Desc": "Breve descrizione del contenuto del video o dell'articolo. Invita a cliccare per vedere di più.",
         "yogaVideo2Title": "Titolo Contenuto Yoga 2 (es. Meditazione Guidata per il Rilassamento)",
@@ -307,7 +307,7 @@ const languages = {
         "contentYogaDesc": "Lesson videos, specific sequences, breathing techniques, and guided meditations to enrich your home yoga practice.",
 		"purchasable-lessons-section1": "Purchasable Video Lessons",
 		"purchasable-lessons-paragraph": "Access full lessons and exclusive insights by purchasing access below.",
-		"video-lessons-grid": "Loading available content...",
+		/*"video-lessons-grid": "Loading available content...",*/
         "yogaVideo1Title": "Yoga Content Title 1 (e.g., Energizing Morning Sequence)",
         "yogaVideo1Desc": "Brief description of the video or article content. Invites clicking to see more.",
         "yogaVideo2Title": "Yoga Content Title 2 (e.g., Guided Meditation for Relaxation)",
@@ -471,7 +471,7 @@ const languages = {
         "contentYogaDesc": "Videos de clases, secuencias específicas, técnicas de respiración y meditación guiada para enriquecer tu práctica de yoga en casa.",
 		"purchasable-lessons-section1": "Videolecciones Disponibles para Comprar",
 		"purchasable-lessons-paragraph": "Accede a lecciones completas y contenidos exclusivos comprando el acceso aquí abajo.",
-		"video-lessons-grid": "Cargando contenido disponible...",
+		/*"video-lessons-grid": "Cargando contenido disponible...",*/
         "yogaVideo1Title": "Título Contenido Yoga 1 (ej. Secuencia Matutina Energizante)",
         "yogaVideo1Desc": "Breve descripción del contenido del video o artículo. Invita a hacer clic para ver más.",
         "yogaVideo2Title": "Título Contenido Yoga 2 (ej. Meditación Guiada para la Relajación)",
@@ -540,7 +540,7 @@ function changeLanguage(lang) {
     if (typeof updateActiveButton === 'function') { updateActiveButton(lang); }
 
     // Aggiornamento video (se esiste l'elemento) - Mantenuto dal tuo codice originale
-   /* const videoElement = document.getElementById('presentationVideo');
+    const videoElement = document.getElementById('presentationVideo');
     if (videoElement) {
         let videoSrc = '';
         switch (lang) {
@@ -553,7 +553,7 @@ function changeLanguage(lang) {
             videoElement.load();
             console.log(`Video source changed to: ${videoSrc}`);
         }
-    }*/
+    }
     // Ri-applica i testi ai bottoni/label dei form di autenticazione se necessario
     // (Al momento non ci sono testi specifici della lingua nei modal auth)
 }
