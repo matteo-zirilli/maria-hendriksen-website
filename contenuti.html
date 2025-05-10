@@ -221,15 +221,15 @@
 
                 <label for="reviewRating" id="reviewLabelRating">Valutazione (da 1 a 5 stelle):</label>
                 <div class="star-rating">
-                    <select id="reviewRating" name="valutazione_stelle" required>
-                        <option value="">-- Seleziona Valutazione --</option>
-                        <option value="5">★★★★★ (Eccellente)</option>
-                        <option value="4">★★★★☆ (Molto Buono)</option>
-                        <option value="3">★★★☆☆ (Buono)</option>
-                        <option value="2">★★☆☆☆ (Sufficiente)</option>
-                        <option value="1">★☆☆☆☆ (Insufficiente)</option>
-                    </select>
-                </div>
+					<select id="reviewRating" name="valutazione_stelle" required>
+						<option value="" id="ratingOptionDefault">-- Seleziona Valutazione --</option>
+						<option value="5" id="ratingOption5">★★★★★ (Eccellente)</option>
+						<option value="4" id="ratingOption4">★★★★☆ (Molto Buono)</option>
+						<option value="3" id="ratingOption3">★★★☆☆ (Buono)</option>
+						<option value="2" id="ratingOption2">★★☆☆☆ (Sufficiente)</option>
+						<option value="1" id="ratingOption1">★☆☆☆☆ (Insufficiente)</option>
+					</select>
+				</div>
 
                 <label for="reviewComment" id="reviewLabelMessage">La tua recensione:</label>
                 <textarea id="reviewComment" name="messaggio_recensione" rows="5" required></textarea>
