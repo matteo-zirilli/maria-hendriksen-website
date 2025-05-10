@@ -575,6 +575,16 @@ function changeLanguage(lang) {
             console.log(`Video source changed to: ${videoSrc}`);
         }
     }
+	
+	const videoGrid = document.getElementById('video-lessons-grid');
+    // Controlla se currentUser è definito e se è null
+    // (currentUser è la variabile globale che aggiorni in onAuthStateChange)
+    if (videoGrid && (!currentUser || currentUser === null)) {
+        if (typeof displayLoginMessage === 'function') {
+            console.log("Lingua cambiata, utente non loggato, richiamo displayLoginMessage per aggiornare il prompt.");
+            displayLoginMessage();
+        }
+    }
     // Ri-applica i testi ai bottoni/label dei form di autenticazione se necessario
     // (Al momento non ci sono testi specifici della lingua nei modal auth)
 }
