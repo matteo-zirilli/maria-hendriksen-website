@@ -540,7 +540,7 @@ function changeLanguage(lang) {
     if (typeof updateActiveButton === 'function') { updateActiveButton(lang); }
 
     // Aggiornamento video (se esiste l'elemento) - Mantenuto dal tuo codice originale
-    const videoElement = document.getElementById('presentationVideo');
+   /* const videoElement = document.getElementById('presentationVideo');
     if (videoElement) {
         let videoSrc = '';
         switch (lang) {
@@ -553,7 +553,7 @@ function changeLanguage(lang) {
             videoElement.load();
             console.log(`Video source changed to: ${videoSrc}`);
         }
-    }
+    }*/
     // Ri-applica i testi ai bottoni/label dei form di autenticazione se necessario
     // (Al momento non ci sono testi specifici della lingua nei modal auth)
 }
