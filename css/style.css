@@ -671,3 +671,41 @@ form label {
      font-size: 0.9em;
      margin-top: 10px;
 }
+
+
+/* Stili per la galleria delle testimonianze */
+.testimonial-gallery {
+    display: flex; /* Attiva Flexbox */
+    flex-wrap: wrap; /* Permette agli elementi di andare a capo se non c'è spazio */
+    gap: 20px; /* Spazio tra le immagini (puoi aggiustarlo) */
+    justify-content: center; /* Centra le immagini se c'è spazio extra nell'ultima riga */
+    margin-top: 20px; /* Un po' di spazio sopra la galleria */
+    margin-bottom: 20px; /* Un po' di spazio sotto la galleria */
+}
+
+.testimonial-image {
+    flex: 1 1 250px; /* Proprietà flex: grow, shrink, basis.
+                       Ogni immagine cercherà di essere 250px,
+                       ma può crescere o restringersi.
+                       Aggiusta 250px in base a quante ne vuoi per riga circa. */
+    max-width: 100%; /* Per schermi molto piccoli, non superare la larghezza del genitore */
+    /* Se vuoi una larghezza massima assoluta per le immagini, puoi aggiungerla qui,
+       ad esempio: max-width: 300px;
+       Questo preverrà che diventino troppo grandi anche se c'è solo un'immagine per riga.
+    */
+    border: 1px solid #eee; /* Bordo leggero opzionale */
+    border-radius: 8px;     /* Angoli arrotondati opzionali */
+    overflow: hidden;       /* Assicura che l'immagine non sbordi dal div arrotondato */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Ombra leggera opzionale */
+}
+
+.testimonial-image img {
+    display: block; /* Rimuove eventuale spazio extra sotto l'immagine */
+    width: 100%;    /* L'immagine occupa tutta la larghezza del suo contenitore .testimonial-image */
+    height: auto;   /* Mantiene le proporzioni dell'immagine */
+    object-fit: contain; /* Assicura che tutta l'immagine sia visibile,
+                           potrebbe lasciare spazi vuoti se le proporzioni non corrispondono.
+                           Alternativa: 'cover' se vuoi che l'immagine riempia lo spazio
+                           tagliando le parti in eccesso, ma per screenshot di messaggi
+                           'contain' o semplicemente width:100%/height:auto è meglio. */
+}
