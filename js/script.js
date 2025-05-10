@@ -818,23 +818,18 @@ function initializePageBasedOnAuthState(user) {
 // In script.js (attorno alla riga 777)
 function displayLoginMessage() {
     const grid = document.getElementById('video-lessons-grid');
-    if (grid) {
-        const currentLang = localStorage.getItem('preferredLanguage') || 'it'; // Prendi la lingua corrente
-        let messageHtml = '';
+    const loginPromptContainer = document.getElementById('login-prompt-container');
 
-        // Cerca la traduzione per la lingua corrente
-        if (languages[currentLang] && languages[currentLang].dynamic_login_prompt) {
-            messageHtml = languages[currentLang].dynamic_login_prompt;
-        } else if (languages['it'] && languages['it'].dynamic_login_prompt) {
-            // Fallback alla traduzione italiana se quella corrente non esiste
-            console.warn(`Traduzione mancante per 'dynamic_login_prompt' in lingua '${currentLang}'. Uso italiano.`);
-            messageHtml = languages['it'].dynamic_login_prompt;
-        } else {
-            // Fallback estremo se anche l'italiano manca (improbabile se l'hai definito)
-            console.error("Traduzione mancante per 'dynamic_login_prompt' anche in italiano.");
-            messageHtml = '<p>Please log in or sign up to view content.</p>';
-        }
-        grid.innerHTML = messageHtml; // Imposta l'HTML tradotto nella griglia
+    if (grid) {
+        grid.innerHTML = ''; // Pulisci sempre la griglia delle lezioni
+        grid.style.display = 'none'; // Nascondi la griglia vuota
+    }
+
+    if (loginPromptContainer) {
+        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+        let messageHtml = languages[currentLang]?.dynamic_login_prompt || languages['it']?.dynamic_login_prompt || '<p>Please log in.</p>';
+        loginPromptContainer.innerHTML = messageHtml; // Metti qui il messaggio
+        loginPromptContainer.style.display = 'block'; // Mostra il contenitore del messaggio
     }
 }
 
@@ -962,11 +957,18 @@ function displayVideoLessons(lessons, purchasedLessonIds) {
 // Funzione PRINCIPALE per caricare le lezioni (questa verrà chiamata da initializePageBasedOnAuthState)
 async function loadVideoLessons() {
     const grid = document.getElementById('video-lessons-grid');
-    if (!grid) return; // Non fare nulla se non siamo sulla pagina giusta
+    const loginPromptContainer = document.getElementById('login-prompt-container');
+
+    if (!grid) return;
+
+    if (loginPromptContainer) {
+        loginPromptContainer.innerHTML = ''; // Pulisci il messaggio di login
+        loginPromptContainer.style.display = 'none'; // Nascondi il contenitore del messaggio
+    }
+    grid.style.display = 'grid'; // O il tuo display di default per la griglia
 
     if (!currentUser) {
-        console.log("Utente non loggato, mostro messaggio di login.");
-        displayLoginMessage(); // Mostra il messaggio "Effettua il login..."
+        displayLoginMessage();
         return;
     }
 
