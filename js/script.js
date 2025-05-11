@@ -1567,31 +1567,9 @@ authButtonsInMobileMenu.forEach(button => {
 
     }
 
-    // Aggiorna i listener dei bottoni lingua per usare data-lang
-    // (Questo codice era già nel tuo script, assicurati che sia funzionante
-    // e che ora punti ai bottoni con data-lang se hai modificato l'HTML)
-    document.querySelectorAll('.language-switcher-mobile button[data-lang]').forEach(button => {
-        button.addEventListener('click', (event) => {
-            const lang = event.target.dataset.lang;
-            if (typeof changeLanguage === 'function') {
-                changeLanguage(lang);
-                // Chiudi il menu dopo aver cambiato lingua (opzionale)
-                if (mainNav && mainNav.classList.contains('menu-aperto')) {
-                    mainNav.classList.remove('menu-aperto');
-                    hamburgerButton.classList.remove('attivo');
-                    hamburgerButton.setAttribute('aria-expanded', 'false');
-                    hamburgerButton.setAttribute('aria-label', 'Apri menu');
-                }
-            }
-        });
-    });
+   
 
-    // Gestione bottoni login/signup/logout mobile (se hai ID diversi)
-    // Esempio:
-    const loginButtonMobile = document.getElementById('login-button-mobile');
-    if (loginButtonMobile) {
-        loginButtonMobile.addEventListener('click', () => openModal('login-modal'));
-    }
+  
     // Fai lo stesso per signup-button-mobile e logout-button-mobile
     // se hai creato ID distinti e non vuoi che ereditino dai listener generali
     // basati su ID come 'login-button'. Se gli ID sono uguali, non serve.
