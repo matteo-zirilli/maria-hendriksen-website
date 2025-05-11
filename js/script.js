@@ -1507,6 +1507,77 @@ document.addEventListener('DOMContentLoaded', () => {
                 hamburgerButton.setAttribute('aria-label', 'Apri menu');
             }
         });
+		
+		  // ------------ NUOVO CODICE PER CHIUDERE IL MENU AL CLICK SUI LINK ------------ //
+        const navLinks = mainNav.querySelectorAll('a'); // Seleziona tutti i link <a> dentro #main-nav
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Controlla se il menu è aperto prima di tentare di chiuderlo
+                if (mainNav.classList.contains('menu-aperto')) {
+                    mainNav.classList.remove('menu-aperto');
+                    hamburgerButton.classList.remove('attivo');
+                    hamburgerButton.setAttribute('aria-expanded', 'false');
+                    hamburgerButton.setAttribute('aria-label', 'Apri menu');
+                }
+                // Non è necessario event.preventDefault() qui perché vogliamo
+                // che il link esegua la sua azione predefinita (navigare).
+            });
+        });
+		
+		// Per chiudere il menu al click sui bottoni lingua DENTRO il menu mobile
+const langButtonsInMobileMenu = mainNav.querySelectorAll('.language-switcher button');
+langButtonsInMobileMenu.forEach(button => {
+    button.addEventListener('click', () => {
+        // Il cambio lingua effettivo è gestito da un altro listener.
+        // Questo si assicura solo che il menu si chiuda se è aperto.
+        if (mainNav.classList.contains('menu-aperto')) {
+            mainNav.classList.remove('menu-aperto');
+            hamburgerButton.classList.remove('attivo');
+            hamburgerButton.setAttribute('aria-expanded', 'false');
+            hamburgerButton.setAttribute('aria-label', 'Apri menu');
+        }
+    });
+});
+
+// Per chiudere il menu al click sui bottoni di autenticazione DENTRO il menu mobile
+const authButtonsInMobileMenu = mainNav.querySelectorAll('#auth-container button');
+authButtonsInMobileMenu.forEach(button => {
+    button.addEventListener('click', (event) => { // Aggiunto event
+        // L'apertura dei modali di login/signup o il logout sono gestiti
+        // dai listener generali per quegli ID.
+        // Questo si assicura solo che il menu si chiuda se è aperto.
+        // NON chiudere se il bottone è logout, perché onAuthStateChange gestirà l'UI
+        // e il menu si chiuderà come effetto collaterale del cambio di stato.
+        // O meglio, chiudiamo sempre, la logica di login/signup non è affetta.
+        // Il logout nasconderà il menu comunque.
+        if (mainNav.classList.contains('menu-aperto')) {
+            mainNav.classList.remove('menu-aperto');
+            hamburgerButton.classList.remove('attivo');
+            hamburgerButton.setAttribute('aria-expanded', 'false');
+            hamburgerButton.setAttribute('aria-label', 'Apri menu');
+        }
+        // Nota: I modali di login/signup si apriranno comunque grazie ai loro listener specifici
+        // basati su ID, e l'azione di logout procederà.
+    });
+});
+// ------------ FINE NUOVO CODICE DA AGGIUNGERE ------------ //
+		
+		        // Aggiungi anche ai bottoni del language switcher dentro il menu mobile
+        const langButtonsMobile = mainNav.querySelectorAll('.language-switcher button');
+        langButtonsMobile.forEach(button => {
+            button.addEventListener('click', () => {
+                 if (mainNav.classList.contains('menu-aperto')) {
+                    // Il cambio lingua di per sé non naviga, quindi è importante chiudere il menu
+                    // La funzione changeLanguage verrà chiamata dall'altro listener già presente
+                    mainNav.classList.remove('menu-aperto');
+                    hamburgerButton.classList.remove('attivo');
+                    hamburgerButton.setAttribute('aria-expanded', 'false');
+                    hamburgerButton.setAttribute('aria-label', 'Apri menu');
+                }
+            });
+        });
+
+
     }
 
     // Aggiorna i listener dei bottoni lingua per usare data-lang
