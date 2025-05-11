@@ -1508,7 +1508,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 		
-		  // ------------ NUOVO CODICE PER CHIUDERE IL MENU AL CLICK SUI LINK ------------ //
+
+				  // ------------ NUOVO CODICE PER CHIUDERE IL MENU AL CLICK SUI LINK ------------ //
         const navLinks = mainNav.querySelectorAll('a'); // Seleziona tutti i link <a> dentro #main-nav
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -1561,21 +1562,7 @@ authButtonsInMobileMenu.forEach(button => {
     });
 });
 // ------------ FINE NUOVO CODICE DA AGGIUNGERE ------------ //
-		
-		        // Aggiungi anche ai bottoni del language switcher dentro il menu mobile
-        const langButtonsMobile = mainNav.querySelectorAll('.language-switcher button');
-        langButtonsMobile.forEach(button => {
-            button.addEventListener('click', () => {
-                 if (mainNav.classList.contains('menu-aperto')) {
-                    // Il cambio lingua di per sé non naviga, quindi è importante chiudere il menu
-                    // La funzione changeLanguage verrà chiamata dall'altro listener già presente
-                    mainNav.classList.remove('menu-aperto');
-                    hamburgerButton.classList.remove('attivo');
-                    hamburgerButton.setAttribute('aria-expanded', 'false');
-                    hamburgerButton.setAttribute('aria-label', 'Apri menu');
-                }
-            });
-        });
+        
 
 
     }
