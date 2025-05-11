@@ -1348,6 +1348,19 @@ document.addEventListener('DOMContentLoaded', () => {
         langButtonsInMobileMenu.forEach(button => {
             button.addEventListener('click', closeMobileMenu);
         });
+		
+		// Chiudi il menu al click sui BOTTONI DI AUTENTICAZIONE DENTRO il menu mobile
+    // Il tuo HTML ha: nav#main-nav > div#auth-container > span > button (con ID login-button, signup-button, logout-button)
+    const authButtonsInMobileMenu = mainNav.querySelectorAll('#auth-container button');
+    authButtonsInMobileMenu.forEach(button => {
+        button.addEventListener('click', () => {
+            // console.log('Auth button in mobile menu clicked:', button.id); // DEBUG
+            closeMobileMenu();
+            // L'azione specifica (aprire modale, logout) è già gestita
+            // dai listener globali sugli ID (login-button, signup-button, logout-button)
+            // che hai definito prima in DOMContentLoaded.
+        });
+    });
 
         // Chiudi il menu al click sui bottoni di autenticazione DENTRO il menu mobile
         // Assicurati che i selettori qui sotto corrispondano agli ID/classi dei tuoi bottoni
