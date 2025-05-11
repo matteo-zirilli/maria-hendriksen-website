@@ -1492,7 +1492,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
      // --- Fine Caricamento Iniziale Recensioni ---
-	const hamburgerButton = document.getElementById('hamburger-menu');
+    const hamburgerButton = document.getElementById('hamburger-menu');
     const mainNav = document.getElementById('main-nav');
 
     if (hamburgerButton && mainNav) {
@@ -1507,33 +1507,63 @@ document.addEventListener('DOMContentLoaded', () => {
                 hamburgerButton.setAttribute('aria-label', 'Apri menu');
             }
         });
-    }
 
-    // Aggiorna i listener dei bottoni lingua per usare data-lang
-    // (Questo codice era già nel tuo script, assicurati che sia funzionante
-    // e che ora punti ai bottoni con data-lang se hai modificato l'HTML)
-    document.querySelectorAll('.language-switcher-mobile button[data-lang]').forEach(button => {
-        button.addEventListener('click', (event) => {
-            const lang = event.target.dataset.lang;
-            if (typeof changeLanguage === 'function') {
-                changeLanguage(lang);
-                // Chiudi il menu dopo aver cambiato lingua (opzionale)
-                if (mainNav && mainNav.classList.contains('menu-aperto')) {
+        // ------------ NUOVO CODICE PER CHIUDERE IL MENU AL CLICK SUI LINK ------------ //
+        const navLinks = mainNav.querySelectorAll('a'); // Seleziona tutti i link <a> dentro #main-nav
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Controlla se il menu è aperto prima di tentare di chiuderlo
+                if (mainNav.classList.contains('menu-aperto')) {
                     mainNav.classList.remove('menu-aperto');
                     hamburgerButton.classList.remove('attivo');
                     hamburgerButton.setAttribute('aria-expanded', 'false');
                     hamburgerButton.setAttribute('aria-label', 'Apri menu');
                 }
-            }
+                // Non è necessario event.preventDefault() qui perché vogliamo
+                // che il link esegua la sua azione predefinita (navigare).
+            });
         });
-    });
+        
+        // Per chiudere il menu al click sui bottoni lingua DENTRO il menu mobile
+        const langButtonsInMobileMenu = mainNav.querySelectorAll('.language-switcher button');
+        langButtonsInMobileMenu.forEach(button => {
+            button.addEventListener('click', () => {
+                // Il cambio lingua effettivo è gestito da un altro listener.
+                // Questo si assicura solo che il menu si chiuda se è aperto.
+                if (mainNav.classList.contains('menu-aperto')) {
+                    mainNav.classList.remove('menu-aperto');
+                    hamburgerButton.classList.remove('attivo');
+                    hamburgerButton.setAttribute('aria-expanded', 'false');
+                    hamburgerButton.setAttribute('aria-label', 'Apri menu');
+                }
+            });
+        });
 
-    // Gestione bottoni login/signup/logout mobile (se hai ID diversi)
-    // Esempio:
-    const loginButtonMobile = document.getElementById('login-button-mobile');
-    if (loginButtonMobile) {
-        loginButtonMobile.addEventListener('click', () => openModal('login-modal'));
+        // Per chiudere il menu al click sui bottoni di autenticazione DENTRO il menu mobile
+        // Assicurati che i tuoi bottoni di login/registrati/logout dentro il menu mobile
+        // siano selezionabili, ad esempio se sono dentro un contenitore con ID 'auth-container'
+        // o se hanno classi specifiche. Qui uso un selettore generico per i bottoni dentro 'mainNav'
+        // che potrebbero essere di autenticazione. Adatta il selettore se necessario.
+        const authButtonsInMobileMenu = mainNav.querySelectorAll('#auth-container button, #guest-info button, #user-info button'); // Adatta questo selettore
+        authButtonsInMobileMenu.forEach(button => {
+            button.addEventListener('click', () => {
+                // L'apertura dei modali di login/signup o il logout sono gestiti
+                // dai listener generali per quegli ID o classi.
+                // Questo si assicura solo che il menu si chiuda se è aperto.
+                if (mainNav.classList.contains('menu-aperto')) {
+                    mainNav.classList.remove('menu-aperto');
+                    hamburgerButton.classList.remove('attivo');
+                    hamburgerButton.setAttribute('aria-expanded', 'false');
+                    hamburgerButton.setAttribute('aria-label', 'Apri menu');
+                }
+            });
+        });
+        // ------------ FINE NUOVO CODICE DA AGGIUNGERE ------------ //
     }
+
+   
+
+  
     // Fai lo stesso per signup-button-mobile e logout-button-mobile
     // se hai creato ID distinti e non vuoi che ereditino dai listener generali
     // basati su ID come 'login-button'. Se gli ID sono uguali, non serve.
