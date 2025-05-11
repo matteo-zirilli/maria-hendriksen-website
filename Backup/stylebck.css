@@ -1,0 +1,928 @@
+/* ==========================================================================
+   Base, Variabili e Stili Generali
+   ========================================================================== */
+
+/* Import Font */
+/* Assicurati di avere il link a Google Fonts nell'HTML */
+
+/* Definizione Variabili Colori */
+:root {
+  --colore-primario: #2D8B8B;    /* Teal Morbido */
+  --colore-secondario: #F5F1E9; /* Beige Sabbia Chiaro */
+  --colore-accento: #E89F71;     /* Arancio Terracotta */
+  --colore-testo: #4A4A4A;        /* Grigio Scuro */
+  --colore-sfondo: #FEFEFE;      /* Bianco Sporco */
+  --colore-sfondo-alt: #FFFFFF; /* Bianco puro per contrasto (es. box piani) */
+  --colore-sfondo-header-footer: #E0E8F0; /* Grigio Bluastro Chiaro */
+  --colore-bordi: #DDDDDD;       /* Grigio chiaro per bordi/separatori */
+  --colore-testo-chiaro: #FFFFFF; /* Testo su sfondi scuri/colorati */
+  --colore-ombra: rgba(0, 0, 0, 0.08); /* Colore per ombre leggere */
+}
+
+/* Reset e Box Sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif; /* Nuovo Font */
+  font-size: 16px; /* Dimensione base */
+  line-height: 1.7; /* Interlinea migliorata */
+  color: var(--colore-testo);
+  background-color: var(--colore-sfondo);
+  -webkit-font-smoothing: antialiased; /* Migliora resa font */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Contenitore Principale */
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px 0; /* Aumentato padding verticale */
+}
+
+/* Link */
+a {
+  color: var(--colore-primario);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: var(--colore-accento);
+  text-decoration: none; /* Rimuove sottolineatura hover di default */
+}
+
+/* Titoli */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--colore-primario);
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+  line-height: 1.3;
+  font-weight: 700; /* Grassetto per i titoli */
+}
+h1 { font-size: 2.5em; } /* 40px */
+h2 { font-size: 2em; }   /* 32px */
+h3 { font-size: 1.5em; } /* 24px */
+h4 { font-size: 1.25em; }/* 20px */
+
+h2 { /* Stile specifico per titoli di sezione */
+  border-bottom: 3px solid var(--colore-accento);
+  padding-bottom: 8px;
+  display: inline-block; /* Evita che la sottolineatura prenda tutta la larghezza */
+}
+
+/* Paragrafi e Liste */
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+ul, ol {
+  margin-bottom: 1em;
+  padding-left: 20px;
+}
+li {
+  margin-bottom: 0.5em;
+}
+
+/* Immagini */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Rimuove spazio extra sotto le immagini */
+  border-radius: 5px; /* Leggero arrotondamento di default */
+}
+
+/* Utility per float (usata nell'intro homepage) */
+.image-float-left {
+  float: left;
+  margin-right: 25px;
+  margin-bottom: 15px;
+  max-width: 35%; /* Limita larghezza immagine flottante */
+  border-radius: 5px;
+}
+.clear-float {
+  clear: both;
+}
+
+
+/* ==========================================================================
+   Header e Navigazione
+   ========================================================================== */
+header {
+  background-color: var(--colore-sfondo-header-footer);
+  border-bottom: 1px solid var(--colore-bordi);
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+
+.logo {
+  flex-shrink: 0;
+}
+.logo a {
+  font-size: 1.6em;
+  font-weight: 700;
+  color: var(--colore-primario);
+  text-decoration: none;
+  white-space: nowrap; /* Impedisce al logo di andare a capo */
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-shrink: 1; /* Permette al menu di restringersi se necessario */
+  /* gap: 25px; */ /* Vecchio valore */
+  gap: 18px;   /* <<< MODIFICATO: Ridotto spazio tra elementi */
+}
+nav ul li {
+  margin: 0;
+  white-space: nowrap; /* Impedisce al singolo link di andare a capo */
+}
+nav ul li a {
+  text-transform: uppercase;
+  /* font-size: 0.95em; */ /* Vecchio valore */
+  font-size: 0.9em;    /* <<< MODIFICATO: Ridotto font size */
+  font-weight: 700;
+  color: var(--colore-testo);
+  padding: 5px 0;
+  position: relative;
+  text-decoration: none;
+  display: block; /* Utile per padding e linea sotto */
+}
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--colore-accento);
+  transition: width 0.3s ease;
+}
+nav ul li a:hover::after,
+nav ul li a.active::after {
+  width: 100%;
+}
+nav ul li a:hover,
+nav ul li a.active {
+  color: var(--colore-accento);
+}
+
+/* Language Switcher */
+.language-switcher {
+  margin-left: auto; /* Spinge il switcher a destra */
+  flex-shrink: 0; /* Impedisce al switcher di restringersi */
+  display: flex; /* Allinea i bottoni */
+  gap: 5px; /* Spazio ridotto tra i bottoni lingua */
+}
+.language-switcher button {
+  /* margin-left: 8px; */ /* Rimosso margin-left ora che usiamo gap */
+  padding: 5px 8px; /* Leggermente ridotto padding */
+  cursor: pointer;
+  border: 1px solid var(--colore-bordi);
+  background: var(--colore-sfondo);
+  color: var(--colore-testo);
+  border-radius: 4px;
+  font-size: 0.8em; /* Font ancora più piccolo per i bottoni lingua */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.language-switcher button:hover {
+  background: #f0f0f0;
+  border-color: #aaa;
+}
+.language-switcher button.active {
+  font-weight: bold;
+  background-color: var(--colore-primario);
+  color: var(--colore-testo-chiaro);
+  border-color: var(--colore-primario);
+}
+
+/* ==========================================================================
+   Sezioni Principali e Contenuto
+   ========================================================================== */
+main section {
+  margin-bottom: 40px;
+  padding: 20px 0;
+}
+
+/* Hero Section (Homepage) */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: var(--colore-secondario);
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+.hero h1 {
+  font-size: 3em;
+  margin-bottom: 15px;
+  color: var(--colore-primario);
+}
+.hero p {
+  font-size: 1.3em;
+  margin-bottom: 30px;
+  color: var(--colore-testo);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Pulsante Call to Action */
+.cta-button {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: var(--colore-primario);
+  color: var(--colore-testo-chiaro); /* Assicura testo chiaro */
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: 700; /* Testo bottone in grassetto */
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap; /* Evita che il testo del bottone vada a capo */
+}
+.cta-button:hover {
+  background-color: var(--colore-accento);
+  /* color: var(--colore-testo); */ /* Potrebbe essere necessario se l'accento è molto chiaro */
+  text-decoration: none;
+  transform: translateY(-3px); /* Effetto sollevamento più marcato */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Immagine Principale Homepage */
+.main-image-section {
+  text-align: center;
+  margin: 40px 0;
+}
+.main-yoga-image {
+    width: 100%;
+    max-width: 650px; /* Larghezza massima immagine homepage */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 6px 15px var(--colore-ombra);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ==========================================================================
+   Stili Specifici per Pagina
+   ========================================================================== */
+
+/* --- Chi Sono --- */
+.about-photo {
+  float: right;
+  margin: 5px 0 20px 30px; /* Aggiustato margine superiore */
+  max-width: 250px; /* Ridotta leggermente la foto */
+  border-radius: 50%;
+  border: 5px solid var(--colore-sfondo); /* Cornice bianca per staccare */
+  box-shadow: 0 5px 15px var(--colore-ombra);
+}
+#aboutValuesList li strong {
+    color: var(--colore-primario);
+    font-weight: 700;
+}
+
+/* --- Servizi --- */
+.service-section {
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--colore-bordi);
+}
+.service-section:last-of-type {
+  border-bottom: none;
+}
+.service-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  margin-bottom: 25px; /* Più spazio sotto immagine servizio */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px var(--colore-ombra);
+}
+#fisioList li strong,
+#yogaList li strong {
+    color: var(--colore-primario);
+    font-weight: 700;
+}
+
+/* --- Piani --- */
+.plans-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+.plan {
+  border: 1px solid var(--colore-bordi);
+  border-radius: 8px;
+  padding: 30px;
+  background-color: var(--colore-sfondo-alt);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px var(--colore-ombra);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.plan:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+.plan h3 {
+  margin-top: 0;
+  color: var(--colore-primario);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+.plan-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    border-radius: 0;
+    box-shadow: none;
+    border: none; /* Assicura nessun bordo extra */
+    vertical-align: middle; /* Prova ad allineare meglio */
+}
+.plan ul {
+  list-style-type: '✓ '; /* Usa un checkmark per le feature */
+  margin-left: 5px; /* Riduci indentazione lista custom */
+  padding-left: 1.2em; /* Spazio per il checkmark */
+  flex-grow: 1;
+  margin-bottom: 20px;
+  color: var(--colore-testo); /* Assicura colore testo per feature */
+}
+.plan ul li {
+     padding-left: 8px; /* Spazio tra checkmark e testo */
+     margin-bottom: 8px; /* Spazio tra feature */
+}
+.plan .price {
+  font-size: 1.5em;
+  font-weight: 700;
+  margin: 15px 0;
+  color: var(--colore-testo);
+}
+.plan .price span {
+  font-size: 0.7em;
+  text-decoration: line-through;
+  color: #999;
+  margin-left: 5px;
+  font-weight: 400; /* Prezzo vecchio meno marcato */
+}
+.plan .cta-button {
+  margin-top: auto;
+  text-align: center;
+  width: 100%;
+}
+
+/* --- Prenota --- */
+#bookingWidgetSection,
+#contactFormSection,
+#directContacts {
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--colore-bordi);
+}
+#directContacts {
+  border-bottom: none;
+}
+
+/* Stili Form Contatto */
+form label {
+  display: block;
+  margin-top: 15px;
+}
+ /* ==========================================================================
+   Stili Sezione Motto (Homepage)
+   ========================================================================== */
+
+.motto-section {
+    background-color: var(--colore-secondario); /* Sfondo leggermente diverso per staccare */
+    padding: 40px 0; /* Spazio sopra e sotto */
+    text-align: center; /* Centra il testo */
+    margin-top: 40px; /* Spazio dopo l'immagine */
+    margin-bottom: 40px; /* Spazio prima della sezione intro */
+}
+
+.motto-phrase {
+    font-size: 1.5em; /* Dimensione più grande del testo normale */
+    font-weight: 400; /* Peso normale o leggermente più leggero */
+    font-style: italic; /* Corsivo per dare enfasi */
+    color: var(--colore-primario); /* Usa il colore primario o (--colore-testo) */
+    margin-bottom: 0.5em; /* Spazio tra le frasi */
+    line-height: 1.4;
+}
+
+.motto-phrase:last-child {
+    margin-bottom: 0; /* Rimuove margine extra dall'ultima frase */
+}
+
+/* Opzionale: Riduci dimensione su mobile */
+@media (max-width: 768px) {
+    .motto-phrase {
+        font-size: 1.2em; /* Motto leggermente più piccolo su mobile */
+    }
+    .motto-section {
+        padding: 30px 15px; /* Padding laterale su mobile */
+    }
+}
+
+
+/* Stili per allineare titolo e immagine affiancati nei servizi */
+.service-title-image-wrapper {
+    display: flex;         /* Attiva Flexbox */
+    align-items: center;   /* Allinea verticalmente titolo e immagine al centro */
+    gap: 25px;             /* Spazio orizzontale tra titolo e immagine */
+    margin-bottom: 20px;   /* Spazio sotto l'insieme titolo+immagine */
+    flex-wrap: wrap;       /* Permette all'immagine di andare sotto su schermi piccoli */
+}
+
+.service-title-image-wrapper h2 {
+    margin: 0; /* Rimuove margini di default dall'h2 per un miglior allineamento */
+    /* La linea sotto (border-bottom) dovrebbe essere già applicata dalla regola generale per h2 */
+    flex-shrink: 0; /* Impedisce al titolo di restringersi troppo */
+}
+
+.service-image-beside {
+    max-width: 180px;  /* Imposta la larghezza massima desiderata per l'immagine */
+    height: auto;      /* Mantiene le proporzioni originali */
+    border-radius: 5px; /* Mantiene gli angoli arrotondati */
+    display: block;    /* Buona norma per le immagini */
+    vertical-align: middle; /* Aiuta con l'allineamento se flex non bastasse */
+}
+
+/* Responsive: Su schermi piccoli, mettiamo l'immagine sotto il titolo */
+@media (max-width: 768px) {
+    .service-title-image-wrapper {
+        flex-direction: column; /* Impila gli elementi verticalmente */
+        align-items: flex-start; /* Allinea a sinistra */
+        gap: 15px; /* Riduce lo spazio */
+    }
+
+    .service-image-beside {
+        max-width: 100%; /* L'immagine prende tutta la larghezza disponibile */
+        max-height: 250px; /* Puoi impostare un'altezza massima se vuoi */
+        object-fit: cover; /* Utile se imposti max-height */
+        width: 100%; /* Forza la larghezza al 100% del contenitore */
+    }
+    .service-title-image-wrapper h2 {
+         width: 100%; /* Assicura che il titolo prenda tutta la larghezza */
+         text-align: left; /* O 'center' se preferisci */
+     }
+
+}
+
+
+/* Stili per la lista delle recensioni caricate */
+#reviews-list-container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.review-item {
+    border: 1px solid var(--colore-bordi);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: var(--colore-sfondo-alt);
+    box-shadow: 0 2px 4px var(--colore-ombra);
+}
+
+.review-item .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap; /* Aggiunto per mobile */
+    gap: 10px; /* Aggiunto per mobile */
+}
+
+.review-item .review-name {
+    font-weight: bold;
+    color: var(--colore-primario);
+}
+
+.review-item .review-stars {
+    color: #f0ad4e; /* Colore stelle (giallo/arancio) */
+    font-size: 1.1em;
+}
+
+.review-item .review-date {
+    font-size: 0.85em;
+    color: #777;
+}
+
+.review-item .review-comment {
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+/* Stili per i messaggi del form di recensione */
+.form-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+    display: none; /* Nascosto di default */
+}
+
+.form-message.submitting {
+    display: block;
+    background-color: #e0e8f0; /* Sfondo grigio-blu chiaro */
+    color: #4a4a4a;
+}
+
+.form-message.success {
+    display: block;
+    background-color: #dff0d8; /* Sfondo verde chiaro */
+    color: #3c763d; /* Testo verde scuro */
+    border: 1px solid #d6e9c6;
+}
+
+.form-message.error {
+    display: block;
+    background-color: #f2dede; /* Sfondo rosso chiaro */
+    color: #a94442; /* Testo rosso scuro */
+    border: 1px solid #ebccd1;
+}
+
+/* Stili per select stelle (già presenti nel codice precedente, assicurati ci siano) */
+#reviewForm .star-rating { margin-top: 10px; }
+#reviewForm .star-rating select { width: auto; padding: 8px; }
+
+
+/* Stili base per bottoni Auth */
+.auth-button {
+    background-color: var(--colore-accento); /* Usa un colore del tuo tema */
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 0.9em;
+}
+.auth-button:hover {
+    background-color: var(--colore-primario);
+}
+#auth-container span { /* Per gestire lo spazio quando si cambia stato */
+   display: inline-block;
+   vertical-align: middle;
+}
+
+
+/* Stili per i Modali */
+.auth-modal {
+    display: none; /* Nascosto di default */
+    position: fixed; /* Rimane fisso sullo schermo */
+    z-index: 1000; /* Sopra gli altri contenuti */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permette scroll se il contenuto è lungo */
+    background-color: rgba(0,0,0,0.5); /* Sfondo semi-trasparente */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% dall'alto e centrato orizzontalmente */
+    padding: 30px;
+    border: 1px solid #888;
+    width: 80%; /* Larghezza del box modale */
+    max-width: 400px; /* Larghezza massima */
+    border-radius: 8px;
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Stili per i form dentro i modali */
+.auth-modal form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+.auth-modal form input[type="email"],
+.auth-modal form input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.auth-modal form button[type="submit"] {
+    background-color: var(--colore-primario);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 1em;
+}
+.auth-modal form button[type="submit"]:hover {
+    background-color: var(--colore-accento);
+}
+.error-message {
+     color: red;
+     font-size: 0.9em;
+     margin-top: 10px;
+}
+ .success-message {
+     color: green;
+     font-size: 0.9em;
+     margin-top: 10px;
+}
+
+
+/* Stili per la galleria delle testimonianze */
+.testimonial-gallery {
+    display: flex; /* Attiva Flexbox */
+    flex-wrap: wrap; /* Permette agli elementi di andare a capo se non c'è spazio */
+    gap: 20px; /* Spazio tra le immagini (puoi aggiustarlo) */
+    justify-content: center; /* Centra le immagini se c'è spazio extra nell'ultima riga */
+    margin-top: 20px; /* Un po' di spazio sopra la galleria */
+    margin-bottom: 20px; /* Un po' di spazio sotto la galleria */
+}
+
+.testimonial-image {
+    flex: 1 1 250px; /* Proprietà flex: grow, shrink, basis.
+                       Ogni immagine cercherà di essere 250px,
+                       ma può crescere o restringersi.
+                       Aggiusta 250px in base a quante ne vuoi per riga circa. */
+    max-width: 100%; /* Per schermi molto piccoli, non superare la larghezza del genitore */
+    /* Se vuoi una larghezza massima assoluta per le immagini, puoi aggiungerla qui,
+       ad esempio: max-width: 300px;
+       Questo preverrà che diventino troppo grandi anche se c'è solo un'immagine per riga.
+    */
+    border: 1px solid #eee; /* Bordo leggero opzionale */
+    border-radius: 8px;     /* Angoli arrotondati opzionali */
+    overflow: hidden;       /* Assicura che l'immagine non sbordi dal div arrotondato */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Ombra leggera opzionale */
+}
+
+.testimonial-image img {
+    display: block; /* Rimuove eventuale spazio extra sotto l'immagine */
+    width: 100%;    /* L'immagine occupa tutta la larghezza del suo contenitore .testimonial-image */
+    height: auto;   /* Mantiene le proporzioni dell'immagine */
+    object-fit: contain; /* Assicura che tutta l'immagine sia visibile,
+                           potrebbe lasciare spazi vuoti se le proporzioni non corrispondono.
+                           Alternativa: 'cover' se vuoi che l'immagine riempia lo spazio
+                           tagliando le parti in eccesso, ma per screenshot di messaggi
+                           'contain' o semplicemente width:100%/height:auto è meglio. */
+}
+
+
+
+/* =============================================== */
+/* STILI RESPONSIVE                  */
+/* =============================================== */
+
+/* Per schermi fino a 768px di larghezza (tablet e cellulari) */
+@media (max-width: 768px) {
+
+    header .container {
+        /* Permette al logo e alla nav di andare a capo se necessario */
+        flex-direction: column;
+        align-items: flex-start; /* Allinea logo a sinistra */
+    }
+
+    header nav {
+        width: 100%; /* Fa occupare alla nav tutta la larghezza */
+        margin-top: 10px; /* Spazio dal logo */
+    }
+
+    header nav ul {
+        flex-direction: column; /* Voci del menu una sotto l'altra */
+        align-items: center; /* Centra le voci del menu */
+        width: 100%;
+        padding-left: 0; /* Rimuovi padding di default della lista */
+    }
+
+    header nav ul li {
+        width: 100%; /* Ogni voce occupa tutta la larghezza */
+        text-align: center; /* Centra il testo del link */
+        margin-bottom: 10px; /* Spazio tra le voci */
+        border-top: 1px solid #eee; /* Linea separatrice opzionale */
+    }
+    header nav ul li:first-child {
+        border-top: none;
+    }
+
+    header nav ul li a {
+        display: block; /* Rende l'area del link cliccabile su tutta la larghezza/altezza */
+        padding: 10px 0; /* Aggiunge un po' di padding verticale */
+    }
+
+    header .language-switcher {
+        margin-top: 15px;
+        margin-left: 0; /* Rimuovi margine se era specifico per desktop */
+        justify-content: center; /* Centra i bottoni lingua */
+        width: 100%;
+    }
+
+    header #auth-container {
+        margin-top: 15px;
+        margin-left: 0; /* Rimuovi margine se era specifico per desktop */
+        padding-left: 0;
+        border-left: none;
+        width: 100%;
+        text-align: center; /* Centra i bottoni login/registrati */
+    }
+
+    header #auth-container span { /* Per far andare a capo i bottoni se troppo larghi */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px; /* Spazio tra i bottoni login e registrati */
+    }
+     header #auth-container .auth-button {
+        width: 80%; /* O una larghezza fissa se preferisci, es. 150px */
+        max-width: 200px;
+     }
+}
+
+
+
+/* Stili Base per Hamburger (visibile solo su mobile) */
+.hamburger-menu {
+    display: none; /* Nascosto di default, mostrato con media query */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001; /* Per stare sopra altri elementi */
+}
+
+.hamburger-menu .hamburger-bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--colore-testo); /* O il colore che preferisci per le barre */
+    margin: 5px 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Stili per l'header e la navigazione base (desktop) */
+header {
+    /* ... tuoi stili esistenti ... */
+    padding: 15px 0;
+}
+
+.header-container { /* Usiamo questa classe sul div.container dell'header */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#main-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Spazio tra menu ul, language switcher, auth */
+}
+
+#main-nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 15px; /* Spazio tra le voci del menu */
+}
+
+#main-nav ul li a {
+    text-decoration: none;
+    color: var(--colore-primario); /* O il tuo colore link */
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+/* Nascondi le versioni mobile di default */
+.language-switcher-mobile,
+#auth-container-mobile {
+    display: none;
+}
+
+
+/* Media Query per Mobile (es. sotto 768px) */
+@media (max-width: 768px) {
+    .header-container {
+        /* Non serve più flex-direction: column se il menu è a comparsa */
+    }
+
+    .hamburger-menu {
+        display: block; /* Mostra il bottone hamburger */
+        /* Posizionalo se necessario, es. order: 1; se #main-nav ha order:2 */
+    }
+
+    #main-nav {
+        /* Trasforma il menu in un blocco a comparsa */
+        display: none; /* Nascosto di default quando l'hamburger è visibile */
+        position: absolute;
+        top: 60px; /* Altezza dell'header, o dove vuoi che inizi */
+        left: 0;
+        width: 100%;
+        background-color: #fff; /* Sfondo per il menu a comparsa */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        flex-direction: column;
+        align-items: center; /* Centra gli elementi nel menu a comparsa */
+        padding: 20px 0;
+        z-index: 1000;
+    }
+
+    #main-nav.menu-aperto { /* Classe che aggiungeremo con JS */
+        display: flex;
+    }
+
+    /* Stili per gli elementi DENTRO il menu a comparsa */
+    #main-nav ul {
+        flex-direction: column; /* Voci una sotto l'altra */
+        width: 100%;
+        gap: 0;
+    }
+
+    #main-nav ul li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0; /* Separatore tra le voci */
+    }
+     #main-nav ul li:last-child {
+        border-bottom: none;
+    }
+
+    #main-nav ul li a {
+        display: block;
+        padding: 15px 0;
+        width: 100%;
+    }
+
+    /* Nascondi versioni desktop, mostra versioni mobile DENTRO il menu */
+    header nav > .language-switcher, /* Selettore per language-switcher diretto figlio di nav */
+    header nav > #auth-container {   /* Selettore per auth-container diretto figlio di nav */
+        display: none;
+    }
+
+    .language-switcher-mobile,
+    #auth-container-mobile {
+        display: flex; /* O block, a seconda di come li vuoi disporre */
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #f0f0f0;
+        width: 90%;
+    }
+    #auth-container-mobile .auth-button {
+        width: 100%;
+        max-width: 220px;
+    }
+
+    /* Stile per l'hamburger quando il menu è aperto (effetto X) - Opzionale */
+    .hamburger-menu.attivo .hamburger-bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger-menu.attivo .hamburger-bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger-menu.attivo .hamburger-bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
