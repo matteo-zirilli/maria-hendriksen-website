@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title id="pageTitleAbout">Chi Sono - Maria Guillermina Hendriksen</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+	</head>
+<body>
+    <header>
+		<div class="container header-container"> 
+			<div class="logo">
+				<a href="index.html">Maria Guillermina</a>
+			</div>
+			<button class="hamburger-menu" id="hamburger-menu" aria-label="Apri menu" aria-expanded="false">
+				<span class="hamburger-bar"></span>
+				<span class="hamburger-bar"></span>
+				<span class="hamburger-bar"></span>
+			</button>
+			<nav id="main-nav">
+				<ul>
+					<li><a href="index.html" id="navHome">Homepage</a></li>
+					<li><a href="chi-sono.html" id="navAbout">Chi Sono</a></li>
+					<li><a href="servizi.html" id="navServices">Servizi</a></li>
+					<li><a href="piani.html" id="navPlans">Piani</a></li>
+					<li><a href="contenuti.html" id="navContent">I Miei Contenuti</a></li>
+					<li><a href="prenota.html" id="navBooking">Prenota/Contatti</a></li>
+				</ul>
+				
+				<div class="language-switcher"> 
+					<button data-lang="it">IT</button>
+					<button data-lang="en">EN</button>
+					<button data-lang="es">ES</button>
+				</div>
+				<div id="auth-container"> 
+					<span id="guest-info" style="display: block;">
+						<button id="login-button" class="auth-button">Login</button>
+						<button id="signup-button" class="auth-button">Registrati</button>
+					</span>
+					<span id="user-info" style="display: none;">
+						<span id="user-email" style="font-weight: bold; margin-right: 5px;"></span>
+						<button id="logout-button" class="auth-button">Logout</button>
+					</span>
+				</div>
+			</nav>
+		</div>
+	</header>
+
+    <main class="container">
+        <section>
+            <h1 id="aboutHeading">Chi Sono</h1>
+            <img src="images/Chisono1.jpeg" alt="Foto di Maria Guillermina Hendriksen" style="float: right; margin: 0 0 15px 15px; max-width: 300px; border-radius: 5px;">
+            <p id="aboutP1">Sono Maria Guillermina Hendriksen, una fisioterapista appassionata e istruttrice di Yoga con diversi anni di esperienza, maturata fin dalla laurea, nel campo del recupero funzionale e del benessere psicofisico.</p>
+            <p id="aboutP2">La mia missione è aiutare le persone a ritrovare l'equilibrio tra corpo e mente, superare il dolore e migliorare la qualità della loro vita attraverso un approccio integrato e personalizzato.</p>
+
+            <h2 id="aboutFormationTitle">Formazione e Filosofia</h2>
+            <p id="aboutP3">Ho conseguito la laurea in Fisioterapia presso l'Università Cattolica di La Plata (UCLP) e ho approfondito le mie conoscenze con corsi di specializzazione in Terapia Manuale e Riabilitazione Funzionale. Parallelamente, ho coltivato la mia passione per lo Yoga, ottenendo la certificazione come Istruttrice Professionale di Yoga presso la Federazione Argentina di Yoga.</p>
+            <p id="aboutP4">Credo fermamente nell'unione tra la scienza della fisioterapia e la pratica millenaria dello Yoga. Questo mi permette di offrire trattamenti che non si limitano a curare il sintomo, ma mirano a comprenderne la causa e a promuovere uno stile di vita più sano e consapevole.</p>
+
+            <h2 id="aboutValuesTitle">Valori</h2>
+            <ul id="aboutValuesList">
+                <li id="value1"><strong>Ascolto Attento:</strong> Ogni persona è unica, dedico tempo a comprendere le tue esigenze specifiche.</li>
+                <li id="value2"><strong>Approccio Olistico:</strong> Considero la persona nella sua interezza: corpo, mente ed emozioni.</li>
+                <li id="value3"><strong>Professionalità e Aggiornamento:</strong> Mi impegno in una formazione continua per offrirti le tecniche più efficaci.</li>
+                <li id="value4"><strong>Empatia e Supporto:</strong> Ti accompagno nel tuo percorso con dedizione e incoraggiamento.</li>
+            </ul>
+			
+			<h2 id="aboutQualifications">Le mie qualifiche</h2>
+            <p id="Qualification1">Laurea in Kinesiologia e Fisiatria conseguita presso l'Universidad Católica de La Plata, Argentina, con Apostilla de La Haya che ne certifica l'autenticità internazionale.</p>
+				<div class="qualifica-immagini">
+					<figure>
+						<img src="images/TitoloKine.png" alt="Titolo di Laurea in Fisioterapia Maria Guillermina Hendriksen" style="max-width: 100%; height: auto; border: 1px solid #ccc; margin-bottom: 10px;">
+						<figcaption data-translate-key="caption_degree_certificate" style="font-size: 0.9em; color: #555;">Estratto del Certificato di Laurea</figcaption>
+					</figure>
+					
+					<figure>
+						<img src="images/ApostillaAIA.png" alt="Apostilla dell'Aia per il Titolo di Laurea" style="max-width: 100%; height: auto; border: 1px solid #ccc; margin-bottom: 10px;">
+						<figcaption data-translate-key="caption_apostille" style="font-size: 0.9em; color: #555;">Apostilla de La Haya</figcaption>
+					</figure>
+				</div>
+            <p id="Qualification2">Certificato Istruttrice di Yoga</p>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p id="footerText">&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/script.js"></script>
+	
+	<div id="login-modal" class="auth-modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('login-modal')">&times;</span>
+            <h3>Login</h3>
+            <form id="login-form">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" required>
+                <button type="submit">Accedi</button>
+                <p id="login-error" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="auth-modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('signup-modal')">&times;</span>
+            <h3>Registrati</h3>
+            <form id="signup-form">
+                <label for="signup-email">Email:</label>
+                <input type="email" id="signup-email" required>
+                <label for="signup-password">Password (min. 6 caratteri):</label>
+                <input type="password" id="signup-password" required minlength="6">
+                <button type="submit">Registrati</button>
+                <p id="signup-message" class="success-message"></p>
+                <p id="signup-error" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

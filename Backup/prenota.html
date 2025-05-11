@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitleBooking">Prenota / Contatti - Maria Guillermina Hendriksen</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Stili specifici per il form */
+        form label {
+            display: block;
+            margin-top: 15px; /* Aumentato leggermente */
+            font-weight: bold; /* Già presente in style.css? Se sì, rimuovere da qui */
+            color: var(--colore-testo); /* Assicurati colore */
+        }
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="tel"], /* Aggiunto tel */
+        form select,
+        form textarea {
+            width: 100%;
+            padding: 10px; /* Aumentato padding */
+            margin-top: 5px;
+            border: 1px solid var(--colore-bordi); /* Usa var(--colore-bordi) */
+            border-radius: 4px;
+            box-sizing: border-box; /* Include padding e border nella larghezza totale */
+            background-color: #fff; /* Sfondo bianco */
+            color: var(--colore-testo); /* Colore testo input */
+            font-size: 1em; /* Dimensione font input */
+        }
+        form input:focus,
+        form select:focus,
+        form textarea:focus {
+            border-color: var(--colore-primario); /* Evidenzia bordo al focus */
+            outline: none; /* Rimuove outline di default */
+            box-shadow: 0 0 5px rgba(45, 139, 139, 0.3); /* Ombra leggera al focus */
+        }
+        form button[type="submit"] { /* Selettore più specifico */
+            background-color: var(--colore-primario); /* Usa var */
+            color: var(--colore-testo-chiaro); /* Usa var */
+            padding: 12px 25px; /* Coerente con .cta-button */
+            border: none;
+            border-radius: 5px; /* Coerente con .cta-button */
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 700; /* Grassetto */
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        form button[type="submit"]:hover {
+            background-color: var(--colore-accento); /* Usa var */
+            transform: translateY(-2px); /* Leggero sollevamento */
+        }
+        /* Stile per il widget Calendly (se usato) */
+        .calendly-inline-widget { margin-top: 20px; }
+        hr { /* Stile separatore */
+            border: none;
+            border-top: 1px solid var(--colore-bordi);
+            margin: 50px 0; /* Aumentato spazio */
+        }
+        #directContacts ul { /* Stile lista contatti */
+             list-style: none;
+             padding: 0;
+        }
+         #directContacts li {
+             margin-bottom: 10px; /* Spazio tra i contatti */
+             font-size: 1.1em; /* Leggermente più grande */
+         }
+         #directContacts li a {
+            color: var(--colore-primario); /* Colore link */
+         }
+         #directContacts li a:hover {
+             color: var(--colore-accento); /* Colore link hover */
+         }
+
+    </style>
+     </head>
+<body>
+    <header>
+		<div class="container header-container"> 
+			<div class="logo">
+				<a href="index.html">Maria Guillermina</a>
+			</div>
+			<button class="hamburger-menu" id="hamburger-menu" aria-label="Apri menu" aria-expanded="false">
+				<span class="hamburger-bar"></span>
+				<span class="hamburger-bar"></span>
+				<span class="hamburger-bar"></span>
+			</button>
+			<nav id="main-nav">
+				<ul>
+					<li><a href="index.html" id="navHome">Homepage</a></li>
+					<li><a href="chi-sono.html" id="navAbout">Chi Sono</a></li>
+					<li><a href="servizi.html" id="navServices">Servizi</a></li>
+					<li><a href="piani.html" id="navPlans">Piani</a></li>
+					<li><a href="contenuti.html" id="navContent">I Miei Contenuti</a></li>
+					<li><a href="prenota.html" id="navBooking">Prenota/Contatti</a></li>
+				</ul>
+				
+				<div class="language-switcher"> 
+					<button data-lang="it">IT</button>
+					<button data-lang="en">EN</button>
+					<button data-lang="es">ES</button>
+				</div>
+				<div id="auth-container">
+					<span id="guest-info" style="display: block;">
+						<button id="login-button" class="auth-button">Login</button>
+						<button id="signup-button" class="auth-button">Registrati</button>
+					</span>
+					<span id="user-info" style="display: none;">
+						<span id="user-email" style="font-weight: bold; margin-right: 5px;"></span>
+						<button id="logout-button" class="auth-button">Logout</button>
+					</span>
+				</div>
+			</nav>
+		</div>
+	</header>
+
+    <main class="container">
+
+        <section id="bookingWidgetSection">
+            <h1 id="bookingTitleWidget">Prenota la Tua Sessione Online</h1>
+            <p id="bookingInstructionsWidget">Utilizza il calendario interattivo qui sotto per scegliere il servizio desiderato e trovare un orario disponibile per il tuo appuntamento (se disponibile).</p>
+
+            <div class="calendly-inline-widget" data-url="https://calendly.com/TUO_USERNAME/TUO_EVENTO" style="min-width:320px;height:700px;"></div>
+             <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+            <p id="bookingWidgetAltContact">Se hai difficoltà con la prenotazione online o hai esigenze particolari, puoi utilizzare il modulo di contatto sottostante o gli altri recapiti.</p>
+        </section>
+        <hr> <section id="contactFormSection">
+            <h2 id="contactFormTitle">Modulo di Contatto / Richiesta Info</h2>
+            <p id="contactFormInstructions">Compila questo modulo per domande, richieste di informazioni o se preferisci prenotare tramite contatto diretto. Ti risponderò il prima possibile.</p>
+
+            <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <label for="name" id="labelName">Nome:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email" id="labelEmail">Email:</label>
+                <input type="email" id="email" name="_replyto" required> <label for="phone" id="labelPhone">Telefono (Opzionale):</label>
+                <input type="tel" id="phone" name="phone"> <label for="subject" id="labelSubject">Oggetto:</label>
+                 <select id="subject" name="subject" required>
+                    <option value="" id="optionSelectSubject">-- Seleziona Oggetto --</option>
+                    <option value="Richiesta Appuntamento Fisioterapia" id="optionSubjFisio">Richiesta Appuntamento Fisioterapia</option>
+                    <option value="Richiesta Lezione Yoga Individuale" id="optionSubjYogaInd">Richiesta Lezione Yoga Individuale</option>
+                    <option value="Info Yoga di Gruppo" id="optionSubjYogaGroup">Info Yoga di Gruppo</option>
+                    <option value="Info Generali" id="optionSubjInfo">Info Generali</option>
+                    <option value="Altro" id="optionSubjOther">Altro</option>
+                </select>
+
+                <label for="message" id="labelMessage">Il tuo messaggio:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+
+                <button type="submit" id="submitButton">Invia Messaggio</button>
+            </form>
+        </section>
+        <hr> <section id="directContacts">
+             <h2 id="directContactTitle">Contatti Diretti</h2>
+             <p id="directContactInfo">Puoi contattarmi anche tramite:</p>
+             <ul>
+                <li id="contactWhatsapp">WhatsApp: <a href="https://wa.me/5492983567655" target="_blank">+54 9 2983 567655</a></li>
+				<li id="contactInstagram">Instagram: <a href="https://www.instagram.com/yoguikine?igsh=dDk4bGc3Zm81MWx2" target="_blank" rel="noopener noreferrer">@yoguikine</a></li>
+                <li id="contactEmail">Email: <a href="mailto:guillerminadn@gmail.com">guillerminadn@gmail.com</a></li>
+                <li id="contactPhone">Telefono: <a href="tel:+393299460634">+39 3299460634</a></li>
+                <li id="contactAddress">Indirizzo Studio: Palma di Maiorca (contattami per dettagli)</li>
+             </ul>
+        </section>
+        </main>
+
+    <footer>
+        <div class="container">
+             <p id="footerText">&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.</p>
+         </div>
+    </footer>
+
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/script.js"></script>
+	
+	<div id="login-modal" class="auth-modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('login-modal')">&times;</span>
+            <h3>Login</h3>
+            <form id="login-form">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" required>
+                <button type="submit">Accedi</button>
+                <p id="login-error" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="auth-modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('signup-modal')">&times;</span>
+            <h3>Registrati</h3>
+            <form id="signup-form">
+                <label for="signup-email">Email:</label>
+                <input type="email" id="signup-email" required>
+                <label for="signup-password">Password (min. 6 caratteri):</label>
+                <input type="password" id="signup-password" required minlength="6">
+                <button type="submit">Registrati</button>
+                <p id="signup-message" class="success-message"></p>
+                <p id="signup-error" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

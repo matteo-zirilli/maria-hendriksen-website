@@ -1,0 +1,656 @@
+/* ==========================================================================
+   Base, Variabili e Stili Generali
+   ========================================================================== */
+
+/* Import Font (Assicurati sia nell'HTML) */
+
+:root {
+  --colore-primario: #2D8B8B;
+  --colore-secondario: #F5F1E9;
+  --colore-accento: #E89F71;
+  --colore-testo: #4A4A4A;
+  --colore-sfondo: #FEFEFE;
+  --colore-sfondo-alt: #FFFFFF;
+  --colore-sfondo-header-footer: #E0E8F0; /* Usato per header nel tuo CSS originale */
+  --colore-bordi: #DDDDDD;
+  --colore-testo-chiaro: #FFFFFF;
+  --colore-ombra: rgba(0, 0, 0, 0.08);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--colore-testo);
+  background-color: var(--colore-sfondo);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* PREVENZIONE SCROLL ORIZZONTALE - meglio risolvere le cause */
+}
+
+.container {
+  width: 90%;
+  max-width: 1140px; /* Aumentato leggermente per desktop moderni */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px; /* Padding laterale per spazio dai bordi */
+  padding-right: 15px;
+}
+
+a {
+  color: var(--colore-primario);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: var(--colore-accento);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--colore-primario);
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+  line-height: 1.3;
+  font-weight: 700;
+}
+h1 { font-size: 2.5em; }
+h2 {
+  font-size: 2em;
+  border-bottom: 3px solid var(--colore-accento);
+  padding-bottom: 8px;
+  display: inline-block;
+}
+h3 { font-size: 1.5em; }
+h4 { font-size: 1.25em; }
+
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+ul, ol {
+  margin-bottom: 1em;
+  padding-left: 20px;
+}
+li {
+  margin-bottom: 0.5em;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 5px;
+}
+
+/* ==========================================================================
+   Header e Navigazione (Desktop First, poi sovrascritto per Mobile)
+   ========================================================================== */
+header {
+  background-color: var(--colore-sfondo-header-footer);
+  border-bottom: 1px solid var(--colore-bordi);
+  padding: 10px 0; /* Ridotto padding verticale header */
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Assicura che l'header stia sopra il contenuto */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.header-container { /* Classe aggiunta al .container dell'header */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0;    /* Rimuovi padding se .container lo ha già */
+  padding-bottom: 0; /* Rimuovi padding se .container lo ha già */
+}
+
+.logo a {
+  font-size: 1.6em;
+  font-weight: 700;
+  color: var(--colore-primario);
+  white-space: nowrap;
+}
+
+#main-nav { /* ID dato al tag <nav> */
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Spazio tra UL, language-switcher, auth-container */
+}
+
+#main-nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 18px; /* Spazio tra le voci del menu desktop */
+}
+
+#main-nav ul li a {
+  text-transform: uppercase;
+  font-size: 0.9em;
+  font-weight: 700;
+  color: var(--colore-testo);
+  padding: 5px 0; /* Rimosso padding laterale, gestito da gap su ul */
+  position: relative;
+  display: block;
+}
+#main-nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--colore-accento);
+  transition: width 0.3s ease;
+}
+#main-nav ul li a:hover::after,
+#main-nav ul li a.active::after { /* Aggiungi una classe .active alla pagina corrente via JS se vuoi */
+  width: 100%;
+}
+#main-nav ul li a:hover,
+#main-nav ul li a.active {
+  color: var(--colore-accento);
+}
+
+/* Language Switcher e Auth Container (Desktop) */
+.language-switcher {
+  display: flex;
+  gap: 5px;
+}
+.language-switcher button {
+  padding: 5px 8px;
+  cursor: pointer;
+  border: 1px solid var(--colore-bordi);
+  background: var(--colore-sfondo);
+  color: var(--colore-testo);
+  border-radius: 4px;
+  font-size: 0.8em;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.language-switcher button:hover {
+  background: #f0f0f0;
+  border-color: #aaa;
+}
+.language-switcher button.active {
+  font-weight: bold;
+  background-color: var(--colore-primario);
+  color: var(--colore-testo-chiaro);
+  border-color: var(--colore-primario);
+}
+
+#auth-container {
+  display: flex; /* Allinea i suoi span figli */
+  align-items: center;
+  gap: 10px; /* Spazio tra login e signup se entrambi visibili */
+  margin-left: 10px; /* Spazio dal language switcher */
+  padding-left: 10px;
+  border-left: 1px solid var(--colore-bordi);
+}
+.auth-button {
+  background-color: var(--colore-accento);
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+.auth-button:hover {
+  background-color: var(--colore-primario);
+}
+#user-info span { /* Per l'email utente */
+  font-size: 0.85em;
+  margin-right: 5px;
+}
+
+/* Hamburger Menu Bottone (Nascosto su Desktop) */
+.hamburger-menu {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1005; /* Deve stare sopra il menu a comparsa se si sovrappongono */
+}
+.hamburger-menu .hamburger-bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: var(--colore-testo);
+  margin: 5px 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ==========================================================================
+   Hero Section (Homepage)
+   ========================================================================== */
+.hero {
+  text-align: center;
+  padding: 60px 20px; /* Ridotto padding verticale */
+  background-color: var(--colore-secondario);
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+.hero h1 {
+  font-size: 2.8em;
+}
+.hero p {
+  font-size: 1.2em;
+  margin-bottom: 25px;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-button {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: var(--colore-primario);
+  color: var(--colore-testo-chiaro);
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: 700;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+.cta-button:hover {
+  background-color: var(--colore-accento);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================================================================
+   Stili Sezioni Generali e Specifiche per Pagina
+   ========================================================================== */
+main section {
+  margin-bottom: 30px; /* Ridotto per consistenza */
+  padding: 15px 0;   /* Ridotto per consistenza */
+}
+
+/* index.html - Immagine Principale & Motto */
+.main-image-section { text-align: center; margin: 30px 0; }
+.main-yoga-image {
+    width: 100%;
+    max-width: 600px; /* Leggermente ridotta */
+    border-radius: 8px;
+    box-shadow: 0 6px 15px var(--colore-ombra);
+}
+.motto-section {
+    background-color: var(--colore-secondario);
+    padding: 30px 0;
+    text-align: center;
+    margin: 30px 0;
+}
+.motto-phrase {
+    font-size: 1.4em;
+    font-style: italic;
+    color: var(--colore-primario);
+    margin-bottom: 0.5em;
+}
+.motto-phrase:last-child { margin-bottom: 0; }
+
+/* chi-sono.html - Immagine Profilo e Qualifiche */
+.profile-image-chisono { /* Stile per l'immagine in chi-sono.html */
+    float: right;
+    margin: 5px 0 15px 20px;
+    max-width: 280px;
+    border-radius: 8px;
+}
+#aboutValuesList li strong,
+#fisioList li strong, /* Da servizi.html */
+#yogaList li strong {   /* Da servizi.html */
+    color: var(--colore-primario);
+    font-weight: 700;
+}
+.qualifica-item {
+    margin-bottom: 30px;
+    padding-top: 20px; /* Spazio sopra se ci sono più items */
+    border-top: 1px solid var(--colore-bordi); /* Separatore tra qualifiche se multiple */
+}
+.qualifica-item:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+.qualifica-immagini {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start; /* Allinea a sinistra su desktop */
+    margin-top: 15px;
+}
+.qualifica-immagini figure {
+    margin: 0;
+    flex: 1 1 280px; /* Base per le immagini delle qualifiche */
+    max-width: 350px;
+}
+.qualifica-immagini img {
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+}
+.qualifica-immagini figcaption {
+    font-size: 0.85em;
+    color: #555;
+    text-align: center;
+}
+
+/* servizi.html - Struttura Immagine e Titolo */
+.service-section { /* Aggiunto per raggruppare titolo, immagine, testo */
+    margin-bottom: 40px;
+}
+.service-title-image-wrapper { /* Per affiancare titolo e img su desktop */
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 15px;
+    flex-wrap: nowrap; /* Su desktop, non andare a capo */
+}
+.service-title-image-wrapper h2 {
+    margin: 0;
+    flex-grow: 1; /* Il titolo prende spazio */
+}
+.service-image-beside { /* Immagine a fianco del titolo nei servizi */
+    max-width: 180px;
+    border-radius: 8px;
+    flex-shrink: 0; /* Non farla rimpicciolire */
+}
+
+/* piani.html - .plans-container e .plan */
+/* Gli stili inline in piani.html dovrebbero essere spostati qui,
+   ma il CSS originale in style.css per .plans-container e .plan era già buono.
+   Assicurati che non ci siano conflitti. */
+.plans-container {
+  display: grid; /* O flex come nel tuo CSS inline */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Ridotto minmax per mobile */
+  gap: 20px; /* Ridotto gap */
+}
+.plan {
+  border: 1px solid var(--colore-bordi);
+  border-radius: 8px;
+  padding: 25px; /* Leggermente ridotto */
+  background-color: var(--colore-sfondo-alt);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px var(--colore-ombra);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.plan:hover {
+  transform: translateY(-5px); /* Ridotto effetto hover */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+.plan h3 { margin-top: 0; margin-bottom: 10px; }
+.plan ul { flex-grow: 1; margin-bottom: 15px; }
+.plan .price { font-size: 1.4em; margin: 10px 0; }
+.plan .cta-button { margin-top: auto; width: 100%; }
+
+
+/* prenota.html - Form e Calendly */
+#contactForm label, .auth-modal form label { /* Anche per modali */
+  display: block;
+  margin-top: 12px; /* Ridotto */
+  font-weight: bold;
+}
+#contactForm input[type="text"],
+#contactForm input[type="email"],
+#contactForm input[type="tel"],
+#contactForm select,
+#contactForm textarea,
+.auth-modal form input[type="email"], /* Anche per modali */
+.auth-modal form input[type="password"] { /* Anche per modali */
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid var(--colore-bordi);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+#contactForm button[type="submit"],
+.auth-modal form button[type="submit"] { /* Anche per modali */
+  margin-top: 20px;
+  /* Stili già ereditati da .cta-button se la classe è applicata,
+     altrimenti definisci qui come .cta-button */
+}
+.calendly-inline-widget {
+    margin-top: 20px;
+    min-width: 280px; /* Assicura non collassi troppo */
+}
+#directContacts ul { list-style: none; padding: 0; }
+#directContacts li { margin-bottom: 8px; font-size: 1em; }
+
+/* Modali di Autenticazione (Stili base) */
+.auth-modal { /* Già presente nel tuo CSS, verifica non ci siano duplicati */ }
+.modal-content { /* Già presente, verifica */ }
+.close-button { /* Già presente, verifica */ }
+
+/* Footer */
+footer {
+  background-color: var(--colore-sfondo-header-footer);
+  color: var(--colore-testo);
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid var(--colore-bordi);
+  font-size: 0.9em;
+}
+footer .container { padding: 0; }
+
+
+/* ==========================================================================
+   RESPONSIVE - Media Queries (PRINCIPALMENTE PER MOBILE)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%; /* Più spazio sui lati per schermi piccoli */
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.6em; padding-bottom: 6px; }
+    h3 { font-size: 1.3em; }
+
+    /* --- Menu Hamburger --- */
+    .header-container {
+        position: relative; /* Necessario per il posizionamento assoluto di #main-nav */
+    }
+
+    .hamburger-menu {
+        display: block; /* Mostra hamburger */
+        position: absolute; /* Per posizionarlo rispetto a .header-container */
+        top: 50%;
+        right: 15px; /* O dove preferisci, considera il padding del .container */
+        transform: translateY(-50%);
+    }
+
+    #main-nav {
+        display: none; /* Nascosto di default */
+        position: absolute;
+        top: 100%; /* Appare subito sotto l'altezza completa dell'header */
+        left: 0;
+        width: 100%;
+        background-color: var(--colore-sfondo-alt); /* Sfondo per il menu a tendina */
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        flex-direction: column;
+        align-items: stretch; /* Elementi interni prendono tutta la larghezza */
+        padding: 0; /* Rimuovi padding se gli li lo gestiscono */
+        z-index: 999; /* Sotto l'header ma sopra il resto */
+        border-top: 1px solid var(--colore-bordi);
+    }
+    #main-nav.menu-aperto {
+        display: flex;
+    }
+
+    #main-nav ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+    #main-nav ul li {
+        width: 100%;
+        text-align: left; /* O center se preferisci */
+        border-bottom: 1px solid var(--colore-bordi);
+    }
+    #main-nav ul li:last-child { border-bottom: none; }
+    #main-nav ul li a {
+        display: block;
+        padding: 12px 20px; /* Più padding per mobile */
+        width: 100%;
+    }
+    #main-nav ul li a::after { display: none; } /* Rimuovi sottolineatura attiva nel menu mobile */
+
+    /* Spostamento di language-switcher e auth-container nel menu mobile */
+    #main-nav .language-switcher,
+    #main-nav #auth-container {
+        display: flex; /* Rendili visibili e flex */
+        flex-direction: column; /* Bottoni uno sotto l'altro */
+        align-items: stretch; /* Bottoni a tutta larghezza del loro contenitore */
+        padding: 15px 20px;
+        width: 100%;
+        gap: 10px;
+        border-top: 1px solid var(--colore-bordi);
+    }
+    #main-nav .language-switcher button,
+    #main-nav #auth-container .auth-button,
+    #main-nav #auth-container #user-info span { /* Email utente */
+        width: 100%;
+        margin-left: 0;
+        text-align: center;
+    }
+    #main-nav #auth-container {
+        border-left: none; /* Rimuovi bordo laterale nel menu mobile */
+        padding-left: 20px; /* Coerente con altro padding */
+    }
+     #main-nav #user-info { /* Assicura che user-info e guest-info siano block */
+        display: flex !important; /* Forza la visualizzazione se nascosto da JS per desktop */
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        width:100%;
+    }
+    #main-nav #guest-info {
+        display: flex !important;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+         width:100%;
+    }
+
+
+    /* Stile per l'hamburger quando il menu è aperto (effetto X) */
+    .hamburger-menu.attivo .hamburger-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger-menu.attivo .hamburger-bar:nth-child(2) { opacity: 0; }
+    .hamburger-menu.attivo .hamburger-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* --- Hero Section Mobile --- */
+    .hero { padding: 40px 15px; }
+    .hero h1 { font-size: 2.2em; }
+    .hero p { font-size: 1em; }
+    .hero .cta-button { font-size: 0.9em; padding: 10px 20px; }
+
+    /* --- index.html - Immagine Principale & Motto Mobile --- */
+    .main-yoga-image { max-width: 90%; }
+    .motto-phrase { font-size: 1.2em; }
+
+    /* --- chi-sono.html Mobile --- */
+    .profile-image-chisono {
+        float: none;
+        display: block;
+        margin: 0 auto 20px auto; /* Centra e spazio sotto */
+        max-width: 70%; /* Più piccola su mobile */
+    }
+    /* Per la sezione qualifiche: immagini una sotto l'altra */
+    .qualifica-immagini {
+        flex-direction: column; /* Una sotto l'altra */
+        align-items: center; /* Centra le immagini */
+    }
+    .qualifica-immagini figure {
+        flex-basis: auto; /* Lascia che prenda la larghezza del contenuto */
+        width: 100%;
+        max-width: 300px; /* Limite per singola immagine */
+    }
+
+
+    /* --- servizi.html Mobile --- */
+    .service-title-image-wrapper {
+        flex-direction: column;
+        align-items: flex-start; /* Titolo e immagine allineati a sinistra */
+        gap: 10px;
+    }
+    .service-image-beside {
+        max-width: 100%; /* Immagine a tutta larghezza */
+        width: 100%;
+        max-height: 220px;
+        object-fit: cover;
+        margin-top: 10px;
+    }
+    .service-section ul { padding-left: 20px; /* Riduci indentazione se necessario */ }
+
+
+    /* --- piani.html Mobile --- */
+    .plans-container {
+        /* auto-fit con minmax(280px) dovrebbe già fare una colonna */
+        gap: 15px;
+    }
+    .plan {
+        padding: 20px;
+        /* flex-basis: 100%; implicito se auto-fit non trova spazio per più colonne */
+    }
+
+    /* --- prenota.html Mobile --- */
+    .calendly-inline-widget {
+        height: 600px !important; /* Riduci altezza widget Calendly */
+        /* width: 100% !important; dovrebbe essere già responsive */
+    }
+    #contactForm input, #contactForm select, #contactForm textarea {
+        font-size: 1em; /* Assicura leggibilità sui form */
+    }
+
+    /* --- contenuti.html - Testimonial Images Mobile --- */
+    .testimonial-gallery {
+        gap: 15px;
+    }
+    .testimonial-image {
+        flex-basis: calc(50% - 10px); /* Due immagini per riga su schermi piccoli se c'è spazio */
+    }
+    @media (max-width: 480px) { /* Per schermi molto piccoli, una per riga */
+        .testimonial-image {
+            flex-basis: 100%;
+        }
+    }
+
+    /* --- Stili per .content-grid (da contenuti.html) --- */
+    .content-grid { /* Questo è per le card dei video acquistabili */
+        grid-template-columns: 1fr; /* Una colonna su mobile */
+        gap: 20px;
+    }
+
+    /* --- Footer Mobile --- */
+    footer { font-size: 0.85em; }
+}
+
+/* Stili specifici per schermi ancora più piccoli, se necessario */
+@media (max-width: 480px) {
+    .container {
+        width: 98%; /* Quasi tutta la larghezza */
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    h1 { font-size: 1.8em; }
+    h2 { font-size: 1.4em; }
+    h3 { font-size: 1.15em; }
+    .hero h1 { font-size: 2em; }
+    .hero p { font-size: 0.9em; }
+
+    /* Ulteriori aggiustamenti per il menu hamburger su schermi molto piccoli se necessario */
+    #main-nav ul li a { padding: 10px 15px; }
+    #main-nav .language-switcher,
+    #main-nav #auth-container { padding: 10px 15px; }
+}

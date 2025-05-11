@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitlePlans">Piani e Tariffe - Maria Guillermina Hendriksen</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .plans-container {
+            display: flex; /* Cambiato da grid a flex per questo esempio, o mantieni grid */
+            flex-wrap: wrap;
+            gap: 30px; /* Spazio tra i box dei piani */
+            /* Se usi grid:
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; */
+        }
+        .plan {
+            border: 1px solid var(--colore-bordi); /* Usa var(--colore-bordi) */
+            border-radius: 8px;
+            padding: 30px; /* Aumentato padding */
+            background-color: var(--colore-sfondo-alt); /* Usa var(--colore-sfondo-alt) */
+            flex: 1 1 300px; /* Flexbox per layout responsive */
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 10px var(--colore-ombra); /* Usa var(--colore-ombra) */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .plan:hover {
+             transform: translateY(-8px);
+             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+        }
+        .plan h3 {
+            margin-top: 0;
+            margin-bottom: 15px; /* Aggiunto spazio sotto h3 */
+            color: var(--colore-primario); /* Usa var(--colore-primario) */
+            display: flex; /* Se vuoi aggiungere icona */
+            align-items: center; /* Se vuoi aggiungere icona */
+        }
+        .plan ul {
+            list-style: disc; /* O usa '✓ ' come in style.css */
+            margin-left: 20px;
+            flex-grow: 1; /* Fa espandere la lista per allineare i bottoni */
+            margin-bottom: 20px; /* Aggiunto spazio sotto ul */
+        }
+         .plan ul li {
+             margin-bottom: 8px; /* Spazio tra le feature */
+         }
+         .plan .price {
+            font-size: 1.5em; /* Coerente con style.css */
+            font-weight: 700; /* Coerente con style.css */
+            margin: 15px 0;
+            color: var(--colore-testo); /* Usa var(--colore-testo) */
+        }
+         .plan .price span { /* Stile prezzo vecchio */
+             font-size: 0.7em;
+             text-decoration: line-through;
+             color: #999;
+             margin-left: 5px;
+             font-weight: 400;
+         }
+         .plan .cta-button {
+            margin-top: auto; /* Spinge il bottone in fondo */
+            text-align: center;
+            width: 100%; /* Bottone a larghezza piena */
+        }
+    </style>
+    </head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo"><a href="index.html">Maria Guillermina</a></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" id="navHome">Homepage</a></li>
+                    <li><a href="chi-sono.html" id="navAbout">Chi Sono</a></li>
+                    <li><a href="servizi.html" id="navServices">Servizi</a></li>
+                    <li><a href="piani.html" id="navPlans">Piani</a></li>
+                    <li><a href="contenuti.html" id="navContent">I Miei Contenuti</a></li>
+                    <li><a href="prenota.html" id="navBooking">Prenota/Contatti</a></li>
+                </ul>
+                <div class="language-switcher">
+                    <button onclick="changeLanguage('it')">IT</button>
+                    <button onclick="changeLanguage('en')">EN</button>
+                    <button onclick="changeLanguage('es')">ES</button>
+                </div>
+				
+				<div id="auth-container" style="margin-left: 15px; display: inline-block; vertical-align: middle; border-left: 1px solid #eee; padding-left: 15px;">
+    <span id="guest-info" style="display: block;">
+        <button id="login-button" class="auth-button">Login</button>
+        <button id="signup-button" class="auth-button">Registrati</button>
+    </span>
+    <span id="user-info" style="display: none;">
+        <span id="user-email" style="font-weight: bold; margin-right: 5px;"></span><button id="logout-button" class="auth-button">Logout</button>
+    </span>
+</div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <h1 id="plansHeading">Piani e Tariffe</h1>
+            <p id="plansIntro">Scegli il piano più adatto alle tue esigenze. Per soluzioni personalizzate o pacchetti combinati Fisioterapia+Yoga, <a href="prenota.html">contattami</a>.</p>
+            <p id="plansNote">Nota: I pagamenti verranno gestiti al momento della prenotazione o in studio. Questa sezione è a scopo informativo.</p>
+        </section>
+
+        <section class="plans-container">
+            <div class="plan">
+                <h3 id="planFisioSingleTitle">Seduta Fisioterapia Singola</h3>
+                <p id="planFisioSingleDesc">Valutazione e trattamento fisioterapico individuale.</p>
+                <ul>
+                    <li id="planFisioSingleFeat1">Durata: circa 60 minuti</li>
+                    <li id="planFisioSingleFeat2">Trattamento personalizzato</li>
+                </ul>
+                <p class="price" id="planFisioSinglePrice">€50</p> <a href="prenota.html" class="cta-button" id="planFisioSingleButton">Prenota Ora</a>
+            </div>
+
+            <div class="plan">
+                <h3 id="planFisio5Title">Ciclo 5 Sedute Fisioterapia</h3>
+                <p id="planFisio5Desc">Pacchetto conveniente per un percorso riabilitativo completo.</p>
+                 <ul>
+                    <li id="planFisio5Feat1">5 sedute individuali (60 min/cad.)</li>
+                    <li id="planFisio5Feat2">Monitoraggio progressi</li>
+                    <li id="planFisio5Feat3">Sconto rispetto alla seduta singola</li>
+                </ul>
+                <p class="price" id="planFisio5Price">€220 <span id="planFisio5OldPrice">(€250)</span></p> <a href="prenota.html" class="cta-button" id="planFisio5Button">Prenota Ciclo</a>
+            </div>
+
+            <div class="plan">
+                <h3 id="planYogaIndSingleTitle">Lezione Yoga Individuale</h3>
+                <p id="planYogaIndSingleDesc">Pratica personalizzata One-to-One.</p>
+                <ul>
+                    <li id="planYogaIndSingleFeat1">Durata: 60 o 75 minuti (da concordare)</li>
+                    <li id="planYogaIndSingleFeat2">Adatta a tutti i livelli</li>
+                    <li id="planYogaIndSingleFeat3">Focus su obiettivi specifici</li>
+                </ul>
+                <p class="price" id="planYogaIndSinglePrice">€45 (60 min)</p> <a href="prenota.html" class="cta-button" id="planYogaIndSingleButton">Prenota Lezione</a>
+            </div>
+
+            <div class="plan">
+                 <h3 id="planYogaInd5Title">Pacchetto 5 Lezioni Yoga Individuali</h3>
+                <p id="planYogaInd5Desc">Percorso continuativo per approfondire la pratica.</p>
+                 <ul>
+                    <li id="planYogaInd5Feat1">5 lezioni individuali (60 min/cad.)</li>
+                    <li id="planYogaInd5Feat2">Flessibilità oraria</li>
+                    <li id="planYogaInd5Feat3">Sconto sul totale</li>
+                 </ul>
+                <p class="price" id="planYogaInd5Price">€200 <span id="planYogaInd5OldPrice">(€225)</span></p> <a href="prenota.html" class="cta-button" id="planYogaInd5Button">Acquista Pacchetto</a>
+             </div>
+
+            <div class="plan">
+                <h3 id="planYogaGroupSingleTitle">Lezione Yoga di Gruppo (Drop-in)</h3>
+                <p id="planYogaGroupSingleDesc">Partecipa a una delle nostre classi di gruppo.</p>
+                <ul>
+                    <li id="planYogaGroupSingleFeat1">Verifica l'orario delle classi</li>
+                    <li id="planYogaGroupSingleFeat2">Adatta a diversi livelli</li>
+                </ul>
+                <p class="price" id="planYogaGroupSinglePrice">€15</p> <a href="prenota.html" class="cta-button" id="planYogaGroupSingleButton">Prenota Classe</a>
+            </div>
+
+            <div class="plan">
+                <h3 id="planYogaGroup10Title">Pacchetto 10 Lezioni Yoga di Gruppo</h3>
+                <p id="planYogaGroup10Desc">Frequenta le classi di gruppo con convenienza.</p>
+                <ul>
+                    <li id="planYogaGroup10Feat1">Accesso a 10 lezioni di gruppo</li>
+                    <li id="planYogaGroup10Feat2">Validità: 3 mesi</li>
+                    <li id="planYogaGroup10Feat3">Massima convenienza</li>
+                 </ul>
+                <p class="price" id="planYogaGroup10Price">€120 <span id="planYogaGroup10OldPrice">(€150)</span></p> <a href="prenota.html" class="cta-button" id="planYogaGroup10Button">Acquista Carnet</a>
+            </div>
+            </section>
+    </main>
+
+    <footer>
+         <div class="container">
+             <p id="footerText">&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.</p>
+         </div>
+    </footer>
+
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/script.js"></script>
+	
+	<div id="login-modal" class="auth-modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('login-modal')">&times;</span>
+            <h3>Login</h3>
+            <form id="login-form">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" required>
+                <button type="submit">Accedi</button>
+                <p id="login-error" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="auth-modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('signup-modal')">&times;</span>
+            <h3>Registrati</h3>
+            <form id="signup-form">
+                <label for="signup-email">Email:</label>
+                <input type="email" id="signup-email" required>
+                <label for="signup-password">Password (min. 6 caratteri):</label>
+                <input type="password" id="signup-password" required minlength="6">
+                <button type="submit">Registrati</button>
+                <p id="signup-message" class="success-message"></p>
+                <p id="signup-error" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
