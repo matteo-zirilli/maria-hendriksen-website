@@ -1492,7 +1492,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
      // --- Fine Caricamento Iniziale Recensioni ---
-	const hamburgerButton = document.getElementById('hamburger-menu');
+    const hamburgerButton = document.getElementById('hamburger-menu');
     const mainNav = document.getElementById('main-nav');
 
     if (hamburgerButton && mainNav) {
@@ -1507,9 +1507,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 hamburgerButton.setAttribute('aria-label', 'Apri menu');
             }
         });
-		
 
-				  // ------------ NUOVO CODICE PER CHIUDERE IL MENU AL CLICK SUI LINK ------------ //
+        // ------------ NUOVO CODICE PER CHIUDERE IL MENU AL CLICK SUI LINK ------------ //
         const navLinks = mainNav.querySelectorAll('a'); // Seleziona tutti i link <a> dentro #main-nav
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -1524,47 +1523,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 // che il link esegua la sua azione predefinita (navigare).
             });
         });
-		
-		// Per chiudere il menu al click sui bottoni lingua DENTRO il menu mobile
-const langButtonsInMobileMenu = mainNav.querySelectorAll('.language-switcher button');
-langButtonsInMobileMenu.forEach(button => {
-    button.addEventListener('click', () => {
-        // Il cambio lingua effettivo è gestito da un altro listener.
-        // Questo si assicura solo che il menu si chiuda se è aperto.
-        if (mainNav.classList.contains('menu-aperto')) {
-            mainNav.classList.remove('menu-aperto');
-            hamburgerButton.classList.remove('attivo');
-            hamburgerButton.setAttribute('aria-expanded', 'false');
-            hamburgerButton.setAttribute('aria-label', 'Apri menu');
-        }
-    });
-});
-
-// Per chiudere il menu al click sui bottoni di autenticazione DENTRO il menu mobile
-const authButtonsInMobileMenu = mainNav.querySelectorAll('#auth-container button');
-authButtonsInMobileMenu.forEach(button => {
-    button.addEventListener('click', (event) => { // Aggiunto event
-        // L'apertura dei modali di login/signup o il logout sono gestiti
-        // dai listener generali per quegli ID.
-        // Questo si assicura solo che il menu si chiuda se è aperto.
-        // NON chiudere se il bottone è logout, perché onAuthStateChange gestirà l'UI
-        // e il menu si chiuderà come effetto collaterale del cambio di stato.
-        // O meglio, chiudiamo sempre, la logica di login/signup non è affetta.
-        // Il logout nasconderà il menu comunque.
-        if (mainNav.classList.contains('menu-aperto')) {
-            mainNav.classList.remove('menu-aperto');
-            hamburgerButton.classList.remove('attivo');
-            hamburgerButton.setAttribute('aria-expanded', 'false');
-            hamburgerButton.setAttribute('aria-label', 'Apri menu');
-        }
-        // Nota: I modali di login/signup si apriranno comunque grazie ai loro listener specifici
-        // basati su ID, e l'azione di logout procederà.
-    });
-});
-// ------------ FINE NUOVO CODICE DA AGGIUNGERE ------------ //
         
+        // Per chiudere il menu al click sui bottoni lingua DENTRO il menu mobile
+        const langButtonsInMobileMenu = mainNav.querySelectorAll('.language-switcher button');
+        langButtonsInMobileMenu.forEach(button => {
+            button.addEventListener('click', () => {
+                // Il cambio lingua effettivo è gestito da un altro listener.
+                // Questo si assicura solo che il menu si chiuda se è aperto.
+                if (mainNav.classList.contains('menu-aperto')) {
+                    mainNav.classList.remove('menu-aperto');
+                    hamburgerButton.classList.remove('attivo');
+                    hamburgerButton.setAttribute('aria-expanded', 'false');
+                    hamburgerButton.setAttribute('aria-label', 'Apri menu');
+                }
+            });
+        });
 
-
+        // Per chiudere il menu al click sui bottoni di autenticazione DENTRO il menu mobile
+        // Assicurati che i tuoi bottoni di login/registrati/logout dentro il menu mobile
+        // siano selezionabili, ad esempio se sono dentro un contenitore con ID 'auth-container'
+        // o se hanno classi specifiche. Qui uso un selettore generico per i bottoni dentro 'mainNav'
+        // che potrebbero essere di autenticazione. Adatta il selettore se necessario.
+        const authButtonsInMobileMenu = mainNav.querySelectorAll('#auth-container button, #guest-info button, #user-info button'); // Adatta questo selettore
+        authButtonsInMobileMenu.forEach(button => {
+            button.addEventListener('click', () => {
+                // L'apertura dei modali di login/signup o il logout sono gestiti
+                // dai listener generali per quegli ID o classi.
+                // Questo si assicura solo che il menu si chiuda se è aperto.
+                if (mainNav.classList.contains('menu-aperto')) {
+                    mainNav.classList.remove('menu-aperto');
+                    hamburgerButton.classList.remove('attivo');
+                    hamburgerButton.setAttribute('aria-expanded', 'false');
+                    hamburgerButton.setAttribute('aria-label', 'Apri menu');
+                }
+            });
+        });
+        // ------------ FINE NUOVO CODICE DA AGGIUNGERE ------------ //
     }
 
    
