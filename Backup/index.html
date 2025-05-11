@@ -16,43 +16,42 @@
     </head>
 <body>
     <header>
-		<div class="container header-container"> {/* Assicurati che .header-container sia usato */}
-			<div class="logo">
-				<a href="index.html">Maria Guillermina</a>
-			</div>
-			<button class="hamburger-menu" id="hamburger-menu" aria-label="Apri menu" aria-expanded="false">
-				<span class="hamburger-bar"></span>
-				<span class="hamburger-bar"></span>
-				<span class="hamburger-bar"></span>
-			</button>
-			<nav id="main-nav">
-				<ul>
-					<li><a href="index.html" id="navHome">Homepage</a></li>
-					<li><a href="chi-sono.html" id="navAbout">Chi Sono</a></li>
-					<li><a href="servizi.html" id="navServices">Servizi</a></li>
-					<li><a href="piani.html" id="navPlans">Piani</a></li>
-					<li><a href="contenuti.html" id="navContent">I Miei Contenuti</a></li>
-					<li><a href="prenota.html" id="navBooking">Prenota/Contatti</a></li>
-				</ul>
-				{/* Elementi che verranno spostati DENTRO il menu a comparsa su mobile dallo CSS */}
-				<div class="language-switcher"> {/* Questo è quello che hai ora, lo stile CSS lo gestirà */}
-					<button data-lang="it">IT</button>
-					<button data-lang="en">EN</button>
-					<button data-lang="es">ES</button>
-				</div>
-				<div id="auth-container"> {/* Questo è quello che hai ora */}
-					<span id="guest-info" style="display: block;">
-						<button id="login-button" class="auth-button">Login</button>
-						<button id="signup-button" class="auth-button">Registrati</button>
-					</span>
-					<span id="user-info" style="display: none;">
-						<span id="user-email" style="font-weight: bold; margin-right: 5px;"></span>
-						<button id="logout-button" class="auth-button">Logout</button>
-					</span>
-				</div>
-			</nav>
-		</div>
-	</header>
+    <div class="container header-container">
+        <div class="logo">
+            <a href="index.html">Maria Guillermina</a>
+        </div>
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="Apri menu" aria-expanded="false" aria-controls="main-nav">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+        </button>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html" id="navHome" data-translate-key="navHome">Homepage</a></li>
+                <li><a href="chi-sono.html" id="navAbout" data-translate-key="navAbout">Chi Sono</a></li>
+                <li><a href="servizi.html" id="navServices" data-translate-key="navServices">Servizi</a></li>
+                <li><a href="piani.html" id="navPlans" data-translate-key="navPlans">Piani</a></li>
+                <li><a href="contenuti.html" id="navContent" data-translate-key="navContent">I Miei Contenuti</a></li>
+                <li><a href="prenota.html" id="navBooking" data-translate-key="navBooking">Prenota/Contatti</a></li>
+            </ul>
+            <div class="language-switcher">
+                <button data-lang="it">IT</button>
+                <button data-lang="en">EN</button>
+                <button data-lang="es">ES</button>
+            </div>
+            <div id="auth-container">
+                <span id="guest-info" style="display: block;">
+                    <button id="login-button" class="auth-button">Login</button>
+                    <button id="signup-button" class="auth-button" data-translate-key="signup-button">Registrati</button>
+                </span>
+                <span id="user-info" style="display: none;">
+                    <span id="user-email"></span>
+                    <button id="logout-button" class="auth-button">Logout</button>
+                </span>
+            </div>
+        </nav>
+    </div>
+</header>
 
     <main class="container">
         <section class="hero">
