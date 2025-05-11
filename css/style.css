@@ -116,15 +116,19 @@ header {
 #main-nav { /* Contenitore per UL, language-switcher, auth-container */
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
+  flex-grow: 1;          /* Permette a #main-nav di occupare lo spazio disponibile */
+  justify-content: flex-end; /* Spinge tutti gli elementi di nav verso destra, dopo il logo */
+
 }
 
 #main-nav ul { /* Lista dei link di navigazione */
   display: flex;
+  align-items: center;   /* Allinea gli LI verticalmente */
   list-style: none;
   padding: 0;
   margin: 0;
-  gap: 18px;
+  gap: 20px;
 }
 
 #main-nav ul li a {
@@ -132,14 +136,16 @@ header {
   font-size: 0.9em;
   font-weight: 700;
   color: var(--colore-testo);
-  padding: 5px 0;
+  padding: 8px 5px; /* Aggiunto un po' di padding verticale per cliccabilità */
   position: relative;
   display: block;
+  white-space: nowrap; /* Evita che i link vadano a capo */
+  text-decoration: none;
 }
 #main-nav ul li a::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: 0; /* Messo a 0 per essere subito sotto il testo */
   left: 0;
   width: 0;
   height: 2px;
@@ -157,6 +163,7 @@ header {
 
 .language-switcher {
   display: flex;
+  align-items: center;  /* Allinea i bottoni verticalmente */
   gap: 5px;
 }
 .language-switcher button {
@@ -186,8 +193,8 @@ header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-left: 5px; /* Leggero spazio dal language switcher */
-  padding-left: 10px;
+  /*margin-left: 5px; /* Leggero spazio dal language switcher */
+  padding-left: 15px;
   border-left: 1px solid var(--colore-bordi);
 }
 .auth-button {
@@ -721,7 +728,7 @@ footer .container { padding: 0; }
     }
 
     #main-nav {
-        display: none; /* Nascosto di default */
+        /*display: none; /* Nascosto di default */
         order: 1; /* Per posizionarlo dopo logo e hamburger nel flex flow se necessario */
         position: absolute; /* Per farlo apparire sotto l'header */
         top: 100%; /* Relativo al suo genitore .header-container se .header-container è position:relative; altrimenti relativo a header */
@@ -734,6 +741,8 @@ footer .container { padding: 0; }
         padding: 0;
         z-index: 999;
         border-top: 1px solid var(--colore-bordi);
+		gap: 0; /* Resetta il gap per mobile, gli elementi interni avranno padding */
+        /* justify-content: flex-start; Resetta se necessario */
     }
     /* Assicurati che il contenitore header permetta il posizionamento assoluto del menu */
     header { position: sticky; /* già presente, va bene */ }
