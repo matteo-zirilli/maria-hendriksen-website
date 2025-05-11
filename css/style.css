@@ -293,6 +293,9 @@ main section:last-of-type {
     max-width: 600px;
     border-radius: 8px;
     box-shadow: 0 6px 15px var(--colore-ombra);
+	margin-left: auto;  /* Per centrare un elemento block */
+    margin-right: auto; /* Per centrare un elemento block */
+    display: block;     /* Assicura che sia un elemento block per i margini auto */
 }
 .motto-section {
     background-color: var(--colore-secondario);
@@ -876,4 +879,31 @@ footer .container { padding: 0; }
 
     .modal-content { margin: 20% auto; padding: 15px; } /* Più spazio sopra per tastiera */
     .auth-modal h3 { font-size: 1.4em; }
+}
+
+
+/* Stili per la sezione "Il mio approccio" in index.html */
+.intro-section {
+    max-width: 800px; /* O la larghezza che preferisci per il testo */
+    margin-left: auto;  /* Centra il blocco di testo nella pagina */
+    margin-right: auto; /* Centra il blocco di testo nella pagina */
+    padding: 20px 0;    /* Aggiungi un po' di spazio sopra e sotto */
+}
+
+.intro-section h2 { /* Titolo "Il mio approccio" */
+    text-align: left; /* Allinea il titolo a sinistra */
+    /* Se vuoi che h2 non abbia la sottolineatura e sia come un normale titolo di sezione: */
+    /* border-bottom: 3px solid var(--colore-accento); */ /* Mantieni se vuoi la linea */
+    /* padding-bottom: 8px; */                       /* Mantieni se vuoi la linea */
+    /* display: inline-block; */                     /* Mantieni se vuoi la linea e che si adatti al testo */
+    /* Se invece vuoi che sia un blocco a tutta larghezza (del suo contenitore .intro-section): */
+    display: block;
+    border-bottom: none; /* Rimuovi la linea se non la vuoi qui */
+    padding-bottom: 0;
+    margin-bottom: 15px; /* Spazio tra titolo e paragrafo */
+}
+
+.intro-section p { /* Paragrafo "Il mio approccio" */
+    text-align: left; /* Allinea il testo del paragrafo a sinistra */
+    /* Non sono necessari altri stili se vuoi un semplice paragrafo a sinistra */
 }
