@@ -1315,102 +1315,82 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- LOGICA MENU HAMBURGER ---
-	const hamburgerButton = document.getElementById('hamburger-menu');
-    const mainNav = document.getElementById('main-nav');
+const hamburgerButton = document.getElementById('hamburger-menu');
+const mainNav = document.getElementById('main-nav');
+console.log('MGH_DEBUG: DOM Content Loaded. Looking for hamburger menu elements.'); // Log 1
 
-    if (hamburgerButton && mainNav) {
-        hamburgerButton.addEventListener('click', () => {
-            mainNav.classList.toggle('menu-aperto');
-            hamburgerButton.classList.toggle('attivo');
-            const isExpanded = mainNav.classList.contains('menu-aperto');
-            hamburgerButton.setAttribute('aria-expanded', isExpanded.toString()); // Converti in stringa
-            hamburgerButton.setAttribute('aria-label', isExpanded ? 'Chiudi menu' : 'Apri menu');
-        });
-		
-        // Funzione helper per chiudere il menu
-        function closeMobileMenu() {
-            if (mainNav.classList.contains('menu-aperto')) {
-                mainNav.classList.remove('menu-aperto');
-                hamburgerButton.classList.remove('attivo');
-                hamburgerButton.setAttribute('aria-expanded', 'false');
-                hamburgerButton.setAttribute('aria-label', 'Apri menu');
-            }
+if (hamburgerButton && mainNav) {
+    console.log('MGH_DEBUG: Hamburger button and mainNav found.'); // Log 2
+
+    hamburgerButton.addEventListener('click', () => {
+        console.log('MGH_DEBUG: Hamburger button clicked.'); // Log 3
+        mainNav.classList.toggle('menu-aperto');
+        hamburgerButton.classList.toggle('attivo');
+        const isExpanded = mainNav.classList.contains('menu-aperto');
+        hamburgerButton.setAttribute('aria-expanded', isExpanded.toString());
+        hamburgerButton.setAttribute('aria-label', isExpanded ? 'Chiudi menu' : 'Apri menu');
+    });
+
+    function closeMobileMenu() {
+        console.log('MGH_DEBUG: Attempting to close mobile menu.'); // Log 4
+        if (mainNav.classList.contains('menu-aperto')) {
+            mainNav.classList.remove('menu-aperto');
+            hamburgerButton.classList.remove('attivo');
+            hamburgerButton.setAttribute('aria-expanded', 'false');
+            hamburgerButton.setAttribute('aria-label', 'Apri menu');
+            console.log('MGH_DEBUG: Mobile menu closed.'); // Log 5
+        } else {
+            console.log('MGH_DEBUG: Mobile menu was already closed or not in "menu-aperto" state.'); // Log 6
         }
+    }
 
-        // Chiudi il menu al click sui link di navigazione principali <a>
-        const navLinks = mainNav.querySelectorAll('ul > li > a'); // Seleziona solo i link diretti della nav
-        navLinks.forEach(link => {
-            link.addEventListener('click', closeMobileMenu);
+    // Chiudi il menu al click sui link di navigazione principali <a>
+    const navLinks = mainNav.querySelectorAll('ul > li > a'); // Selettore pagine principali
+    console.log('MGH_DEBUG: Number of navLinks found with "ul > li > a":', navLinks.length); // Log 7
+
+    if (navLinks.length === 0) {
+        const allLinksInMainNav = mainNav.querySelectorAll('a');
+        console.log('MGH_DEBUG: Trying broader selector: Number of all links in mainNav:', allLinksInMainNav.length); // Log 8
+        allLinksInMainNav.forEach(link => {
+            if (!link.closest('.language-switcher') && !link.closest('#auth-container')) {
+                console.log('MGH_DEBUG: Found link with broader selector (not lang/auth):', link.href, link.id, link.className); // Log 9
+            }
         });
-		
-		// Chiudi il menu al click sui bottoni lingua DENTRO il menu mobile
-        const langButtonsInMobileMenu = mainNav.querySelectorAll('.language-switcher button');
-        langButtonsInMobileMenu.forEach(button => {
-            button.addEventListener('click', closeMobileMenu);
+        console.log('MGH_DEBUG: If navLinks.length is 0, listeners are not attached to page links.');
+    }
+
+    navLinks.forEach(link => {
+        console.log('MGH_DEBUG: Attaching click listener to navLink:', link.href); // Log 10
+        link.addEventListener('click', (event) => {
+            console.log('MGH_DEBUG: navLink clicked, href:', event.currentTarget.href); // Log 11
+            closeMobileMenu();
         });
-		
-		// Chiudi il menu al click sui BOTTONI DI AUTENTICAZIONE DENTRO il menu mobile
-    // Il tuo HTML ha: nav#main-nav > div#auth-container > span > button (con ID login-button, signup-button, logout-button)
+    });
+    
+    // Chiudi il menu al click sui bottoni lingua DENTRO il menu mobile
+    const langButtonsInMobileMenu = mainNav.querySelectorAll('.language-switcher button');
+    langButtonsInMobileMenu.forEach(button => {
+        button.addEventListener('click', closeMobileMenu); // Semplice, l'azione lingua è già gestita
+    });
+    
+    // Chiudi il menu al click sui BOTTONI DI AUTENTICAZIONE DENTRO il menu mobile
     const authButtonsInMobileMenu = mainNav.querySelectorAll('#auth-container button');
     authButtonsInMobileMenu.forEach(button => {
-        button.addEventListener('click', () => {
-            // console.log('Auth button in mobile menu clicked:', button.id); // DEBUG
+        button.addEventListener('click', () => { 
+            // I console.log specifici per questi bottoni sono opzionali qui,
+            // la cosa importante è che chiamino closeMobileMenu().
+            // L'azione del bottone (aprire modale, logout) è già gestita dai listener globali
+            // sugli ID specifici (login-button, signup-button, logout-button).
             closeMobileMenu();
-            // L'azione specifica (aprire modale, logout) è già gestita
-            // dai listener globali sugli ID (login-button, signup-button, logout-button)
-            // che hai definito prima in DOMContentLoaded.
         });
     });
 
-        // Chiudi il menu al click sui bottoni di autenticazione DENTRO il menu mobile
-        // Assicurati che i selettori qui sotto corrispondano agli ID/classi dei tuoi bottoni
-        // Login, Registrati, Logout DENTRO il mainNav (il menu mobile).
-        // Uso selettori più specifici per i bottoni che hai nell'immagine (Login, Registrati, Logout)
-        // se hanno degli ID specifici o classi uniche all'interno del menu.
-        // Se riutilizzi gli ID 'login-button', 'signup-button', 'logout-button' anche nel mobile,
-        // i listener generali già impostati per aprire i modali/fare logout funzioneranno.
-        // Questo listener aggiuntivo serve *solo* per chiudere il menu.
-
-        const mobileLoginButton = mainNav.querySelector('#login-button-mobile'); // Esempio: se hai ID specifici per mobile
-        const mobileSignupButton = mainNav.querySelector('#signup-button-mobile');
-        const mobileLogoutButton = mainNav.querySelector('#logout-button-mobile');
-
-        if(mobileLoginButton) mobileLoginButton.addEventListener('click', () => {
-            closeMobileMenu();
-            openModal('login-modal'); // Assicurati che il modale si apra
-        });
-        if(mobileSignupButton) mobileSignupButton.addEventListener('click', () => {
-            closeMobileMenu();
-            openModal('signup-modal'); // Assicurati che il modale si apra
-        });
-        if(mobileLogoutButton) mobileLogoutButton.addEventListener('click', () => {
-            closeMobileMenu();
-            // L'azione di logout è già gestita dal listener su 'logout-button' se l'ID è lo stesso,
-            // o dovrai triggerare il logout qui se l'ID è diverso.
-            // document.getElementById('logout-button')?.click(); // Se vuoi triggerare il logout del bottone header
-        });
-
-        // Se i bottoni nel menu mobile hanno gli stessi ID di quelli dell'header (es. id="login-button")
-        // puoi usare un selettore più generico ma devi fare attenzione a non creare loop o comportamenti imprevisti.
-        // Un approccio più sicuro è dare ID/classi distinti ai bottoni nel menu mobile se la loro unica
-        // azione aggiuntiva è chiudere il menu prima di eseguire l'azione principale.
-
-        // Fallback più generico se non hai ID specifici per mobile, ma usa i bottoni dentro #auth-container (se esiste nel mobile)
-        const authButtonsInsideMobileMenu = mainNav.querySelectorAll('#auth-container button, #guest-info button, #user-info button');
-        authButtonsInsideMobileMenu.forEach(button => {
-            // Aggiungi listener solo se non sono quelli già coperti specificamente sopra
-            if (button !== mobileLoginButton && button !== mobileSignupButton && button !== mobileLogoutButton) {
-                 button.addEventListener('click', (event) => {
-                    closeMobileMenu();
-                    // L'azione del bottone (es. aprire modale) dovrebbe avvenire comunque
-                    // grazie ai listener già impostati sugli ID specifici.
-                    // Se i bottoni hanno solo classi e non ID unici, dovrai gestire l'azione qui.
-                    // Esempio: if (button.classList.contains('login-trigger-mobile')) openModal('login-modal');
-                });
-            }
-        });
-    }
-    // --- FINE LOGICA MENU HAMBURGER ---
+} else {
+    console.log('MGH_DEBUG: Hamburger button or mainNav NOT found.'); // Log 12
+    if (!hamburgerButton) console.log('MGH_DEBUG: Reason: hamburgerButton is null.');
+    if (!mainNav) console.log('MGH_DEBUG: Reason: mainNav is null.');
+}
+// --- FINE LOGICA MENU HAMBURGER ---
 }); // --- Chiusura di DOMContentLoaded ---
 
 // -----------------------------------------------------------
