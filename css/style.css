@@ -739,7 +739,7 @@ footer .container { padding: 0; }
     .service-image-beside {
         max-width: 100%;  /* Immagine a tutta larghezza del contenitore */
         width: 100%;      /* Forza la larghezza al 100% del suo contenitore */
-        height: 220px;    /* Altezza fissa per coerenza su mobile */
+        height: auto;    /* Altezza fissa per coerenza su mobile */
         object-fit: cover;
         margin-top: 0; /* Rimuovi margine se il gap del flex parent è sufficiente */
     }
@@ -874,7 +874,7 @@ footer .container { padding: 0; }
     .service-image-beside {
         max-width: 100%;
         width: 100%; /* Immagine a tutta larghezza */
-        height: 200px; /* Altezza fissa per coerenza */
+        height: auto; 
         margin-top: 10px;
     }
     .service-section p,
