@@ -1338,7 +1338,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Chiudi il menu al click sui link di navigazione principali <a>
-        const navLinks = mainNav.querySelectorAll('nav > ul > li > a'); // Seleziona solo i link diretti della nav
+        const navLinks = mainNav.querySelectorAll('ul > li > a'); // Seleziona solo i link diretti della nav
         navLinks.forEach(link => {
             link.addEventListener('click', closeMobileMenu);
         });

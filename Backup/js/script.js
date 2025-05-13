@@ -18,7 +18,7 @@ const languages = {
         "mainHeading": "Benvenuti nel sito di Maria Guillermina Hendriksen",
         "mainSubtitle": "Fisioterapista esperta e Istruttrice di Yoga certificata, dedicata al tuo benessere.",
         "ctaButton": "Scopri di più e Prenota",
-		"signup-button": "Registrati",
+		"signup-button": "Registrati", // Chiave generale per bottoni di registrazione
         "mottoPart1": "Ascolta il tuo corpo.",
         "mottoPart2": "Respira nel presente.",
         "mottoPart3": "Muoviti verso il benessere.",
@@ -28,7 +28,6 @@ const languages = {
         // --- chi-sono.html ---
         "pageTitleAbout": "Chi Sono - Maria G. Hendriksen",
         "aboutHeading": "Chi Sono",
-		"signup-button": "Registrati",
 		"aboutQualifications": "Le mie qualifiche",
         "Qualification1": "Laurea in Kinesiologia e Fisiatria conseguita presso l'Universidad Católica de La Plata, Argentina, con Apostilla de La Haya che ne certifica l'autenticità internazionale.",
         "caption_degree_certificate": "Estratto del Certificato di Laurea",
@@ -48,7 +47,6 @@ const languages = {
         // --- servizi.html ---
         "pageTitleServices": "Servizi - Fisioterapia e Yoga - Maria G. Hendriksen",
         "servicesHeading": "I Miei Servizi",
-		"signup-button": "Registrati",
         "servicesIntro": "Ogni percorso, sia esso fisioterapico, yogico o una combinazione dei due, è attentamente personalizzato. Lavoro insieme a te per definire obiettivi realistici e per fornirti gli strumenti e la consapevolezza necessari non solo per raggiungere il benessere, ma anche per mantenerlo nel tempo, prevenendo future problematiche.",
         "fisioTitle": "Fisioterapia",
         "fisioDesc": "La fisioterapia è fondamentale per il recupero da infortuni, la gestione del dolore cronico e il miglioramento della mobilità. Il mio approccio include:",
@@ -70,9 +68,8 @@ const languages = {
         // --- piani.html ---
         "pageTitlePlans": "Piani e Tariffe - Maria G. Hendriksen",
         "plansHeading": "Piani e Tariffe",
-		"signup-button": "Registrati",
         "plansIntro": "Scegli il piano più adatto alle tue esigenze. Per soluzioni personalizzate o pacchetti combinati Fisioterapia+Yoga, <a href=\"prenota.html\">contattami</a>.",
-        "plansNote": "Nota: I pagamenti si effettuano preferibilmente al momento della seduta (contanti, Bizum). Per pacchetti o pagamenti anticipati è possibile richiedere bonifico bancario o link per pagamento online.", // MODIFICATO PER PAGAMENTI
+        "plansNote": "Nota: I pagamenti si effettuano preferibilmente al momento della seduta (contanti, Bizum). Per pacchetti o pagamenti anticipati è possibile richiedere bonifico bancario o link per pagamento online.",
         "planFisioSingleTitle": "Seduta Fisioterapia Singola",
         "planFisioSingleDesc": "Valutazione e trattamento fisioterapico individuale.",
         "planFisioSingleFeat1": "Durata: circa 60 minuti",
@@ -120,7 +117,6 @@ const languages = {
         // --- prenota.html ---
         "pageTitleBooking": "Prenota / Contatti - Maria G. Hendriksen",
         "bookingTitleWidget": "Prenota Incontro Conoscitivo Online",
-		"signup-button": "Registrati",
         "bookingInstructionsWidget": "Utilizza il calendario qui sotto per scegliere un orario disponibile per un incontro conoscitivo gratuito (30 min).",
         "bookingWidgetAltContact": "Per prenotare altri tipi di sessioni o per esigenze particolari, utilizza il modulo di contatto sottostante o gli altri recapiti.",
         "contactFormTitle": "Modulo di Contatto / Richiesta Info",
@@ -148,7 +144,6 @@ const languages = {
         // --- contenuti.html ---
         "pageTitleContent": "I Miei Contenuti - Maria Guillermina Hendriksen",
         "contentHeading": "I Miei Contenuti",
-		"signup-button": "Registrati",
         "contentIntro": "Esplora risorse, video e articoli dedicati allo Yoga e alla Fisioterapia per approfondire la tua pratica e il tuo percorso di benessere.",
         "contentYogaTitle": "Contenuti Yoga",
         "contentYogaDesc": "Video di lezioni, sequenze specifiche, tecniche di respirazione e meditazione guidata per arricchire la tua pratica yoga a casa.",
@@ -161,7 +156,6 @@ const languages = {
         "ratingOption1": "★☆☆☆☆ (Insufficiente)",
 		"dynamic_login_prompt": 'Effettua il <a href="#" onclick="openModal(\'login-modal\'); return false;">login</a> o <a href="#" onclick="openModal(\'signup-modal\'); return false;">registrati</a> per vedere i contenuti disponibili e le opzioni di acquisto.',
 		"purchasable-lessons-paragraph": "Accedi a lezioni complete e approfondimenti esclusivi acquistando l'accesso qui sotto.",
-		/*"video-lessons-grid": "Caricamento contenuti disponibili...",*/
         "yogaVideo1Title": "Titolo Contenuto Yoga 1 (es. Sequenza Mattutina Energizzante)",
         "yogaVideo1Desc": "Breve descrizione del contenuto del video o dell'articolo. Invita a cliccare per vedere di più.",
         "yogaVideo2Title": "Titolo Contenuto Yoga 2 (es. Meditazione Guidata per il Rilassamento)",
@@ -172,7 +166,6 @@ const languages = {
         "fisioContent1Desc": "Descrizione del contenuto: esercizi semplici e sicuri da fare a casa per alleviare il dolore lombare.",
         "fisioContent2Title": "Titolo Contenuto Fisio 2 (es. Consigli Posturali per l'Ufficio)",
         "fisioContent2Desc": "Come mantenere una postura corretta lavorando alla scrivania per prevenire dolori cervicali e dorsali.",
-        // Sezione Recensioni (Include anche testi form per completezza, verranno usati se attivi l'HTML corrispondente)
         "reviewsHeading": "Dicono di Me / Recensioni",
         "testimonialGalleryHeading": "Alcune Testimonianze",
         "testimonialGalleryIntro": "Qui puoi vedere alcuni dei messaggi e delle esperienze condivise da chi ha seguito un percorso con me.",
@@ -210,7 +203,6 @@ const languages = {
         // --- chi-sono.html ---
         "pageTitleAbout": "About Me - Maria G. Hendriksen",
         "aboutHeading": "About Me",
-		"signup-button": "Sign Up",
 		"aboutQualifications": "My Qualifications",
         "Qualification1": "Degree in Kinesiology and Physiatry obtained from the Universidad Católica de La Plata, Argentina, with Hague Apostille certifying its international authenticity.",
         "caption_degree_certificate": "Excerpt from Degree Certificate",
@@ -232,7 +224,6 @@ const languages = {
         "servicesHeading": "My Services",
         "servicesIntro": "Every path, whether it be physiotherapy, yoga, or a combination of both, is carefully personalized. I work together with you to define realistic goals and provide you with the tools and awareness necessary not only to achieve well-being but also to maintain it over time, preventing future issues.",
         "fisioTitle": "Physiotherapy",
-		"signup-button": "Sign Up",
         "fisioDesc": "Physiotherapy is essential for recovering from injuries, managing chronic pain, and improving mobility. My approach includes:",
         "fisioPoint1": "<strong>Complete Functional Assessment:</strong> Detailed analysis of posture, movement, and problem areas.",
         "fisioPoint2": "<strong>Manual Therapy:</strong> Specific techniques (mobilizations, manipulations, therapeutic massage) to reduce pain and restore joint and muscle function.",
@@ -252,7 +243,6 @@ const languages = {
         // --- piani.html ---
         "pageTitlePlans": "Plans and Rates - Maria G. Hendriksen",
         "plansHeading": "Plans and Rates",
-		"signup-button": "Sign Up",
         "plansIntro": "Choose the plan that best suits your needs. For customized solutions or combined Physiotherapy+Yoga packages, <a href=\"prenota.html\">contact me</a>.",
         "plansNote": "Note: Payments are preferably made at the time of the session (cash, Bizum). For packages or advance payments, bank transfer or an online payment link can be requested.",
         "planFisioSingleTitle": "Single Physiotherapy Session",
@@ -302,7 +292,6 @@ const languages = {
         // --- prenota.html ---
         "pageTitleBooking": "Booking / Contact - Maria G. Hendriksen",
         "bookingTitleWidget": "Book Online Discovery Call",
-		"signup-button": "Sign Up",
         "bookingInstructionsWidget": "Use the calendar below to choose an available time for a free discovery call (30 min).",
         "bookingWidgetAltContact": "To book other types of sessions or for special requirements, please use the contact form below or the other contact details.",
         "contactFormTitle": "Contact Form / Info Request",
@@ -330,7 +319,6 @@ const languages = {
         // --- contenuti.html ---
         "pageTitleContent": "My Content - Maria Guillermina Hendriksen",
         "contentHeading": "My Content",
-		"signup-button": "Sign Up",
         "contentIntro": "Explore resources, videos, and articles dedicated to Yoga and Physiotherapy to deepen your practice and wellness journey.",
         "contentYogaTitle": "Yoga Content",
 		"ratingOptionDefault": "-- Select Rating --",
@@ -343,7 +331,6 @@ const languages = {
 		"purchasable-lessons-section1": "Purchasable Video Lessons",
 		"dynamic_login_prompt": 'Please <a href="#" onclick="openModal(\'login-modal\'); return false;">log in</a> or <a href="#" onclick="openModal(\'signup-modal\'); return false;">sign up</a> to see available content and purchase options.',
 		"purchasable-lessons-paragraph": "Access full lessons and exclusive insights by purchasing access below.",
-		/*"video-lessons-grid": "Loading available content...",*/
         "yogaVideo1Title": "Yoga Content Title 1 (e.g., Energizing Morning Sequence)",
         "yogaVideo1Desc": "Brief description of the video or article content. Invites clicking to see more.",
         "yogaVideo2Title": "Yoga Content Title 2 (e.g., Guided Meditation for Relaxation)",
@@ -354,7 +341,6 @@ const languages = {
         "fisioContent1Desc": "Content description: simple and safe exercises to do at home to relieve low back pain.",
         "fisioContent2Title": "Physio Content Title 2 (e.g., Postural Tips for the Office)",
         "fisioContent2Desc": "How to maintain correct posture while working at a desk to prevent neck and back pain.",
-        // Reviews Section
         "reviewsHeading": "Testimonials / Reviews",
         "testimonialGalleryHeading": "Some Testimonials",
         "testimonialGalleryIntro": "Here you can see some of the messages and experiences shared by those who have followed a path with me.",
@@ -392,7 +378,6 @@ const languages = {
         // --- chi-sono.html ---
         "pageTitleAbout": "Sobre Mí - Maria G. Hendriksen",
         "aboutHeading": "Sobre Mí",
-		"signup-button": "Regístrate",
 		"aboutQualifications": "Mis Cualificaciones",
         "Qualification1": "Licenciatura en Kinesiología y Fisiatría obtenida en la Universidad Católica de La Plata, Argentina, con Apostilla de La Haya que certifica su autenticidad internacional.",
         "caption_degree_certificate": "Extracto del Certificado de Grado",
@@ -414,7 +399,6 @@ const languages = {
         "servicesHeading": "Mis Servicios",
         "servicesIntro": "Cada camino, ya sea fisioterapéutico, yóguico o una combinación de ambos, es cuidadosamente personalizado. Trabajo contigo para definir objetivos realistas y proporcionarte las herramientas y la conciencia necesarias no solo para alcanzar el bienestar, sino también para mantenerlo en el tiempo, previniendo problemas futuros.",
         "fisioTitle": "Fisioterapia",
-		"signup-button": "Regístrate",
         "fisioDesc": "La fisioterapia es fundamental para la recuperación de lesiones, el manejo del dolor crónico y la mejora de la movilidad. Mi enfoque incluye:",
         "fisioPoint1": "<strong>Evaluación Funcional Completa:</strong> Análisis detallado de la postura, el movimiento y las áreas problemáticas.",
         "fisioPoint2": "<strong>Terapia Manual:</strong> Técnicas específicas (movilizaciones, manipulaciones, masaje terapéutico) para reducir el dolor y restaurar la función articular y muscular.",
@@ -434,7 +418,6 @@ const languages = {
         // --- piani.html ---
         "pageTitlePlans": "Planes y Tarifas - Maria G. Hendriksen",
         "plansHeading": "Planes y Tarifas",
-		"signup-button": "Regístrate",
         "plansIntro": "Elige el plan que mejor se adapte a tus necesidades. Para soluciones personalizadas o paquetes combinados Fisioterapia+Yoga, <a href=\"prenota.html\">contáctame</a>.",
         "plansNote": "Nota: Los pagos se realizan preferentemente en el momento de la sesión (efectivo, Bizum). Para paquetes o pagos anticipados, se puede solicitar transferencia bancaria o enlace para pago online.",
         "planFisioSingleTitle": "Sesión Única de Fisioterapia",
@@ -484,7 +467,6 @@ const languages = {
         // --- prenota.html ---
         "pageTitleBooking": "Reservas / Contacto - Maria G. Hendriksen",
         "bookingTitleWidget": "Reserva Encuentro Informativo Online",
-		"signup-button": "Regístrate",
         "bookingInstructionsWidget": "Utiliza el calendario abajo para elegir un horario disponible para un encuentro informativo gratuito (30 min).",
         "bookingWidgetAltContact": "Para reservar otros tipos de sesiones o para necesidades particulares, utiliza el formulario de contacto o los otros métodos de contacto.",
         "contactFormTitle": "Formulario de Contacto / Solicitud de Info",
@@ -512,7 +494,6 @@ const languages = {
         // --- contenuti.html ---
         "pageTitleContent": "Mis Contenidos - Maria Guillermina Hendriksen",
         "contentHeading": "Mis Contenidos",
-		"signup-button": "Regístrate",
         "contentIntro": "Explora recursos, videos y artículos dedicados al Yoga y la Fisioterapia para profundizar tu práctica y tu camino hacia el bienestar.",
         "contentYogaTitle": "Contenidos de Yoga",
 		"ratingOptionDefault": "-- Selecciona Valoración --",
@@ -525,7 +506,6 @@ const languages = {
         "contentYogaDesc": "Videos de clases, secuencias específicas, técnicas de respiración y meditación guiada para enriquecer tu práctica de yoga en casa.",
 		"purchasable-lessons-section1": "Videolecciones Disponibles para Comprar",
 		"purchasable-lessons-paragraph": "Accede a lecciones completas y contenidos exclusivos comprando el acceso aquí abajo.",
-		/*"video-lessons-grid": "Cargando contenido disponible...",*/
         "yogaVideo1Title": "Título Contenido Yoga 1 (ej. Secuencia Matutina Energizante)",
         "yogaVideo1Desc": "Breve descripción del contenido del video o artículo. Invita a hacer clic para ver más.",
         "yogaVideo2Title": "Título Contenido Yoga 2 (ej. Meditación Guiada para la Relajación)",
@@ -536,7 +516,6 @@ const languages = {
         "fisioContent1Desc": "Descripción del contenido: ejercicios simples y seguros para hacer en casa y aliviar el dolor lumbar.",
         "fisioContent2Title": "Título Contenido Fisio 2 (ej. Consejos Posturales para la Oficina)",
         "fisioContent2Desc": "Cómo mantener una postura correcta trabajando en el escritorio para prevenir dolores cervicales y dorsales.",
-        // Sección Reseñas
         "reviewsHeading": "Testimonios / Reseñas",
         "testimonialGalleryHeading": "Algunos Testimonios",
         "testimonialGalleryIntro": "Aquí puedes ver algunos de los mensajes y experiencias compartidas por quienes han seguido un camino conmigo.",
@@ -552,13 +531,11 @@ const languages = {
 };
 
 // --- INIZIALIZZAZIONE SUPABASE ---
-//    Sostituisci con le tue vere chiavi prese dal tuo progetto Supabase!
-const SUPABASE_URL = 'https://kmnowyskoyordmndfdae.supabase.co';         // <<< SOSTITUISCI QUI
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imttbm93eXNrb3lvcmRtbmRmZGFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyNzUwMTEsImV4cCI6MjA2MTg1MTAxMX0.MdcRpTPTGC8e5wSeqp7chqhP0fsaW50VtiuN2y26eiw'; // <<< SOSTITUISCI QUI
+const SUPABASE_URL = 'https://kmnowyskoyordmndfdae.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imttbm93eXNrb3lvcmRtbmRmZGFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyNzUwMTEsImV4cCI6MjA2MTg1MTAxMX0.MdcRpTPTGC8e5wSeqp7chqhP0fsaW50VtiuN2y26eiw';
 
 let supabase = null;
 try {
-    // Usa supabaseJs globalmente se la libreria è inclusa via <script>
     if (window.supabase) {
        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
        console.log("Supabase client initialized.");
@@ -569,7 +546,7 @@ try {
     console.error("Error initializing Supabase:", error);
 }
 
-let currentUser = null; // Variabile globale per tenere traccia dell'utente loggato
+let currentUser = null;
 
 // -----------------------------------------------------------
 //               FUNZIONI DI UTILITÀ (Lingua, Stelle, Modali)
@@ -581,45 +558,31 @@ function changeLanguage(lang) {
         return;
      }
     document.documentElement.lang = lang;
-    // 1. Traduci elementi con ID
     for (const key in languages[lang]) {
         const elementById = document.getElementById(key);
         if (elementById) {
-            // La tua logica per OPTION, pageTitle, e innerHTML generico
             if (elementById.tagName === 'OPTION') {
                 elementById.textContent = languages[lang][key];
             } else if (key.startsWith('pageTitle')) {
                 document.title = languages[lang][key];
             } else {
-                // CONTROLLA QUI: `aboutQualifications`, `Qualification1`, `Qualification2`
-                // verranno presi qui e il loro innerHTML verrà aggiornato.
                 elementById.innerHTML = languages[lang][key];
             }
         }
     }
-
-    // 2. Traduci elementi con data-translate-key
     document.querySelectorAll('[data-translate-key]').forEach(element => {
         const key = element.dataset.translateKey;
         if (languages[lang] && languages[lang][key]) {
-            // CONTROLLA QUI: `caption_degree_certificate` e `caption_apostille`
-            // verranno presi qui.
-            // Per FIGCAPTION, textContent è solitamente più sicuro se non c'è HTML nella traduzione.
             if (element.tagName === 'FIGCAPTION' || !languages[lang][key].includes('<')) {
                  element.textContent = languages[lang][key];
             } else {
                  element.innerHTML = languages[lang][key];
             }
-        } else {
-            // Considera un console.warn qui se la chiave non viene trovata,
-            // per aiutarti a debuggare chiavi mancanti nelle tue traduzioni.
-            // console.warn(`Chiave data-translate-key non trovata o lingua non definita: ${key} per ${lang}`);
         }
     });
     localStorage.setItem('preferredLanguage', lang);
     if (typeof updateActiveButton === 'function') { updateActiveButton(lang); }
 
-    // Aggiornamento video (se esiste l'elemento) - Mantenuto dal tuo codice originale
     const videoElement = document.getElementById('presentationVideo');
     if (videoElement) {
         let videoSrc = '';
@@ -636,23 +599,18 @@ function changeLanguage(lang) {
     }
 	
 	const videoGrid = document.getElementById('video-lessons-grid');
-    // Controlla se currentUser è definito e se è null
-    // (currentUser è la variabile globale che aggiorni in onAuthStateChange)
     if (videoGrid && (!currentUser || currentUser === null)) {
         if (typeof displayLoginMessage === 'function') {
             console.log("Lingua cambiata, utente non loggato, richiamo displayLoginMessage per aggiornare il prompt.");
             displayLoginMessage();
         }
     }
-    // Ri-applica i testi ai bottoni/label dei form di autenticazione se necessario
-    // (Al momento non ci sono testi specifici della lingua nei modal auth)
 }
 
 function updateActiveButton(lang) {
     const buttons = document.querySelectorAll('.language-switcher button');
     buttons.forEach(button => {
         let buttonLang = '';
-        // Determina la lingua del bottone (dal tuo codice originale)
         if (button.hasAttribute('onclick')) {
             const match = button.getAttribute('onclick').match(/changeLanguage\('(\w+)'\)/);
             if (match) buttonLang = match[1];
@@ -664,7 +622,6 @@ function updateActiveButton(lang) {
 }
 
 function displayStars(rating) {
-    // ... (Tua funzione displayStars esistente) ...
     const maxStars = 5;
     let starsHTML = '';
     const ratingNum = parseInt(rating, 10);
@@ -677,7 +634,6 @@ function displayStars(rating) {
     return `<span class="review-stars">${starsHTML}</span>`;
 }
 
-// Funzioni Helper per i Modali di Autenticazione
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
@@ -703,12 +659,10 @@ function closeModal(modalId) {
 }
 
 // -----------------------------------------------------------
-//               FUNZIONI SPECIFICHE (Recensioni, Autenticazione)
+//               FUNZIONI SPECIFICHE (Recensioni, Autenticazione, Contenuti Video)
 // -----------------------------------------------------------
 
-// --- Funzioni Recensioni (Dal tuo codice originale) ---
 async function loadReviews() {
-    // ... (Tua funzione loadReviews esistente) ...
     const container = document.getElementById('reviews-list-container');
     if (!container) return;
     container.innerHTML = '<p>Caricamento recensioni in corso...</p>';
@@ -721,7 +675,7 @@ async function loadReviews() {
             container.innerHTML = '<p>Non ci sono ancora recensioni. Sii il primo a lasciarne una!</p>';
             return;
         }
-        reviews.forEach(review => { /* ... crea HTML recensione ... */
+        reviews.forEach(review => {
              const reviewElement = document.createElement('div');
             reviewElement.className = 'review-item';
             const reviewDate = new Date(review.created_at).toLocaleDateString('it-IT', {
@@ -746,8 +700,6 @@ async function loadReviews() {
 }
 
 async function handleReviewSubmit(event) {
-    // ... (Tua funzione handleReviewSubmit esistente) ...
-    console.log(">>> SUBMIT CLICCATO - ESEGUO handleReviewSubmit? <<<") // Tua riga di debug
     event.preventDefault();
     const form = event.target;
     const submitButton = form.querySelector('button[type="submit"]');
@@ -795,128 +747,128 @@ async function handleReviewSubmit(event) {
     }
 }
 
-// --- Funzioni Autenticazione ---
 function updateAuthStateUI(user) {
-    // Recupera gli elementi dell'header (più sicuro farlo qui dentro)
     const guestInfo = document.getElementById('guest-info');
     const userInfo = document.getElementById('user-info');
     const userEmailSpan = document.getElementById('user-email');
+    const signupButtonHeader = document.getElementById('signup-button'); // Bottone Registrati nell'header principale
 
-    if (!guestInfo || !userInfo || !userEmailSpan) return; // Elementi non presenti in pagina?
+    // Se nel menu mobile hai ID diversi per questi elementi (es. guest-info-mobile), dovrai selezionarli e aggiornarli qui.
+    // Per ora assumo che usi gli stessi ID o che il menu mobile duplichi questi elementi.
+
+    if (!guestInfo || !userInfo || !userEmailSpan) {
+        console.warn("Elementi UI per stato autenticazione non trovati (guest-info, user-info, user-email).");
+        return;
+    }
 
     if (user) { // Logged In
         guestInfo.style.display = 'none';
-        userInfo.style.display = 'inline'; // O 'block'
+        if(signupButtonHeader) signupButtonHeader.style.display = 'none'; // Nascondi "Registrati" se loggato
+        userInfo.style.display = 'inline'; // O 'block' o 'flex' a seconda del tuo layout
         userEmailSpan.textContent = user.email;
     } else { // Logged Out
-        guestInfo.style.display = 'inline'; // O 'block'
+        guestInfo.style.display = 'inline'; // O 'block' o 'flex'
+        if(signupButtonHeader) signupButtonHeader.style.display = 'inline-block'; // Mostra "Registrati" se sloggato
         userInfo.style.display = 'none';
         userEmailSpan.textContent = '';
     }
 }
 
-// Funzione asincrona per controllare lo stato iniziale dell'utente all'avvio
+
 async function checkInitialAuthState() {
     if (!supabase) {
         console.warn("Supabase non inizializzato, impossibile controllare stato auth iniziale.");
-        updateAuthStateUI(null); // Mostra UI da sloggato
+        updateAuthStateUI(null);
+        initializePageBasedOnAuthState(null); // Assicurati di inizializzare anche la pagina
         return;
     }
     try {
         console.log("Checking initial auth state...");
-        // Usiamo getSession per non forzare un refresh se il token è valido
         const { data: { session }, error } = await supabase.auth.getSession();
          if (error) {
-            // Un errore qui non è necessariamente grave (es. token scaduto)
             console.warn("Error getting initial session:", error.message);
             currentUser = null;
          } else {
             currentUser = session?.user ?? null;
          }
         console.log("Initial user state:", currentUser ? currentUser.email : 'Not logged in');
-        updateAuthStateUI(currentUser); // Aggiorna l'UI
-
-        // Esegui azioni specifiche della pagina (come caricare contenuti video)
+        updateAuthStateUI(currentUser);
         initializePageBasedOnAuthState(currentUser);
-
     } catch (err) {
          console.error("Unexpected error during initial auth check:", err);
-         updateAuthStateUI(null); // Fallback a stato sloggato
+         updateAuthStateUI(null);
+         initializePageBasedOnAuthState(null);
     }
 }
 
-// Funzione per eseguire azioni specifiche della pagina basate sullo stato auth
 function initializePageBasedOnAuthState(user) {
      const videoGrid = document.getElementById('video-lessons-grid');
-     if (videoGrid) { // Se siamo sulla pagina contenuti
+     const loginPromptContainer = document.getElementById('login-prompt-container'); // Aggiunto selettore
+
+     if (videoGrid) {
          if (user) {
+            if (loginPromptContainer) loginPromptContainer.style.display = 'none'; // Nascondi prompt login
              if (typeof loadVideoLessons === 'function') {
-                 loadVideoLessons(); // Sarà definita più avanti
+                 loadVideoLessons();
              } else { console.warn('Function loadVideoLessons not defined yet.'); }
          } else {
              if (typeof displayLoginMessage === 'function') {
-                 displayLoginMessage(); // Sarà definita più avanti
+                 displayLoginMessage();
              } else {
-                videoGrid.innerHTML = '<p>Effettua il login per vedere i contenuti e le opzioni di acquisto.</p>';
-                console.warn('Function displayLoginMessage not defined yet.');
+                videoGrid.innerHTML = ''; // Pulisci griglia
+                if (loginPromptContainer) { // Mostra prompt login se esiste
+                    const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+                    loginPromptContainer.innerHTML = languages[currentLang]?.dynamic_login_prompt || languages['it']?.dynamic_login_prompt || '<p>Please log in.</p>';
+                    loginPromptContainer.style.display = 'block';
+                }
+                console.warn('Function displayLoginMessage not defined yet, fallback UI used.');
              }
          }
      }
-     // Qui potresti aggiungere logica per altre pagine se necessario
 }
 
-
-
-// ===========================================================
-//         AGGIUNTE ALLA SEZIONE "FUNZIONI SPECIFICHE"
-// ===========================================================
-
-// --- Funzioni per Caricare Contenuti Video dalla Pagina contenuti.html ---
-
-// Funzione per mostrare messaggio di login
-// In script.js (attorno alla riga 777)
 function displayLoginMessage() {
     const grid = document.getElementById('video-lessons-grid');
     const loginPromptContainer = document.getElementById('login-prompt-container');
 
     if (grid) {
-        grid.innerHTML = ''; // Pulisci sempre la griglia delle lezioni
-        grid.style.display = 'none'; // Nascondi la griglia vuota
+        grid.innerHTML = '';
+        grid.style.display = 'none';
     }
 
     if (loginPromptContainer) {
         const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-        let messageHtml = languages[currentLang]?.dynamic_login_prompt || languages['it']?.dynamic_login_prompt || '<p>Please log in.</p>';
-        loginPromptContainer.innerHTML = messageHtml; // Metti qui il messaggio
-        loginPromptContainer.style.display = 'block'; // Mostra il contenitore del messaggio
+        let messageHtml = languages[currentLang]?.dynamic_login_prompt || languages['it']?.dynamic_login_prompt || '<p>Please log in to view content.</p>'; // Testo di fallback migliorato
+        loginPromptContainer.innerHTML = messageHtml;
+        loginPromptContainer.style.display = 'block';
+    } else {
+        // Fallback se login-prompt-container non esiste, ma video-lessons-grid sì
+        if(grid) grid.innerHTML = '<p>Effettua il login per vedere i contenuti e le opzioni di acquisto.</p>';
     }
 }
 
-// Funzione per recuperare le lezioni video da Supabase
 async function fetchVideoLessons() {
     if (!supabase) {
         console.error("Supabase client non disponibile per fetchVideoLessons");
-        return []; // Ritorna array vuoto in caso di errore
+        return [];
     }
     try {
         const { data, error } = await supabase
-            .from('video_lessons') // Nome tabella lezioni
-            .select('*') // Prendi tutte le colonne
-            .order('created_at', { ascending: true }); // Ordina come preferisci
-
+            .from('video_lessons')
+            .select('*')
+            .order('created_at', { ascending: true });
         if (error) {
             console.error('Errore nel recupero delle video lezioni:', error);
-            throw error; // Rilancia l'errore per gestirlo nel chiamante
+            throw error;
         }
         console.log("Lezioni recuperate da Supabase:", data);
-        return data || []; // Ritorna i dati o un array vuoto
+        return data || [];
     } catch (err) {
         console.error("Eccezione durante fetchVideoLessons:", err);
-        return []; // Fallback array vuoto
+        return [];
     }
 }
 
-// Funzione per recuperare gli ID delle lezioni acquistate dall'utente corrente
 async function fetchUserPurchases(userId) {
     if (!supabase || !userId) {
          console.error("Supabase client o User ID non disponibili per fetchUserPurchases");
@@ -924,17 +876,15 @@ async function fetchUserPurchases(userId) {
     }
     try {
         const { data, error } = await supabase
-            .from('purchases') // Nome tabella acquisti
-            .select('lesson_id') // Ci serve solo l'ID della lezione
+            .from('purchases')
+            .select('lesson_id')
             .eq('user_id', userId)
-            .eq('status', 'completed'); // Solo acquisti completati con successo
-
+            .eq('status', 'completed');
         if (error) {
             console.error('Errore nel recupero degli acquisti utente:', error);
             throw error;
         }
         console.log("Acquisti utente recuperati:", data);
-        // Estrai e ritorna solo l'array degli ID delle lezioni acquistate
         return data.map(purchase => purchase.lesson_id);
     } catch (err) {
          console.error("Eccezione durante fetchUserPurchases:", err);
@@ -942,40 +892,30 @@ async function fetchUserPurchases(userId) {
     }
 }
 
-// Funzione per mostrare le lezioni nell'HTML
 function displayVideoLessons(lessons, purchasedLessonIds) {
     const grid = document.getElementById('video-lessons-grid');
     if (!grid) {
         console.error("Elemento #video-lessons-grid non trovato nel DOM.");
-        return; // Esce se il contenitore non esiste
+        return;
     }
-
-    grid.innerHTML = ''; // Pulisce il messaggio "Caricamento..." o contenuti precedenti
+    grid.innerHTML = '';
+    grid.style.display = 'grid'; // Assicurati che la griglia sia visibile
 
     if (lessons.length === 0) {
         grid.innerHTML = '<p>Nessuna video lezione disponibile al momento.</p>';
-        return; // Esce se non ci sono lezioni
+        return;
     }
 
     lessons.forEach(lesson => {
-        // Controlla se l'ID di questa lezione è nell'array degli acquisti dell'utente
         const isPurchased = purchasedLessonIds.includes(lesson.id);
-
-        // Crea l'elemento contenitore per la singola lezione
         const item = document.createElement('div');
-        item.className = 'content-item'; // Usa la stessa classe CSS che avevi per lo stile
-
-        // Formatta il prezzo (adattalo se usi altre valute)
+        item.className = 'content-item';
         let priceFormatted = 'N/D';
         if (lesson.price_eur !== null && lesson.price_eur !== undefined) {
             try {
-                 priceFormatted = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(lesson.price_eur);
-                 // Cambia 'es-ES' con 'it-IT' se preferisci formato italiano
+                 priceFormatted = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(lesson.price_eur);
             } catch(e) { console.error("Errore formattazione prezzo:", e); }
         }
-
-
-        // Costruisce l'HTML interno dell'elemento lezione
         item.innerHTML = `
             <div class="content-thumbnail">
                 <img src="${lesson.thumbnail_url || 'images/placeholder-video.png'}" alt="Anteprima ${lesson.name || 'Lezione'}">
@@ -984,11 +924,9 @@ function displayVideoLessons(lessons, purchasedLessonIds) {
                 <h3 class="content-title">${lesson.name || 'Titolo Lezione'}</h3>
                 <p class="content-description">${lesson.description || 'Nessuna descrizione.'}</p>
                 ${isPurchased ?
-                    // Se Acquistato: mostra bottone "Guarda Ora"
                     `<p style="margin-top:10px; font-weight:bold; color:green;">Acquistato</p>
                      <button class="cta-button watch-button" data-lesson-id="${lesson.id}">Guarda Ora</button>`
                     :
-                    // Se NON Acquistato: mostra prezzo e bottoni "Acquista"
                     `<p class="price" style="font-weight: bold; margin-top:10px;">${priceFormatted}</p>
                      <div class="purchase-buttons" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
                          <button class="cta-button paypal-buy-button" data-lesson-id="${lesson.id}" data-price="${lesson.price_eur}">
@@ -997,23 +935,17 @@ function displayVideoLessons(lessons, purchasedLessonIds) {
                          <button class="cta-button mercadopago-buy-button" data-lesson-id="${lesson.id}" data-price="${lesson.price_eur}">
                              Acquista con MercadoPago
                          </button>
-                         <div id="paypal-button-container-${lesson.id}" style="min-height: 40px;"></div>
+                         <div id="paypal-button-container-${lesson.id}" style="min-height: 40px; margin-top: 5px;"></div>
                      </div>`
                 }
             </div>
         `;
-
-        // Aggiunge l'elemento creato alla griglia nel DOM
         grid.appendChild(item);
     });
-
-    // DOPO aver aggiunto tutti gli elementi al DOM, aggiungi i listener ai nuovi bottoni
     addPurchaseButtonListeners();
     addWatchButtonListeners();
 }
 
-
-// Funzione PRINCIPALE per caricare le lezioni (questa verrà chiamata da initializePageBasedOnAuthState)
 async function loadVideoLessons() {
     const grid = document.getElementById('video-lessons-grid');
     const loginPromptContainer = document.getElementById('login-prompt-container');
@@ -1021,88 +953,76 @@ async function loadVideoLessons() {
     if (!grid) return;
 
     if (loginPromptContainer) {
-        loginPromptContainer.innerHTML = ''; // Pulisci il messaggio di login
-        loginPromptContainer.style.display = 'none'; // Nascondi il contenitore del messaggio
+        loginPromptContainer.innerHTML = '';
+        loginPromptContainer.style.display = 'none';
     }
-    grid.style.display = 'grid'; // O il tuo display di default per la griglia
+    grid.style.display = 'grid';
 
     if (!currentUser) {
-        displayLoginMessage();
+        displayLoginMessage(); // Chiama per mostrare il prompt di login se l'utente non è loggato
         return;
     }
 
     console.log("Utente loggato, caricamento lezioni...");
-    grid.innerHTML = '<p>Caricamento lezioni disponibili...</p>'; // Messaggio di attesa
+    grid.innerHTML = '<p>Caricamento lezioni disponibili...</p>';
 
     try {
-        // Recupera le lezioni e gli acquisti IN PARALLELO per velocizzare
         const [lessons, purchasedIds] = await Promise.all([
             fetchVideoLessons(),
             fetchUserPurchases(currentUser.id)
         ]);
-
-        // Mostra le lezioni recuperate
         displayVideoLessons(lessons, purchasedIds);
-
     } catch (error) {
         console.error("Errore durante il caricamento delle lezioni o degli acquisti:", error);
         grid.innerHTML = `<p style="color:red;">Errore nel caricamento dei contenuti (${error.message}). Riprova più tardi.</p>`;
     }
 }
 
-// --- Funzioni Listener per i Bottoni Acquista/Guarda ---
-// (Queste verranno implementate meglio dopo, per ora metti dei placeholder)
-
 function addPurchaseButtonListeners() {
     document.querySelectorAll('.paypal-buy-button').forEach(button => {
-        // Rimuovi listener esistenti per sicurezza (se questa funzione viene chiamata più volte)
-        button.replaceWith(button.cloneNode(true));
+        button.replaceWith(button.cloneNode(true)); // Rimuove vecchi listener
     });
      document.querySelectorAll('.paypal-buy-button').forEach(button => {
-         button.addEventListener('click', handlePayPalBuyClick); // Chiama la funzione che gestirà il click
+         button.addEventListener('click', handlePayPalBuyClick);
      });
 
     document.querySelectorAll('.mercadopago-buy-button').forEach(button => {
-         button.replaceWith(button.cloneNode(true));
+         button.replaceWith(button.cloneNode(true)); // Rimuove vecchi listener
      });
       document.querySelectorAll('.mercadopago-buy-button').forEach(button => {
-         button.addEventListener('click', handleMercadoPagoBuyClick); // Chiama la funzione che gestirà il click
+         button.addEventListener('click', handleMercadoPagoBuyClick);
      });
 }
 
 function addWatchButtonListeners() {
     document.querySelectorAll('.watch-button').forEach(button => {
-         button.replaceWith(button.cloneNode(true));
+         button.replaceWith(button.cloneNode(true)); // Rimuove vecchi listener
      });
      document.querySelectorAll('.watch-button').forEach(button => {
         button.addEventListener('click', (event) => {
             const lessonId = event.target.dataset.lessonId;
             console.log(`Click su "Guarda Ora" per lezione: ${lessonId}`);
             alert(`Funzionalità "Guarda Ora" per la lezione ${lessonId} non ancora implementata.`);
-            // Qui in futuro reindirizzerai a un player o mostrerai il video
             // Esempio: window.location.href = `/watch?lesson=${lessonId}`;
         });
     });
 }
 
-// Funzione Handler AGGIORNATA per il Click sul Bottone "Acquista con PayPal"
 async function handlePayPalBuyClick(event) {
-    const button = event.target; // Il bottone "Acquista con PayPal" cliccato
+    const button = event.target;
     const lessonId = button.dataset.lessonId;
-    const price = button.dataset.price;
-    const purchaseButtonsDiv = button.closest('.purchase-buttons'); // Trova il div che contiene i bottoni
+    const price = button.dataset.price; // Non strettamente necessario qui se il backend lo sa
+    const purchaseButtonsDiv = button.closest('.purchase-buttons');
     const payPalContainerId = `paypal-button-container-${lessonId}`;
     const payPalContainer = document.getElementById(payPalContainerId);
-    const mpButton = purchaseButtonsDiv ? purchaseButtonsDiv.querySelector('.mercadopago-buy-button') : null; // Trova il bottone MP
+    const mpButton = purchaseButtonsDiv ? purchaseButtonsDiv.querySelector('.mercadopago-buy-button') : null;
 
-    // Controlla se l'utente è loggato
     if (!currentUser) {
         alert("Devi effettuare il login per acquistare.");
-        openModal('login-modal'); // Apri il modale di login
-        return; // Interrompe l'esecuzione
+        openModal('login-modal');
+        return;
     }
 
-    // Controlla se Supabase è pronto e se abbiamo una sessione
      if (!supabase || !supabase.auth || typeof supabase.auth.getSession !== 'function') {
          console.error("Supabase client o auth non inizializzato correttamente.");
          alert("Errore: impossibile verificare l'autenticazione. Riprova più tardi.");
@@ -1116,63 +1036,44 @@ async function handlePayPalBuyClick(event) {
      }
      const accessToken = session.access_token;
 
-
     console.log(`Avvio procedura acquisto PayPal: Lezione ID ${lessonId}, Prezzo ${price}`);
-
-    // Feedback Visivo e Disabilitazione Bottoni
     button.disabled = true;
     button.textContent = 'Creazione ordine...';
-    if (mpButton) mpButton.style.display = 'none'; // Nasconde bottone MP
+    if (mpButton) mpButton.style.display = 'none';
     if (payPalContainer) {
         payPalContainer.innerHTML = '<p><em>Inizializzazione pagamento...</em></p>';
-        payPalContainer.style.display = 'block'; // Assicurati sia visibile
+        payPalContainer.style.display = 'block';
     } else {
         console.error(`Container PayPal ${payPalContainerId} non trovato!`);
         alert(`Errore: Impossibile trovare l'area per il bottone di pagamento.`);
-        button.disabled = false; // Riabilita bottone Acquista
+        button.disabled = false;
         button.textContent = 'Acquista con PayPal';
-        if (mpButton) mpButton.style.display = 'block'; // Ri-mostra bottone MP
+        if (mpButton) mpButton.style.display = 'block';
         return;
     }
 
     try {
-        // Chiama la Netlify Function per creare l'ordine PayPal
-        console.log("Chiamata a /.netlify/functions/create-paypal-order");
         const response = await fetch('/.netlify/functions/create-paypal-order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}` // Invia token Supabase
+                'Authorization': `Bearer ${accessToken}`
             },
-            body: JSON.stringify({ lessonId: lessonId }) // Invia l'ID della lezione
+            body: JSON.stringify({ lessonId: lessonId })
         });
-
-        // Controlla se la risposta dalla funzione è OK
         if (!response.ok) {
             let errorData = { error: `Errore server (${response.status})` };
-            try {
-                errorData = await response.json(); // Prova a leggere l'errore specifico
-            } catch(e) { /* ignora se non c'è JSON */ }
-            console.error("Errore dalla funzione Netlify:", errorData);
+            try { errorData = await response.json(); } catch(e) { /* ignora */ }
             throw new Error(errorData.error || `Errore ${response.status} nella creazione ordine.`);
         }
-
-        // Estrai l'orderID dalla risposta JSON
         const orderData = await response.json();
         const orderID = orderData.orderId;
-
         if (!orderID) {
             throw new Error("ID Ordine PayPal non ricevuto dalla funzione backend.");
         }
-
         console.log("Ordine PayPal creato con ID:", orderID);
-
-        // Nascondi il bottone "Acquista con PayPal" originale
         button.style.display = 'none';
-
-        // Chiama la funzione per renderizzare il bottone PayPal SDK
-        renderPayPalButton(orderID, payPalContainerId, lessonId); // Passa l'ID del container e lessonId
-
+        renderPayPalButton(orderID, payPalContainerId, lessonId);
     } catch (error) {
         console.error("Errore durante la chiamata alla funzione Netlify o creazione ordine:", error);
         if (payPalContainer) {
@@ -1180,12 +1081,11 @@ async function handlePayPalBuyClick(event) {
         } else {
              alert(`Errore: ${error.message}`);
         }
-        // Ripristina i bottoni originali in caso di errore grave
         button.disabled = false;
         button.textContent = 'Acquista con PayPal';
-        button.style.display = 'block'; // O 'inline-block' a seconda del tuo CSS
-        if (mpButton) mpButton.style.display = 'block'; // O 'inline-block'
-        if (payPalContainer) setTimeout(() => { payPalContainer.style.display = 'none'; payPalContainer.innerHTML=''; }, 4000); // Nasconde messaggio errore dopo un po'
+        button.style.display = 'block';
+        if (mpButton) mpButton.style.display = 'block';
+        if (payPalContainer) setTimeout(() => { payPalContainer.style.display = 'none'; payPalContainer.innerHTML=''; }, 4000);
     }
 }
 
@@ -1195,120 +1095,71 @@ async function handleMercadoPagoBuyClick(event) {
          openModal('login-modal');
         return;
     }
-     const button = event.target;
+    const button = event.target;
     const lessonId = button.dataset.lessonId;
-     const price = button.dataset.price;
+    const price = button.dataset.price;
     console.log(`Click Acquista MercadoPago: Lezione ID ${lessonId}, Prezzo ${price}`);
-    alert(`Procedura acquisto MercadoPago per Lezione ${lessonId} (Prezzo €${price}) non ancora implementata.\nProssimo passo: chiamare la Netlify Function per creare la preferenza di pagamento.`);
-
-     // --- Codice futuro (Fase successiva) ---
-     // 1. Mostra caricamento
-     // 2. Chiama Netlify Function 'create-mercadopago-preference' passando lessonId
-     // 3. Ottieni init_point (URL checkout) dalla funzione
-     // 4. Reindirizza l'utente: window.location.href = initPoint;
-     // -----------------------------------------
+    alert(`Procedura acquisto MercadoPago per Lezione ${lessonId} (Prezzo €${price}) non ancora implementata.`);
 }
 
-// Funzione AGGIORNATA per Renderizzare il Bottone PayPal SDK
 function renderPayPalButton(orderID, containerId, lessonId) {
     const container = document.getElementById(containerId);
     if (!container) {
         console.error(`Container ${containerId} non trovato per il bottone PayPal`);
-        // Potresti voler mostrare un errore all'utente o ripristinare i bottoni originali qui
         return;
     }
-    container.innerHTML = ''; // Pulisce il messaggio "Inizializzazione..."
-
-    // Trova i bottoni originali per poterli ripristinare in caso di errore/cancel
+    container.innerHTML = '';
     const originalBuyButton = document.querySelector(`.paypal-buy-button[data-lesson-id="${lessonId}"]`);
     const originalMpButton = document.querySelector(`.mercadopago-buy-button[data-lesson-id="${lessonId}"]`);
 
     function restoreOriginalButtons() {
         if(originalBuyButton) {
-            originalBuyButton.style.display = 'block'; // O 'inline-block'
+            originalBuyButton.style.display = 'block';
             originalBuyButton.disabled = false;
             originalBuyButton.textContent = 'Acquista con PayPal';
         }
         if(originalMpButton) {
-             originalMpButton.style.display = 'block'; // O 'inline-block'
-             // Assicurati che anche il bottone MP non sia disabilitato se necessario
+             originalMpButton.style.display = 'block';
         }
-         // Nascondi il container del bottone SDK dopo un po'
          if(container) setTimeout(() => { container.style.display = 'none'; container.innerHTML = '';}, 3000);
     }
 
-
     try {
-        // Controlla se l'SDK PayPal è caricato
         if (typeof paypal === 'undefined' || !paypal.Buttons) {
             throw new Error("SDK PayPal non caricato correttamente.");
         }
-
-        // Renderizza i bottoni PayPal
         paypal.Buttons({
-            // Funzione che viene chiamata quando PayPal ha bisogno dell'ID transazione
             createOrder: function(data, actions) {
-                console.log("PayPal SDK: createOrder - Using pre-created Order ID:", orderID);
-                // Restituisce l'orderID che abbiamo già creato tramite la nostra Netlify function
                 return orderID;
             },
-
-            // Funzione chiamata QUANDO l'utente APPROVA il pagamento nel popup PayPal
             onApprove: function(data, actions) {
                 console.log('PayPal SDK: onApprove - Dati:', data);
-                // Il pagamento è stato approvato nel popup Sandbox.
-                // NON registriamo l'acquisto qui nel frontend. Sarà il WEBHOOK a farlo nel backend.
-                // Qui possiamo solo dare un feedback all'utente e magari aggiornare l'UI.
-
                 container.innerHTML = '<p style="color:green; font-weight:bold;">Pagamento approvato! ✅<br>Accesso al contenuto in corso...</p>';
-
-                // OPZIONALE: Ricarica le lezioni dopo un breve ritardo per mostrare "Guarda Ora".
-                // Attenzione: questo dipende dalla velocità del webhook. Potrebbe non essere immediato.
-                // Una pagina di successo dedicata sarebbe una soluzione migliore.
                 setTimeout(() => {
                     console.log("Tentativo di ricaricare le lezioni dopo approvazione...");
                      if (typeof loadVideoLessons === 'function') {
-                        loadVideoLessons(); // Ricarica la lista per vedere se appare "Guarda Ora"
+                        loadVideoLessons();
                     }
-                }, 4000); // Attendi 4 secondi (tempo indicativo)
-
-                // Non è necessario chiamare actions.order.capture() qui se l'intent è CAPTURE
-                // e se il webhook gestirà la logica post-pagamento.
+                }, 4000);
             },
-
-            // Funzione chiamata se c'è un ERRORE durante il flusso di pagamento PayPal
             onError: function(err) {
                 console.error('PayPal SDK: onError - Errore:', err);
                 container.innerHTML = `<p style="color:red;">Errore durante il pagamento PayPal. Riprova o contatta l'assistenza.</p>`;
-                restoreOriginalButtons(); // Mostra di nuovo i bottoni "Acquista"
+                restoreOriginalButtons();
             },
-
-            // Funzione chiamata se l'utente CHIUDE il popup PayPal senza pagare
             onCancel: function (data) {
                 console.log('PayPal SDK: onCancel - Pagamento annullato dall\'utente:', data);
                 container.innerHTML = `<p>Pagamento annullato.</p>`;
-                restoreOriginalButtons(); // Mostra di nuovo i bottoni "Acquista"
+                restoreOriginalButtons();
             }
-        }).render(`#${containerId}`); // Dice a PayPal di disegnare i bottoni dentro il nostro div specifico
-
+        }).render(`#${containerId}`);
         console.log(`PayPal Buttons rendering initialized for container #${containerId}`);
-
     } catch (sdkError) {
         console.error("Errore durante l'inizializzazione o rendering dei bottoni PayPal SDK:", sdkError);
         container.innerHTML = `<p style="color:red;">Errore nell'inizializzazione del pagamento PayPal.</p>`;
         restoreOriginalButtons();
     }
 }
-
-
-// ===========================================================
-// ASSICURATI CHE initializePageBasedOnAuthState SIA CHIAMATO
-// SIA DA onAuthStateChange SIA DA checkInitialAuthState
-// Verifica nel tuo codice DOMContentLoaded e nel listener onAuthStateChange
-// che questa funzione venga chiamata dopo aver aggiornato currentUser.
-// (Dovrebbe essere già così dal codice precedente che ti ho fornito)
-// ===========================================================
-
 
 // -----------------------------------------------------------
 //               LISTENER PRINCIPALE E INIZIALIZZAZIONE
@@ -1317,11 +1168,9 @@ function renderPayPalButton(orderID, containerId, lessonId) {
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM completamente caricato e analizzato.");
 
-    // --- Inizializzazione Lingua (dal tuo codice) ---
     const savedLang = localStorage.getItem('preferredLanguage');
-    const defaultLang = 'it'; // Lingua predefinita
+    const defaultLang = 'it';
     let initialLang = defaultLang;
-     // Verifica che 'languages' sia definito prima di usarlo
     if (typeof languages !== 'undefined') {
         if (savedLang && languages[savedLang]){
             initialLang = savedLang;
@@ -1329,76 +1178,64 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
          console.error("L'oggetto 'languages' non è definito.");
     }
-    // Verifica che 'changeLanguage' sia definito
     if (typeof changeLanguage === 'function') {
         changeLanguage(initialLang);
     } else {
          console.error("La funzione 'changeLanguage' non è definita.");
     }
-    // Aggiunta listener ai bottoni lingua (dal tuo codice, leggermente adattato)
     const langButtons = document.querySelectorAll('.language-switcher button');
     langButtons.forEach(button => {
         if (!button.hasAttribute('data-listener-set')) {
             let langCode = '';
-            if (button.hasAttribute('onclick')) { // Supporta vecchio metodo onclick
+            if (button.hasAttribute('onclick')) {
                 const match = button.getAttribute('onclick').match(/changeLanguage\('(\w+)'\)/);
                 if (match) langCode = match[1];
-                 // Rimuove onclick per preferire addEventListener
                  button.removeAttribute('onclick');
-            } else if (button.dataset.lang) { // Supporta data-lang="..."
+            } else if (button.dataset.lang) {
                 langCode = button.dataset.lang;
             }
-
             if(langCode) {
                 button.addEventListener('click', (event) => {
-                    event.preventDefault(); // Previene comportamenti predefiniti se il bottone è in un form
+                    event.preventDefault();
                     if (typeof changeLanguage === 'function') {
                         changeLanguage(langCode);
                     } else {
                          console.error("La funzione 'changeLanguage' non è definita.");
                     }
                 });
-                button.setAttribute('data-listener-set', 'true'); // Evita di aggiungere più volte
+                button.setAttribute('data-listener-set', 'true');
             } else {
                  console.warn("Bottone lingua senza codice lingua identificabile:", button);
             }
         }
     });
-    // --- Fine Inizializzazione Lingua ---
 
-
-    // --- Setup Listener per Autenticazione ---
-    // Recupera elementi UI Auth
     const loginButton = document.getElementById('login-button');
-    const signupButton = document.getElementById('signup-button');
+    const signupButton = document.getElementById('signup-button'); // Questo seleziona l'ID 'signup-button'
     const logoutButton = document.getElementById('logout-button');
     const loginForm = document.getElementById('login-form');
     const signupForm = document.getElementById('signup-form');
-    const loginErrorP = document.getElementById('login-error'); // Assicurati esista nel modal
-    const signupErrorP = document.getElementById('signup-error'); // Assicurati esista nel modal
-    const signupMessageP = document.getElementById('signup-message'); // Assicurati esista nel modal
+    const loginErrorP = document.getElementById('login-error');
+    const signupErrorP = document.getElementById('signup-error');
+    const signupMessageP = document.getElementById('signup-message');
 
-    // Listener per Bottoni Header
     loginButton?.addEventListener('click', () => openModal('login-modal'));
-    signupButton?.addEventListener('click', () => openModal('signup-modal'));
+    signupButton?.addEventListener('click', () => openModal('signup-modal')); // Listener per ID 'signup-button'
     logoutButton?.addEventListener('click', async () => {
         if (!supabase) return;
         logoutButton.disabled = true;
-        logoutButton.textContent = 'Uscendo...'; // Feedback visivo
+        logoutButton.textContent = 'Uscendo...';
         const { error } = await supabase.auth.signOut();
         if (error) {
             console.error("Error logging out:", error);
             alert(`Errore durante il logout: ${error.message}`);
-            // Riabilita il bottone solo in caso di errore, altrimenti onAuthStateChange aggiorna UI
             logoutButton.disabled = false;
             logoutButton.textContent = 'Logout';
         } else {
             console.log("User logged out successfully.");
-            // Non serve riabilitare qui, onAuthStateChange nasconderà il bottone
         }
     });
 
-    // Listener per Form Login
     loginForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
         if (!supabase) return;
@@ -1407,21 +1244,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('login-password').value;
         const submitButton = loginForm.querySelector('button[type="submit"]');
         if(submitButton) submitButton.disabled = true;
-
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
         if (error) {
             console.error("Login error:", error);
-            if(loginErrorP) loginErrorP.textContent = `Credenziali non valide. Riprova.`; // Messaggio generico
+            if(loginErrorP) loginErrorP.textContent = `Credenziali non valide. Riprova.`;
             if(submitButton) submitButton.disabled = false;
         } else {
             console.log("Login successful:", data.user.email);
             closeModal('login-modal');
-            // onAuthStateChange farà il resto
         }
     });
 
-    // Listener per Form Signup
     signupForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
         if (!supabase) return;
@@ -1431,9 +1264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('signup-password').value;
         const submitButton = signupForm.querySelector('button[type="submit"]');
          if(submitButton) submitButton.disabled = true;
-
         const { data, error } = await supabase.auth.signUp({ email, password });
-
         if (error) {
             console.error("Signup error:", error);
              if(signupErrorP) signupErrorP.textContent = `Errore Registrazione: ${error.message}`;
@@ -1441,21 +1272,17 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             console.log("Signup request successful:", data);
              if(submitButton) submitButton.disabled = false;
-             if (data.user && !data.session) { // Conferma email richiesta
+             if (data.user && !data.session) {
                  if(signupMessageP) signupMessageP.textContent = 'Registrazione avvenuta! Controlla la tua email per confermare l\'account.';
-                 // Non chiudere il modale
-             } else if (data.user && data.session){ // Login immediato (conferma disabilitata)
+             } else if (data.user && data.session){
                  if(signupMessageP) signupMessageP.textContent = 'Registrazione e login avvenuti con successo!';
                   setTimeout(() => closeModal('signup-modal'), 2000);
-             } else { // Caso imprevisto o utente già esistente senza sessione attiva
+             } else {
                  if(signupMessageP) signupMessageP.textContent = 'Richiesta di registrazione inviata.';
              }
         }
     });
-    // --- Fine Setup Listener Autenticazione ---
 
-
-    // --- Setup Listener Recensioni (dal tuo codice) ---
     const reviewForm = document.getElementById('review-form');
     if (reviewForm) {
         if (typeof handleReviewSubmit === 'function') {
@@ -1465,24 +1292,19 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Funzione handleReviewSubmit non definita.");
         }
     }
-    // --- Fine Setup Listener Recensioni ---
 
-
-    // --- Check Iniziale Stato Autenticazione ---
-    // Esegui il check DOPO che tutti i listener sono stati impostati
     if (typeof checkInitialAuthState === 'function') {
         checkInitialAuthState();
     } else {
         console.error("Funzione checkInitialAuthState non definita.");
-        // Prova comunque ad aggiornare l'UI come fallback
         if(typeof updateAuthStateUI === 'function') {
             updateAuthStateUI(null);
         }
+        if(typeof initializePageBasedOnAuthState === 'function') {
+            initializePageBasedOnAuthState(null);
+        }
     }
-    // --- Fine Check Iniziale ---
 
-
-    // --- Caricamento Iniziale Recensioni (dal tuo codice) ---
     if (document.getElementById('reviews-list-container')) {
         if (typeof loadReviews === 'function') {
             loadReviews();
@@ -1491,125 +1313,121 @@ document.addEventListener('DOMContentLoaded', () => {
              console.error("Funzione loadReviews non definita.");
         }
     }
-     // --- Fine Caricamento Iniziale Recensioni ---
-    const hamburgerButton = document.getElementById('hamburger-menu');
+
+    // --- LOGICA MENU HAMBURGER ---
+	const hamburgerButton = document.getElementById('hamburger-menu');
     const mainNav = document.getElementById('main-nav');
 
     if (hamburgerButton && mainNav) {
         hamburgerButton.addEventListener('click', () => {
             mainNav.classList.toggle('menu-aperto');
-            hamburgerButton.classList.toggle('attivo'); // Per l'animazione a X
+            hamburgerButton.classList.toggle('attivo');
             const isExpanded = mainNav.classList.contains('menu-aperto');
-            hamburgerButton.setAttribute('aria-expanded', isExpanded);
-            if (isExpanded) {
-                hamburgerButton.setAttribute('aria-label', 'Chiudi menu');
-            } else {
+            hamburgerButton.setAttribute('aria-expanded', isExpanded.toString()); // Converti in stringa
+            hamburgerButton.setAttribute('aria-label', isExpanded ? 'Chiudi menu' : 'Apri menu');
+        });
+		
+        // Funzione helper per chiudere il menu
+        function closeMobileMenu() {
+            if (mainNav.classList.contains('menu-aperto')) {
+                mainNav.classList.remove('menu-aperto');
+                hamburgerButton.classList.remove('attivo');
+                hamburgerButton.setAttribute('aria-expanded', 'false');
                 hamburgerButton.setAttribute('aria-label', 'Apri menu');
             }
-        });
+        }
 
-        // ------------ NUOVO CODICE PER CHIUDERE IL MENU AL CLICK SUI LINK ------------ //
-        const navLinks = mainNav.querySelectorAll('a'); // Seleziona tutti i link <a> dentro #main-nav
+        // Chiudi il menu al click sui link di navigazione principali <a>
+        const navLinks = mainNav.querySelectorAll('nav > ul > li > a'); // Seleziona solo i link diretti della nav
         navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                // Controlla se il menu è aperto prima di tentare di chiuderlo
-                if (mainNav.classList.contains('menu-aperto')) {
-                    mainNav.classList.remove('menu-aperto');
-                    hamburgerButton.classList.remove('attivo');
-                    hamburgerButton.setAttribute('aria-expanded', 'false');
-                    hamburgerButton.setAttribute('aria-label', 'Apri menu');
-                }
-                // Non è necessario event.preventDefault() qui perché vogliamo
-                // che il link esegua la sua azione predefinita (navigare).
-            });
+            link.addEventListener('click', closeMobileMenu);
         });
-        
-        // Per chiudere il menu al click sui bottoni lingua DENTRO il menu mobile
+		
+		// Chiudi il menu al click sui bottoni lingua DENTRO il menu mobile
         const langButtonsInMobileMenu = mainNav.querySelectorAll('.language-switcher button');
         langButtonsInMobileMenu.forEach(button => {
-            button.addEventListener('click', () => {
-                // Il cambio lingua effettivo è gestito da un altro listener.
-                // Questo si assicura solo che il menu si chiuda se è aperto.
-                if (mainNav.classList.contains('menu-aperto')) {
-                    mainNav.classList.remove('menu-aperto');
-                    hamburgerButton.classList.remove('attivo');
-                    hamburgerButton.setAttribute('aria-expanded', 'false');
-                    hamburgerButton.setAttribute('aria-label', 'Apri menu');
-                }
-            });
+            button.addEventListener('click', closeMobileMenu);
+        });
+		
+		// Chiudi il menu al click sui BOTTONI DI AUTENTICAZIONE DENTRO il menu mobile
+    // Il tuo HTML ha: nav#main-nav > div#auth-container > span > button (con ID login-button, signup-button, logout-button)
+    const authButtonsInMobileMenu = mainNav.querySelectorAll('#auth-container button');
+    authButtonsInMobileMenu.forEach(button => {
+        button.addEventListener('click', () => {
+            // console.log('Auth button in mobile menu clicked:', button.id); // DEBUG
+            closeMobileMenu();
+            // L'azione specifica (aprire modale, logout) è già gestita
+            // dai listener globali sugli ID (login-button, signup-button, logout-button)
+            // che hai definito prima in DOMContentLoaded.
+        });
+    });
+
+        // Chiudi il menu al click sui bottoni di autenticazione DENTRO il menu mobile
+        // Assicurati che i selettori qui sotto corrispondano agli ID/classi dei tuoi bottoni
+        // Login, Registrati, Logout DENTRO il mainNav (il menu mobile).
+        // Uso selettori più specifici per i bottoni che hai nell'immagine (Login, Registrati, Logout)
+        // se hanno degli ID specifici o classi uniche all'interno del menu.
+        // Se riutilizzi gli ID 'login-button', 'signup-button', 'logout-button' anche nel mobile,
+        // i listener generali già impostati per aprire i modali/fare logout funzioneranno.
+        // Questo listener aggiuntivo serve *solo* per chiudere il menu.
+
+        const mobileLoginButton = mainNav.querySelector('#login-button-mobile'); // Esempio: se hai ID specifici per mobile
+        const mobileSignupButton = mainNav.querySelector('#signup-button-mobile');
+        const mobileLogoutButton = mainNav.querySelector('#logout-button-mobile');
+
+        if(mobileLoginButton) mobileLoginButton.addEventListener('click', () => {
+            closeMobileMenu();
+            openModal('login-modal'); // Assicurati che il modale si apra
+        });
+        if(mobileSignupButton) mobileSignupButton.addEventListener('click', () => {
+            closeMobileMenu();
+            openModal('signup-modal'); // Assicurati che il modale si apra
+        });
+        if(mobileLogoutButton) mobileLogoutButton.addEventListener('click', () => {
+            closeMobileMenu();
+            // L'azione di logout è già gestita dal listener su 'logout-button' se l'ID è lo stesso,
+            // o dovrai triggerare il logout qui se l'ID è diverso.
+            // document.getElementById('logout-button')?.click(); // Se vuoi triggerare il logout del bottone header
         });
 
-        // Per chiudere il menu al click sui bottoni di autenticazione DENTRO il menu mobile
-        // Assicurati che i tuoi bottoni di login/registrati/logout dentro il menu mobile
-        // siano selezionabili, ad esempio se sono dentro un contenitore con ID 'auth-container'
-        // o se hanno classi specifiche. Qui uso un selettore generico per i bottoni dentro 'mainNav'
-        // che potrebbero essere di autenticazione. Adatta il selettore se necessario.
-        const authButtonsInMobileMenu = mainNav.querySelectorAll('#auth-container button, #guest-info button, #user-info button'); // Adatta questo selettore
-        authButtonsInMobileMenu.forEach(button => {
-            button.addEventListener('click', () => {
-                // L'apertura dei modali di login/signup o il logout sono gestiti
-                // dai listener generali per quegli ID o classi.
-                // Questo si assicura solo che il menu si chiuda se è aperto.
-                if (mainNav.classList.contains('menu-aperto')) {
-                    mainNav.classList.remove('menu-aperto');
-                    hamburgerButton.classList.remove('attivo');
-                    hamburgerButton.setAttribute('aria-expanded', 'false');
-                    hamburgerButton.setAttribute('aria-label', 'Apri menu');
-                }
-            });
+        // Se i bottoni nel menu mobile hanno gli stessi ID di quelli dell'header (es. id="login-button")
+        // puoi usare un selettore più generico ma devi fare attenzione a non creare loop o comportamenti imprevisti.
+        // Un approccio più sicuro è dare ID/classi distinti ai bottoni nel menu mobile se la loro unica
+        // azione aggiuntiva è chiudere il menu prima di eseguire l'azione principale.
+
+        // Fallback più generico se non hai ID specifici per mobile, ma usa i bottoni dentro #auth-container (se esiste nel mobile)
+        const authButtonsInsideMobileMenu = mainNav.querySelectorAll('#auth-container button, #guest-info button, #user-info button');
+        authButtonsInsideMobileMenu.forEach(button => {
+            // Aggiungi listener solo se non sono quelli già coperti specificamente sopra
+            if (button !== mobileLoginButton && button !== mobileSignupButton && button !== mobileLogoutButton) {
+                 button.addEventListener('click', (event) => {
+                    closeMobileMenu();
+                    // L'azione del bottone (es. aprire modale) dovrebbe avvenire comunque
+                    // grazie ai listener già impostati sugli ID specifici.
+                    // Se i bottoni hanno solo classi e non ID unici, dovrai gestire l'azione qui.
+                    // Esempio: if (button.classList.contains('login-trigger-mobile')) openModal('login-modal');
+                });
+            }
         });
-        // ------------ FINE NUOVO CODICE DA AGGIUNGERE ------------ //
     }
-
-   
-
-  
-    // Fai lo stesso per signup-button-mobile e logout-button-mobile
-    // se hai creato ID distinti e non vuoi che ereditino dai listener generali
-    // basati su ID come 'login-button'. Se gli ID sono uguali, non serve.
-    // NOTA: Nel tuo HTML hai usato `login-button`, `signup-button` anche nell'header originale.
-    // Se vuoi che i bottoni mobile aprano gli stessi modali, puoi dare loro ID diversi
-    // e aggiungere listener specifici, o usare classi comuni.
-    // Per semplicità, potresti riutilizzare gli ID `login-button`, `signup-button`, `logout-button`
-    // anche per quelli dentro `auth-container-mobile` e i tuoi listener esistenti
-    // in `script.js` dovrebbero funzionare (assicurati che non ci siano conflitti se gli elementi
-    // desktop non vengono nascosti correttamente).
-
-    // Per ora, assumiamo che i tuoi listener esistenti per `login-button`, `signup-button`, `logout-button`
-    // (selezionati per ID) funzionino anche se questi ID sono duplicati momentaneamente
-    // quando il menu è aperto. Una soluzione più pulita è usare classi e delegazione di eventi
-    // o assicurarsi che solo una versione (desktop o mobile) sia effettivamente interagibile.
-    // Per la struttura data, nascondere le versioni desktop e mostrare quelle mobile dentro il menu
-    // con ID *diversi* e listener *specifici* è più robusto.
-    // Es.
-    // const guestInfoMobile = document.getElementById('guest-info-mobile');
-    // const userInfoMobile = document.getElementById('user-info-mobile');
-    // ... aggiornali in updateAuthStateUI insieme a guestInfo/userInfo ...
+    // --- FINE LOGICA MENU HAMBURGER ---
 }); // --- Chiusura di DOMContentLoaded ---
-
-
-
-
-
 
 // -----------------------------------------------------------
 //               LISTENER GLOBALI (es. Auth State Change)
 // -----------------------------------------------------------
 
-// Listener Supabase Auth State Change (viene messo fuori da DOMContentLoaded)
 if (supabase) {
     supabase.auth.onAuthStateChange((event, session) => {
         console.log('Auth Event:', event, session);
         currentUser = session?.user ?? null;
 
-        // Aggiorna sempre l'UI generale (header)
         if (typeof updateAuthStateUI === 'function') {
             updateAuthStateUI(currentUser);
         } else {
              console.error("Funzione updateAuthStateUI non definita.");
         }
 
-        // Esegui azioni specifiche della pagina
         if (typeof initializePageBasedOnAuthState === 'function') {
              initializePageBasedOnAuthState(currentUser);
         } else {
