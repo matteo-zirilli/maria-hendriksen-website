@@ -1321,6 +1321,19 @@ console.log('MGH_DEBUG: DOM Content Loaded. Looking for hamburger menu elements.
 
 if (hamburgerButton && mainNav) {
     console.log('MGH_DEBUG: Hamburger button and mainNav found.'); // Log 2
+	
+	// =======================================================================
+    // ===== INSERISCI QUI LE RIGHE PER FORZARE LO STATO INIZIALE CHIUSO =====
+    // =======================================================================
+    console.log('MGH_DEBUG: Forcing initial closed state for JS.');
+    mainNav.classList.remove('menu-aperto');
+    hamburgerButton.classList.remove('attivo');
+    hamburgerButton.setAttribute('aria-expanded', 'false');
+    hamburgerButton.setAttribute('aria-label', 'Apri menu');
+    // =======================================================================
+    // ===== FINE BLOCCO STATO INIZIALE                                  =====
+    // =======================================================================
+	
 
     hamburgerButton.addEventListener('click', () => {
         console.log('MGH_DEBUG: Hamburger button clicked.'); // Log 3
