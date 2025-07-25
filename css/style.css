@@ -1,36 +1,33 @@
 /* ==========================================================================
-   Base, Variabili e Stili Generali
+   1. STILI DI BASE, VARIABILI E TIPOGRAFIA
    ========================================================================== */
 
 :root {
-  --colore-primario: #2D8B8B;
-  --colore-secondario: #F5F1E9;
-  --colore-accento: #E89F71;
-  --colore-testo: #4A4A4A;
-  --colore-sfondo: #FEFEFE;
+  --colore-primario: #3A3A3A;
+  --colore-secondario: #F9F6F2;
+  --colore-accento: #D98C6B;
+  --colore-testo: #3A3A3A;
+  --colore-sfondo: #F9F6F2;
   --colore-sfondo-alt: #FFFFFF;
-  --colore-sfondo-header-footer: #E0E8F0;
-  --colore-bordi: #DDDDDD;
+  --colore-sfondo-header-footer: #F2EEE9;
+  --colore-bordi: #EAE3DA;
   --colore-testo-chiaro: #FFFFFF;
-  --colore-ombra: rgba(0, 0, 0, 0.08);
+  --colore-ombra: rgba(0, 0, 0, 0.06);
 }
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   line-height: 1.7;
   color: var(--colore-testo);
   background-color: var(--colore-sfondo);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden; /* Obiettivo: risolvere cause, ma tenuto come fallback temporaneo */
 }
 
 .container {
@@ -47,35 +44,67 @@ a {
   text-decoration: none;
   transition: color 0.3s ease;
 }
+
+
+
 a:hover {
   color: var(--colore-accento);
 }
 
+
+/* NUOVO: Stile per i link ipertestuali all'interno dei paragrafi */
+p a {
+  font-weight: 500; /* Lo rende leggermente più evidente */
+  color: var(--colore-accento); /* Usa il colore terracotta per risaltare */
+  text-decoration: underline; /* Aggiunge la sottolineatura classica */
+  text-decoration-thickness: 1px; /* Rende la linea più sottile ed elegante */
+  text-underline-offset: 3px; /* Distanzia la linea dal testo */
+}
+
+p a:hover {
+  color: var(--colore-primario); /* Al passaggio del mouse, diventa scuro */
+}
+
+
+/* Aggiungi questo nuovo blocco in style.css */
+
+/* Stile per i link di login/registrazione nella pagina Contenuti */
+#login-prompt-container a {
+  font-weight: 500;
+  color: var(--colore-accento);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+#login-prompt-container a:hover {
+  color: var(--colore-primario);
+}
+
 h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif; /* ERRORE CORRETTO: Aggiunto 'serif' */
   color: var(--colore-primario);
   margin-top: 1.5em;
   margin-bottom: 0.8em;
   line-height: 1.3;
   font-weight: 700;
 }
+
 h1 { font-size: 2.5em; }
-h2 {
-  font-size: 2em;
-  border-bottom: 3px solid var(--colore-accento);
-  padding-bottom: 8px;
-  display: inline-block; /* Permette alla bordatura di adattarsi al testo */
-}
-h3 { font-size: 1.5em; border-bottom: none; /* Assicura che solo h2 abbia la bordatura di default */ }
+h2 { font-size: 2em; border-bottom: none; padding-bottom: 0; }
+h3 { font-size: 1.5em; border-bottom: none; }
 h4 { font-size: 1.25em; }
 
 p {
   margin-top: 0;
   margin-bottom: 1em;
 }
+
 ul, ol {
   margin-bottom: 1em;
   padding-left: 20px;
 }
+
 li {
   margin-bottom: 0.5em;
 }
@@ -88,8 +117,9 @@ img {
 }
 
 /* ==========================================================================
-   Header e Navigazione
+   2. HEADER E NAVIGAZIONE
    ========================================================================== */
+
 header {
   background-color: var(--colore-sfondo-header-footer);
   border-bottom: 1px solid var(--colore-bordi);
@@ -104,6 +134,8 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  gap: 30px;
 }
 
 .logo a {
@@ -113,59 +145,64 @@ header {
   white-space: nowrap;
 }
 
-#main-nav { /* Contenitore per UL, language-switcher, auth-container */
+#main-nav {
   display: flex;
   align-items: center;
   gap: 20px;
-  flex-grow: 1;          /* Permette a #main-nav di occupare lo spazio disponibile */
-  justify-content: flex-end; /* Spinge tutti gli elementi di nav verso destra, dopo il logo */
-
+  justify-content: flex-end;
+  flex-grow: 1;
 }
 
-#main-nav ul { /* Lista dei link di navigazione */
+#main-nav ul {
   display: flex;
-  align-items: center;   /* Allinea gli LI verticalmente */
   list-style: none;
   padding: 0;
   margin: 0;
   gap: 20px;
 }
 
+/* SOSTITUISCI le vecchie regole per la navigazione con questo blocco corretto */
+
 #main-nav ul li a {
+  /* Stile di scrittura più leggero, come LOGIN */
   text-transform: uppercase;
-  font-size: 0.9em;
-  font-weight: 700;
+  font-size: 0.85em;      /* <-- Ridotto per coerenza */
+  font-weight: 500;       /* <-- Reso più leggero (da 700 a 500) */
+  letter-spacing: 1.5px;
+  
+  /* Stili preesistenti che manteniamo */
   color: var(--colore-testo);
-  padding: 8px 5px; /* Aggiunto un po' di padding verticale per cliccabilità */
+  padding: 8px 5px;
   position: relative;
-  display: block;
-  white-space: nowrap; /* Evita che i link vadano a capo */
-  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.3s ease;
 }
+
+#main-nav ul li a:hover {
+  color: var(--colore-accento);
+}
+
+/* RIPRISTINIAMO la regola per la linea che appare sotto */
 #main-nav ul li a::after {
   content: '';
   position: absolute;
-  bottom: 0; /* Messo a 0 per essere subito sotto il testo */
+  bottom: 0;
   left: 0;
   width: 0;
   height: 2px;
   background-color: var(--colore-accento);
   transition: width 0.3s ease;
 }
-#main-nav ul li a:hover::after,
-#main-nav ul li a.active::after { /* Aggiungere classe .active via JS se necessario */
+
+#main-nav ul li a:hover::after {
   width: 100%;
-}
-#main-nav ul li a:hover,
-#main-nav ul li a.active {
-  color: var(--colore-accento);
 }
 
 .language-switcher {
   display: flex;
-  align-items: center;  /* Allinea i bottoni verticalmente */
   gap: 5px;
 }
+
 .language-switcher button {
   padding: 5px 8px;
   cursor: pointer;
@@ -174,14 +211,14 @@ header {
   color: var(--colore-testo);
   border-radius: 4px;
   font-size: 0.8em;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
-.language-switcher button:hover,
-.language-switcher button:focus {
-  background: #f0f0f0;
-  border-color: #aaa;
-  outline: none;
+
+.language-switcher button:hover {
+  background: #e0e0e0;
+  border-color: #999;
 }
+
 .language-switcher button.active {
   font-weight: bold;
   background-color: var(--colore-primario);
@@ -193,230 +230,176 @@ header {
   display: flex;
   align-items: center;
   gap: 10px;
-  /*margin-left: 5px; /* Leggero spazio dal language switcher */
   padding-left: 15px;
   border-left: 1px solid var(--colore-bordi);
 }
-.auth-button {
-  background-color: var(--colore-accento);
-  color: var(--colore-testo-chiaro);
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85em;
-  white-space: nowrap;
-  transition: background-color 0.3s ease;
-}
-.auth-button:hover {
-  background-color: var(--colore-primario);
-}
+
+
+
 #user-info #user-email {
   font-size: 0.85em;
   margin-right: 5px;
   font-weight: bold;
 }
 
-/* Hamburger Menu Bottone (Nascosto su Desktop per ora) */
 .hamburger-menu {
-  display: none; /* Nascosto di default, mostrato in media query */
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  z-index: 1005; /* Sopra il menu a comparsa se si sovrappongono */
-}
-.hamburger-menu .hamburger-bar {
-  display: block;
-  width: 25px;
-  height: 3px;
-  background-color: var(--colore-testo);
-  margin: 5px 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: none;
 }
 
 /* ==========================================================================
-   Hero Section (Homepage)
+   3. SEZIONI PRINCIPALI (HERO, INTRO)
    ========================================================================== */
-.hero {
-  text-align: center;
-  padding: 50px 20px;
-  background-color: var(--colore-secondario);
-  border-radius: 8px;
+
+/* Nuova Hero Section per index.html */
+.hero-new {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 60px 20px;
+  background-color: var(--colore-sfondo);
+  flex-wrap: wrap;
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.hero-text h1 {
+  font-size: 3.5em;
+  line-height: 1.2;
+}
+
+.hero-text p {
+  font-size: 1.1em;
+  max-width: 500px;
   margin-bottom: 30px;
 }
-.hero h1 {
-  font-size: 2.8em; /* Ripristinato se era stato ridotto troppo */
-  margin-bottom: 0.5em;
+
+.hero-image {
+  flex: 1;
+  text-align: center;
+  min-width: 300px;
 }
-.hero p {
-  font-size: 1.2em;
-  margin-bottom: 25px;
-  max-width: 650px;
-  margin-left: auto;
-  margin-right: auto;
+
+.main-yoga-image-new {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px var(--colore-ombra);
 }
+
+/* Stile Bottone Primario (es. "Scopri di più", "Prenota Ora") */
 .cta-button {
   display: inline-block;
-  padding: 12px 25px;
-  background-color: var(--colore-primario);
-  color: var(--colore-testo-chiaro);
-  border-radius: 5px;
-  font-size: 1em;
-  font-weight: 700;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  border: none;
+  padding: 12px 30px;
+  background-color: transparent; /* Sfondo trasparente */
+  border: 1px solid var(--colore-primario); /* Bordo scuro */
+  color: var(--colore-primario); /* Testo scuro */
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 0.85em;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: all 0.3s ease;
   cursor: pointer;
-  text-align: center;
 }
 .cta-button:hover {
-  background-color: var(--colore-accento);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  background-color: var(--colore-primario); /* Al passaggio del mouse, lo sfondo diventa scuro */
+  color: var(--colore-testo-chiaro); /* e il testo diventa chiaro */
+  transform: translateY(-2px);
 }
 
-/* ==========================================================================
-   Stili Sezioni Generali e Specifiche per Pagina
-   ========================================================================== */
-main section {
-  margin-bottom: 30px;
-  padding: 15px 0;
+/* Stile Bottoni Secondari (es. "Login", "Logout") */
+.auth-button {
+  background-color: transparent;
+  border: none;
+  color: var(--colore-testo);
+  padding: 6px 10px;
+  font-size: 0.9em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  white-space: nowrap; 
 }
-main section:last-of-type {
-    margin-bottom: 0; /* Rimuove margine extra all'ultima sezione */
+.auth-button:hover {
+  color: var(--colore-accento);
 }
 
-/* index.html - Immagine Principale & Motto */
-.main-image-section { text-align: center; margin: 30px 0; }
-.main-yoga-image {
-    width: 100%;
-    max-width: 600px;
-    border-radius: 8px;
-    box-shadow: 0 6px 15px var(--colore-ombra);
-	margin-left: auto;  /* Per centrare un elemento block */
-    margin-right: auto; /* Per centrare un elemento block */
-    display: block;     /* Assicura che sia un elemento block per i margini auto */
-}
+/* Sezioni Intro e Motto */
 .motto-section {
-    background-color: var(--colore-secondario);
-    padding: 30px 0;
+    background-color: var(--colore-sfondo-header-footer);
+    padding: 30px 15px;
     text-align: center;
     margin: 30px 0;
     border-radius: 8px;
 }
+
 .motto-phrase {
     font-size: 1.4em;
     font-style: italic;
     color: var(--colore-primario);
     margin-bottom: 0.5em;
 }
-.motto-phrase:last-child { margin-bottom: 0; }
-.intro { /* index.html, sezione "Il mio approccio" */
+
+.intro {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    padding: 20px 0;
 }
 
-/* chi-sono.html - Immagine Profilo e Qualifiche */
-.about-content-wrapper { /* Nuovo wrapper per testo e immagine */
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    align-items: flex-start;
-    margin-bottom: 30px;
-}
-.about-text {
-    flex: 2;
-    min-width: 280px;
-}
-.about-image-container {
-    flex: 1;
-    min-width: 250px;
-    text-align: center;
-}
-.profile-image-chisono { /* Rimuovere float e stili inline dall'HTML */
-    max-width: 280px; /* O come preferisci */
-    border-radius: 8px;
-    box-shadow: 0 4px 10px var(--colore-ombra);
-    margin: 0 auto; /* Centra se il contenitore è più largo */
+/* ==========================================================================
+   4. STILI SPECIFICI PER PAGINE (SERVIZI, PIANI, CONTENUTI, ETC.)
+   ========================================================================== */
+
+main section {
+  margin-bottom: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
-#aboutValuesList li strong,
-#fisioList li strong, /* Da servizi.html */
-#yogaList li strong {   /* Da servizi.html */
-    color: var(--colore-primario);
-}
-
-.qualifica-item { /* Se hai una classe per ogni blocco qualifica */
-    margin-bottom: 30px;
-}
+/* Pagina: chi-sono.html */
 .qualifica-immagini {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: flex-start;
     margin-top: 15px;
-    margin-bottom: 20px;
 }
 .qualifica-immagini figure {
     margin: 0;
     flex: 1 1 280px;
-    max-width: 350px;
     background-color: var(--colore-sfondo-alt);
     padding: 10px;
     border: 1px solid var(--colore-bordi);
-    border-radius: 5px;
     text-align: center;
 }
-.qualifica-immagini img {
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-}
-.qualifica-immagini figcaption {
-    font-size: 0.85em;
-    color: #555;
-}
 
-/* servizi.html - Struttura Immagine e Titolo */
+/* Pagina: servizi.html */
 .service-section {
-    margin-bottom: 40px;
-    padding: 25px 30px;
+    padding: 25px;
     background-color: var(--colore-sfondo-alt);
     border-radius: 8px;
     border: 1px solid var(--colore-bordi);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.07); /* Ombra più soft */
 }
 .service-title-image-wrapper {
     display: flex;
-    /* align-items: center; CAMBIATO in flex-start per allineare la base del titolo con l'immagine se l'immagine è più alta */
     align-items: flex-start;
-    gap: 30px; /* Aumentato spazio tra titolo e immagine */
+    gap: 30px;
     margin-bottom: 20px;
-    /* flex-wrap: nowrap; Mantenuto per desktop */
 }
-.service-title-image-wrapper h2 { /* h2 dentro i servizi */
+.service-title-image-wrapper h2 {
     margin: 0;
-    flex-grow: 1; /* Il titolo prende spazio disponibile */
-    border-bottom: none;
-    padding-bottom: 0;
-    display: block;
-    line-height: 1.3; /* Consistenza con altri h2 */
-    /* Potresti voler dare un padding-top se l'immagine è molto più alta del titolo */
-    /* padding-top: 5px; */
+    flex-grow: 1;
 }
 .service-image-beside {
-    max-width: 220px; /* AUMENTATA la larghezza massima dell'immagine */
-    min-width: 180px; /* Larghezza minima per evitare che diventi troppo piccola */
-    height: auto;     /* Mantiene le proporzioni originali dell'immagine */
-    /* height: 180px; Se vuoi un'altezza fissa, ma 'auto' è meglio per le proporzioni */
-    object-fit: cover; /* Se usi altezza fissa, questo taglia bene l'immagine */
-    border-radius: 8px;
-    flex-shrink: 0; /* Evita che l'immagine si rimpicciolisca troppo */
-    box-shadow: 0 2px 8px var(--colore-ombra);
+    max-width: 220px;
+    flex-shrink: 0;
 }
 
-/* piani.html */
+/* Pagina: piani.html */
 .plans-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -430,91 +413,18 @@ main section:last-of-type {
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 10px var(--colore-ombra);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.plan:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-}
-.plan h3 { margin-top: 0; margin-bottom: 10px; border-bottom: none; padding-bottom: 0; }
-.plan ul { flex-grow: 1; margin-bottom: 15px; padding-left: 20px; }
-.plan .price {
-    font-size: 1.4em;
-    font-weight: 700;
-    margin: 10px 0;
-    color: var(--colore-testo);
-}
-.plan .price span { /* Prezzo vecchio */
-    font-size: 0.7em;
-    text-decoration: line-through;
-    color: #999;
-    margin-left: 5px;
-    font-weight: 400;
-}
-.plan .cta-button { margin-top: auto; width: 100%; }
+.plan h3 { margin-top: 0; }
+.plan ul { flex-grow: 1; }
+.plan .price { font-size: 1.4em; font-weight: 700; }
+.plan .price span { font-size: 0.7em; text-decoration: line-through; color: #999; }
+.plan .cta-button { margin-top: auto; width: 100%; text-align: center; }
 
-/* prenota.html - Form e Calendly */
-form label { /* Globale per i form */
-  display: block;
-  margin-top: 12px;
-  margin-bottom: 4px;
-  font-weight: bold;
-}
-form input[type="text"],
-form input[type="email"],
-form input[type="tel"],
-form select,
-form textarea,
-.auth-modal form input[type="email"],
-.auth-modal form input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  margin-top: 0; /* Rimosso, gestito da label margin-bottom */
-  border: 1px solid var(--colore-bordi);
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-size: 1em;
-  background-color: #fff;
-  color: var(--colore-testo);
-}
-form input:focus,
-form select:focus,
-form textarea:focus,
-.auth-modal form input:focus {
-  border-color: var(--colore-primario);
-  outline: none;
-  box-shadow: 0 0 5px rgba(45, 139, 139, 0.3);
-}
-
-form button[type="submit"], /* Inclusi i bottoni dei modali */
-.auth-modal form button[type="submit"] {
-  /* Eredita da .cta-button se la classe è applicata nell'HTML.
-     Se no, aggiungi qui gli stili di .cta-button */
-  margin-top: 20px;
-}
-#contactForm button[type="submit"] { /* Per specificità se non usi .cta-button */
-    /* Se non usi .cta-button nel form di contatto, copia qui gli stili di .cta-button */
-}
-
-.calendly-inline-widget {
-    margin-top: 20px;
-    min-width: 280px;
-    height: 700px; /* Altezza default */
-}
-hr.form-separator { /* Aggiungi questa classe all'hr se vuoi stile diverso */
-    border: none;
-    border-top: 1px solid var(--colore-bordi);
-    margin: 40px 0;
-}
-#directContacts ul { list-style: none; padding: 0; }
-#directContacts li { margin-bottom: 8px; font-size: 1em; }
-
-/* contenuti.html - Stili per grid e item (già buoni quelli inline, li sposto qui) */
+/* Pagina: contenuti.html */
 .content-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
-    margin-top: 20px;
 }
 .content-item {
     border: 1px solid var(--colore-bordi);
@@ -522,19 +432,13 @@ hr.form-separator { /* Aggiungi questa classe all'hr se vuoi stile diverso */
     overflow: hidden;
     background-color: var(--colore-sfondo-alt);
     box-shadow: 0 4px 10px var(--colore-ombra);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-}
-.content-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
 }
 .content-thumbnail img {
     width: 100%;
     height: 180px;
     object-fit: cover;
-    border-bottom: 1px solid var(--colore-bordi); /* Leggero separatore */
 }
 .content-text {
     padding: 15px 20px;
@@ -542,139 +446,63 @@ hr.form-separator { /* Aggiungi questa classe all'hr se vuoi stile diverso */
     display: flex;
     flex-direction: column;
 }
-.content-title {
-    font-size: 1.2em;
-    font-weight: 700;
-    color: var(--colore-primario);
-    margin-top: 0;
-    margin-bottom: 10px;
-    border-bottom: none; /* Sovrascrive stile h globale */
-    padding-bottom: 0;
-}
-.content-description {
-    font-size: 0.95em;
-    margin-bottom: 15px;
-    flex-grow: 1;
-}
-.content-text .cta-button,
-.content-text .price {
-    margin-top: auto; /* Spinge in fondo */
-    width: 100%;
-    box-sizing: border-box;
-}
-.purchase-buttons {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-.content-item a.static-content-link { /* Per i contenuti statici */
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-.content-item a.static-content-link:hover .content-title {
-    color: var(--colore-accento);
-}
-#login-prompt-container { /* Per il messaggio di login in contenuti.html */
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: var(--colore-secondario);
-    border: 1px solid var(--colore-accento);
-    border-radius: 5px;
-    text-align: center;
-}
+.content-title { font-size: 1.2em; margin-top: 0; }
+.content-description { flex-grow: 1; }
+.purchase-buttons { margin-top: auto; }
 
-/* Testimonianze (immagini da WhatsApp) */
-.testimonial-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; /* Spazio tra le immagini */
-    justify-content: center; /* Centra le immagini se non riempiono tutta la riga */
-    margin-top: 20px;
-}
-.testimonial-image {
-    flex: 1 1 200px; /* Permette alle immagini di crescere e restringersi, base 200px */
-    max-width: 280px; /* Limita la larghezza massima */
-    border: 1px solid var(--colore-bordi);
-    border-radius: 5px;
-    overflow: hidden; /* Per arrotondare l'immagine interna se necessario */
-}
-.testimonial-image img {
-    width: 100%;
-    height: auto; /* Mantiene le proporzioni */
-    display: block;
-}
-
-/* Form Recensioni */
-#review-form {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: var(--colore-sfondo-alt);
-    border: 1px solid var(--colore-bordi);
-    border-radius: 8px;
-}
-.star-rating select { margin-bottom: 10px; }
-.form-message { /* Per messaggi di errore/successo nei form */
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 4px;
-    font-size: 0.9em;
-}
-.form-message.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-.form-message.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-.form-message.submitting { background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
-.review-form-notes { font-size: 0.85em; color: #666; margin-top: 15px; }
-
-/* Lista Recensioni Caricate Dinamicamente */
-#reviews-list-container { margin-top: 20px; }
+/* Recensioni */
 .review-item {
     background-color: var(--colore-sfondo-alt);
     border: 1px solid var(--colore-bordi);
-    border-radius: 5px;
     padding: 15px;
     margin-bottom: 15px;
-    box-shadow: 0 2px 4px var(--colore-ombra);
 }
 .review-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Per schermi piccoli */
+    flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 10px;
-    border-bottom: 1px dashed var(--colore-bordi);
-    padding-bottom: 10px;
 }
-.review-name { font-weight: bold; color: var(--colore-primario); }
-.review-stars { color: var(--colore-accento); font-size: 1.1em; }
-.review-date { font-size: 0.85em; color: #777; }
-.review-comment p { margin-bottom: 0; }
+.review-name { font-weight: bold; }
+.review-stars { color: var(--colore-accento); }
 
+/* ==========================================================================
+   5. COMPONENTI (MODALI, FORM, FOOTER)
+   ========================================================================== */
 
-/* Modali di Autenticazione */
+/* Form Generali */
+form label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+}
+form input, form select, form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--colore-bordi);
+  border-radius: 4px;
+}
+
+/* Modali Autenticazione */
 .auth-modal {
   display: none;
   position: fixed;
-  z-index: 2000; /* Sopra l'header */
+  z-index: 2000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.5); /* Sfondo scuro semi-trasparente */
+  background-color: rgba(0,0,0,0.5);
 }
 .modal-content {
   background-color: var(--colore-sfondo);
-  margin: 10% auto; /* Più in basso per schermi grandi, si adatta */
-  padding: 25px 30px;
-  border: 1px solid var(--colore-bordi);
+  margin: 10% auto;
+  padding: 30px;
   border-radius: 8px;
   width: 90%;
-  max-width: 450px; /* Larghezza massima del modale */
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  max-width: 450px;
   position: relative;
 }
 .close-button {
@@ -684,90 +512,237 @@ hr.form-separator { /* Aggiungi questa classe all'hr se vuoi stile diverso */
   right: 15px;
   font-size: 28px;
   font-weight: bold;
-  line-height: 1;
-}
-.close-button:hover,
-.close-button:focus {
-  color: var(--colore-testo);
-  text-decoration: none;
   cursor: pointer;
 }
-.auth-modal h3 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-align: center;
-    border-bottom: none; /* Sovrascrive h3 globale */
-    padding-bottom: 0;
-}
-.auth-modal .error-message { color: red; font-size: 0.9em; margin-top: 10px; }
-.auth-modal .success-message { color: green; font-size: 0.9em; margin-top: 10px; }
 
 /* Footer */
 footer {
   background-color: var(--colore-sfondo-header-footer);
-  color: var(--colore-testo);
   padding: 25px 0;
   text-align: center;
   border-top: 1px solid var(--colore-bordi);
   font-size: 0.9em;
-  margin-top: 30px; /* Spazio dal contenuto principale */
+  margin-top: 30px;
 }
-footer .container { padding: 0; }
 
+
+/* AGGIUNGI QUESTO BLOCCO IN FONDO AL FILE CSS, PRIMA DELLA PARTE @media */
+
+/* Stile per la nuova Hero a tutto schermo */
+/* SOSTITUISCI LE VECCHIE REGOLE DELLA HERO CON QUESTE */
+
+/* Stile per la nuova Hero con immagine reale */
+.hero-fullwidth-new {
+    position: relative; /* Contenitore per il testo posizionato in modo assoluto */
+    width: 100%;
+    line-height: 0; /* Rimuove spazi extra sotto l'immagine */
+}
+
+.hero-main-image {
+    width: 100%;
+    height: auto; /* L'altezza si adatta per mantenere le proporzioni */
+    filter: brightness(0.7); /* Manteniamo l'effetto scuro */
+    display: block; /* Rimuove eventuali spazi bianchi */
+}
+
+.hero-content {
+    position: absolute; /* Posiziona il testo sopra l'immagine */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra perfettamente il testo */
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 3.5em;
+    color: white;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Stile per la nuova sezione a due colonne */
+.content-split-section {
+    display: flex;
+    gap: 40px;
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: 40px auto; /* Centra la sezione */
+    align-items: flex-start;
+}
+.split-title {
+    flex: 1; /* Occupa 1/3 dello spazio */
+    min-width: 250px;
+}
+.split-content {
+    flex: 2; /* Occupa 2/3 dello spazio */
+}
+.eyebrow-text {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8em;
+    color: var(--colore-accento);
+    margin-bottom: 5px;
+}
+.split-title h2 {
+    font-size: 2.8em;
+    line-height: 1.2;
+    margin: 0;
+}
+
+/* Aggiusta anche la sezione motto */
+.motto-section {
+    display: none; /* Per ora nascondiamola, dato che il motto è nella hero */
+}
+
+
+
+/* Stili per le nuove card di contatto in prenota.html */
+.contact-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.contact-card {
+    display: block;
+    background-color: var(--colore-sfondo-alt);
+    border: 1px solid var(--colore-bordi);
+    border-radius: 8px;
+    padding: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px var(--colore-ombra);
+    border-color: var(--colore-accento);
+}
+
+.contact-card .contact-label {
+    display: block;
+    font-size: 0.8em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--colore-accento); /* Colore di accento per risaltare */
+    margin-bottom: 8px;
+}
+
+.contact-card .contact-value {
+    font-size: 1.1em;
+    color: var(--colore-primario);
+    word-break: break-word; /* Va a capo se il testo è lungo */
+}
+
+
+
+/* Stili per il nuovo layout della pagina Servizi */
+.service-split-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.service-image-column {
+    flex: 1; /* Occupa 1/3 dello spazio */
+    min-width: 280px;
+}
+.service-image-column img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px var(--colore-ombra);
+}
+
+.service-text-column {
+    flex: 2; /* Occupa 2/3 dello spazio */
+    background-color: var(--colore-sfondo-alt);
+    border: 1px solid var(--colore-bordi);
+    border-radius: 8px;
+    padding: 30px;
+}
+.service-text-column h2 {
+    margin-top: 0;
+}
+
+/* Per la seconda sezione, invertiamo l'ordine di immagine e testo */
+.service-split-layout.yoga-layout .service-text-column {
+    order: 1;
+}
+.service-split-layout.yoga-layout .service-image-column {
+    order: 2;
+}
 
 /* ==========================================================================
-   RESPONSIVE - Media Queries
+   6. RESPONSIVE (MEDIA QUERIES)
    ========================================================================== */
-   
-   
-/* Media Query per quando il layout diventa a colonna (mobile) */
+
+/* ==========================================================================
+   6. RESPONSIVE (MEDIA QUERIES)
+   ========================================================================== */
+
 @media (max-width: 768px) {
-    .service-section {
-        padding: 20px 15px; /* Padding ridotto per mobile */
-    }
+    /* Regole generali per mobile */
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.6em; }
 
-    .service-title-image-wrapper {
-        flex-direction: column; /* Titolo sopra, immagine sotto */
-        align-items: flex-start; /* Tutto allineato a sinistra */
-        gap: 15px; /* Gap ridotto per mobile */
-    }
+    /* --- NUOVE REGOLE PER LA HOMEPAGE MOBILE --- */
 
-    .service-title-image-wrapper h2 {
-        width: 100%; /* Il titolo prende tutta la larghezza */
+    /* Regola per la nuova hero section con immagine di sfondo */
+    .hero-fullwidth, .hero-fullwidth-new {
+        min-height: 70vh; /* Aumenta l'altezza su mobile per dare più respiro */
     }
-
-    .service-image-beside {
-        max-width: 100%;  /* Immagine a tutta larghezza del contenitore */
-        width: 100%;      /* Forza la larghezza al 100% del suo contenitore */
-        height: auto;    /* Altezza fissa per coerenza su mobile */
-        object-fit: cover;
-        margin-top: 0; /* Rimuovi margine se il gap del flex parent è sufficiente */
-    }
+    /* Regola per il testo del motto */
+    .hero-content h1 {
+    font-size: 1.8em;  /* <-- Ridotto ulteriormente */
+    line-height: 1.4;  /* <-- Leggermente ridotto per compattare */
+    padding: 0 10px;   /* <-- Aggiunge un piccolo margine laterale */
 }
 
-@media (max-width: 768px) {
-    .container {
-        width: 95%;
-        padding-left: 10px;
-        padding-right: 10px;
+    /* Regole per la sezione "Il mio approccio" */
+    .content-split-section {
+        flex-direction: column; /* Le colonne vanno una sopra l'altra */
+        gap: 20px;
+        padding: 40px 15px;
+    }
+    .split-title h2 {
+        font-size: 2.2em; /* Riduce la dimensione del titolo per mobile */
     }
 
-    h1 { font-size: 2em; }
-    h2 { font-size: 1.6em; padding-bottom: 6px; }
-    h3 { font-size: 1.3em; }
+    /* --- FINE NUOVE REGOLE HOMEPAGE --- */
+    
 
-    /* --- Menu Hamburger --- */
+    /* Regole preesistenti per il menu Hamburger (mantenute) */
     .hamburger-menu {
-        display: block; /* Mostra hamburger */
-        /* position: absolute; top: 50%; right: 15px; transform: translateY(-50%); */
-        /* Non serve position absolute se è un flex item dell'header-container */
+        display: block;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 1005;
     }
+    .hamburger-menu .hamburger-bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--colore-testo);
+        margin: 5px 0;
+        transition: all 0.3s ease;
+    }
+    .hamburger-menu.attivo .hamburger-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger-menu.attivo .hamburger-bar:nth-child(2) { opacity: 0; }
+    .hamburger-menu.attivo .hamburger-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     #main-nav {
-        display: none; /* Nascosto di default */
-        order: 1; /* Per posizionarlo dopo logo e hamburger nel flex flow se necessario */
-        position: absolute; /* Per farlo apparire sotto l'header */
-        top: 100%; /* Relativo al suo genitore .header-container se .header-container è position:relative; altrimenti relativo a header */
+        display: none;
+        position: absolute;
+        top: 100%;
         left: 0;
         width: 100%;
         background-color: var(--colore-sfondo-alt);
@@ -775,26 +750,11 @@ footer .container { padding: 0; }
         flex-direction: column;
         align-items: stretch;
         padding: 0;
-        z-index: 999;
-        border-top: 1px solid var(--colore-bordi);
-		gap: 0; /* Resetta il gap per mobile, gli elementi interni avranno padding */
-        /* justify-content: flex-start; Resetta se necessario */
+        gap: 0;
     }
-	
-	
-	 #main-nav.menu-aperto {
-        display: flex; /* Questo lo mostrerà quando la classe è presente */
-    }
-	
-    /* Assicurati che il contenitore header permetta il posizionamento assoluto del menu */
-    header { position: sticky; /* già presente, va bene */ }
-    .header-container { position: relative; /* Necessario per il posizionamento di #main-nav */ }
-
-
     #main-nav.menu-aperto {
-        display: flex; /* Mostra il menu quando la classe è attiva */
+        display: flex;
     }
-
     #main-nav ul {
         flex-direction: column;
         width: 100%;
@@ -802,164 +762,37 @@ footer .container { padding: 0; }
     }
     #main-nav ul li {
         width: 100%;
-        text-align: left;
         border-bottom: 1px solid var(--colore-bordi);
     }
-    #main-nav ul li:last-child { border-bottom: none; }
     #main-nav ul li a {
         display: block;
         padding: 12px 20px;
         width: 100%;
     }
-    #main-nav ul li a::after { display: none; }
-
-    /* Language Switcher e Auth Container nel menu mobile */
-    #main-nav .language-switcher,
-    #main-nav #auth-container {
+    #main-nav ul li a::after {
+        display: none;
+    }
+    #main-nav .language-switcher, #main-nav #auth-container {
         flex-direction: column;
-        align-items: stretch; /* Bottoni a tutta larghezza */
         padding: 15px 20px;
         gap: 10px;
-        border-top: 1px solid var(--colore-bordi); /* Separatore dagli li */
-        border-left: none; /* Rimuovi bordo laterale da #auth-container */
-        margin-left: 0; /* Rimuovi margine se presente */
-        width: 100%;
+        border-top: 1px solid var(--colore-bordi);
+        border-left: none;
     }
-    #main-nav .language-switcher button,
-    #main-nav #auth-container .auth-button {
-        width: 100%;
-        text-align: center;
-    }
-    #main-nav #guest-info,
-    #main-nav #user-info {
-        display: flex !important; /* Forza visualizzazione se JS nasconde per desktop */
+    #main-nav #guest-info, #main-nav #user-info {
+        display: flex !important;
         flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-        width: 100%;
-    }
-    #main-nav #user-info #user-email {
-        text-align: center;
-        margin-right: 0;
-        margin-bottom: 8px; /* Spazio dal bottone logout */
-    }
-
-    /* Stile per l'hamburger quando il menu è aperto (effetto X) */
-    .hamburger-menu.attivo .hamburger-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    .hamburger-menu.attivo .hamburger-bar:nth-child(2) { opacity: 0; }
-    .hamburger-menu.attivo .hamburger-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-    /* --- Hero Section Mobile --- */
-    .hero { padding: 30px 15px; }
-    .hero h1 { font-size: 2.2em; } /* Era 2.2em */
-    .hero p { font-size: 1em; }
-
-    /* --- index.html Mobile --- */
-    .main-yoga-image { max-width: 90%; }
-    .motto-phrase { font-size: 1.2em; }
-
-    /* --- chi-sono.html Mobile --- */
-    .about-content-wrapper { flex-direction: column; }
-    .about-image-container { order: -1; margin-bottom: 20px; } /* Immagine sopra testo */
-    .profile-image-chisono { max-width: 220px; }
-    .qualifica-immagini { flex-direction: column; align-items: center; }
-    .qualifica-immagini figure { flex-basis: auto; width: 100%; max-width: 300px; }
-
-    /* --- servizi.html Mobile --- */
-    .service-title-image-wrapper {
-        flex-direction: column;
-        align-items: flex-start;
         gap: 10px;
     }
-    .service-image-beside {
-        max-width: 100%;
-        width: 100%; /* Immagine a tutta larghezza */
-        height: auto; 
-        margin-top: 10px;
+    #main-nav #user-info #user-email { text-align: center; }
+
+    /* Regole per la pagina Servizi (mantenute) */
+    .service-split-layout {
+        flex-direction: column;
+        gap: 25px;
     }
-    .service-section p,
-	.service-section ul {
-		font-size: 1em; /* Dimensione standard per il testo dei servizi */
-		line-height: 1.7;
-	}
-
-	.service-section ul {
-		padding-left: 25px; /* Indentazione per la lista */
-		margin-top: 15px;
-	}
-	
-	.service-section ul li {
-    margin-bottom: 8px; /* Spazio tra gli elementi della lista */
-	}
-
-	.service-section ul li strong {
-		font-weight: 700; /* Già presente, ma per chiarezza */
-	}
-
-    /* --- piani.html Mobile --- */
-    .plans-container { gap: 15px; }
-    .plan { padding: 20px; }
-
-    /* --- prenota.html Mobile --- */
-    .calendly-inline-widget { height: 600px !important; }
-
-    /* --- contenuti.html Mobile --- */
-    .testimonial-gallery { gap: 15px; }
-    .testimonial-image { flex-basis: calc(50% - 10px); } /* Due per riga se c'è spazio */
-    .content-grid { grid-template-columns: 1fr; gap: 20px; } /* Card video sempre 1 colonna */
-
-    /* Modali */
-    .modal-content { margin: 15% auto; width: 90%; max-width: 400px; padding: 20px; }
-
-
-    footer { font-size: 0.85em; padding: 20px 0; }
-}
-
-@media (max-width: 480px) { /* Schermi molto piccoli */
-    .container {
-        width: 98%;
-        padding-left: 8px;
-        padding-right: 8px;
+    .service-split-layout.yoga-layout .service-text-column,
+    .service-split-layout.yoga-layout .service-image-column {
+        order: 0;
     }
-    h1 { font-size: 1.8em; }
-    h2 { font-size: 1.4em; }
-    h3 { font-size: 1.15em; }
-    .hero h1 { font-size: 1.9em; } /* Era 2em */
-    .hero p { font-size: 0.9em; }
-
-    #main-nav ul li a { padding: 10px 15px; }
-    #main-nav .language-switcher,
-    #main-nav #auth-container { padding: 12px 15px; }
-
-    .testimonial-image { flex-basis: 100%; } /* Una per riga */
-
-    .modal-content { margin: 20% auto; padding: 15px; } /* Più spazio sopra per tastiera */
-    .auth-modal h3 { font-size: 1.4em; }
-}
-
-
-/* Stili per la sezione "Il mio approccio" in index.html */
-.intro-section {
-    max-width: 800px; /* O la larghezza che preferisci per il testo */
-    margin-left: auto;  /* Centra il blocco di testo nella pagina */
-    margin-right: auto; /* Centra il blocco di testo nella pagina */
-    padding: 20px 0;    /* Aggiungi un po' di spazio sopra e sotto */
-}
-
-.intro-section h2 { /* Titolo "Il mio approccio" */
-    text-align: left; /* Allinea il titolo a sinistra */
-    /* Se vuoi che h2 non abbia la sottolineatura e sia come un normale titolo di sezione: */
-    /* border-bottom: 3px solid var(--colore-accento); */ /* Mantieni se vuoi la linea */
-    /* padding-bottom: 8px; */                       /* Mantieni se vuoi la linea */
-    /* display: inline-block; */                     /* Mantieni se vuoi la linea e che si adatti al testo */
-    /* Se invece vuoi che sia un blocco a tutta larghezza (del suo contenitore .intro-section): */
-    display: block;
-    border-bottom: none; /* Rimuovi la linea se non la vuoi qui */
-    padding-bottom: 0;
-    margin-bottom: 15px; /* Spazio tra titolo e paragrafo */
-}
-
-.intro-section p { /* Paragrafo "Il mio approccio" */
-    text-align: left; /* Allinea il testo del paragrafo a sinistra */
-    /* Non sono necessari altri stili se vuoi un semplice paragrafo a sinistra */
 }
