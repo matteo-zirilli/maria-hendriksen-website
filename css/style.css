@@ -564,6 +564,23 @@ footer {
     line-height: 1.4;
 }
 
+
+.hero-content .cta-button {
+    margin-top: 30px;
+
+    /* Stile "luce su scuro" con !important per forzare la visibilità */
+    border-color: var(--colore-testo-chiaro) !important; /* Bordo bianco (forzato) */
+    color: var(--colore-testo-chiaro) !important;        /* Testo bianco (forzato) */
+}
+
+/* SOSTITUISCI la vecchia regola .hero-content .cta-button:hover con QUESTA */
+
+.hero-content .cta-button:hover {
+    background-color: transparent; /* Assicura che lo sfondo resti trasparente */
+    border-color: var(--colore-accento); /* Il bordo diventa color terracotta */
+    color: var(--colore-accento);        /* Anche il testo diventa color terracotta */
+}
+
 /* Stile per la nuova sezione a due colonne */
 .content-split-section {
     display: flex;
@@ -704,6 +721,14 @@ footer {
     line-height: 1.4;  /* <-- Leggermente ridotto per compattare */
     padding: 0 10px;   /* <-- Aggiunge un piccolo margine laterale */
 }
+
+/* Aggiungi questo in style.css */
+
+	/* SOSTITUISCI la vecchia regola per .hero-content .cta-button con QUESTA */
+
+	./* SOSTITUISCI le regole per il bottone nella hero section con QUESTO blocco */
+
+
 
     /* Regole per la sezione "Il mio approccio" */
     .content-split-section {
