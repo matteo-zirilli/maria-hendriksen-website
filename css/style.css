@@ -700,48 +700,35 @@ footer {
    6. RESPONSIVE (MEDIA QUERIES)
    ========================================================================== */
 
-/* ==========================================================================
-   6. RESPONSIVE (MEDIA QUERIES)
-   ========================================================================== */
+
 
 @media (max-width: 768px) {
     /* Regole generali per mobile */
     h1 { font-size: 2em; }
     h2 { font-size: 1.6em; }
 
-    /* --- NUOVE REGOLE PER LA HOMEPAGE MOBILE --- */
+    /* --- REGOLE PER LA HOMEPAGE MOBILE (CORRETTE) --- */
 
-    /* Regola per la nuova hero section con immagine di sfondo */
-    .hero-fullwidth, .hero-fullwidth-new {
-        min-height: 70vh; /* Aumenta l'altezza su mobile per dare più respiro */
-    }
-    /* Regola per il testo del motto */
+    /* L'unica cosa da modificare per la hero section su mobile è la dimensione del testo.
+       Manteniamo il posizionamento assoluto del desktop per far sì che il testo resti SOPRA l'immagine. */
     .hero-content h1 {
-    font-size: 1.8em;  /* <-- Ridotto ulteriormente */
-    line-height: 1.4;  /* <-- Leggermente ridotto per compattare */
-    padding: 0 10px;   /* <-- Aggiunge un piccolo margine laterale */
-}
+        font-size: 6vw; /* Il testo si adatta alla larghezza dello schermo */
+        line-height: 1.5;
+        padding: 0 20px; /* Diamo un po' di spazio ai lati */
+    }
 
-/* Aggiungi questo in style.css */
-
-	/* SOSTITUISCI la vecchia regola per .hero-content .cta-button con QUESTA */
-
-	./* SOSTITUISCI le regole per il bottone nella hero section con QUESTO blocco */
-
-
-
-    /* Regole per la sezione "Il mio approccio" */
+    /* Regole per la sezione "Il mio approccio" su mobile */
     .content-split-section {
-        flex-direction: column; /* Le colonne vanno una sopra l'altra */
+        flex-direction: column;
         gap: 20px;
         padding: 40px 15px;
     }
     .split-title h2 {
-        font-size: 2.2em; /* Riduce la dimensione del titolo per mobile */
+        font-size: 1.8em;
     }
-
-    /* --- FINE NUOVE REGOLE HOMEPAGE --- */
     
+    /* --- FINE REGOLE HOMEPAGE --- */
+
 
     /* Regole preesistenti per il menu Hamburger (mantenute) */
     .hamburger-menu {
