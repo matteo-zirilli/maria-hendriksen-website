@@ -1687,6 +1687,141 @@ if (allGroupBookingButtons.length > 0 && groupBookingModal) {
 
 
 
+// In script.js, AGGIUNGI questo nuovo blocco di codice
+
+// --- LOGICA DI PAGAMENTO (INIZIA CON PAYPAL) ---
+
+// Usa "event delegation" per "ascoltare" i click sui bottoni di pagamento
+// che vengono creati dinamicamente.
+document.body.addEventListener('click', async function(event) {
+    if (event.target && event.target.classList.contains('paypal')) {
+        event.preventDefault(); // Previene altri comportamenti
+        await handlePayPalPurchase(event.target);
+    }
+    // Qui in futuro aggiungeremo: else if (event.target.classList.contains('bizum')) { ... }
+});
+
+async function handlePayPalPurchase(button) {
+    if (!currentUser) {
+        alert("Devi effettuare il login per acquistare.");
+        openModal('login-modal');
+        return;
+    }
+
+    // Raccogli i dati dalla card
+    const planCard = button.closest('.plan');
+    const productCode = planCard.dataset.productCode;
+    let location = '';
+    let participants = null;
+
+    if (productCode.startsWith('FISIO')) {
+        const selectedRadio = planCard.querySelector('.location-selector input[type="radio"]:checked');
+        location = selectedRadio ? selectedRadio.value : 'studio'; // Default a 'studio'
+    } else if (productCode.startsWith('YOGA')) {
+        if (planCard.id.includes('group')) {
+            const modal = document.getElementById('group-booking-modal');
+            participants = parseInt(modal.querySelector('.participants-input').value, 10);
+            const minParticipants = parseInt(planCard.dataset.minParticipants, 10);
+            if (participants < minParticipants) {
+                alert(`Il numero minimo di partecipanti è ${minParticipants}.`);
+                return;
+            }
+        }
+    }
+    
+    button.disabled = true;
+    button.innerHTML = "Creazione ordine...";
+
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
+        const accessToken = session.access_token;
+
+        const response = await fetch('/.netlify/functions/create-paypal-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` },
+            body: JSON.stringify({ productCode, location, participants })
+        });
+
+        if (!response.ok) {
+            const errData = await response.json();
+            throw new Error(errData.error || 'Errore nella creazione dell\'ordine.');
+        }
+        
+        const orderData = await response.json();
+        
+        const paymentContainer = button.closest('.payment-options-container');
+        const paypalButtonContainer = document.createElement('div');
+        paypalButtonContainer.id = `paypal-container-${Date.now()}`;
+        paymentContainer.innerHTML = '';
+        paymentContainer.appendChild(paypalButtonContainer);
+
+        renderPayPalButton(orderData.orderId, paypalButtonContainer.id, productCode);
+
+    } catch (error) {
+        console.error("Errore acquisto PayPal:", error);
+        button.disabled = false;
+        button.innerHTML = "PayPal";
+        alert(`Errore: ${error.message}`);
+    }
+}
+
+function renderPayPalButton(orderID, containerId, productCode) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+
+    paypal.Buttons({
+        createOrder: (data, actions) => orderID,
+        onApprove: (data, actions) => {
+            return actions.order.capture().then(details => {
+                console.log('Pagamento completato!', details);
+                handleSuccessfulPayment(productCode, container);
+            });
+        },
+        onError: (err) => {
+            console.error('Errore PayPal SDK:', err);
+            container.innerHTML = `<p style="color:red;">Errore durante il pagamento. Riprova.</p>`;
+        }
+    }).render(`#${containerId}`);
+}
+
+function handleSuccessfulPayment(productCode, container) {
+    const lang = localStorage.getItem('preferredLanguage') || 'it';
+    
+    if (productCode.startsWith('YOGA')) {
+        const redirectUrl = (productCode === 'YOGA1' || productCode === 'YOGA5') ? BOOKING_LINKS.yoga_individuale : BOOKING_LINKS.yoga_pacchetti;
+        const messages = {
+            it: "Pagamento completato! Verrai reindirizzato al calendario per prenotare...",
+            en: "Payment successful! Redirecting to the calendar to book your lesson...",
+            es: "¡Pago completado! Serás redirigido al calendario para reservar tu clase..."
+        };
+        container.innerHTML = `<p style="color:green; font-weight:bold;">${messages[lang]}</p>`;
+        setTimeout(() => { window.location.href = redirectUrl; }, 4000);
+
+    } else if (productCode.startsWith('FISIO')) {
+        const serviceCard = document.querySelector(`[data-product-code="${productCode}"]`);
+        const serviceName = serviceCard.querySelector('h3').textContent;
+        const selectedLocation = serviceCard.querySelector('input:checked + .option-display').textContent;
+        const whatsappMessage = encodeURIComponent(`Ciao Maria, ho appena acquistato "${serviceName} - ${selectedLocation}". Vorrei organizzare il mio appuntamento. Grazie!`);
+        
+        const messages = {
+            it: { title: "Pagamento Riuscito!", instruction: "Ora contatta Maria per prenotare la tua seduta:", whatsapp: "Contatta su WhatsApp", phone: "Chiama Ora" },
+            en: { title: "Payment Successful!", instruction: "Now contact Maria to book your session:", whatsapp: "Contact on WhatsApp", phone: "Call Now" },
+            es: { title: "¡Pago Realizado!", instruction: "Ahora contacta a Maria para reservar tu sesión:", whatsapp: "Contactar por WhatsApp", phone: "Llamar Ahora" }
+        };
+
+        container.innerHTML = `
+            <div style="text-align:center;">
+                <h4 style="color:green;">${messages[lang].title}</h4>
+                <p>${messages[lang].instruction}</p>
+                <a href="https://wa.me/${CONTACT_INFO.whatsapp}?text=${whatsappMessage}" target="_blank" class="cta-button" style="margin: 5px; display: inline-block;">${messages[lang].whatsapp}</a>
+                <a href="tel:${CONTACT_INFO.phone}" class="cta-button" style="margin: 5px; display: inline-block;">${messages[lang].phone}</a>
+            </div>
+        `;
+    }
+}
+
+
 
 
 
