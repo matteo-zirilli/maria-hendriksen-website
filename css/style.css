@@ -327,6 +327,9 @@ header {
   color: var(--colore-accento);
 }
 
+
+
+
 /* Sezioni Intro e Motto */
 .motto-section {
     background-color: var(--colore-sfondo-header-footer);
@@ -420,6 +423,80 @@ main section {
 .plan .price span { font-size: 0.7em; text-decoration: line-through; color: #999; }
 .plan .cta-button { margin-top: auto; width: 100%; text-align: center; }
 
+/* In style.css, aggiungi questo blocco di codice */
+
+.plan {
+  border: 1px solid var(--colore-bordi);
+  border-radius: 8px;
+  padding: 25px;
+  background-color: var(--colore-sfondo-alt);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px var(--colore-ombra);
+  transition: all 0.3s ease; /* Aggiungi questa transizione */
+}
+
+/* NUOVA REGOLA PER L'INTERATTIVITÀ */
+.plan:hover {
+    transform: translateY(-5px); /* Solleva la card di 5px */
+    box-shadow: 0 12px 20px rgba(0,0,0,0.08); /* Aumenta l'ombra */
+}
+
+/* Stili per il nuovo blocco prezzi in piani.html */
+.price-block {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+.price-block:not(:last-of-type) {
+    margin-bottom: 25px;
+}
+.current-price {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--colore-primario);
+    margin: 0;
+    line-height: 1.2;
+}
+.original-price {
+    font-size: 1em;
+    font-weight: 400;
+    color: #888;
+    margin: 4px 0 0 0;
+}
+.original-price s {
+    text-decoration: line-through;
+}
+
+
+
+/* In style.css, SOSTITUISCI le vecchie regole per i bottoni di pagamento */
+.payment-button {
+    display: flex; /* Usa Flexbox per allineare icona e testo */
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Spazio tra icona e testo */
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--colore-bordi);
+    background-color: var(--colore-sfondo-alt);
+    font-weight: 500;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.payment-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px F12px rgba(0,0,0,0.09);
+    border-color: var(--colore-primario);
+}
+.payment-button svg {
+    width: 20px;
+    height: 20px;
+}
+
 /* Pagina: contenuti.html */
 .content-grid {
     display: grid;
@@ -485,9 +562,9 @@ form input, form select, form textarea {
   border-radius: 4px;
 }
 
-/* Modali Autenticazione */
+/* In style.css, SOSTITUISCI la vecchia regola per .auth-modal */
 .auth-modal {
-  display: none;
+  display: none; /* Inizialmente nascosto */
   position: fixed;
   z-index: 2000;
   left: 0;
@@ -495,16 +572,59 @@ form input, form select, form textarea {
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.5);
+  /* NUOVE REGOLE PER LA CENTRATURA */
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 15px; /* Aggiunge un po' di respiro sui lati */
 }
+
+/* In style.css, SOSTITUISCI la vecchia regola per .modal-content */
 .modal-content {
   background-color: var(--colore-sfondo);
-  margin: 10% auto;
   padding: 30px;
   border-radius: 8px;
-  width: 90%;
+  width: 100%; /* Lascia che il padding e max-width controllino la dimensione */
   max-width: 450px;
   position: relative;
+  /* RIMOSSA la regola "margin: 10% auto;" */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Aggiunge un'ombra più definita */
 }
+
+
+/* Stili per il nuovo selettore Studio/Domicilio */
+.location-selector {
+    display: flex;
+    border: 1px solid var(--colore-bordi);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.location-selector label {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: var(--colore-sfondo-alt);
+    color: #888;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+.location-selector input[type="radio"] {
+    display: none; /* Nascondiamo il radio button originale */
+}
+/* Stile per l'opzione selezionata */
+.location-selector input[type="radio"]:checked + .option-display {
+    color: var(--colore-primario);
+}
+.location-selector label:has(input:checked) {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+
+
 .close-button {
   color: #aaa;
   position: absolute;
@@ -615,7 +735,32 @@ footer {
     display: none; /* Per ora nascondiamola, dato che il motto è nella hero */
 }
 
-
+/* Stili per il selettore dei partecipanti e prezzo calcolato */
+.participant-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 15px 0 5px 0;
+}
+.participant-selector label {
+    font-weight: 500;
+}
+.participants-input {
+    width: 70px;
+    padding: 8px;
+    font-size: 1.1em;
+    text-align: center;
+    border: 1px solid var(--colore-bordi);
+    border-radius: 4px;
+}
+.calculated-price {
+    font-size: 1.8em !important; /* Usiamo !important per sovrascrivere altre regole se necessario */
+    font-weight: 700 !important;
+    color: var(--colore-primario) !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+}
 
 /* Stili per le nuove card di contatto in prenota.html */
 .contact-cards-container {

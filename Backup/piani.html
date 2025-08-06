@@ -7,75 +7,14 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <style>
-        .plans-container {
-            display: flex; /* Cambiato da grid a flex per questo esempio, o mantieni grid */
-            flex-wrap: wrap;
-            gap: 30px; /* Spazio tra i box dei piani */
-            /* Se usi grid:
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px; */
-        }
-        .plan {
-            border: 1px solid var(--colore-bordi); /* Usa var(--colore-bordi) */
-            border-radius: 8px;
-            padding: 30px; /* Aumentato padding */
-            background-color: var(--colore-sfondo-alt); /* Usa var(--colore-sfondo-alt) */
-            flex: 1 1 300px; /* Flexbox per layout responsive */
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 4px 10px var(--colore-ombra); /* Usa var(--colore-ombra) */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .plan:hover {
-             transform: translateY(-8px);
-             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
-        }
-        .plan h3 {
-            margin-top: 0;
-            margin-bottom: 15px; /* Aggiunto spazio sotto h3 */
-            color: var(--colore-primario); /* Usa var(--colore-primario) */
-            display: flex; /* Se vuoi aggiungere icona */
-            align-items: center; /* Se vuoi aggiungere icona */
-        }
-        .plan ul {
-            list-style: disc; /* O usa '✓ ' come in style.css */
-            margin-left: 20px;
-            flex-grow: 1; /* Fa espandere la lista per allineare i bottoni */
-            margin-bottom: 20px; /* Aggiunto spazio sotto ul */
-        }
-         .plan ul li {
-             margin-bottom: 8px; /* Spazio tra le feature */
-         }
-         .plan .price {
-            font-size: 1.5em; /* Coerente con style.css */
-            font-weight: 700; /* Coerente con style.css */
-            margin: 15px 0;
-            color: var(--colore-testo); /* Usa var(--colore-testo) */
-        }
-         .plan .price span { /* Stile prezzo vecchio */
-             font-size: 0.7em;
-             text-decoration: line-through;
-             color: #999;
-             margin-left: 5px;
-             font-weight: 400;
-         }
-         .plan .cta-button {
-            margin-top: auto; /* Spinge il bottone in fondo */
-            text-align: center;
-            width: 100%; /* Bottone a larghezza piena */
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+	
+    
     </head>
 <body>
 <header>
     <div class="container header-container">
-        <div class="logo">
-            <a href="index.html">Maria Guillermina</a>
-        </div>
+     
         <button class="hamburger-menu" id="hamburger-menu" aria-label="Apri menu" aria-expanded="false" aria-controls="main-nav">
             <span class="hamburger-bar"></span>
             <span class="hamburger-bar"></span>
@@ -83,12 +22,12 @@
         </button>
         <nav id="main-nav">
             <ul>
-                <li><a href="index.html" id="navHome" data-translate-key="navHome">Homepage</a></li>
-                <li><a href="chi-sono.html" id="navAbout" data-translate-key="navAbout">Chi Sono</a></li>
-                <li><a href="servizi.html" id="navServices" data-translate-key="navServices">Servizi</a></li>
-                <li><a href="piani.html" id="navPlans" data-translate-key="navPlans">Piani</a></li>
-                <li><a href="contenuti.html" id="navContent" data-translate-key="navContent">I Miei Contenuti</a></li>
-                <li><a href="prenota.html" id="navBooking" data-translate-key="navBooking">Prenota/Contatti</a></li>
+                <li><a href="index.html" data-translate-key="navHome">Homepage</a></li>
+                <li><a href="chi-sono.html" data-translate-key="navAbout">Chi Sono</a></li>
+                <li><a href="servizi.html" data-translate-key="navServices">Servizi</a></li>
+                <li><a href="piani.html" data-translate-key="navPlans">Piani</a></li>
+                <li><a href="contenuti.html" data-translate-key="navContent">I Miei Contenuti</a></li>
+                <li><a href="prenota.html" data-translate-key="navBooking">Prenota/Contatti</a></li>
             </ul>
             <div class="language-switcher">
                 <button data-lang="it">IT</button>
@@ -111,116 +50,183 @@
 
     <main class="container">
         <section>
-            <h1 id="plansHeading">Piani e Tariffe</h1>
-            <p id="plansIntro">Scegli il piano più adatto alle tue esigenze. Per soluzioni personalizzate o pacchetti combinati Fisioterapia+Yoga, <a href="prenota.html">contattami</a>.</p>
-            <p id="plansNote">Nota: I pagamenti verranno gestiti al momento della prenotazione o in studio. Questa sezione è a scopo informativo.</p>
+            <h1 data-translate-key="plansHeading">Piani e Tariffe</h1>
+            <p data-translate-key="plansIntro">Scegli il piano più adatto alle tue esigenze. Per soluzioni personalizzate o pacchetti combinati Fisioterapia+Yoga, <a href="prenota.html">contattami</a>.</p>
+            <p data-translate-key="plansNote">Nota: I pagamenti si effettuano preferibilmente al momento della seduta (contanti, Bizum). Per pacchetti o pagamenti anticipati è possibile richiedere bonifico bancario o link per pagamento online.</p>
         </section>
 
         <section class="plans-container">
-            <div class="plan">
-                <h3 id="planFisioSingleTitle">Seduta Fisioterapia Singola</h3>
-                <p id="planFisioSingleDesc">Valutazione e trattamento fisioterapico individuale.</p>
-                <ul>
-                    <li id="planFisioSingleFeat1">Durata: circa 60 minuti</li>
-                    <li id="planFisioSingleFeat2">Trattamento personalizzato</li>
-                </ul>
-                <p class="price" id="planFisioSinglePrice">€50</p> <a href="prenota.html" class="cta-button" id="planFisioSingleButton">Prenota Ora</a>
-            </div>
+			<div class="plan" id="plan-fisio1" 
+				data-product-code="FISIO1" 
+				data-price-studio="50" 
+				data-price-home="65">
+				<h3 data-translate-key="planFisioSingleTitle">Seduta Fisioterapia Singola</h3>
+				<p data-translate-key="planFisioSingleDesc">Valutazione e trattamento fisioterapico individuale.</p>
+				<ul>
+					<li data-translate-key="planFisioSingleFeat1">Durata: circa 60 minuti</li>
+					<li data-translate-key="planFisioSingleFeat2">Trattamento personalizzato</li>
+				</ul>
+			
+				<div class="location-selector">
+					<label>
+						<input type="radio" name="fisio1_location" value="studio" checked>
+						<span class="option-display" data-translate-key="locationStudio">In Studio</span>
+					</label>
+					<label>
+						<input type="radio" name="fisio1_location" value="home">
+						<span class="option-display" data-translate-key="locationHome">A Domicilio</span>
+					</label>
+				</div>
+			
+				<div class="price-block">
+					<p class="current-price">€50</p>
+				</div>
+			
+				<button class="cta-button toggle-payment-button">
+					<span data-translate-key="planFisioSingleButton">Prenota Ora</span>
+				</button>
+				<div class="payment-options-container">
+					</div>
+			</div>
+			
+			<div class="plan" id="plan-fisio5" 
+				data-product-code="FISIO5" 
+				data-price-studio="220" 
+				data-price-home="290"
+				data-original-price-studio="250"
+				data-original-price-home="325">
+				<h3 data-translate-key="planFisio5Title">Ciclo 5 Sedute Fisioterapia</h3>
+				<p data-translate-key="planFisio5Desc">Pacchetto conveniente per un percorso riabilitativo completo.</p>
+				<ul>
+					<li data-translate-key="planFisio5Feat1">5 sedute individuali (60 min/cad.)</li>
+					<li data-translate-key="planFisio5Feat2">Monitoraggio progressi</li>
+					<li data-translate-key="planFisio5Feat3">Sconto rispetto alla seduta singola</li>
+				</ul>
+			
+				<div class="location-selector">
+					<label>
+						<input type="radio" name="fisio5_location" value="studio" checked>
+						<span class="option-display" data-translate-key="locationStudio">In Studio</span>
+					</label>
+					<label>
+						<input type="radio" name="fisio5_location" value="home">
+						<span class="option-display" data-translate-key="locationHome">A Domicilio</span>
+					</label>
+				</div>
 
-            <div class="plan">
-                <h3 id="planFisio5Title">Ciclo 5 Sedute Fisioterapia</h3>
-                <p id="planFisio5Desc">Pacchetto conveniente per un percorso riabilitativo completo.</p>
-                 <ul>
-                    <li id="planFisio5Feat1">5 sedute individuali (60 min/cad.)</li>
-                    <li id="planFisio5Feat2">Monitoraggio progressi</li>
-                    <li id="planFisio5Feat3">Sconto rispetto alla seduta singola</li>
-                </ul>
-                <p class="price" id="planFisio5Price">€220 <span id="planFisio5OldPrice">(€250)</span></p> <a href="prenota.html" class="cta-button" id="planFisio5Button">Prenota Ciclo</a>
-            </div>
+    <div class="price-block">
+        <p class="current-price">€220</p>
+        <p class="original-price">Invece di <s>€250</s></p>
+    </div>
 
-            <div class="plan">
-                <h3 id="planYogaIndSingleTitle">Lezione Yoga Individuale</h3>
-                <p id="planYogaIndSingleDesc">Pratica personalizzata One-to-One.</p>
-                <ul>
-                    <li id="planYogaIndSingleFeat1">Durata: 60 o 75 minuti (da concordare)</li>
-                    <li id="planYogaIndSingleFeat2">Adatta a tutti i livelli</li>
-                    <li id="planYogaIndSingleFeat3">Focus su obiettivi specifici</li>
-                </ul>
-                <p class="price" id="planYogaIndSinglePrice">€45 (60 min)</p> <a href="prenota.html" class="cta-button" id="planYogaIndSingleButton">Prenota Lezione</a>
-            </div>
-
-            <div class="plan">
-                 <h3 id="planYogaInd5Title">Pacchetto 5 Lezioni Yoga Individuali</h3>
-                <p id="planYogaInd5Desc">Percorso continuativo per approfondire la pratica.</p>
-                 <ul>
-                    <li id="planYogaInd5Feat1">5 lezioni individuali (60 min/cad.)</li>
-                    <li id="planYogaInd5Feat2">Flessibilità oraria</li>
-                    <li id="planYogaInd5Feat3">Sconto sul totale</li>
-                 </ul>
-                <p class="price" id="planYogaInd5Price">€200 <span id="planYogaInd5OldPrice">(€225)</span></p> <a href="prenota.html" class="cta-button" id="planYogaInd5Button">Acquista Pacchetto</a>
-             </div>
-
-            <div class="plan">
-                <h3 id="planYogaGroupSingleTitle">Lezione Yoga di Gruppo (Drop-in)</h3>
-                <p id="planYogaGroupSingleDesc">Partecipa a una delle nostre classi di gruppo.</p>
-                <ul>
-                    <li id="planYogaGroupSingleFeat1">Verifica l'orario delle classi</li>
-                    <li id="planYogaGroupSingleFeat2">Adatta a diversi livelli</li>
-                </ul>
-                <p class="price" id="planYogaGroupSinglePrice">€15</p> <a href="prenota.html" class="cta-button" id="planYogaGroupSingleButton">Prenota Classe</a>
-            </div>
-
-            <div class="plan">
-                <h3 id="planYogaGroup10Title">Pacchetto 10 Lezioni Yoga di Gruppo</h3>
-                <p id="planYogaGroup10Desc">Frequenta le classi di gruppo con convenienza.</p>
-                <ul>
-                    <li id="planYogaGroup10Feat1">Accesso a 10 lezioni di gruppo</li>
-                    <li id="planYogaGroup10Feat2">Validità: 3 mesi</li>
-                    <li id="planYogaGroup10Feat3">Massima convenienza</li>
-                 </ul>
-                <p class="price" id="planYogaGroup10Price">€120 <span id="planYogaGroup10OldPrice">(€150)</span></p> <a href="prenota.html" class="cta-button" id="planYogaGroup10Button">Acquista Carnet</a>
-            </div>
-            </section>
+    <button class="cta-button toggle-payment-button">
+        <span data-translate-key="planFisio5Button">Prenota Ciclo</span>
+    </button>
+    <div class="payment-options-container">
+        </div>
+</div>
+		
+			<div class="plan">
+				<h3 data-translate-key="planYogaIndSingleTitle">Lezione Yoga Individuale</h3>
+				<p data-translate-key="planYogaIndSingleDesc">Pratica personalizzata One-to-One.</p>
+				<ul>
+					<li data-translate-key="planYogaIndSingleFeat1">Durata: 60 minuti</li>
+					<li data-translate-key="planYogaIndSingleFeat2">Adatta a tutti i livelli</li>
+					<li data-translate-key="planYogaIndSingleFeat3">Focus su obiettivi specifici</li>
+				</ul>
+				<div class="price-block">
+					<p class="current-price" data-translate-key="planYogaIndSinglePrice">€25</p>
+				</div>
+				<a href="prenota.html" class="cta-button" data-translate-key="planYogaIndSingleButton">Prenota Lezione</a>
+			</div>
+		
+			<div class="plan">
+				<h3 data-translate-key="planYogaInd5Title">Pacchetto 5 Lezioni Yoga Individuali</h3>
+				<p data-translate-key="planYogaInd5Desc">Percorso continuativo per approfondire la pratica.</p>
+				<ul>
+					<li data-translate-key="planYogaInd5Feat1">5 lezioni individuali (60 min/cad.)</li>
+					<li data-translate-key="planYogaInd5Feat2">Flessibilità oraria</li>
+					<li data-translate-key="planYogaInd5Feat3">Sconto sul totale</li>
+				</ul>
+				<div class="price-block">
+					<p class="current-price" data-translate-key="planYogaInd5CurrentPrice">€110</p>
+					<p class="original-price" data-translate-key="planYogaInd5OriginalPrice">Invece di <s>€125</s></p>
+				</div>
+				<a href="prenota.html" class="cta-button" data-translate-key="planYogaInd5Button">Acquista Pacchetto</a>
+			</div>
+		
+			<div class="plan" id="group-yoga-plan" data-price-per-person="15" data-min-participants="4" data-product-code="YOGAG">
+				<h3 data-translate-key="planYogaGroupSingleTitle">Lezione Yoga di Gruppo (Drop-in)</h3>
+				<p data-translate-key="planYogaGroupSingleDesc">Partecipa a una delle nostre classi di gruppo.</p>
+				<ul>
+					<li data-translate-key="planYogaGroupSingleFeat1">Verifica l'orario delle classi</li>
+					<li data-translate-key="planYogaGroupSingleFeat2">Adatta a diversi livelli</li>
+					<li data-translate-key="planYogaGroupFeatMin">Minimo 4 partecipanti</li>
+				</ul>
+				<div class="price-block">
+					<p class="current-price" data-translate-key="planYogaGroupSinglePrice">€15 a persona</p>
+				</div>
+				<button class="cta-button open-group-booking-modal" data-translate-key="planYogaGroupSingleButton">Prenota Classe</button>
+			</div>
+		
+			<div class="plan" id="group-yoga-10-plan" 
+				data-price-per-person="80" 
+				data-min-participants="4" 
+				data-product-code="YOGA10G">
+				<h3 data-translate-key="planYogaGroup10Title">Pacchetto 10 Lezioni Yoga di Gruppo</h3>
+				<p data-translate-key="planYogaGroup10Desc">Frequenta le classi di gruppo con convenienza.</p>
+				<ul>
+					<li data-translate-key="planYogaGroup10Feat1">Accesso a 10 lezioni di gruppo</li>
+					<li data-translate-key="planYogaGroup10Feat2">Validità: 3 mesi</li>
+					<li data-translate-key="planYogaGroup10Feat3">Massima convenienza</li>
+					<li data-translate-key="planYogaGroup10FeatMin2">Minimo 4 partecipanti per classe</li>
+				</ul>
+				<div class="price-block">
+					<p class="current-price" data-translate-key="planYogaGroup10CurrentPrice">€320</p>
+					<p class="original-price" data-translate-key="planYogaGroup10OriginalPrice">Invece di <s>€600</s></p>
+				</div>
+				<button class="cta-button open-group-booking-modal" data-translate-key="planYogaGroup10Button">Acquista Carnet</button>
+			</div>
+		</section>
     </main>
 
     <footer>
          <div class="container">
-             <p id="footerText">&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.</p>
+             <p data-translate-key="footerText">&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.</p>
          </div>
     </footer>
 
-	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/script.js"></script>
-	
 	<div id="login-modal" class="auth-modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('login-modal')">&times;</span>
-            <h3>Login</h3>
-            <form id="login-form">
-                <label for="login-email">Email:</label>
-                <input type="email" id="login-email" required>
-                <label for="login-password">Password:</label>
-                <input type="password" id="login-password" required>
-                <button type="submit">Accedi</button>
-                <p id="login-error" class="error-message"></p>
-            </form>
         </div>
-    </div>
-
     <div id="signup-modal" class="auth-modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('signup-modal')">&times;</span>
-            <h3>Registrati</h3>
-            <form id="signup-form">
-                <label for="signup-email">Email:</label>
-                <input type="email" id="signup-email" required>
-                <label for="signup-password">Password (min. 6 caratteri):</label>
-                <input type="password" id="signup-password" required minlength="6">
-                <button type="submit">Registrati</button>
-                <p id="signup-message" class="success-message"></p>
-                <p id="signup-error" class="error-message"></p>
-            </form>
         </div>
-    </div>
+		
+		
+	<div id="group-booking-modal" class="auth-modal">
+		<div class="modal-content">
+			<span class="close-button" onclick="closeModal('group-booking-modal')">&times;</span>
+			<h3 data-translate-key="groupBookingTitle">Prenotazione di Gruppo</h3>
+	
+			<div class="participant-selector">
+				<label for="modal-participants-input" data-translate-key="participantsLabel">Numero Partecipanti:</label>
+				<input type="number" id="modal-participants-input" class="participants-input" value="4" min="4">
+			</div>
+			<p id="modal-participant-error" class="participant-error-message" style="display: none; color: red; font-size: 0.9em;"></p>
+	
+			<div class="price-block" style="text-align: center; margin-top: 20px;">
+				<p class="current-price" id="modal-calculated-price">€60.00</p>
+				<p class="original-price" data-translate-key="pricePerGroupLabel">per l'intero gruppo</p>
+			</div>
+	
+			<div id="modal-payment-options" class="payment-options-container" style="display: block;">
+				<p data-translate-key="paymentMethodLabel">Scegli un metodo di pagamento:</p>
+				</div>
+		</div>
+	</div>
 </body>
+
+
+
 </html>

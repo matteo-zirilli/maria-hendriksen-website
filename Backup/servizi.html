@@ -7,16 +7,14 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     </head>
 
 <body>
     <header>
     <div class="container header-container">
-        <div class="logo">
-            <a href="index.html">Maria Guillermina</a>
-        </div>
+        
         <button class="hamburger-menu" id="hamburger-menu" aria-label="Apri menu" aria-expanded="false" aria-controls="main-nav">
             <span class="hamburger-bar"></span>
             <span class="hamburger-bar"></span>
@@ -56,36 +54,40 @@
             <p id="servicesIntro">Ogni percorso, sia esso fisioterapico, yogico o una combinazione dei due, è attentamente personalizzato. Lavoro insieme a te per definire obiettivi realistici e per fornirti gli strumenti e la consapevolezza necessari non solo per raggiungere il benessere, ma anche per mantenerlo nel tempo, prevenendo future problematiche.</p>
         </section>
 
-         <section class="service-section">
-        <div class="service-title-image-wrapper">
-            <h2 id="fisioTitle">Fisioterapia</h2>
-            <img src="images/Fisioterapia1.jpeg" alt="Immagine rappresentativa Fisioterapia" class="service-image-beside">
-        </div>
-            <p id="fisioDesc">La fisioterapia è fondamentale per il recupero da infortuni, la gestione del dolore cronico e il miglioramento della mobilità. Il mio approccio include:</p>
-            <ul id="fisioList">
-                <li id="fisioPoint1"><strong>Valutazione Funzionale Completa:</strong> Analisi dettagliata della postura, del movimento e delle aree problematiche.</li>
-                <li id="fisioPoint2"><strong>Terapia Manuale:</strong> Tecniche specifiche (mobilizzazioni, manipolazioni, massaggio terapeutico) per ridurre il dolore e ripristinare la funzione articolare e muscolare.</li>
-                <li id="fisioPoint3"><strong>Esercizio Terapeutico Personalizzato:</strong> Programmi di esercizi mirati per rinforzare, allungare e stabilizzare.</li>
-                <li id="fisioPoint4"><strong>Riabilitazione Post-Operatoria e Sportiva:</strong> Percorsi specifici per tornare alle attività quotidiane e sportive in sicurezza.</li>
-                <li id="fisioPoint5"><strong>Educazione e Prevenzione:</strong> Consigli su postura, ergonomia e strategie per prevenire ricadute.</li>
-            </ul>
-            <p id="fisioWho">Adatto per: Dolore lombare, cervicalgia, sciatalgia, recupero post-intervento, lesioni sportive, tendiniti, artrosi, e molto altro.</p>
-        </section>
-
-        <section class="service-section">
-        <div class="service-title-image-wrapper">
-            <h2 id="fisioTitle">Yoga</h2>
-            <img src="images/Posa1.jpeg" alt="Immagine rappresentativa Yoga" class="service-image-beside">
-        </div>
-            <p id="yogaDesc">Lo Yoga è una disciplina straordinaria per migliorare flessibilità, forza, equilibrio e consapevolezza di sé. Offro lezioni adatte a tutti i livelli:</p>
-            <ul id="yogaList">
-                <li id="yogaPoint1"><strong>Lezioni Individuali (One-to-One):</strong> Percorso personalizzato sulle tue esigenze, obiettivi e condizioni fisiche. Ideale per iniziare, approfondire la pratica o per esigenze terapeutiche specifiche.</li>
-                <li id="yogaPoint2"><strong>Lezioni di Gruppo (Piccoli Gruppi):</strong> Classi dinamiche e coinvolgenti per esplorare diversi stili di Yoga (es. Hatha, Vinyasa) e praticare Yoga Terapeutico.</li>
-                <li id="yogaPoint3"><strong>Yoga Terapeutico:</strong> Utilizzo mirato di posizioni (asana), respirazione (pranayama) e meditazione per affrontare specifiche problematiche fisiche o emotive, in integrazione con la fisioterapia.</li>
-                <li id="yogaPoint4"><strong>Yoga Prenatale/Postnatale:</strong> Supporto specifico per le donne durante la gravidanza e nel periodo successivo al parto.</li>
-            </ul>
-            <p id="yogaBenefits">Benefici: Riduzione dello stress, miglioramento della postura, aumento della flessibilità e della forza, maggiore consapevolezza corporea, miglioramento della capacità respiratoria.</p>
-        </section>
+         <section class="service-split-layout">
+			<div class="service-image-column">
+				<img src="images/Fisioterapia1.jpeg" alt="Immagine rappresentativa Fisioterapia">
+			</div>
+			<div class="service-text-column">
+				<h2 id="fisioTitle" data-translate-key="fisioTitle">Fisioterapia</h2>
+				<p id="fisioDesc" data-translate-key="fisioDesc">La fisioterapia è fondamentale per il recupero da infortuni, la gestione del dolore cronico e il miglioramento della mobilità. Il mio approccio include:</p>
+				<ul id="fisioList">
+					<li data-translate-key="fisioPoint1"><strong>Valutazione Funzionale Completa:</strong> Analisi dettagliata della postura, del movimento e delle aree problematiche.</li>
+					<li data-translate-key="fisioPoint2"><strong>Terapia Manuale:</strong> Tecniche specifiche (mobilizzazioni, manipolazioni, massaggio terapeutico) per ridurre il dolore e ripristinare la funzione articolare e muscolare.</li>
+					<li data-translate-key="fisioPoint3"><strong>Esercizio Terapeutico Personalizzato:</strong> Programmi di esercizi mirati per rinforzare, allungare e stabilizzare.</li>
+					<li data-translate-key="fisioPoint4"><strong>Riabilitazione Post-Operatoria e Sportiva:</strong> Percorsi specifici per tornare alle attività quotidiane e sportive in sicurezza.</li>
+					<li data-translate-key="fisioPoint5"><strong>Educazione e Prevenzione:</strong> Consigli su postura, ergonomia e strategie per prevenire ricadute.</li>
+				</ul>
+				<p id="fisioWho" data-translate-key="fisioWho">Adatto per: Dolore lombare, cervicalgia, sciatalgia, recupero post-intervento, lesioni sportive, tendiniti, artrosi, e molto altro.</p>
+			</div>
+		</section>
+		
+		<section class="service-split-layout yoga-layout">
+			<div class="service-text-column">
+				<h2 id="yogaTitle" data-translate-key="yogaTitle">Yoga</h2>
+				<p id="yogaDesc" data-translate-key="yogaDesc">Lo Yoga è una disciplina straordinaria per migliorare flessibilità, forza, equilibrio e consapevolezza di sé. Offro lezioni adatte a tutti i livelli:</p>
+				<ul id="yogaList">
+					<li data-translate-key="yogaPoint1"><strong>Lezioni Individuali (One-to-One):</strong> Percorso personalizzato sulle tue esigenze, obiettivi e condizioni fisiche. Ideale per iniziare, approfondire la pratica o per esigenze terapeutiche specifiche.</li>
+					<li data-translate-key="yogaPoint2"><strong>Lezioni di Gruppo (Piccoli Gruppi):</strong> Classi dinamiche e coinvolgenti per esplorare diversi stili di Yoga (es. Hatha, Vinyasa) e praticare Yoga Terapeutico.</li>
+					<li data-translate-key="yogaPoint3"><strong>Yoga Terapeutico:</strong> Utilizzo mirato di posizioni (asana), respirazione (pranayama) e meditazione per affrontare specifiche problematiche fisiche o emotive, in integrazione con la fisioterapia.</li>
+					<li data-translate-key="yogaPoint4"><strong>Yoga Prenatale/Postnatale:</strong> Supporto specifico per le donne durante la gravidanza e nel periodo successivo al parto.</li>
+				</ul>
+				<p id="yogaBenefits" data-translate-key="yogaBenefits">Benefici: Riduzione dello stress, miglioramento della postura, aumento della flessibilità e della forza, maggiore consapevolezza corporea, miglioramento della capacità respiratoria.</p>
+			</div>
+			<div class="service-image-column">
+				<img src="images/Posa1.jpeg" alt="Immagine rappresentativa Yoga">
+			</div>
+		</section>
 
         <section>
              <p id="servicesContactPrompt">Per maggiori dettagli sui servizi o per discutere le tue esigenze specifiche, non esitare a <a href="prenota.html">contattarmi</a>.</p>

@@ -1,103 +1,97 @@
 <!DOCTYPE html>
-<html lang="it"> <head>
+<html lang="it">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">Maria Guillermina Hendriksen - Fisioterapia e Yoga</title>
     <link rel="stylesheet" href="css/style.css">
-    </head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title id="...">...</title>
-		<link rel="stylesheet" href="css/style.css">
 
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    </head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
 <body>
     <header>
-    <div class="container header-container">
-        <div class="logo">
-            <a href="index.html">Maria Guillermina</a>
+        <div class="container header-container">
+            
+            <button class="hamburger-menu" id="hamburger-menu" aria-label="Apri menu" aria-expanded="false" aria-controls="main-nav">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html" id="navHome" data-translate-key="navHome">Homepage</a></li>
+                    <li><a href="chi-sono.html" id="navAbout" data-translate-key="navAbout">Chi Sono</a></li>
+                    <li><a href="servizi.html" id="navServices" data-translate-key="navServices">Servizi</a></li>
+                    <li><a href="piani.html" id="navPlans" data-translate-key="navPlans">Piani</a></li>
+                    <li><a href="contenuti.html" id="navContent" data-translate-key="navContent">I Miei Contenuti</a></li>
+                    <li><a href="prenota.html" id="navBooking" data-translate-key="navBooking">Prenota/Contatti</a></li>
+                </ul>
+                <div class="language-switcher">
+                    <button data-lang="it">IT</button>
+                    <button data-lang="en">EN</button>
+                    <button data-lang="es">ES</button>
+                </div>
+                <div id="auth-container">
+                    <span id="guest-info" style="display: block;">
+                        <button id="login-button" class="auth-button">Login</button>
+                        <button id="signup-button" class="auth-button" data-translate-key="signup-button">Registrati</button>
+                    </span>
+                    <span id="user-info" style="display: none;">
+                        <span id="user-email"></span>
+                        <button id="logout-button" class="auth-button">Logout</button>
+                    </span>
+                </div>
+            </nav>
         </div>
-        <button class="hamburger-menu" id="hamburger-menu" aria-label="Apri menu" aria-expanded="false" aria-controls="main-nav">
-            <span class="hamburger-bar"></span>
-            <span class="hamburger-bar"></span>
-            <span class="hamburger-bar"></span>
-        </button>
-        <nav id="main-nav">
-            <ul>
-                <li><a href="index.html" id="navHome" data-translate-key="navHome">Homepage</a></li>
-                <li><a href="chi-sono.html" id="navAbout" data-translate-key="navAbout">Chi Sono</a></li>
-                <li><a href="servizi.html" id="navServices" data-translate-key="navServices">Servizi</a></li>
-                <li><a href="piani.html" id="navPlans" data-translate-key="navPlans">Piani</a></li>
-                <li><a href="contenuti.html" id="navContent" data-translate-key="navContent">I Miei Contenuti</a></li>
-                <li><a href="prenota.html" id="navBooking" data-translate-key="navBooking">Prenota/Contatti</a></li>
-            </ul>
-            <div class="language-switcher">
-                <button data-lang="it">IT</button>
-                <button data-lang="en">EN</button>
-                <button data-lang="es">ES</button>
-            </div>
-            <div id="auth-container">
-                <span id="guest-info" style="display: block;">
-                    <button id="login-button" class="auth-button">Login</button>
-                    <button id="signup-button" class="auth-button" data-translate-key="signup-button">Registrati</button>
-                </span>
-                <span id="user-info" style="display: none;">
-                    <span id="user-email"></span>
-                    <button id="logout-button" class="auth-button">Logout</button>
-                </span>
-            </div>
-        </nav>
-    </div>
-</header>
+    </header>
 
-    <main class="container">
-        <section class="hero">
-            <h1 id="mainHeading">Benvenuti nel sito di Maria Guillermina Hendriksen</h1>
-            <p id="mainSubtitle">Fisioterapista esperta e Istruttrice di Yoga certificata, dedicata al tuo benessere.</p>
-            <a href="prenota.html" class="cta-button" id="ctaButton">Scopri di più e Prenota</a>
-        </section>
-		
-		<section class="main-image-section">
-			<img src="images/homepage1.png"
-				alt="Maria Guillermina Hendriksen pratica una posizione Yoga (Natarajasana) sulla spiaggia al tramonto"
-				class="main-yoga-image">
+    <main>
+
+        <section class="hero-fullwidth-new">
+			<img src="images/nuova-immagine-yoga.jpg" alt="Persona che pratica yoga in uno studio" class="hero-main-image">
+			
+			<div class="hero-content">
+				<h1 id="heroMotto" data-translate-key="heroMotto">
+					Ascolta il tuo corpo.<br>
+					Respira nel presente.<br>
+					Muoviti verso il benessere.
+				</h1>
+				
+				<a href="servizi.html" class="cta-button" id="heroCtaButton" data-translate-key="heroCtaButton">Scopri i miei servizi</a>
+			</div>
 		</section>
 
-</section>
-
-    <section class="motto-section">
         <div class="container">
-            <p class="motto-phrase" id="mottoPart1">Ascolta il tuo corpo.</p>
-            <p class="motto-phrase" id="mottoPart2">Respira nel presente.</p>
-            <p class="motto-phrase" id="mottoPart3">Muoviti verso il benessere.</p>
-        </div>
-    </section>
-    
-
-
-        <section class="intro">
-            <h2 id="introTitle">Il mio approccio</h2>
-            <p id="introText">Combino le tecniche della fisioterapia moderna con la saggezza dello yoga per offrire un percorso di recupero e benessere personalizzato.
-Ogni corpo racconta una storia unica e merita ascolto, cura e rispetto.
-Attraverso un approccio integrato, aiuto le persone a ritrovare equilibrio, forza e consapevolezza, accompagnandole in un viaggio verso un benessere profondo e duraturo.</p>
+            <section class="content-split-section">
+                <div class="split-title">
+                    <p class="eyebrow-text" data-translate-key="approachEyebrow">Il mio approccio</p>
+                    <h2 id="introTitle" data-translate-key="approachTitle">Un Approccio Integrato per il Tuo Benessere</h2>
+                </div>
+                <div class="split-content">
+                    <p id="introText" data-translate-key="introText">
+                        Combino le tecniche della fisioterapia moderna con la saggezza dello yoga per offrire un percorso di recupero e benessere personalizzato. Ogni corpo racconta una storia unica e merita ascolto, cura e rispetto. Attraverso un approccio integrato, aiuto le persone a ritrovare equilibrio, forza e consapevolezza, accompagnandole in un viaggio verso un benessere profondo e duraturo.
+                    </p>
+                    <div class="video-placeholder" style="width:100%; height:280px; background-color:#eaeaea; border-radius:8px; display:flex; align-items:center; justify-content:center; margin-top:20px;">
+                        <p style="color:#888; font-family:'Montserrat', sans-serif;">Video di presentazione in arrivo</p>
+                    </div>
+                </div>
             </section>
+        </div>
 
-        </main>
+    </main>
 
     <footer>
         <div class="container">
             <p id="footerText">&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.</p>
-            </div>
+        </div>
     </footer>
-	
-	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/script.js"></script>
-	
-	<div id="login-modal" class="auth-modal">
+    
+    <div id="login-modal" class="auth-modal">
         <div class="modal-content">
             <span class="close-button" onclick="closeModal('login-modal')">&times;</span>
             <h3>Login</h3>

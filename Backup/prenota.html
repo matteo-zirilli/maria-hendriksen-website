@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         /* Stili specifici per il form */
@@ -82,9 +82,7 @@
 <body>
     <<header>
     <div class="container header-container">
-        <div class="logo">
-            <a href="index.html">Maria Guillermina</a>
-        </div>
+        
         <button class="hamburger-menu" id="hamburger-menu" aria-label="Apri menu" aria-expanded="false" aria-controls="main-nav">
             <span class="hamburger-bar"></span>
             <span class="hamburger-bar"></span>
@@ -155,15 +153,28 @@
             </form>
         </section>
         <hr> <section id="directContacts">
-             <h2 id="directContactTitle">Contatti Diretti</h2>
-             <p id="directContactInfo">Puoi contattarmi anche tramite:</p>
-             <ul>
-                <li id="contactWhatsapp">WhatsApp: <a href="https://wa.me/5492983567655" target="_blank">+54 9 2983 567655</a></li>
-				<li id="contactInstagram">Instagram: <a href="https://www.instagram.com/yoguikine?igsh=dDk4bGc3Zm81MWx2" target="_blank" rel="noopener noreferrer">@yoguikine</a></li>
-                <li id="contactEmail">Email: <a href="mailto:guillerminadn@gmail.com">guillerminadn@gmail.com</a></li>
-                <li id="contactPhone">Telefono: <a href="tel:+393299460634">+39 3299460634</a></li>
-                <li id="contactAddress">Indirizzo Studio: Palma di Maiorca (contattami per dettagli)</li>
-             </ul>
+				<h2 id="directContactTitle" data-translate-key="directContactTitle">Contatti Diretti</h2>
+				<p id="directContactInfo" data-translate-key="directContactInfo">Puoi contattarmi anche tramite:</p>
+				
+				<div class="contact-cards-container">
+					<a href="https://wa.me/5492983567655" target="_blank" class="contact-card">
+						<span class="contact-label" data-translate-key="contactLabelWhatsapp">WhatsApp</span>
+						<span class="contact-value">+54 9 2983 567655</span>
+					</a>
+					<a href="mailto:guillerminadn@gmail.com" class="contact-card">
+						<span class="contact-label" data-translate-key="contactLabelEmail">Email</span>
+						<span class="contact-value">guillerminadn@gmail.com</span>
+					</a>
+					<a href="tel:+393299460634" class="contact-card">
+						<span class="contact-label" data-translate-key="contactLabelPhone">Telefono</span>
+						<span class="contact-value">+39 329 9460634</span>
+					</a>
+					<a href="https://www.instagram.com/yoguikine?igsh=dDk4bGc3Zm81MWx2" target="_blank" rel="noopener noreferrer" class="contact-card">
+						<span class="contact-label" data-translate-key="contactLabelInstagram">Instagram</span>
+						<span class="contact-value">@yoguikine</span>
+					</a>
+				</div>
+			</section>
         </section>
         </main>
 

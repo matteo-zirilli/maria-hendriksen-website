@@ -2,6 +2,18 @@
 //  SCRIPT.JS COMPLETO - Include funzioni per recensioni dinamiche
 // ===========================================================
 
+// In script.js, AGGIUNGI questo blocco all'inizio del file
+
+const BOOKING_LINKS = {
+    yoga_individuale: "https://tidycal.com/guillerminadn/prenotazione-lezione-yoga-individuale",
+    yoga_pacchetti: "https://tidycal.com/guillerminadn/pacchetto-lezioni-yoga"
+};
+
+const CONTACT_INFO = {
+    whatsapp: "+5492983567655", // Numero Argentino per WhatsApp
+    phone: "+34641234679"       // Numero Spagnolo per Chiamate
+};
+
 const languages = {
     it: {
         // --- Stringhe Comuni (Header/Footer) ---
@@ -15,16 +27,18 @@ const languages = {
         "footerText": "&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.",
 
         // --- index.html ---
-        "mainHeading": "Benvenuti nel sito di Maria Guillermina Hendriksen",
+        "heroMotto": "Ascolta il tuo corpo.<br>Respira nel presente.<br>Muoviti verso il benessere.",
         "mainSubtitle": "Fisioterapista esperta e Istruttrice di Yoga certificata, dedicata al tuo benessere.",
         "ctaButton": "Scopri di più e Prenota",
 		"signup-button": "Registrati", // Chiave generale per bottoni di registrazione
         "mottoPart1": "Ascolta il tuo corpo.",
         "mottoPart2": "Respira nel presente.",
         "mottoPart3": "Muoviti verso il benessere.",
+		"heroCtaButton": "Scopri i miei servizi",
         "introTitle": "Il mio approccio",
         "introText": "Combino le tecniche della fisioterapia moderna con la saggezza dello yoga per offrire un percorso di recupero e benessere personalizzato. Ogni corpo racconta una storia unica e merita ascolto, cura e rispetto. Attraverso un approccio integrato, aiuto le persone a ritrovare equilibrio, forza e consapevolezza, accompagnandole in un viaggio verso un benessere profondo e duraturo. Credo che la salute non sia solo l’assenza di dolore, ma una condizione di armonia tra corpo, mente e respiro. La mia motivazione nasce dal desiderio autentico di aiutare le persone a sentirsi meglio con sé stesse, a riconnettersi con il proprio corpo e a riscoprire la propria energia vitale.",
-
+		"approachEyebrow": "Il mio approccio",
+		"approachTitle": "Un Approccio Integrato", 
         // --- chi-sono.html ---
         "pageTitleAbout": "Chi Sono - Maria G. Hendriksen",
         "aboutHeading": "Chi Sono",
@@ -67,52 +81,64 @@ const languages = {
 
         // --- piani.html ---
         "pageTitlePlans": "Piani e Tariffe - Maria G. Hendriksen",
-        "plansHeading": "Piani e Tariffe",
-        "plansIntro": "Scegli il piano più adatto alle tue esigenze. Per soluzioni personalizzate o pacchetti combinati Fisioterapia+Yoga, <a href=\"prenota.html\">contattami</a>.",
-        "plansNote": "Nota: I pagamenti si effettuano preferibilmente al momento della seduta (contanti, Bizum). Per pacchetti o pagamenti anticipati è possibile richiedere bonifico bancario o link per pagamento online.",
-        "planFisioSingleTitle": "Seduta Fisioterapia Singola",
-        "planFisioSingleDesc": "Valutazione e trattamento fisioterapico individuale.",
-        "planFisioSingleFeat1": "Durata: circa 60 minuti",
-        "planFisioSingleFeat2": "Trattamento personalizzato",
-        "planFisioSinglePrice": "€50",
-        "planFisioSingleButton": "Prenota Ora",
-        "planFisio5Title": "Ciclo 5 Sedute Fisioterapia",
-        "planFisio5Desc": "Pacchetto conveniente per un percorso riabilitativo completo.",
-        "planFisio5Feat1": "5 sedute individuali (60 min/cad.)",
-        "planFisio5Feat2": "Monitoraggio progressi",
-        "planFisio5Feat3": "Sconto rispetto alla seduta singola",
-        "planFisio5Price": "€220 ",
-        "planFisio5OldPrice": "(€250)",
-        "planFisio5Button": "Prenota Ciclo",
-        "planYogaIndSingleTitle": "Lezione Yoga Individuale",
-        "planYogaIndSingleDesc": "Pratica personalizzata One-to-One.",
-        "planYogaIndSingleFeat1": "Durata: 60 o 75 minuti (da concordare)",
-        "planYogaIndSingleFeat2": "Adatta a tutti i livelli",
-        "planYogaIndSingleFeat3": "Focus su obiettivi specifici",
-        "planYogaIndSinglePrice": "€45 (60 min)",
-        "planYogaIndSingleButton": "Prenota Lezione",
-        "planYogaInd5Title": "Pacchetto 5 Lezioni Yoga Individuali",
-        "planYogaInd5Desc": "Percorso continuativo per approfondire la pratica.",
-        "planYogaInd5Feat1": "5 lezioni individuali (60 min/cad.)",
-        "planYogaInd5Feat2": "Flessibilità oraria",
-        "planYogaInd5Feat3": "Sconto sul totale",
-        "planYogaInd5Price": "€200 ",
-        "planYogaInd5OldPrice": "(€225)",
-        "planYogaInd5Button": "Acquista Pacchetto",
-        "planYogaGroupSingleTitle": "Lezione Yoga di Gruppo (Drop-in)",
-        "planYogaGroupSingleDesc": "Partecipa a una delle nostre classi di gruppo.",
-        "planYogaGroupSingleFeat1": "Verifica l'orario delle classi",
-        "planYogaGroupSingleFeat2": "Adatta a diversi livelli",
-        "planYogaGroupSinglePrice": "€15",
-        "planYogaGroupSingleButton": "Prenota Classe",
-        "planYogaGroup10Title": "Pacchetto 10 Lezioni Yoga di Gruppo",
-        "planYogaGroup10Desc": "Frequenta le classi di gruppo con convenienza.",
-        "planYogaGroup10Feat1": "Accesso a 10 lezioni di gruppo",
-        "planYogaGroup10Feat2": "Validità: 3 mesi",
-        "planYogaGroup10Feat3": "Massima convenienza",
-        "planYogaGroup10Price": "€120 ",
-        "planYogaGroup10OldPrice": "(€150)",
-        "planYogaGroup10Button": "Acquista Carnet",
+		"plansHeading": "Piani e Tariffe",
+		"plansIntro": "Scegli il piano più adatto alle tue esigenze. Per soluzioni personalizzate o pacchetti combinati Fisioterapia+Yoga, <a href=\"prenota.html\">contattami</a>.",
+		"plansNote": "Nota: I pagamenti si effettuano preferibilmente al momento della seduta (contanti, Bizum). Per pacchetti o pagamenti anticipati è possibile richiedere bonifico bancario o link per pagamento online.",
+		"planFisioSingleTitle": "Seduta Fisioterapia Singola",
+		"planFisioSingleDesc": "Valutazione e trattamento fisioterapico individuale.",
+		"planFisioSingleFeat1": "Durata: circa 60 minuti",
+		"planFisioSingleFeat2": "Trattamento personalizzato",
+		"planFisioSingleButton": "Prenota Ora",
+		"planFisio5Title": "Ciclo 5 Sedute Fisioterapia",
+		"planFisio5Desc": "Pacchetto conveniente per un percorso riabilitativo completo.",
+		"planFisio5Feat1": "5 sedute individuali (60 min/cad.)",
+		"planFisio5Feat2": "Monitoraggio progressi",
+		"planFisio5Feat3": "Sconto rispetto alla seduta singola",
+		"planFisio5Button": "Prenota Ciclo",
+		"planYogaIndSingleTitle": "Lezione Yoga Individuale",
+		"planYogaIndSingleDesc": "Pratica personalizzata One-to-One.",
+		"planYogaIndSingleFeat1": "Durata: 60 minuti",
+		"planYogaIndSingleFeat2": "Adatta a tutti i livelli",
+		"planYogaIndSingleFeat3": "Focus su obiettivi specifici",
+		"planYogaIndSinglePrice": "€25",
+		"planYogaIndSingleButton": "Prenota Lezione",
+		"planYogaInd5Title": "Pacchetto 5 Lezioni Yoga Individuali",
+		"planYogaInd5Desc": "Percorso continuativo per approfondire la pratica.",
+		"planYogaInd5Feat1": "5 lezioni individuali (60 min/cad.)",
+		"planYogaInd5Feat2": "Flessibilità oraria",
+		"planYogaInd5Feat3": "Sconto sul totale",
+		"planYogaInd5Button": "Acquista Pacchetto",
+		"planYogaGroupSingleTitle": "Lezione Yoga di Gruppo (Drop-in)",
+		"planYogaGroupSingleDesc": "Partecipa a una delle nostre classi di gruppo.",
+		"planYogaGroupSingleFeat1": "Verifica l'orario delle classi",
+		"planYogaGroupSingleFeat2": "Adatta a diversi livelli",
+		"planYogaGroupSinglePrice": "€15 a persona",
+		"planYogaGroupSingleButton": "Prenota Classe",
+		"planYogaGroup10Title": "Pacchetto 10 Lezioni Yoga di Gruppo",
+		"planYogaGroup10Desc": "Frequenta le classi di gruppo con convenienza.",
+		"planYogaGroup10Feat1": "Accesso a 10 lezioni di gruppo",
+		"planYogaGroup10Feat2": "Validità: 3 mesi",
+		"planYogaGroup10Feat3": "Massima convenienza",
+		"planYogaGroup10Button": "Acquista Carnet",
+		"planFisioSinglePriceStudio": "€50 - In Studio",
+		"planFisioSinglePriceHome": "€65 - A Domicilio",
+		"planFisio5CurrentPriceStudio": "€220 - In Studio",
+		"planFisio5OriginalPriceStudio": "Invece di <s>€250</s>",
+		"planFisio5CurrentPriceHome": "€290 - A Domicilio",
+		"planFisio5OriginalPriceHome": "Invece di <s>€325</s>",
+		"planYogaInd5CurrentPrice": "€110",
+		"planYogaInd5OriginalPrice": "Invece di <s>€125</s>",
+		"planYogaGroupFeatMin": "Minimo 4 partecipanti",
+		"planYogaGroup10FeatMin2": "Minimo 4 partecipanti per classe",
+		"planYogaGroup10CurrentPrice": "€320",
+		"planYogaGroup10OriginalPrice": "Invece di <s>€600</s>",
+		"groupBookingTitle": "Prenotazione di Gruppo",
+		"participantsLabel": "Numero Partecipanti:",
+		"pricePerGroupLabel": "per l'intero gruppo",
+		"paymentMethodLabel": "Scegli un metodo di pagamento:",
+		"locationStudio": "In Studio",
+		"locationHome": "A Domicilio",
+		"insteadOf": "Invece di",
 
         // --- prenota.html ---
         "pageTitleBooking": "Prenota / Contatti - Maria G. Hendriksen",
@@ -140,6 +166,11 @@ const languages = {
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
         "contactPhone": "Telefono: <a href=\"tel:+393299460634\">+39 3299460634</a>",
         "contactAddress": "Indirizzo Studio: Palma de Maiorca (contattami per dettagli)",
+		
+		"contactLabelWhatsapp": "WhatsApp",
+		"contactLabelEmail": "Email",
+		"contactLabelPhone": "Telefono",
+		"contactLabelInstagram": "Instagram",
 
         // --- contenuti.html ---
         "pageTitleContent": "I Miei Contenuti - Maria Guillermina Hendriksen",
@@ -190,16 +221,18 @@ const languages = {
         "footerText": "&copy; 2025 Maria Guillermina Hendriksen. All rights reserved.",
 
         // --- index.html ---
-        "mainHeading": "Welcome to the website of Maria Guillermina Hendriksen",
+        "heroMotto": "Listen to your body.<br>Breathe into the present.<br>Move towards well-being.",
         "mainSubtitle": "Experienced Physiotherapist and Certified Yoga Instructor, dedicated to your well-being.",
         "ctaButton": "Learn More and Book",
 		"signup-button": "Sign Up",
         "mottoPart1": "Listen to your body.",
         "mottoPart2": "Breathe into the present.",
         "mottoPart3": "Move towards well-being.",
+		"heroCtaButton": "Discover my services",
         "introTitle": "My Approach",
         "introText": "I combine modern physiotherapy techniques with the wisdom of yoga to offer a personalized path to recovery and well-being. Every body tells a unique story and deserves to be heard, cared for, and respected. Through an integrated approach, I help people restore balance, strength, and awareness, guiding them on a journey toward deep and lasting wellness. I believe that health is not just the absence of pain, but a state of harmony between body, mind, and breath. My motivation comes from a genuine desire to help people feel better within themselves, reconnect with their bodies, and rediscover their vital energy.",
-
+		"approachEyebrow": "My approach",
+		"approachTitle": "An Integrated Approach", 
         // --- chi-sono.html ---
         "pageTitleAbout": "About Me - Maria G. Hendriksen",
         "aboutHeading": "About Me",
@@ -241,53 +274,63 @@ const languages = {
         "servicesContactPrompt": "For more details on the services or to discuss your specific needs, please do not hesitate to <a href=\"prenota.html\">contact me</a>.",
 
         // --- piani.html ---
-        "pageTitlePlans": "Plans and Rates - Maria G. Hendriksen",
-        "plansHeading": "Plans and Rates",
-        "plansIntro": "Choose the plan that best suits your needs. For customized solutions or combined Physiotherapy+Yoga packages, <a href=\"prenota.html\">contact me</a>.",
-        "plansNote": "Note: Payments are preferably made at the time of the session (cash, Bizum). For packages or advance payments, bank transfer or an online payment link can be requested.",
-        "planFisioSingleTitle": "Single Physiotherapy Session",
-        "planFisioSingleDesc": "Individual physiotherapy assessment and treatment.",
-        "planFisioSingleFeat1": "Duration: approx. 60 minutes",
-        "planFisioSingleFeat2": "Personalized treatment",
-        "planFisioSinglePrice": "€50",
-        "planFisioSingleButton": "Book Now",
-        "planFisio5Title": "5 Physiotherapy Sessions Cycle",
-        "planFisio5Desc": "Convenient package for a complete rehabilitation path.",
-        "planFisio5Feat1": "5 individual sessions (60 min/each)",
-        "planFisio5Feat2": "Progress monitoring",
-        "planFisio5Feat3": "Discount compared to single session",
-        "planFisio5Price": "€220 ",
-        "planFisio5OldPrice": "(€250)",
-        "planFisio5Button": "Book Cycle",
-        "planYogaIndSingleTitle": "Individual Yoga Lesson",
-        "planYogaIndSingleDesc": "Personalized One-to-One practice.",
-        "planYogaIndSingleFeat1": "Duration: 60 or 75 minutes (to be agreed)",
-        "planYogaIndSingleFeat2": "Suitable for all levels",
-        "planYogaIndSingleFeat3": "Focus on specific goals",
-        "planYogaIndSinglePrice": "€45 (60 min)",
-        "planYogaIndSingleButton": "Book Lesson",
-        "planYogaInd5Title": "Package 5 Individual Yoga Lessons",
-        "planYogaInd5Desc": "Continuous path to deepen the practice.",
-        "planYogaInd5Feat1": "5 individual lessons (60 min/each)",
-        "planYogaInd5Feat2": "Time flexibility",
-        "planYogaInd5Feat3": "Discount on total",
-        "planYogaInd5Price": "€200 ",
-        "planYogaInd5OldPrice": "(€225)",
-        "planYogaInd5Button": "Purchase Package",
-        "planYogaGroupSingleTitle": "Group Yoga Lesson (Drop-in)",
-        "planYogaGroupSingleDesc": "Join one of our group classes.",
-        "planYogaGroupSingleFeat1": "Check class schedule",
-        "planYogaGroupSingleFeat2": "Suitable for different levels",
-        "planYogaGroupSinglePrice": "€15",
-        "planYogaGroupSingleButton": "Book Class",
-        "planYogaGroup10Title": "Package 10 Group Yoga Lessons",
-        "planYogaGroup10Desc": "Attend group classes conveniently.",
-        "planYogaGroup10Feat1": "Access to 10 group lessons",
-        "planYogaGroup10Feat2": "Validity: 3 months",
-        "planYogaGroup10Feat3": "Maximum convenience",
-        "planYogaGroup10Price": "€120 ",
-        "planYogaGroup10OldPrice": "(€150)",
-        "planYogaGroup10Button": "Purchase Card",
+        
+		"pageTitlePlans": "Plans and Rates - Maria G. Hendriksen",
+		"plansHeading": "Plans and Rates",
+		"plansIntro": "Choose the plan that best suits your needs. For customized solutions or combined Physiotherapy+Yoga packages, <a href=\"prenota.html\">contact me</a>.",
+		"plansNote": "Note: Payments are preferably made at the time of the session (cash, Bizum). For packages or advance payments, bank transfer or an online payment link can be requested.",
+		"planFisioSingleTitle": "Single Physiotherapy Session",
+		"planFisioSingleDesc": "Individual physiotherapy assessment and treatment.",
+		"planFisioSingleFeat1": "Duration: approx. 60 minutes",
+		"planFisioSingleFeat2": "Personalized treatment",
+		"planFisioSingleButton": "Book Now",
+		"planFisio5Title": "5 Physiotherapy Sessions Cycle",
+		"planFisio5Desc": "Convenient package for a complete rehabilitation path.",
+		"planFisio5Feat1": "5 individual sessions (60 min/each)",
+		"planFisio5Feat2": "Progress monitoring",
+		"planFisio5Feat3": "Discount compared to single session",
+		"planFisio5Button": "Book Cycle",
+		"planYogaIndSingleTitle": "Individual Yoga Lesson",
+		"planYogaIndSingleDesc": "Personalized One-to-One practice.",
+		"planYogaIndSingleFeat1": "Duration: 60 minutes",
+		"planYogaIndSingleFeat2": "Suitable for all levels",
+		"planYogaIndSingleFeat3": "Focus on specific goals",
+		"planYogaIndSinglePrice": "€25",
+		"planYogaIndSingleButton": "Book Lesson",
+		"planYogaInd5Title": "Package of 5 Individual Yoga Lessons",
+		"planYogaInd5Desc": "Continuous path to deepen the practice.",
+		"planYogaInd5Button": "Purchase Package",
+		"planYogaGroupSingleTitle": "Group Yoga Lesson (Drop-in)",
+		"planYogaGroupSingleDesc": "Join one of our group classes.",
+		"planYogaGroupSingleFeat1": "Check class schedule",
+		"planYogaGroupSingleFeat2": "Suitable for different levels",
+		"planYogaGroupSinglePrice": "€15 per person",
+		"planYogaGroupSingleButton": "Book Class",
+		"planYogaGroup10Title": "Package of 10 Group Yoga Lessons",
+		"planYogaGroup10Desc": "Attend group classes conveniently.",
+		"planYogaGroup10Feat1": "Access to 10 group lessons",
+		"planYogaGroup10Feat2": "Validity: 3 months",
+		"planYogaGroup10Feat3": "Maximum convenience",
+		"planYogaGroup10Button": "Purchase Card",
+		"planFisioSinglePriceStudio": "€50 - At the Studio",
+		"planFisioSinglePriceHome": "€65 - At your Home",
+		"planFisio5CurrentPriceStudio": "€220 - At the Studio",
+		"planFisio5OriginalPriceStudio": "Instead of <s>€250</s>",
+		"planFisio5CurrentPriceHome": "€290 - At your Home",
+		"planFisio5OriginalPriceHome": "Instead of <s>€325</s>",
+		"planYogaInd5CurrentPrice": "€110",
+		"planYogaInd5OriginalPrice": "Instead of <s>€125</s>",
+		"planYogaGroupFeatMin": "Minimum 4 participants",
+		"planYogaGroup10FeatMin2": "Minimum 4 participants per class",
+		"planYogaGroup10CurrentPrice": "€320",
+		"planYogaGroup10OriginalPrice": "Instead of <s>€600</s>",
+		"groupBookingTitle": "Group Booking",
+		"participantsLabel": "Number of Participants:",
+		"pricePerGroupLabel": "for the entire group",
+		"paymentMethodLabel": "Choose a payment method:",
+		"locationStudio": "At the Studio",
+		"locationHome": "At your Home",
+		"insteadOf": "Instead of",
 
         // --- prenota.html ---
         "pageTitleBooking": "Booking / Contact - Maria G. Hendriksen",
@@ -315,6 +358,11 @@ const languages = {
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
         "contactPhone": "Phone: <a href=\"tel:+393299460634\">+39 3299460634</a>",
         "contactAddress": "Studio Address: Palma de Mallorca (contact me for details)",
+		
+		"contactLabelWhatsapp": "WhatsApp",
+		"contactLabelEmail": "Email",
+		"contactLabelPhone": "Phone", // <-- Tradotto
+		"contactLabelInstagram": "Instagram",
 
         // --- contenuti.html ---
         "pageTitleContent": "My Content - Maria Guillermina Hendriksen",
@@ -365,16 +413,18 @@ const languages = {
         "footerText": "&copy; 2025 Maria Guillermina Hendriksen. Todos los derechos reservados.",
 
         // --- index.html ---
-        "mainHeading": "Bienvenidos al sitio web de Maria Guillermina Hendriksen",
+        "heroMotto": "Escucha a tu cuerpo.<br>Respira en el presente.<br>Muévete hacia el bienestar.",
         "mainSubtitle": "Fisioterapeuta experta e Instructora de Yoga certificada, dedicada a tu bienestar.",
         "ctaButton": "Descubre Más y Reserva",
 		"signup-button": "Regístrate",
          "mottoPart1": "Escucha a tu cuerpo.",
         "mottoPart2": "Respira en el presente.",
         "mottoPart3": "Muévete hacia el bienestar.",
+		"heroCtaButton": "Descubre mis servicios",
         "introTitle": "Mi Enfoque",
         "introText": "Combino las técnicas de la fisioterapia moderna con la sabiduría del yoga para ofrecer un camino personalizado de recuperación y bienestar. Cada cuerpo cuenta una historia única y merece ser escuchado, cuidado y respetado. A través de un enfoque integral, acompaño a las personas a recuperar el equilibrio, la fuerza y la conciencia, guiándolas hacia un bienestar profundo y duradero. Creo que la salud no es solo la ausencia de dolor, sino un estado de armonía entre el cuerpo, la mente y la respiración. Mi motivación nace del deseo auténtico de ayudar a las personas a sentirse mejor consigo mismas, a reconectar con su cuerpo y a redescubrir su energía vital.",
-
+		"approachEyebrow": "Mi enfoque",
+		"approachTitle": "Un Enfoque Integrado",
         // --- chi-sono.html ---
         "pageTitleAbout": "Sobre Mí - Maria G. Hendriksen",
         "aboutHeading": "Sobre Mí",
@@ -416,53 +466,63 @@ const languages = {
         "servicesContactPrompt": "Para más detalles sobre los servicios o para discutir tus necesidades específicas, no dudes en <a href=\"prenota.html\">contactarme</a>.",
 
         // --- piani.html ---
-        "pageTitlePlans": "Planes y Tarifas - Maria G. Hendriksen",
-        "plansHeading": "Planes y Tarifas",
-        "plansIntro": "Elige el plan que mejor se adapte a tus necesidades. Para soluciones personalizadas o paquetes combinados Fisioterapia+Yoga, <a href=\"prenota.html\">contáctame</a>.",
-        "plansNote": "Nota: Los pagos se realizan preferentemente en el momento de la sesión (efectivo, Bizum). Para paquetes o pagos anticipados, se puede solicitar transferencia bancaria o enlace para pago online.",
-        "planFisioSingleTitle": "Sesión Única de Fisioterapia",
-        "planFisioSingleDesc": "Evaluación y tratamiento fisioterapéutico individual.",
-        "planFisioSingleFeat1": "Duración: aprox. 60 minutos",
-        "planFisioSingleFeat2": "Tratamiento personalizado",
-        "planFisioSinglePrice": "€50",
-        "planFisioSingleButton": "Reserva Ahora",
-        "planFisio5Title": "Ciclo 5 Sesiones de Fisioterapia",
-        "planFisio5Desc": "Paquete conveniente para un camino de rehabilitación completo.",
-        "planFisio5Feat1": "5 sesiones individuales (60 min/cada)",
-        "planFisio5Feat2": "Seguimiento del progreso",
-        "planFisio5Feat3": "Descuento respecto a la sesión única",
-        "planFisio5Price": "€220 ",
-        "planFisio5OldPrice": "(€250)",
-        "planFisio5Button": "Reserva Ciclo",
-        "planYogaIndSingleTitle": "Clase Individual de Yoga",
-        "planYogaIndSingleDesc": "Práctica personalizada One-to-One.",
-        "planYogaIndSingleFeat1": "Duración: 60 o 75 minutos (a convenir)",
-        "planYogaIndSingleFeat2": "Adaptada a todos los niveles",
-        "planYogaIndSingleFeat3": "Enfoque en objetivos específicos",
-        "planYogaIndSinglePrice": "€45 (60 min)",
-        "planYogaIndSingleButton": "Reserva Clase",
-        "planYogaInd5Title": "Paquete 5 Clases Individuales de Yoga",
-        "planYogaInd5Desc": "Camino continuo para profundizar la práctica.",
-        "planYogaInd5Feat1": "5 clases individuales (60 min/cada)",
-        "planYogaInd5Feat2": "Flexibilidad horaria",
-        "planYogaInd5Feat3": "Descuento sobre el total",
-        "planYogaInd5Price": "€200 ",
-        "planYogaInd5OldPrice": "(€225)",
-        "planYogaInd5Button": "Comprar Paquete",
-        "planYogaGroupSingleTitle": "Clase Grupal de Yoga (Drop-in)",
-        "planYogaGroupSingleDesc": "Participa en una de nuestras clases grupales.",
-        "planYogaGroupSingleFeat1": "Verifica el horario de las clases",
-        "planYogaGroupSingleFeat2": "Adaptada a diferentes niveles",
-        "planYogaGroupSinglePrice": "€15",
-        "planYogaGroupSingleButton": "Reserva Clase",
-        "planYogaGroup10Title": "Paquete 10 Clases Grupales de Yoga",
-        "planYogaGroup10Desc": "Asiste a las clases grupales con conveniencia.",
-        "planYogaGroup10Feat1": "Acceso a 10 clases grupales",
-        "planYogaGroup10Feat2": "Validez: 3 meses",
-        "planYogaGroup10Feat3": "Máxima conveniencia",
-        "planYogaGroup10Price": "€120 ",
-        "planYogaGroup10OldPrice": "(€150)",
-        "planYogaGroup10Button": "Comprar Bono",
+    
+		"pageTitlePlans": "Planes y Tarifas - Maria G. Hendriksen",
+		"plansHeading": "Planes y Tarifas",
+		"plansIntro": "Elige el plan que mejor se adapte a tus necesidades. Para soluciones personalizadas o paquetes combinados Fisioterapia+Yoga, <a href=\"prenota.html\">contáctame</a>.",
+		"plansNote": "Nota: Los pagos se realizan preferentemente en el momento de la sesión (efectivo, Bizum). Para paquetes o pagos anticipados, se puede solicitar transferencia bancaria o enlace para pago online.",
+		"planFisioSingleTitle": "Sesión Única de Fisioterapia",
+		"planFisioSingleDesc": "Evaluación y tratamiento fisioterapéutico individual.",
+		"planFisioSingleFeat1": "Duración: aprox. 60 minutos",
+		"planFisioSingleFeat2": "Tratamiento personalizado",
+		"planFisioSingleButton": "Reserva Ahora",
+		"planFisio5Title": "Ciclo 5 Sesiones de Fisioterapia",
+		"planFisio5Desc": "Paquete conveniente para un camino de rehabilitación completo.",
+		"planFisio5Feat1": "5 sesiones individuales (60 min/cada)",
+		"planFisio5Feat2": "Seguimiento del progreso",
+		"planFisio5Feat3": "Descuento respecto a la sesión única",
+		"planFisio5Button": "Reserva Ciclo",
+		"planYogaIndSingleTitle": "Clase Individual de Yoga",
+		"planYogaIndSingleDesc": "Práctica personalizada One-to-One.",
+		"planYogaIndSingleFeat1": "Duración: 60 minutos",
+		"planYogaIndSingleFeat2": "Adaptada a todos los niveles",
+		"planYogaIndSingleFeat3": "Enfoque en objetivos específicos",
+		"planYogaIndSinglePrice": "€25",
+		"planYogaIndSingleButton": "Reserva Clase",
+		"planYogaInd5Title": "Paquete 5 Clases Individuales de Yoga",
+		"planYogaInd5Desc": "Camino continuo para profundizar la práctica.",
+		"planYogaInd5Button": "Comprar Paquete",
+		"planYogaGroupSingleTitle": "Clase Grupal de Yoga (Drop-in)",
+		"planYogaGroupSingleDesc": "Participa en una de nuestras clases grupales.",
+		"planYogaGroupSingleFeat1": "Verifica el horario de las clases",
+		"planYogaGroupSingleFeat2": "Adaptada a diferentes niveles",
+		"planYogaGroupSinglePrice": "€15 por persona",
+		"planYogaGroupSingleButton": "Reserva Clase",
+		"planYogaGroup10Title": "Paquete 10 Clases Grupales de Yoga",
+		"planYogaGroup10Desc": "Asiste a las clases grupales con conveniencia.",
+		"planYogaGroup10Feat1": "Acceso a 10 clases grupales",
+		"planYogaGroup10Feat2": "Validez: 3 meses",
+		"planYogaGroup10Feat3": "Máxima conveniencia",
+		"planYogaGroup10Button": "Comprar Bono",
+		"planFisioSinglePriceStudio": "€50 - En el Estudio",
+		"planFisioSinglePriceHome": "€65 - A Domicilio",
+		"planFisio5CurrentPriceStudio": "€220 - En el Estudio",
+		"planFisio5OriginalPriceStudio": "En lugar de <s>€250</s>",
+		"planFisio5CurrentPriceHome": "€290 - A Domicilio",
+		"planFisio5OriginalPriceHome": "En lugar de <s>€325</s>",
+		"planYogaInd5CurrentPrice": "€110",
+		"planYogaInd5OriginalPrice": "En lugar de <s>€125</s>",
+		"planYogaGroupFeatMin": "Mínimo 4 participantes",
+		"planYogaGroup10FeatMin2": "Mínimo 4 participantes por clase",
+		"planYogaGroup10CurrentPrice": "€320",
+		"planYogaGroup10OriginalPrice": "En lugar de <s>€600</s>",
+		"groupBookingTitle": "Reserva de Grupo",
+		"participantsLabel": "Número de Participantes:",
+		"pricePerGroupLabel": "para el grupo entero",
+		"paymentMethodLabel": "Elige un método de pago:",
+		"locationStudio": "En el Estudio",
+		"locationHome": "A Domicilio",
+		"insteadOf": "En lugar de",
 
         // --- prenota.html ---
         "pageTitleBooking": "Reservas / Contacto - Maria G. Hendriksen",
@@ -490,6 +550,11 @@ const languages = {
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
         "contactPhone": "Teléfono: <a href=\"tel:+393299460634\">+39 3299460634</a>",
         "contactAddress": "Dirección Estudio: Palma de Mallorca (contáctame para detalles)",
+		
+		"contactLabelWhatsapp": "WhatsApp",
+		"contactLabelEmail": "Email",
+		"contactLabelPhone": "Teléfono", // <-- Tradotto
+		"contactLabelInstagram": "Instagram",
 
         // --- contenuti.html ---
         "pageTitleContent": "Mis Contenidos - Maria Guillermina Hendriksen",
@@ -634,19 +699,21 @@ function displayStars(rating) {
     return `<span class="review-stars">${starsHTML}</span>`;
 }
 
+// In script.js
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-        modal.style.display = 'block';
+        modal.style.display = 'flex'; // <-- Cambia da 'block' a 'flex'
     } else {
         console.error(`Modal with id ${modalId} not found.`);
     }
 }
 
+// In script.js
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-        modal.style.display = 'none';
+        modal.style.display = 'none'; // <-- Questo rimane 'none', quindi è già corretto.
         const errorP = modal.querySelector('.error-message');
         if (errorP) errorP.textContent = '';
         const msgP = modal.querySelector('.success-message');
@@ -657,6 +724,9 @@ function closeModal(modalId) {
         console.error(`Modal with id ${modalId} not found.`);
     }
 }
+
+
+
 
 // -----------------------------------------------------------
 //               FUNZIONI SPECIFICHE (Recensioni, Autenticazione, Contenuti Video)
@@ -1166,7 +1236,77 @@ function renderPayPalButton(orderID, containerId, lessonId) {
 // -----------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
+	
+	console.log("DEBUG: DOM Caricato. Esecuzione script avviata.");
     console.log("DOM completamente caricato e analizzato.");
+
+
+
+	// In script.js, SOSTITUISCI il vecchio blocco per il selettore Studio/Domicilio con QUESTO
+
+// --- LOGICA CORRETTA PER SELETTORE STUDIO/DOMICILIO ---
+	document.querySelectorAll('.plan[data-price-studio]').forEach(planCard => {
+		const priceEl = planCard.querySelector('.current-price');
+		const originalPriceEl = planCard.querySelector('.original-price');
+		const radios = planCard.querySelectorAll('.location-selector input[type="radio"]'); // Seleziona TUTTI i radio button
+	
+		// In script.js, DENTRO il blocco "LOGICA CORRETTA...", sostituisci la funzione updatePrice
+
+	function updatePrice() {
+		const selectedRadio = planCard.querySelector('.location-selector input[type="radio"]:checked');
+		if (!selectedRadio) return; // Se non c'è nessuna selezione, non fare nulla
+	
+		const selectedValue = selectedRadio.value; // 'studio' o 'home'
+	
+		// --- INIZIO BLOCCO DI CODICE CORRETTO ---
+		let price, originalPrice;
+	
+		if (selectedValue === 'studio') {
+			// Legge gli attributi data-price-studio e data-original-price-studio
+			price = planCard.dataset.priceStudio;
+			originalPrice = planCard.dataset.originalPriceStudio;
+		} else if (selectedValue === 'home') {
+			// Legge gli attributi data-price-home e data-original-price-home
+			price = planCard.dataset.priceHome;
+			originalPrice = planCard.dataset.originalPriceHome;
+		}
+		// --- FINE BLOCCO DI CODICE CORRETTO ---
+	
+		const lang = localStorage.getItem('preferredLanguage') || 'it';
+		const translations = languages[lang] || languages['it'];
+	
+		// Aggiorna il prezzo corrente
+		if (price) {
+			priceEl.textContent = `€${price}`;
+		} else {
+			priceEl.textContent = 'N/D'; // Messaggio di fallback
+		}
+		
+		// Aggiorna il prezzo originale (se esiste per quella selezione)
+		if (originalPriceEl) {
+			if (originalPrice) {
+				const insteadOfText = translations.insteadOf || "Invece di";
+				originalPriceEl.innerHTML = `${insteadOfText} <s>€${originalPrice}</s>`;
+				originalPriceEl.style.display = 'block'; // Mostra l'elemento
+			} else {
+				originalPriceEl.style.display = 'none'; // Nascondi se non c'è un prezzo originale
+			}
+		}
+	}
+	
+		// Aggiungi un "ascoltatore" a ogni radio button
+		// Quando uno cambia, la funzione updatePrice viene eseguita
+		radios.forEach(radio => {
+			radio.addEventListener('change', updatePrice);
+		});
+	
+		// Esegui la funzione una volta al caricamento della pagina per impostare il prezzo iniziale
+		updatePrice();
+	});
+
+
+
+
 
     const savedLang = localStorage.getItem('preferredLanguage');
     const defaultLang = 'it';
@@ -1209,6 +1349,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+	
+	
+	
+	
+	
 
     const loginButton = document.getElementById('login-button');
     const signupButton = document.getElementById('signup-button'); // Questo seleziona l'ID 'signup-button'
@@ -1313,6 +1458,30 @@ document.addEventListener('DOMContentLoaded', () => {
              console.error("Funzione loadReviews non definita.");
         }
     }
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
     // --- LOGICA MENU HAMBURGER ---
 const hamburgerButton = document.getElementById('hamburger-menu');
@@ -1404,6 +1573,128 @@ if (hamburgerButton && mainNav) {
     if (!mainNav) console.log('MGH_DEBUG: Reason: mainNav is null.');
 }
 // --- FINE LOGICA MENU HAMBURGER ---
+
+
+
+console.log("DEBUG: Inizio logica prenotazione gruppo."); // <-- AGGIUNGI QUESTA RIGA
+
+
+// In script.js, incolla questo blocco completo dentro document.addEventListener('DOMContentLoaded', ... )
+
+// --- NUOVA LOGICA COMPLETA E CORRETTA PER PRENOTAZIONE DI GRUPPO ---
+const allGroupBookingButtons = document.querySelectorAll('.open-group-booking-modal');
+const groupBookingModal = document.getElementById('group-booking-modal');
+
+if (allGroupBookingButtons.length > 0 && groupBookingModal) {
+	
+	 console.log("DEBUG: Bottone e modale TROVATI nel DOM. Aggiungo i listener."); // <-- AGGIUNGI QUESTA RIGA
+    const participantsInput = groupBookingModal.querySelector('#modal-participants-input');
+    const calculatedPriceEl = groupBookingModal.querySelector('#modal-calculated-price');
+    const errorMessageEl = groupBookingModal.querySelector('#modal-participant-error');
+    const paymentOptionsContainer = groupBookingModal.querySelector('#modal-payment-options');
+
+    let currentCardData = {}; // Oggetto per memorizzare i dati della card cliccata
+
+    // Funzione che calcola il prezzo e aggiorna il modale
+    const updateGroupPrice = () => {
+        const numParticipants = parseInt(participantsInput.value, 10);
+        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+        const errorMessages = {
+            it: `Il numero minimo è ${currentCardData.minParticipants} partecipanti.`,
+            en: `The minimum is ${currentCardData.minParticipants} participants.`,
+            es: `El número mínimo es de ${currentCardData.minParticipants} participantes.`
+        };
+
+        if (isNaN(numParticipants) || numParticipants < currentCardData.minParticipants) {
+            errorMessageEl.textContent = errorMessages[currentLang] || errorMessages['it'];
+            errorMessageEl.style.display = 'block';
+            calculatedPriceEl.textContent = '-';
+            paymentOptionsContainer.style.visibility = 'hidden';
+        } else {
+            errorMessageEl.style.display = 'none';
+            const totalPrice = numParticipants * currentCardData.pricePerPerson;
+            const formattedPrice = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(totalPrice);
+            calculatedPriceEl.textContent = formattedPrice;
+            paymentOptionsContainer.style.visibility = 'visible';
+        }
+    };
+
+    // Aggiungiamo un listener a OGNI bottone "Prenota Classe"
+    allGroupBookingButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+			console.log("DEBUG: Bottone 'Prenota Classe' CLICCATO!"); // <-- AGGIUNGI QUESTA RIGA
+            const planCard = event.target.closest('.plan');
+            
+            // Salva i dati della card che è stata cliccata
+            currentCardData = {
+                productCode: planCard.dataset.productCode,
+                pricePerPerson: parseFloat(planCard.dataset.pricePerPerson),
+                minParticipants: parseInt(planCard.dataset.minParticipants, 10)
+            };
+
+            // Imposta i valori iniziali nel modale
+            participantsInput.value = currentCardData.minParticipants;
+            participantsInput.min = currentCardData.minParticipants;
+            
+            // Popola i bottoni di pagamento con il product_code corretto
+            populatePaymentButtons(currentCardData.productCode);
+            
+            // Calcola il prezzo iniziale e apri il modale
+            updateGroupPrice();
+            openModal('group-booking-modal');
+        });
+    });
+
+    // Listener per ricalcolare il prezzo quando l'utente cambia il numero
+    participantsInput.addEventListener('input', updateGroupPrice);
+
+    function populatePaymentButtons(productCode) {
+        const paymentContainer = document.getElementById('modal-payment-options');
+        if (!paymentContainer) return;
+    
+        // Definiamo i bottoni con le loro icone SVG complete
+        // In script.js, DENTRO la funzione populatePaymentButtons
+
+		const buttons = {
+			paypal: {
+				text: "PayPal",
+				icon: `<svg viewBox="0 0 96 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.56 26.5h8.84L21.32 3.8H12.5L9.9 20.38c-.12 1.08-.2 1.8-.24 2.14H9.6c.32-1.2.6-2.4.84-3.64L12.56 0H3.32L0 26.5h7.56Z" fill="#253B80"/><path d="M43.32 26.5h7.56L47.56 3.8h-7.56l3.32 22.7Z" fill="#253B80"/><path d="M51.12 3.8h-6.76c-2.44 0-4.6.48-6.48 1.44-1.88.96-3.32 2.36-4.32 4.2-.92 1.76-1.4 3.8-1.4 6.12 0 2.92.56 5.36 1.68 7.32 1.12 2 2.76 3.48 4.92 4.44 2.16.96 4.72 1.44 7.68 1.44h2.52c.4 0 .68-.04.84-.12.16-.08.28-.2.36-.36l.2-.44.88-6.12h-5.4c-1.48 0-2.6-.28-3.36-.84-.8-.56-1.16-1.4-1.08-2.52.08-1.4.92-2.12 2.52-2.12h8.24l2.04-14.08Zm-5.32 16.56c-.48 1.32-1.2 1.96-2.16 1.96-1.2 0-2.12-.52-2.76-1.56-.64-1.04-.92-2.32-.84-3.84.08-1.8.6-3.2 1.56-4.2s2.24-1.56 3.84-1.56h4.48l-.84 5.92-3.28 3.08Z" fill="#179BD7"/><path d="M69.84 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76 1.48-1.56 3.32-2.56 5.52-3s4.4-.64 6.6-.64c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#253B80"/><path d="M89.36 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76C79.8 1.64 81.64.64 83.84.2S88.08 0 90.28 0c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#179BD7"/></svg>`
+			},
+			mercadopago: {
+				text: "Mercado Pago",
+				icon: `<svg viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.6 8.56a2.64 2.64 0 0 0-2.1-2.24L22.99 2.1a.44.44 0 0 0-.4 0L9.08 6.32a2.64 2.64 0 0 0-2.1 2.24L5.1 14.8a2.64 2.64 0 0 0 2.52 3.02h25.4a2.64 2.64 0 0 0 2.52-3.02l-1.92-6.24Z" fill="#00AEEF"/></svg>`
+			},
+			bizum: {
+				text: "Bizum",
+				icon: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"/></svg>`
+			}
+		};
+        let buttonsHTML = '';
+        for (const key in buttons) {
+            buttonsHTML += `<button class="payment-button ${key}" data-product-code="${productCode}">${buttons[key].icon} <span>${buttons[key].text}</span></button>`;
+        }
+        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+		const labelText = languages[currentLang]?.paymentMethodLabel || languages['it'].paymentMethodLabel;
+		
+		paymentContainer.innerHTML = `<p>${labelText}</p>` + buttonsHTML;
+    }
+}
+// --- FINE NUOVA LOGICA ---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }); // --- Chiusura di DOMContentLoaded ---
 
 // -----------------------------------------------------------
