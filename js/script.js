@@ -139,6 +139,8 @@ const languages = {
 		"locationStudio": "In Studio",
 		"locationHome": "A Domicilio",
 		"insteadOf": "Invece di",
+		"individualBookingTitle": "Dettagli Prenotazione",
+		"bookingFor": "Stai prenotando:",
 
         // --- prenota.html ---
         "pageTitleBooking": "Prenota / Contatti - Maria G. Hendriksen",
@@ -331,6 +333,8 @@ const languages = {
 		"locationStudio": "At the Studio",
 		"locationHome": "At your Home",
 		"insteadOf": "Instead of",
+		"individualBookingTitle": "Booking Details",
+		"bookingFor": "You are booking:",
 
         // --- prenota.html ---
         "pageTitleBooking": "Booking / Contact - Maria G. Hendriksen",
@@ -523,6 +527,8 @@ const languages = {
 		"locationStudio": "En el Estudio",
 		"locationHome": "A Domicilio",
 		"insteadOf": "En lugar de",
+		"individualBookingTitle": "Detalles de la Reserva",
+		"bookingFor": "Estás reservando:",
 
         // --- prenota.html ---
         "pageTitleBooking": "Reservas / Contacto - Maria G. Hendriksen",
@@ -1245,64 +1251,65 @@ document.addEventListener('DOMContentLoaded', () => {
 	// In script.js, SOSTITUISCI il vecchio blocco per il selettore Studio/Domicilio con QUESTO
 
 // --- LOGICA CORRETTA PER SELETTORE STUDIO/DOMICILIO ---
-	document.querySelectorAll('.plan[data-price-studio]').forEach(planCard => {
-		const priceEl = planCard.querySelector('.current-price');
-		const originalPriceEl = planCard.querySelector('.original-price');
-		const radios = planCard.querySelectorAll('.location-selector input[type="radio"]'); // Seleziona TUTTI i radio button
-	
-		// In script.js, DENTRO il blocco "LOGICA CORRETTA...", sostituisci la funzione updatePrice
+document.querySelectorAll('.location-selector').forEach(selector => {
+    const planCard = selector.closest('.plan');
+    if (!planCard) return;
 
-	function updatePrice() {
-		const selectedRadio = planCard.querySelector('.location-selector input[type="radio"]:checked');
-		if (!selectedRadio) return; // Se non c'è nessuna selezione, non fare nulla
-	
-		const selectedValue = selectedRadio.value; // 'studio' o 'home'
-	
-		// --- INIZIO BLOCCO DI CODICE CORRETTO ---
-		let price, originalPrice;
-	
-		if (selectedValue === 'studio') {
-			// Legge gli attributi data-price-studio e data-original-price-studio
-			price = planCard.dataset.priceStudio;
-			originalPrice = planCard.dataset.originalPriceStudio;
-		} else if (selectedValue === 'home') {
-			// Legge gli attributi data-price-home e data-original-price-home
-			price = planCard.dataset.priceHome;
-			originalPrice = planCard.dataset.originalPriceHome;
-		}
-		// --- FINE BLOCCO DI CODICE CORRETTO ---
-	
-		const lang = localStorage.getItem('preferredLanguage') || 'it';
-		const translations = languages[lang] || languages['it'];
-	
-		// Aggiorna il prezzo corrente
-		if (price) {
-			priceEl.textContent = `€${price}`;
-		} else {
-			priceEl.textContent = 'N/D'; // Messaggio di fallback
-		}
-		
-		// Aggiorna il prezzo originale (se esiste per quella selezione)
-		if (originalPriceEl) {
-			if (originalPrice) {
-				const insteadOfText = translations.insteadOf || "Invece di";
-				originalPriceEl.innerHTML = `${insteadOfText} <s>€${originalPrice}</s>`;
-				originalPriceEl.style.display = 'block'; // Mostra l'elemento
-			} else {
-				originalPriceEl.style.display = 'none'; // Nascondi se non c'è un prezzo originale
-			}
-		}
-	}
-	
-		// Aggiungi un "ascoltatore" a ogni radio button
-		// Quando uno cambia, la funzione updatePrice viene eseguita
-		radios.forEach(radio => {
-			radio.addEventListener('change', updatePrice);
-		});
-	
-		// Esegui la funzione una volta al caricamento della pagina per impostare il prezzo iniziale
-		updatePrice();
-	});
+    const priceEl = planCard.querySelector('.current-price');
+    const originalPriceEl = planCard.querySelector('.original-price');
+    const radios = selector.querySelectorAll('input[type="radio"]');
+
+    function updatePrice() {
+        const selectedRadio = selector.querySelector('input[type="radio"]:checked');
+        if (!selectedRadio) return;
+
+        const selectedValue = selectedRadio.value; // 'studio' o 'home'
+        const capitalizedValue = selectedValue.charAt(0).toUpperCase() + selectedValue.slice(1);
+
+        const price = selector.dataset[`price${capitalizedValue}`];
+        const originalPrice = selector.dataset[`originalPrice${capitalizedValue}`];
+        
+        const lang = localStorage.getItem('preferredLanguage') || 'it';
+        const translations = languages[lang] || languages['it'];
+
+        if (price) {
+            priceEl.textContent = `€${price}`;
+        } else {
+            priceEl.textContent = 'N/D';
+        }
+        
+        if (originalPriceEl) {
+            if (originalPrice) {
+                const insteadOfText = translations.insteadOf || "Invece di";
+                originalPriceEl.innerHTML = `${insteadOfText} <s>€${originalPrice}</s>`;
+                originalPriceEl.style.display = 'block';
+            } else {
+                originalPriceEl.style.display = 'none';
+            }
+        }
+    }
+
+    radios.forEach(radio => {
+        radio.addEventListener('change', updatePrice);
+    });
+
+    updatePrice(); // Imposta il prezzo iniziale corretto
+});
+
+
+
+
+////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
 
 
@@ -1647,189 +1654,296 @@ if (allGroupBookingButtons.length > 0 && groupBookingModal) {
 
     // Listener per ricalcolare il prezzo quando l'utente cambia il numero
     participantsInput.addEventListener('input', updateGroupPrice);
+	
+	
+	
+	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////
+	
+//	function populatePaymentButtons(productCode, containerId = 'modal-payment-options') {
+//        const paymentContainer = document.getElementById(containerId);
+//        if (!paymentContainer) return;
+//    
+//        // Definiamo i bottoni con le loro icone SVG complete
+//		const buttons = {
+//			paypal: {
+//				text: "PayPal",
+//				icon: `<svg viewBox="0 0 96 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.56 26.5h8.84L21.32 3.8H12.5L9.9 20.38c-.12 1.08-.2 1.8-.24 2.14H9.6c.32-1.2.6-2.4.84-3.64L12.56 0H3.32L0 26.5h7.56Z" fill="#253B80"/><path d="M43.32 26.5h7.56L47.56 3.8h-7.56l3.32 22.7Z" fill="#253B80"/><path d="M51.12 3.8h-6.76c-2.44 0-4.6.48-6.48 1.44-1.88.96-3.32 2.36-4.32 4.2-.92 1.76-1.4 3.8-1.4 6.12 0 2.92.56 5.36 1.68 7.32 1.12 2 2.76 3.48 4.92 4.44 2.16.96 4.72 1.44 7.68 1.44h2.52c.4 0 .68-.04.84-.12.16-.08.28-.2.36-.36l.2-.44.88-6.12h-5.4c-1.48 0-2.6-.28-3.36-.84-.8-.56-1.16-1.4-1.08-2.52.08-1.4.92-2.12 2.52-2.12h8.24l2.04-14.08Zm-5.32 16.56c-.48 1.32-1.2 1.96-2.16 1.96-1.2 0-2.12-.52-2.76-1.56-.64-1.04-.92-2.32-.84-3.84.08-1.8.6-3.2 1.56-4.2s2.24-1.56 3.84-1.56h4.48l-.84 5.92-3.28 3.08Z" fill="#179BD7"/><path d="M69.84 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76 1.48-1.56 3.32-2.56 5.52-3s4.4-.64 6.6-.64c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#253B80"/><path d="M89.36 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76C79.8 1.64 81.64.64 83.84.2S88.08 0 90.28 0c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#179BD7"/></svg>`
+//			},
+//			mercadopago: {
+//				text: "Mercado Pago",
+//				icon: `<svg viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.6 8.56a2.64 2.64 0 0 0-2.1-2.24L22.99 2.1a.44.44 0 0 0-.4 0L9.08 6.32a2.64 2.64 0 0 0-2.1 2.24L5.1 14.8a2.64 2.64 0 0 0 2.52 3.02h25.4a2.64 2.64 0 0 0 2.52-3.02l-1.92-6.24Z" fill="#00AEEF"/></svg>`
+//			},
+//			bizum: {
+//				text: "Bizum",
+//				icon: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"/></svg>`
+//			}
+//		};
+//        let buttonsHTML = '';
+//        for (const key in buttons) {
+//            buttonsHTML += `<button class="payment-button ${key}" data-product-code="${productCode}">${buttons[key].icon} <span>${buttons[key].text}</span></button>`;
+//        }
+//        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+//		const labelText = languages[currentLang]?.paymentMethodLabel || languages['it'].paymentMethodLabel;
+//		
+//		paymentContainer.innerHTML = `<p data-translate-key="paymentMethodLabel">${labelText}</p>` + buttonsHTML;
+//    }
+//	
+	/////////////////////////////////////////////////////////////////////////
 
-    function populatePaymentButtons(productCode) {
-        const paymentContainer = document.getElementById('modal-payment-options');
-        if (!paymentContainer) return;
-    
-        // Definiamo i bottoni con le loro icone SVG complete
-        // In script.js, DENTRO la funzione populatePaymentButtons
 
-		const buttons = {
-			paypal: {
-				text: "PayPal",
-				icon: `<svg viewBox="0 0 96 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.56 26.5h8.84L21.32 3.8H12.5L9.9 20.38c-.12 1.08-.2 1.8-.24 2.14H9.6c.32-1.2.6-2.4.84-3.64L12.56 0H3.32L0 26.5h7.56Z" fill="#253B80"/><path d="M43.32 26.5h7.56L47.56 3.8h-7.56l3.32 22.7Z" fill="#253B80"/><path d="M51.12 3.8h-6.76c-2.44 0-4.6.48-6.48 1.44-1.88.96-3.32 2.36-4.32 4.2-.92 1.76-1.4 3.8-1.4 6.12 0 2.92.56 5.36 1.68 7.32 1.12 2 2.76 3.48 4.92 4.44 2.16.96 4.72 1.44 7.68 1.44h2.52c.4 0 .68-.04.84-.12.16-.08.28-.2.36-.36l.2-.44.88-6.12h-5.4c-1.48 0-2.6-.28-3.36-.84-.8-.56-1.16-1.4-1.08-2.52.08-1.4.92-2.12 2.52-2.12h8.24l2.04-14.08Zm-5.32 16.56c-.48 1.32-1.2 1.96-2.16 1.96-1.2 0-2.12-.52-2.76-1.56-.64-1.04-.92-2.32-.84-3.84.08-1.8.6-3.2 1.56-4.2s2.24-1.56 3.84-1.56h4.48l-.84 5.92-3.28 3.08Z" fill="#179BD7"/><path d="M69.84 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76 1.48-1.56 3.32-2.56 5.52-3s4.4-.64 6.6-.64c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#253B80"/><path d="M89.36 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76C79.8 1.64 81.64.64 83.84.2S88.08 0 90.28 0c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#179BD7"/></svg>`
-			},
-			mercadopago: {
-				text: "Mercado Pago",
-				icon: `<svg viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.6 8.56a2.64 2.64 0 0 0-2.1-2.24L22.99 2.1a.44.44 0 0 0-.4 0L9.08 6.32a2.64 2.64 0 0 0-2.1 2.24L5.1 14.8a2.64 2.64 0 0 0 2.52 3.02h25.4a2.64 2.64 0 0 0 2.52-3.02l-1.92-6.24Z" fill="#00AEEF"/></svg>`
-			},
-			bizum: {
-				text: "Bizum",
-				icon: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"/></svg>`
-			}
-		};
-        let buttonsHTML = '';
-        for (const key in buttons) {
-            buttonsHTML += `<button class="payment-button ${key}" data-product-code="${productCode}">${buttons[key].icon} <span>${buttons[key].text}</span></button>`;
+
+
+//////////////////////////////////////NUOVE AGGIUNTE PER PAGAMENTO/////////////////////////////////	
+	
+	// SOSTITUISCI LA VECCHIA FUNZIONE CON QUESTA NUOVA VERSIONE
+function populatePaymentButtons(productCode, containerId = 'modal-payment-options') {
+    const paymentContainer = document.getElementById(containerId);
+    if (!paymentContainer) return;
+
+    // 1. Definiamo la struttura dei pulsanti
+    const buttons = {
+        paypal: {
+            text: "PayPal",
+            icon: `<svg viewBox="0 0 96 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.56 26.5h8.84L21.32 3.8H12.5L9.9 20.38c-.12 1.08-.2 1.8-.24 2.14H9.6c.32-1.2.6-2.4.84-3.64L12.56 0H3.32L0 26.5h7.56Z" fill="#253B80"/><path d="M43.32 26.5h7.56L47.56 3.8h-7.56l3.32 22.7Z" fill="#253B80"/><path d="M51.12 3.8h-6.76c-2.44 0-4.6.48-6.48 1.44-1.88.96-3.32 2.36-4.32 4.2-.92 1.76-1.4 3.8-1.4 6.12 0 2.92.56 5.36 1.68 7.32 1.12 2 2.76 3.48 4.92 4.44 2.16.96 4.72 1.44 7.68 1.44h2.52c.4 0 .68-.04.84-.12.16-.08.28-.2.36-.36l.2-.44.88-6.12h-5.4c-1.48 0-2.6-.28-3.36-.84-.8-.56-1.16-1.4-1.08-2.52.08-1.4.92-2.12 2.52-2.12h8.24l2.04-14.08Zm-5.32 16.56c-.48 1.32-1.2 1.96-2.16 1.96-1.2 0-2.12-.52-2.76-1.56-.64-1.04-.92-2.32-.84-3.84.08-1.8.6-3.2 1.56-4.2s2.24-1.56 3.84-1.56h4.48l-.84 5.92-3.28 3.08Z" fill="#179BD7"/><path d="M69.84 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76 1.48-1.56 3.32-2.56 5.52-3s4.4-.64 6.6-.64c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#253B80"/><path d="M89.36 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76C79.8 1.64 81.64.64 83.84.2S88.08 0 90.28 0c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#179BD7"/></svg>`
+        },
+        mercadopago: {
+            text: "Mercado Pago",
+            icon: `<svg viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.6 8.56a2.64 2.64 0 0 0-2.1-2.24L22.99 2.1a.44.44 0 0 0-.4 0L9.08 6.32a2.64 2.64 0 0 0-2.1 2.24L5.1 14.8a2.64 2.64 0 0 0 2.52 3.02h25.4a2.64 2.64 0 0 0 2.52-3.02l-1.92-6.24Z" fill="#00AEEF"/></svg>`
+        },
+        bizum: {
+            text: "Bizum",
+            icon: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"/></svg>`
         }
-        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-		const labelText = languages[currentLang]?.paymentMethodLabel || languages['it'].paymentMethodLabel;
-		
-		paymentContainer.innerHTML = `<p>${labelText}</p>` + buttonsHTML;
+    };
+
+    // 2. Crea l'HTML per i pulsanti
+    let buttonsHTML = '';
+    for (const key in buttons) {
+        buttonsHTML += `<button class="payment-button ${key}" data-method="${key}">${buttons[key].icon} <span>${buttons[key].text}</span></button>`;
     }
+    const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+    const labelText = languages[currentLang]?.paymentMethodLabel || languages['it'].paymentMethodLabel;
+    paymentContainer.innerHTML = `<p data-translate-key="paymentMethodLabel">${labelText}</p>` + buttonsHTML;
+
+    // 3. Aggiungi gli event listener
+    paymentContainer.querySelectorAll('.payment-button').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const method = event.currentTarget.dataset.method;
+            const modal = event.currentTarget.closest('.auth-modal');
+            let options = { productCode };
+
+            // Raccogli i dati specifici dal modale in cui ci si trova
+            if (modal.id === 'group-booking-modal') {
+                options.participants = parseInt(modal.querySelector('#modal-participants-input').value, 10);
+            } else if (modal.id === 'individual-booking-modal') {
+                const planCard = document.querySelector(`.open-individual-booking-modal[data-product-code="${productCode}"]`)?.closest('.plan') 
+                            || document.querySelector(`.location-selector[data-product-code="${productCode}"]`)?.closest('.plan');
+                if (planCard?.querySelector('.location-selector')) {
+                    options.location = planCard.querySelector('input[type="radio"]:checked').value;
+                }
+            }
+
+            // Avvia la procedura di pagamento corretta
+            if (method === 'paypal') {
+                handlePayPalPurchase(options);
+            } else {
+                alert(`Il pagamento con ${buttons[method].text} non è ancora disponibile.`);
+            }
+        });
+    });
 }
-// --- FINE NUOVA LOGICA ---
+	
+	
+	
+	
+	
+	
+	
+	// ===================================================================
+// --- FUNZIONI CENTRALI PER PAGAMENTO PAYPAL (FASE 2) ---
+// ===================================================================
 
-
-
-
-
-
-
-// In script.js, AGGIUNGI questo nuovo blocco di codice
-
-// --- LOGICA DI PAGAMENTO (INIZIA CON PAYPAL) ---
-
-// Usa "event delegation" per "ascoltare" i click sui bottoni di pagamento
-// che vengono creati dinamicamente.
-document.body.addEventListener('click', async function(event) {
-    if (event.target && event.target.classList.contains('paypal')) {
-        event.preventDefault(); // Previene altri comportamenti
-        await handlePayPalPurchase(event.target);
-    }
-    // Qui in futuro aggiungeremo: else if (event.target.classList.contains('bizum')) { ... }
-});
-
-async function handlePayPalPurchase(button) {
+/**
+ * Gestisce l'intero processo di acquisto con PayPal, dalla creazione dell'ordine al rendering dei pulsanti.
+ * @param {object} options - Dati necessari per l'ordine ({ productCode, location?, participants? }).
+ */
+async function handlePayPalPurchase(options) {
     if (!currentUser) {
-        alert("Devi effettuare il login per acquistare.");
+        alert("Devi effettuare il login per poter acquistare.");
         openModal('login-modal');
         return;
     }
 
-    // Raccogli i dati dalla card
-    const planCard = button.closest('.plan');
-    const productCode = planCard.dataset.productCode;
-    let location = '';
-    let participants = null;
-
-    if (productCode.startsWith('FISIO')) {
-        const selectedRadio = planCard.querySelector('.location-selector input[type="radio"]:checked');
-        location = selectedRadio ? selectedRadio.value : 'studio'; // Default a 'studio'
-    } else if (productCode.startsWith('YOGA')) {
-        if (planCard.id.includes('group')) {
-            const modal = document.getElementById('group-booking-modal');
-            participants = parseInt(modal.querySelector('.participants-input').value, 10);
-            const minParticipants = parseInt(planCard.dataset.minParticipants, 10);
-            if (participants < minParticipants) {
-                alert(`Il numero minimo di partecipanti è ${minParticipants}.`);
-                return;
-            }
-        }
-    }
-    
-    button.disabled = true;
-    button.innerHTML = "Creazione ordine...";
+    console.log("Avvio acquisto PayPal con opzioni:", options);
+    // Potresti aggiungere qui una UI di caricamento, es. disabilitando i pulsanti.
 
     try {
         const { data: { session } } = await supabase.auth.getSession();
-        const accessToken = session.access_token;
+        if (!session) throw new Error("Sessione utente non trovata. Prova a fare di nuovo il login.");
 
         const response = await fetch('/.netlify/functions/create-paypal-order', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` },
-            body: JSON.stringify({ productCode, location, participants })
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify(options)
         });
 
         if (!response.ok) {
-            const errData = await response.json();
-            throw new Error(errData.error || 'Errore nella creazione dell\'ordine.');
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Errore dal server: ${response.status}`);
         }
-        
-        const orderData = await response.json();
-        
-        const paymentContainer = button.closest('.payment-options-container');
-        const paypalButtonContainer = document.createElement('div');
-        paypalButtonContainer.id = `paypal-container-${Date.now()}`;
-        paymentContainer.innerHTML = '';
-        paymentContainer.appendChild(paypalButtonContainer);
 
-        renderPayPalButton(orderData.orderId, paypalButtonContainer.id, productCode);
+        const orderData = await response.json();
+        if (!orderData.orderId) throw new Error("ID Ordine PayPal non ricevuto dal backend.");
+
+        console.log("Ordine PayPal creato con ID:", orderData.orderId);
+        renderPayPalButtons(orderData.orderId, options.productCode);
 
     } catch (error) {
-        console.error("Errore acquisto PayPal:", error);
-        button.disabled = false;
-        button.innerHTML = "PayPal";
-        alert(`Errore: ${error.message}`);
+        console.error("Errore in handlePayPalPurchase:", error);
+        alert(`Si è verificato un errore: ${error.message}`);
+        // Qui potresti ripristinare la UI di caricamento.
     }
 }
 
-function renderPayPalButton(orderID, containerId, productCode) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    container.innerHTML = '';
+/**
+ * Esegue il rendering dei pulsanti PayPal e gestisce il reindirizzamento post-approvazione.
+ * @param {string} orderId - L'ID dell'ordine creato da PayPal.
+ * @param {string} productCode - Il codice del prodotto per decidere dove reindirizzare.
+ */
+function renderPayPalButtons(orderId, productCode) {
+    // Nasconde i nostri pulsanti di pagamento personalizzati e mostra l'area per PayPal
+    const paymentOptions = document.querySelector('.auth-modal[style*="display: flex"] .payment-options-container');
+    if(paymentOptions) {
+        paymentOptions.innerHTML = '<div id="paypal-button-container" style="min-height: 120px;"></div><p style="text-align:center; margin-top:10px;">Completa il pagamento qui sopra.</p>';
+    }
 
     paypal.Buttons({
-        createOrder: (data, actions) => orderID,
+        createOrder: (data, actions) => orderId,
+
         onApprove: (data, actions) => {
-            return actions.order.capture().then(details => {
-                console.log('Pagamento completato!', details);
-                handleSuccessfulPayment(productCode, container);
-            });
+            console.log("Pagamento approvato:", data);
+            if(paymentOptions) {
+                 paymentOptions.innerHTML = `<p style="color:green; font-weight:bold; text-align:center;">Pagamento completato! ✅<br>Verrai reindirizzato tra pochi secondi...</p>`;
+            }
+
+            // Logica di reindirizzamento
+            setTimeout(() => {
+                let redirectUrl = '';
+                if (productCode.startsWith('FISIO')) {
+                    redirectUrl = `https://wa.me/${CONTACT_INFO.whatsapp}`;
+                } else if (productCode === 'YOGA1') {
+                    redirectUrl = BOOKING_LINKS.yoga_individuale;
+                } else if (productCode === 'YOGA5' || productCode.includes('G')) { // Pacchetti o Gruppi
+                    redirectUrl = BOOKING_LINKS.yoga_pacchetti;
+                }
+
+                if (redirectUrl) {
+                    window.location.href = redirectUrl;
+                } else {
+                    closeModal('individual-booking-modal');
+                    closeModal('group-booking-modal');
+                }
+            }, 4000); // Attendi 4 secondi prima di reindirizzare
         },
+
         onError: (err) => {
-            console.error('Errore PayPal SDK:', err);
-            container.innerHTML = `<p style="color:red;">Errore durante il pagamento. Riprova.</p>`;
+            console.error("Errore PayPal SDK:", err);
+            if(paymentOptions) {
+                paymentOptions.innerHTML = `<p style="color:red; text-align:center;">Si è verificato un errore durante il pagamento. Riprova.</p>`;
+            }
+        },
+
+        onCancel: (data) => {
+            console.log("Pagamento annullato:", data);
+            // Chiudi semplicemente il modale se l'utente annulla
+            closeModal('individual-booking-modal');
+            closeModal('group-booking-modal');
         }
-    }).render(`#${containerId}`);
+    }).render('#paypal-button-container');
+}
+	
+	
+	////////////////////////////////////FINE NUOVE AGGIUNTE PER PAGAMENTO//////////////////////////////////
+
+// ===================================================================
+// --- NUOVA LOGICA PER PRENOTAZIONE INDIVIDUALE (FASE 1) ---
+// ===================================================================
+const allIndividualBookingButtons = document.querySelectorAll('.open-individual-booking-modal');
+const individualBookingModal = document.getElementById('individual-booking-modal');
+
+if (allIndividualBookingButtons.length > 0 && individualBookingModal) {
+
+    console.log("DEBUG: Pulsanti e modale per prenotazione individuale TROVATI. Aggiungo i listener.");
+
+    allIndividualBookingButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const planCard = event.target.closest('.plan');
+            if (!planCard) return;
+
+            // 1. Recupera i dati dalla card
+            const serviceName = planCard.querySelector('h3').textContent;
+            const productCode = planCard.querySelector('.location-selector')?.dataset.productCode || event.target.dataset.productCode;
+            let servicePriceText = '';
+            
+            // Gestione specifica per i piani con selettore di località (Fisioterapia)
+            const locationSelector = planCard.querySelector('.location-selector');
+            if (locationSelector) {
+                const selectedLocationRadio = locationSelector.querySelector('input[type="radio"]:checked');
+                if(selectedLocationRadio) {
+                    const locationValue = selectedLocationRadio.value; // 'studio' or 'home'
+                    const priceKey = `price${locationValue.charAt(0).toUpperCase() + locationValue.slice(1)}`; // es. priceStudio or priceHome
+                    const price = locationSelector.dataset[priceKey];
+                    servicePriceText = `€${price}`;
+                } else {
+                    servicePriceText = 'Prezzo non definito';
+                }
+            } else {
+                // Per i piani senza selettore di località (Yoga)
+                const priceElement = planCard.querySelector('.current-price');
+                servicePriceText = priceElement ? priceElement.textContent : 'N/D';
+            }
+
+            // 2. Popola il modale con i dati recuperati
+            document.getElementById('modal-individual-service-name').textContent = serviceName;
+            document.getElementById('modal-individual-service-price').textContent = servicePriceText;
+            
+            // Aggiungiamo anche il titolo del modale per la traduzione
+             const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+             const modalTitle = languages[currentLang]?.individualBookingTitle || "Dettagli Prenotazione"; // Fallback
+             document.getElementById('modal-individual-title').textContent = modalTitle;
+
+
+            // 3. Popola i pulsanti di pagamento (riutilizzando la funzione aggiornata)
+            const paymentContainer = document.getElementById('modal-individual-payment-options');
+            if (typeof populatePaymentButtons === 'function' && productCode) {
+                 // Prima di popolare, ripulisci il contenitore
+                paymentContainer.innerHTML = ''; 
+                // Chiamiamo la funzione specificando il container del nuovo modale
+                populatePaymentButtons(productCode, 'modal-individual-payment-options');
+            } else {
+                 paymentContainer.innerHTML = '<p>Opzioni di pagamento non disponibili.</p>';
+                 console.error("Funzione 'populatePaymentButtons' non trovata o productCode mancante.");
+            }
+            
+            // 4. Apri il modale
+            openModal('individual-booking-modal');
+        });
+    });
 }
 
-function handleSuccessfulPayment(productCode, container) {
-    const lang = localStorage.getItem('preferredLanguage') || 'it';
-    
-    if (productCode.startsWith('YOGA')) {
-        const redirectUrl = (productCode === 'YOGA1' || productCode === 'YOGA5') ? BOOKING_LINKS.yoga_individuale : BOOKING_LINKS.yoga_pacchetti;
-        const messages = {
-            it: "Pagamento completato! Verrai reindirizzato al calendario per prenotare...",
-            en: "Payment successful! Redirecting to the calendar to book your lesson...",
-            es: "¡Pago completado! Serás redirigido al calendario para reservar tu clase..."
-        };
-        container.innerHTML = `<p style="color:green; font-weight:bold;">${messages[lang]}</p>`;
-        setTimeout(() => { window.location.href = redirectUrl; }, 4000);
-
-    } else if (productCode.startsWith('FISIO')) {
-        const serviceCard = document.querySelector(`[data-product-code="${productCode}"]`);
-        const serviceName = serviceCard.querySelector('h3').textContent;
-        const selectedLocation = serviceCard.querySelector('input:checked + .option-display').textContent;
-        const whatsappMessage = encodeURIComponent(`Ciao Maria, ho appena acquistato "${serviceName} - ${selectedLocation}". Vorrei organizzare il mio appuntamento. Grazie!`);
-        
-        const messages = {
-            it: { title: "Pagamento Riuscito!", instruction: "Ora contatta Maria per prenotare la tua seduta:", whatsapp: "Contatta su WhatsApp", phone: "Chiama Ora" },
-            en: { title: "Payment Successful!", instruction: "Now contact Maria to book your session:", whatsapp: "Contact on WhatsApp", phone: "Call Now" },
-            es: { title: "¡Pago Realizado!", instruction: "Ahora contacta a Maria para reservar tu sesión:", whatsapp: "Contactar por WhatsApp", phone: "Llamar Ahora" }
-        };
-
-        container.innerHTML = `
-            <div style="text-align:center;">
-                <h4 style="color:green;">${messages[lang].title}</h4>
-                <p>${messages[lang].instruction}</p>
-                <a href="https://wa.me/${CONTACT_INFO.whatsapp}?text=${whatsappMessage}" target="_blank" class="cta-button" style="margin: 5px; display: inline-block;">${messages[lang].whatsapp}</a>
-                <a href="tel:${CONTACT_INFO.phone}" class="cta-button" style="margin: 5px; display: inline-block;">${messages[lang].phone}</a>
-            </div>
-        `;
-    }
-}
+//////////////////////////////////////////////////////
 
 
 
 
-
-
-
-
-
-
+	
 }); // --- Chiusura di DOMContentLoaded ---
 
 // -----------------------------------------------------------

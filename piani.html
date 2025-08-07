@@ -56,18 +56,14 @@
         </section>
 
         <section class="plans-container">
-			<div class="plan" id="plan-fisio1" 
-				data-product-code="FISIO1" 
-				data-price-studio="50" 
-				data-price-home="65">
+			<div class="plan" id="plan-fisio1">
 				<h3 data-translate-key="planFisioSingleTitle">Seduta Fisioterapia Singola</h3>
 				<p data-translate-key="planFisioSingleDesc">Valutazione e trattamento fisioterapico individuale.</p>
 				<ul>
 					<li data-translate-key="planFisioSingleFeat1">Durata: circa 60 minuti</li>
 					<li data-translate-key="planFisioSingleFeat2">Trattamento personalizzato</li>
 				</ul>
-			
-				<div class="location-selector">
+				<div class="location-selector" data-product-code="FISIO1" data-price-studio="50" data-price-home="65">
 					<label>
 						<input type="radio" name="fisio1_location" value="studio" checked>
 						<span class="option-display" data-translate-key="locationStudio">In Studio</span>
@@ -77,24 +73,14 @@
 						<span class="option-display" data-translate-key="locationHome">A Domicilio</span>
 					</label>
 				</div>
-			
 				<div class="price-block">
 					<p class="current-price">€50</p>
 				</div>
-			
-				<button class="cta-button toggle-payment-button">
-					<span data-translate-key="planFisioSingleButton">Prenota Ora</span>
-				</button>
-				<div class="payment-options-container">
-					</div>
+				<button class="cta-button open-individual-booking-modal" data-translate-key="planFisioSingleButton">Prenota Ora</button>
+				<div class="payment-options-container"></div>
 			</div>
-			
-			<div class="plan" id="plan-fisio5" 
-				data-product-code="FISIO5" 
-				data-price-studio="220" 
-				data-price-home="290"
-				data-original-price-studio="250"
-				data-original-price-home="325">
+		
+			<div class="plan" id="plan-fisio5">
 				<h3 data-translate-key="planFisio5Title">Ciclo 5 Sedute Fisioterapia</h3>
 				<p data-translate-key="planFisio5Desc">Pacchetto conveniente per un percorso riabilitativo completo.</p>
 				<ul>
@@ -102,8 +88,7 @@
 					<li data-translate-key="planFisio5Feat2">Monitoraggio progressi</li>
 					<li data-translate-key="planFisio5Feat3">Sconto rispetto alla seduta singola</li>
 				</ul>
-			
-				<div class="location-selector">
+				<div class="location-selector" data-product-code="FISIO5" data-price-studio="220" data-price-home="290" data-original-price-studio="250" data-original-price-home="325">
 					<label>
 						<input type="radio" name="fisio5_location" value="studio" checked>
 						<span class="option-display" data-translate-key="locationStudio">In Studio</span>
@@ -113,18 +98,13 @@
 						<span class="option-display" data-translate-key="locationHome">A Domicilio</span>
 					</label>
 				</div>
-
-    <div class="price-block">
-        <p class="current-price">€220</p>
-        <p class="original-price">Invece di <s>€250</s></p>
-    </div>
-
-    <button class="cta-button toggle-payment-button">
-        <span data-translate-key="planFisio5Button">Prenota Ciclo</span>
-    </button>
-    <div class="payment-options-container">
-        </div>
-</div>
+				<div class="price-block">
+					<p class="current-price">€220</p>
+					<p class="original-price">Invece di <s>€250</s></p>
+				</div>
+				<button class="cta-button open-individual-booking-modal" data-translate-key="planFisio5Button">Prenota Ciclo</button>
+				<div class="payment-options-container"></div>
+			</div>
 		
 			<div class="plan">
 				<h3 data-translate-key="planYogaIndSingleTitle">Lezione Yoga Individuale</h3>
@@ -132,12 +112,12 @@
 				<ul>
 					<li data-translate-key="planYogaIndSingleFeat1">Durata: 60 minuti</li>
 					<li data-translate-key="planYogaIndSingleFeat2">Adatta a tutti i livelli</li>
-					<li data-translate-key="planYogaIndSingleFeat3">Focus su obiettivi specifici</li>
 				</ul>
 				<div class="price-block">
 					<p class="current-price" data-translate-key="planYogaIndSinglePrice">€25</p>
 				</div>
-				<a href="prenota.html" class="cta-button" data-translate-key="planYogaIndSingleButton">Prenota Lezione</a>
+				<button class="cta-button open-individual-booking-modal" data-product-code="YOGA1" data-translate-key="planYogaIndSingleButton">Prenota Lezione</button>
+				<div class="payment-options-container"></div>
 			</div>
 		
 			<div class="plan">
@@ -145,14 +125,14 @@
 				<p data-translate-key="planYogaInd5Desc">Percorso continuativo per approfondire la pratica.</p>
 				<ul>
 					<li data-translate-key="planYogaInd5Feat1">5 lezioni individuali (60 min/cad.)</li>
-					<li data-translate-key="planYogaInd5Feat2">Flessibilità oraria</li>
-					<li data-translate-key="planYogaInd5Feat3">Sconto sul totale</li>
+					<li data-translate-key="planYogaInd5Feat2">Sconto sul totale</li>
 				</ul>
 				<div class="price-block">
 					<p class="current-price" data-translate-key="planYogaInd5CurrentPrice">€110</p>
 					<p class="original-price" data-translate-key="planYogaInd5OriginalPrice">Invece di <s>€125</s></p>
 				</div>
-				<a href="prenota.html" class="cta-button" data-translate-key="planYogaInd5Button">Acquista Pacchetto</a>
+				<button class="cta-button open-individual-booking-modal" data-product-code="YOGA5" data-translate-key="planYogaInd5Button">Acquista Pacchetto</button>
+				<div class="payment-options-container"></div>
 			</div>
 		
 			<div class="plan" id="group-yoga-plan" data-price-per-person="15" data-min-participants="4" data-product-code="YOGAG">
@@ -168,17 +148,12 @@
 				</div>
 				<button class="cta-button open-group-booking-modal" data-translate-key="planYogaGroupSingleButton">Prenota Classe</button>
 			</div>
-		
-			<div class="plan" id="group-yoga-10-plan" 
-				data-price-per-person="80" 
-				data-min-participants="4" 
-				data-product-code="YOGA10G">
+			<div class="plan" id="group-yoga-10-plan" data-price-per-person="80" data-min-participants="4" data-product-code="YOGA10G">
 				<h3 data-translate-key="planYogaGroup10Title">Pacchetto 10 Lezioni Yoga di Gruppo</h3>
 				<p data-translate-key="planYogaGroup10Desc">Frequenta le classi di gruppo con convenienza.</p>
 				<ul>
 					<li data-translate-key="planYogaGroup10Feat1">Accesso a 10 lezioni di gruppo</li>
 					<li data-translate-key="planYogaGroup10Feat2">Validità: 3 mesi</li>
-					<li data-translate-key="planYogaGroup10Feat3">Massima convenienza</li>
 					<li data-translate-key="planYogaGroup10FeatMin2">Minimo 4 partecipanti per classe</li>
 				</ul>
 				<div class="price-block">
@@ -225,6 +200,28 @@
 				</div>
 		</div>
 	</div>
+	
+	
+	
+	<div id="individual-booking-modal" class="auth-modal">
+		<div class="modal-content">
+			<span class="close-button" onclick="closeModal('individual-booking-modal')">&times;</span>
+			
+			<h3 id="modal-individual-title" data-translate-key="individualBookingTitle">Dettagli Prenotazione</h3>
+	
+			<div style="text-align: center; margin: 20px 0;">
+				<p style="font-size: 1.1em; margin-bottom: 5px;">
+					Stai prenotando: <strong id="modal-individual-service-name">Nome Servizio</strong>
+				</p>
+				<p class="current-price" id="modal-individual-service-price" style="font-size: 2em; margin-top: 10px;">€--</p>
+			</div>
+	
+			<div id="modal-individual-payment-options" class="payment-options-container" style="display: block;">
+				</div>
+		</div>
+	</div>
+	
+	
 </body>
 
 
