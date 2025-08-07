@@ -75,7 +75,8 @@ exports.handler = async (event, context) => {
 		
 		if (insertError) {
 			console.error("Errore salvataggio su Supabase:", insertError);
-			// Non blocchiamo l'utente, ma logghiamo l'errore.
+			// **CORREZIONE CRUCIALE**: Se l'inserimento fallisce, blocca tutto e restituisci un errore.
+			throw new Error(`Impossibile salvare l'acquisto nel database: ${insertError.message}`);
 		} else {
 			console.log("Acquisto salvato con successo su Supabase per l'utente:", userId);
 		}
