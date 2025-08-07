@@ -33,7 +33,7 @@ exports.handler = async (event, context) => {
 			const token = authHeader.split(' ')[1];
 		
 			// Verifica il token usando la chiave segreta che abbiamo impostato su Netlify
-			const decoded = jwt.verify(token, process.env.JWT_SECRET);
+			const decoded = jwt.verify(token, process.env.SUPABASE_JWT_SECRET);
 		
 			// Il 'sub' nel token è l'ID dell'utente di Supabase
 			userId = decoded.sub;
