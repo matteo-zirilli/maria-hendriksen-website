@@ -2,6 +2,18 @@
 //  SCRIPT.JS COMPLETO - Include funzioni per recensioni dinamiche
 // ===========================================================
 
+// In script.js, AGGIUNGI questo blocco all'inizio del file
+
+const BOOKING_LINKS = {
+    yoga_individuale: "https://tidycal.com/guillerminadn/prenotazione-lezione-yoga-individuale",
+    yoga_pacchetti: "https://tidycal.com/guillerminadn/pacchetto-lezioni-yoga"
+};
+
+const CONTACT_INFO = {
+    whatsapp: "+5492983567655", // Numero Argentino per WhatsApp
+    phone: "+34641234679"       // Numero Spagnolo per Chiamate
+};
+
 const languages = {
     it: {
         // --- Stringhe Comuni (Header/Footer) ---
@@ -118,12 +130,17 @@ const languages = {
 		"planYogaInd5OriginalPrice": "Invece di <s>€125</s>",
 		"planYogaGroupFeatMin": "Minimo 4 partecipanti",
 		"planYogaGroup10FeatMin2": "Minimo 4 partecipanti per classe",
-		"planYogaGroup10CurrentPrice": "€120",
-		"planYogaGroup10OriginalPrice": "Invece di <s>€150</s>",
+		"planYogaGroup10CurrentPrice": "€320",
+		"planYogaGroup10OriginalPrice": "Invece di <s>€600</s>",
 		"groupBookingTitle": "Prenotazione di Gruppo",
 		"participantsLabel": "Numero Partecipanti:",
 		"pricePerGroupLabel": "per l'intero gruppo",
 		"paymentMethodLabel": "Scegli un metodo di pagamento:",
+		"locationStudio": "In Studio",
+		"locationHome": "A Domicilio",
+		"insteadOf": "Invece di",
+		"individualBookingTitle": "Dettagli Prenotazione",
+		"bookingFor": "Stai prenotando:",
 
         // --- prenota.html ---
         "pageTitleBooking": "Prenota / Contatti - Maria G. Hendriksen",
@@ -307,12 +324,17 @@ const languages = {
 		"planYogaInd5OriginalPrice": "Instead of <s>€125</s>",
 		"planYogaGroupFeatMin": "Minimum 4 participants",
 		"planYogaGroup10FeatMin2": "Minimum 4 participants per class",
-		"planYogaGroup10CurrentPrice": "€120",
-		"planYogaGroup10OriginalPrice": "Instead of <s>€150</s>",
+		"planYogaGroup10CurrentPrice": "€320",
+		"planYogaGroup10OriginalPrice": "Instead of <s>€600</s>",
 		"groupBookingTitle": "Group Booking",
 		"participantsLabel": "Number of Participants:",
 		"pricePerGroupLabel": "for the entire group",
 		"paymentMethodLabel": "Choose a payment method:",
+		"locationStudio": "At the Studio",
+		"locationHome": "At your Home",
+		"insteadOf": "Instead of",
+		"individualBookingTitle": "Booking Details",
+		"bookingFor": "You are booking:",
 
         // --- prenota.html ---
         "pageTitleBooking": "Booking / Contact - Maria G. Hendriksen",
@@ -496,12 +518,17 @@ const languages = {
 		"planYogaInd5OriginalPrice": "En lugar de <s>€125</s>",
 		"planYogaGroupFeatMin": "Mínimo 4 participantes",
 		"planYogaGroup10FeatMin2": "Mínimo 4 participantes por clase",
-		"planYogaGroup10CurrentPrice": "€120",
-		"planYogaGroup10OriginalPrice": "En lugar de <s>€150</s>",
+		"planYogaGroup10CurrentPrice": "€320",
+		"planYogaGroup10OriginalPrice": "En lugar de <s>€600</s>",
 		"groupBookingTitle": "Reserva de Grupo",
 		"participantsLabel": "Número de Participantes:",
 		"pricePerGroupLabel": "para el grupo entero",
 		"paymentMethodLabel": "Elige un método de pago:",
+		"locationStudio": "En el Estudio",
+		"locationHome": "A Domicilio",
+		"insteadOf": "En lugar de",
+		"individualBookingTitle": "Detalles de la Reserva",
+		"bookingFor": "Estás reservando:",
 
         // --- prenota.html ---
         "pageTitleBooking": "Reservas / Contacto - Maria G. Hendriksen",
@@ -678,19 +705,21 @@ function displayStars(rating) {
     return `<span class="review-stars">${starsHTML}</span>`;
 }
 
+// In script.js
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-        modal.style.display = 'block';
+        modal.style.display = 'flex'; // <-- Cambia da 'block' a 'flex'
     } else {
         console.error(`Modal with id ${modalId} not found.`);
     }
 }
 
+// In script.js
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-        modal.style.display = 'none';
+        modal.style.display = 'none'; // <-- Questo rimane 'none', quindi è già corretto.
         const errorP = modal.querySelector('.error-message');
         if (errorP) errorP.textContent = '';
         const msgP = modal.querySelector('.success-message');
@@ -1213,11 +1242,74 @@ function renderPayPalButton(orderID, containerId, lessonId) {
 // -----------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
+	
+	console.log("DEBUG: DOM Caricato. Esecuzione script avviata.");
     console.log("DOM completamente caricato e analizzato.");
 
 
 
-	
+	// In script.js, SOSTITUISCI il vecchio blocco per il selettore Studio/Domicilio con QUESTO
+
+// --- LOGICA CORRETTA PER SELETTORE STUDIO/DOMICILIO ---
+document.querySelectorAll('.location-selector').forEach(selector => {
+    const planCard = selector.closest('.plan');
+    if (!planCard) return;
+
+    const priceEl = planCard.querySelector('.current-price');
+    const originalPriceEl = planCard.querySelector('.original-price');
+    const radios = selector.querySelectorAll('input[type="radio"]');
+
+    function updatePrice() {
+        const selectedRadio = selector.querySelector('input[type="radio"]:checked');
+        if (!selectedRadio) return;
+
+        const selectedValue = selectedRadio.value; // 'studio' o 'home'
+        const capitalizedValue = selectedValue.charAt(0).toUpperCase() + selectedValue.slice(1);
+
+        const price = selector.dataset[`price${capitalizedValue}`];
+        const originalPrice = selector.dataset[`originalPrice${capitalizedValue}`];
+        
+        const lang = localStorage.getItem('preferredLanguage') || 'it';
+        const translations = languages[lang] || languages['it'];
+
+        if (price) {
+            priceEl.textContent = `€${price}`;
+        } else {
+            priceEl.textContent = 'N/D';
+        }
+        
+        if (originalPriceEl) {
+            if (originalPrice) {
+                const insteadOfText = translations.insteadOf || "Invece di";
+                originalPriceEl.innerHTML = `${insteadOfText} <s>€${originalPrice}</s>`;
+                originalPriceEl.style.display = 'block';
+            } else {
+                originalPriceEl.style.display = 'none';
+            }
+        }
+    }
+
+    radios.forEach(radio => {
+        radio.addEventListener('change', updatePrice);
+    });
+
+    updatePrice(); // Imposta il prezzo iniziale corretto
+});
+
+
+
+
+////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
 
 
@@ -1263,7 +1355,7 @@ document.addEventListener('DOMContentLoaded', () => {
                  console.warn("Bottone lingua senza codice lingua identificabile:", button);
             }
         }
-    }
+    });
 	
 	
 	
@@ -1381,102 +1473,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 	
 	
-	
-	// In script.js, incolla questo blocco completo dentro document.addEventListener('DOMContentLoaded', ... )
-	
-	// --- NUOVA LOGICA COMPLETA E CORRETTA PER PRENOTAZIONE DI GRUPPO ---
-	const allGroupBookingButtons = document.querySelectorAll('.open-group-booking-modal');
-	const groupBookingModal = document.getElementById('group-booking-modal');
-	
-	if (allGroupBookingButtons.length > 0 && groupBookingModal) {
-		const participantsInput = groupBookingModal.querySelector('#modal-participants-input');
-		const calculatedPriceEl = groupBookingModal.querySelector('#modal-calculated-price');
-		const errorMessageEl = groupBookingModal.querySelector('#modal-participant-error');
-		const paymentOptionsContainer = groupBookingModal.querySelector('#modal-payment-options');
-	
-		let currentCardData = {}; // Oggetto per memorizzare i dati della card cliccata
-	
-		// Funzione che calcola il prezzo e aggiorna il modale
-		const updateGroupPrice = () => {
-			const numParticipants = parseInt(participantsInput.value, 10);
-			const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-			const errorMessages = {
-				it: `Il numero minimo è ${currentCardData.minParticipants} partecipanti.`,
-				en: `The minimum is ${currentCardData.minParticipants} participants.`,
-				es: `El número mínimo es de ${currentCardData.minParticipants} participantes.`
-			};
-	
-			if (isNaN(numParticipants) || numParticipants < currentCardData.minParticipants) {
-				errorMessageEl.textContent = errorMessages[currentLang] || errorMessages['it'];
-				errorMessageEl.style.display = 'block';
-				calculatedPriceEl.textContent = '-';
-				paymentOptionsContainer.style.visibility = 'hidden';
-			} else {
-				errorMessageEl.style.display = 'none';
-				const totalPrice = numParticipants * currentCardData.pricePerPerson;
-				const formattedPrice = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(totalPrice);
-				calculatedPriceEl.textContent = formattedPrice;
-				paymentOptionsContainer.style.visibility = 'visible';
-			}
-		};
-	
-		// Aggiungiamo un listener a OGNI bottone "Prenota Classe"
-		allGroupBookingButtons.forEach(button => {
-			button.addEventListener('click', (event) => {
-				const planCard = event.target.closest('.plan');
-				
-				// Salva i dati della card che è stata cliccata
-				currentCardData = {
-					productCode: planCard.dataset.productCode,
-					pricePerPerson: parseFloat(planCard.dataset.pricePerPerson),
-					minParticipants: parseInt(planCard.dataset.minParticipants, 10)
-				};
-	
-				// Imposta i valori iniziali nel modale
-				participantsInput.value = currentCardData.minParticipants;
-				participantsInput.min = currentCardData.minParticipants;
-				
-				// Popola i bottoni di pagamento con il product_code corretto
-				populatePaymentButtons(currentCardData.productCode);
-				
-				// Calcola il prezzo iniziale e apri il modale
-				updateGroupPrice();
-				openModal('group-booking-modal');
-			});
-		});
-	
-		// Listener per ricalcolare il prezzo quando l'utente cambia il numero
-		participantsInput.addEventListener('input', updateGroupPrice);
-	
-		// In script.js, SOSTITUISCI la tua funzione populatePaymentButtons con QUESTA
 
-		function populatePaymentButtons(productCode) {
-			const paymentContainer = document.getElementById('modal-payment-options');
-			if (!paymentContainer) return;
-		
-			// Definiamo i bottoni con le loro icone SVG complete
-			const buttons = {
-				paypal: {
-					text: "PayPal",
-					icon: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.333 4.223c0-.323.23-.59.537-.655l14.07-.611c.29-.074.56.11.635.4l2.086 7.233c.074.29-.11.56-.4.634l-3.321.895-.295-1.18-3.418-.92a.667.667 0 0 0-.634.4l-.813 3.053c-.073.29.11.56.4.635l2.422.653-.738 2.766c-.074.29-.364.453-.655.38l-2.422-.654c-.29-.073-.473-.347-.4-.635l.814-3.053a.667.667 0 0 0-.4-.635l-3.958-1.066a.667.667 0 0 1-.4-.635l1.01-4.041.972-.262c.29-.074.473-.347.4-.635l-.278-1.111-3.266-.88Z" fill="#003087"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M4.68 12.01c-.13-.52.203-.98.71-1.054l4.23-.61c.42-.06.786.233.86.654l.737 4.223c.074.42-.234.786-.655.86l-4.23.61c-.42.074-.786-.233-.86-.654l-.8-4.629Z" fill="#009CDE"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M5.895 8.354c-.11-.44.22-.814.654-.888l3.66-.635c.386-.074.74.202.813.592l.61 3.66c.075.387-.202.74-.592.814l-3.66.635c-.387.073-.74-.202-.814-.592l-.67-3.66Z" fill="#005EA6"></path></svg>`
-				},
-				mercadopago: {
-					text: "MercadoPago",
-					icon: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.8 8.13a2.34 2.34 0 0 0-1.85-1.99l-5.6-1.54a.39.39 0 0 0-.36 0l-5.6 1.54A2.34 2.34 0 0 0 4.2 8.13L3 13.93a2.34 2.34 0 0 0 2.22 2.68h13.56a2.34 2.34 0 0 0 2.22-2.68l-1.2-5.8Z" fill="#00AEEF"></path><path d="M17.1 19.45H6.9a2.34 2.34 0 0 0-2.22 2v.22h14.64v-.22a2.34 2.34 0 0 0-2.22-2Z" fill="#00AEEF"></path></svg>`
-				},
-				bizum: {
-					text: "Bizum",
-					icon: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm3.17 12.17a.7.7 0 0 1-1.2 0L12 11.2V7.7a.7.7 0 1 1 1.4 0v3.08l2.25 2.25a.7.7 0 0 1-.48 1.14Zm-6.34-3.54a.7.7 0 0 1 .48-1.14L12 6.8V3.7a.7.7 0 0 1 1.4 0v3.52L8.35 9.48a.7.7 0 0 1-.52-.85Z" fill="#FF7B00"></path></svg>`
-				}
-			};
-			let buttonsHTML = '';
-			for (const key in buttons) {
-				buttonsHTML += `<button class="payment-button ${key}" data-product-code="${productCode}">${buttons[key].icon} <span>${buttons[key].text}</span></button>`;
-			}
-			paymentContainer.innerHTML = `<p data-translate-key="paymentMethodLabel">Scegli un metodo di pagamento:</p>` + buttonsHTML;
-		}
-	}
-	// --- FINE NUOVA LOGICA ---
 	
 	
 	
@@ -1583,6 +1580,370 @@ if (hamburgerButton && mainNav) {
     if (!mainNav) console.log('MGH_DEBUG: Reason: mainNav is null.');
 }
 // --- FINE LOGICA MENU HAMBURGER ---
+
+
+
+console.log("DEBUG: Inizio logica prenotazione gruppo."); // <-- AGGIUNGI QUESTA RIGA
+
+
+// In script.js, incolla questo blocco completo dentro document.addEventListener('DOMContentLoaded', ... )
+
+// --- NUOVA LOGICA COMPLETA E CORRETTA PER PRENOTAZIONE DI GRUPPO ---
+const allGroupBookingButtons = document.querySelectorAll('.open-group-booking-modal');
+const groupBookingModal = document.getElementById('group-booking-modal');
+
+if (allGroupBookingButtons.length > 0 && groupBookingModal) {
+	
+	 console.log("DEBUG: Bottone e modale TROVATI nel DOM. Aggiungo i listener."); // <-- AGGIUNGI QUESTA RIGA
+    const participantsInput = groupBookingModal.querySelector('#modal-participants-input');
+    const calculatedPriceEl = groupBookingModal.querySelector('#modal-calculated-price');
+    const errorMessageEl = groupBookingModal.querySelector('#modal-participant-error');
+    const paymentOptionsContainer = groupBookingModal.querySelector('#modal-payment-options');
+
+    let currentCardData = {}; // Oggetto per memorizzare i dati della card cliccata
+
+    // Funzione che calcola il prezzo e aggiorna il modale
+    const updateGroupPrice = () => {
+        const numParticipants = parseInt(participantsInput.value, 10);
+        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+        const errorMessages = {
+            it: `Il numero minimo è ${currentCardData.minParticipants} partecipanti.`,
+            en: `The minimum is ${currentCardData.minParticipants} participants.`,
+            es: `El número mínimo es de ${currentCardData.minParticipants} participantes.`
+        };
+
+        if (isNaN(numParticipants) || numParticipants < currentCardData.minParticipants) {
+            errorMessageEl.textContent = errorMessages[currentLang] || errorMessages['it'];
+            errorMessageEl.style.display = 'block';
+            calculatedPriceEl.textContent = '-';
+            paymentOptionsContainer.style.visibility = 'hidden';
+        } else {
+            errorMessageEl.style.display = 'none';
+            const totalPrice = numParticipants * currentCardData.pricePerPerson;
+            const formattedPrice = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(totalPrice);
+            calculatedPriceEl.textContent = formattedPrice;
+            paymentOptionsContainer.style.visibility = 'visible';
+        }
+    };
+
+    // Aggiungiamo un listener a OGNI bottone "Prenota Classe"
+    allGroupBookingButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+			console.log("DEBUG: Bottone 'Prenota Classe' CLICCATO!"); // <-- AGGIUNGI QUESTA RIGA
+            const planCard = event.target.closest('.plan');
+            
+            // Salva i dati della card che è stata cliccata
+            currentCardData = {
+                productCode: planCard.dataset.productCode,
+                pricePerPerson: parseFloat(planCard.dataset.pricePerPerson),
+                minParticipants: parseInt(planCard.dataset.minParticipants, 10)
+            };
+
+            // Imposta i valori iniziali nel modale
+            participantsInput.value = currentCardData.minParticipants;
+            participantsInput.min = currentCardData.minParticipants;
+            
+            // Popola i bottoni di pagamento con il product_code corretto
+            populatePaymentButtons(currentCardData.productCode);
+            
+            // Calcola il prezzo iniziale e apri il modale
+            updateGroupPrice();
+            openModal('group-booking-modal');
+        });
+    });
+
+    // Listener per ricalcolare il prezzo quando l'utente cambia il numero
+    participantsInput.addEventListener('input', updateGroupPrice);
+	
+	
+	
+	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////
+	
+//	function populatePaymentButtons(productCode, containerId = 'modal-payment-options') {
+//        const paymentContainer = document.getElementById(containerId);
+//        if (!paymentContainer) return;
+//    
+//        // Definiamo i bottoni con le loro icone SVG complete
+//		const buttons = {
+//			paypal: {
+//				text: "PayPal",
+//				icon: `<svg viewBox="0 0 96 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.56 26.5h8.84L21.32 3.8H12.5L9.9 20.38c-.12 1.08-.2 1.8-.24 2.14H9.6c.32-1.2.6-2.4.84-3.64L12.56 0H3.32L0 26.5h7.56Z" fill="#253B80"/><path d="M43.32 26.5h7.56L47.56 3.8h-7.56l3.32 22.7Z" fill="#253B80"/><path d="M51.12 3.8h-6.76c-2.44 0-4.6.48-6.48 1.44-1.88.96-3.32 2.36-4.32 4.2-.92 1.76-1.4 3.8-1.4 6.12 0 2.92.56 5.36 1.68 7.32 1.12 2 2.76 3.48 4.92 4.44 2.16.96 4.72 1.44 7.68 1.44h2.52c.4 0 .68-.04.84-.12.16-.08.28-.2.36-.36l.2-.44.88-6.12h-5.4c-1.48 0-2.6-.28-3.36-.84-.8-.56-1.16-1.4-1.08-2.52.08-1.4.92-2.12 2.52-2.12h8.24l2.04-14.08Zm-5.32 16.56c-.48 1.32-1.2 1.96-2.16 1.96-1.2 0-2.12-.52-2.76-1.56-.64-1.04-.92-2.32-.84-3.84.08-1.8.6-3.2 1.56-4.2s2.24-1.56 3.84-1.56h4.48l-.84 5.92-3.28 3.08Z" fill="#179BD7"/><path d="M69.84 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76 1.48-1.56 3.32-2.56 5.52-3s4.4-.64 6.6-.64c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#253B80"/><path d="M89.36 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76C79.8 1.64 81.64.64 83.84.2S88.08 0 90.28 0c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#179BD7"/></svg>`
+//			},
+//			mercadopago: {
+//				text: "Mercado Pago",
+//				icon: `<svg viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.6 8.56a2.64 2.64 0 0 0-2.1-2.24L22.99 2.1a.44.44 0 0 0-.4 0L9.08 6.32a2.64 2.64 0 0 0-2.1 2.24L5.1 14.8a2.64 2.64 0 0 0 2.52 3.02h25.4a2.64 2.64 0 0 0 2.52-3.02l-1.92-6.24Z" fill="#00AEEF"/></svg>`
+//			},
+//			bizum: {
+//				text: "Bizum",
+//				icon: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"/></svg>`
+//			}
+//		};
+//        let buttonsHTML = '';
+//        for (const key in buttons) {
+//            buttonsHTML += `<button class="payment-button ${key}" data-product-code="${productCode}">${buttons[key].icon} <span>${buttons[key].text}</span></button>`;
+//        }
+//        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+//		const labelText = languages[currentLang]?.paymentMethodLabel || languages['it'].paymentMethodLabel;
+//		
+//		paymentContainer.innerHTML = `<p data-translate-key="paymentMethodLabel">${labelText}</p>` + buttonsHTML;
+//    }
+//	
+	/////////////////////////////////////////////////////////////////////////
+
+
+
+
+//////////////////////////////////////NUOVE AGGIUNTE PER PAGAMENTO/////////////////////////////////	
+	
+	// SOSTITUISCI LA VECCHIA FUNZIONE CON QUESTA NUOVA VERSIONE
+function populatePaymentButtons(productCode, containerId = 'modal-payment-options') {
+    const paymentContainer = document.getElementById(containerId);
+    if (!paymentContainer) return;
+
+    // 1. Definiamo la struttura dei pulsanti
+    const buttons = {
+        paypal: {
+            text: "PayPal",
+            icon: `<svg viewBox="0 0 96 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.56 26.5h8.84L21.32 3.8H12.5L9.9 20.38c-.12 1.08-.2 1.8-.24 2.14H9.6c.32-1.2.6-2.4.84-3.64L12.56 0H3.32L0 26.5h7.56Z" fill="#253B80"/><path d="M43.32 26.5h7.56L47.56 3.8h-7.56l3.32 22.7Z" fill="#253B80"/><path d="M51.12 3.8h-6.76c-2.44 0-4.6.48-6.48 1.44-1.88.96-3.32 2.36-4.32 4.2-.92 1.76-1.4 3.8-1.4 6.12 0 2.92.56 5.36 1.68 7.32 1.12 2 2.76 3.48 4.92 4.44 2.16.96 4.72 1.44 7.68 1.44h2.52c.4 0 .68-.04.84-.12.16-.08.28-.2.36-.36l.2-.44.88-6.12h-5.4c-1.48 0-2.6-.28-3.36-.84-.8-.56-1.16-1.4-1.08-2.52.08-1.4.92-2.12 2.52-2.12h8.24l2.04-14.08Zm-5.32 16.56c-.48 1.32-1.2 1.96-2.16 1.96-1.2 0-2.12-.52-2.76-1.56-.64-1.04-.92-2.32-.84-3.84.08-1.8.6-3.2 1.56-4.2s2.24-1.56 3.84-1.56h4.48l-.84 5.92-3.28 3.08Z" fill="#179BD7"/><path d="M69.84 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76 1.48-1.56 3.32-2.56 5.52-3s4.4-.64 6.6-.64c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#253B80"/><path d="M89.36 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76C79.8 1.64 81.64.64 83.84.2S88.08 0 90.28 0c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#179BD7"/></svg>`
+        },
+        mercadopago: {
+            text: "Mercado Pago",
+            icon: `<svg viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.6 8.56a2.64 2.64 0 0 0-2.1-2.24L22.99 2.1a.44.44 0 0 0-.4 0L9.08 6.32a2.64 2.64 0 0 0-2.1 2.24L5.1 14.8a2.64 2.64 0 0 0 2.52 3.02h25.4a2.64 2.64 0 0 0 2.52-3.02l-1.92-6.24Z" fill="#00AEEF"/></svg>`
+        },
+        bizum: {
+            text: "Bizum",
+            icon: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"/></svg>`
+        }
+    };
+
+    // 2. Crea l'HTML per i pulsanti
+    let buttonsHTML = '';
+    for (const key in buttons) {
+        buttonsHTML += `<button class="payment-button ${key}" data-method="${key}">${buttons[key].icon} <span>${buttons[key].text}</span></button>`;
+    }
+    const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+    const labelText = languages[currentLang]?.paymentMethodLabel || languages['it'].paymentMethodLabel;
+    paymentContainer.innerHTML = `<p data-translate-key="paymentMethodLabel">${labelText}</p>` + buttonsHTML;
+
+    // 3. Aggiungi gli event listener
+    paymentContainer.querySelectorAll('.payment-button').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const method = event.currentTarget.dataset.method;
+            const modal = event.currentTarget.closest('.auth-modal');
+            let options = { productCode };
+
+            // Raccogli i dati specifici dal modale in cui ci si trova
+            if (modal.id === 'group-booking-modal') {
+                options.participants = parseInt(modal.querySelector('#modal-participants-input').value, 10);
+            } else if (modal.id === 'individual-booking-modal') {
+                const planCard = document.querySelector(`.open-individual-booking-modal[data-product-code="${productCode}"]`)?.closest('.plan') 
+                            || document.querySelector(`.location-selector[data-product-code="${productCode}"]`)?.closest('.plan');
+                if (planCard?.querySelector('.location-selector')) {
+                    options.location = planCard.querySelector('input[type="radio"]:checked').value;
+                }
+            }
+
+            // Avvia la procedura di pagamento corretta
+            if (method === 'paypal') {
+                handlePayPalPurchase(options);
+            } else {
+                alert(`Il pagamento con ${buttons[method].text} non è ancora disponibile.`);
+            }
+        });
+    });
+}
+	
+	
+	
+	
+	
+	
+	
+	// ===================================================================
+// --- FUNZIONI CENTRALI PER PAGAMENTO PAYPAL (FASE 2) ---
+// ===================================================================
+
+/**
+ * Gestisce l'intero processo di acquisto con PayPal, dalla creazione dell'ordine al rendering dei pulsanti.
+ * @param {object} options - Dati necessari per l'ordine ({ productCode, location?, participants? }).
+ */
+async function handlePayPalPurchase(options) {
+    if (!currentUser) {
+        alert("Devi effettuare il login per poter acquistare.");
+        openModal('login-modal');
+        return;
+    }
+
+    console.log("Avvio acquisto PayPal con opzioni:", options);
+    // Potresti aggiungere qui una UI di caricamento, es. disabilitando i pulsanti.
+
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) throw new Error("Sessione utente non trovata. Prova a fare di nuovo il login.");
+
+        const response = await fetch('/.netlify/functions/create-paypal-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify(options)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Errore dal server: ${response.status}`);
+        }
+
+        const orderData = await response.json();
+        if (!orderData.orderId) throw new Error("ID Ordine PayPal non ricevuto dal backend.");
+
+        console.log("Ordine PayPal creato con ID:", orderData.orderId);
+        renderPayPalButtons(orderData.orderId, options.productCode);
+
+    } catch (error) {
+        console.error("Errore in handlePayPalPurchase:", error);
+        alert(`Si è verificato un errore: ${error.message}`);
+        // Qui potresti ripristinare la UI di caricamento.
+    }
+}
+
+/**
+ * Esegue il rendering dei pulsanti PayPal e gestisce il reindirizzamento post-approvazione.
+ * @param {string} orderId - L'ID dell'ordine creato da PayPal.
+ * @param {string} productCode - Il codice del prodotto per decidere dove reindirizzare.
+ */
+function renderPayPalButtons(orderId, productCode) {
+    // Nasconde i nostri pulsanti di pagamento personalizzati e mostra l'area per PayPal
+    const paymentOptions = document.querySelector('.auth-modal[style*="display: flex"] .payment-options-container');
+    if(paymentOptions) {
+        paymentOptions.innerHTML = '<div id="paypal-button-container" style="min-height: 120px;"></div><p style="text-align:center; margin-top:10px;">Completa il pagamento qui sopra.</p>';
+    }
+
+    paypal.Buttons({
+        createOrder: (data, actions) => orderId,
+
+        onApprove: (data, actions) => {
+            console.log("Pagamento approvato:", data);
+            if(paymentOptions) {
+                 paymentOptions.innerHTML = `<p style="color:green; font-weight:bold; text-align:center;">Pagamento completato! ✅<br>Verrai reindirizzato tra pochi secondi...</p>`;
+            }
+
+            // Logica di reindirizzamento
+            setTimeout(() => {
+                let redirectUrl = '';
+                if (productCode.startsWith('FISIO')) {
+                    redirectUrl = `https://wa.me/${CONTACT_INFO.whatsapp}`;
+                } else if (productCode === 'YOGA1') {
+                    redirectUrl = BOOKING_LINKS.yoga_individuale;
+                } else if (productCode === 'YOGA5' || productCode.includes('G')) { // Pacchetti o Gruppi
+                    redirectUrl = BOOKING_LINKS.yoga_pacchetti;
+                }
+
+                if (redirectUrl) {
+                    window.location.href = redirectUrl;
+                } else {
+                    closeModal('individual-booking-modal');
+                    closeModal('group-booking-modal');
+                }
+            }, 4000); // Attendi 4 secondi prima di reindirizzare
+        },
+
+        onError: (err) => {
+            console.error("Errore PayPal SDK:", err);
+            if(paymentOptions) {
+                paymentOptions.innerHTML = `<p style="color:red; text-align:center;">Si è verificato un errore durante il pagamento. Riprova.</p>`;
+            }
+        },
+
+        onCancel: (data) => {
+            console.log("Pagamento annullato:", data);
+            // Chiudi semplicemente il modale se l'utente annulla
+            closeModal('individual-booking-modal');
+            closeModal('group-booking-modal');
+        }
+    }).render('#paypal-button-container');
+}
+	
+	
+	////////////////////////////////////FINE NUOVE AGGIUNTE PER PAGAMENTO//////////////////////////////////
+
+// ===================================================================
+// --- NUOVA LOGICA PER PRENOTAZIONE INDIVIDUALE (FASE 1) ---
+// ===================================================================
+const allIndividualBookingButtons = document.querySelectorAll('.open-individual-booking-modal');
+const individualBookingModal = document.getElementById('individual-booking-modal');
+
+if (allIndividualBookingButtons.length > 0 && individualBookingModal) {
+
+    console.log("DEBUG: Pulsanti e modale per prenotazione individuale TROVATI. Aggiungo i listener.");
+
+    allIndividualBookingButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const planCard = event.target.closest('.plan');
+            if (!planCard) return;
+
+            // 1. Recupera i dati dalla card
+            const serviceName = planCard.querySelector('h3').textContent;
+            const productCode = planCard.querySelector('.location-selector')?.dataset.productCode || event.target.dataset.productCode;
+            let servicePriceText = '';
+            
+            // Gestione specifica per i piani con selettore di località (Fisioterapia)
+            const locationSelector = planCard.querySelector('.location-selector');
+            if (locationSelector) {
+                const selectedLocationRadio = locationSelector.querySelector('input[type="radio"]:checked');
+                if(selectedLocationRadio) {
+                    const locationValue = selectedLocationRadio.value; // 'studio' or 'home'
+                    const priceKey = `price${locationValue.charAt(0).toUpperCase() + locationValue.slice(1)}`; // es. priceStudio or priceHome
+                    const price = locationSelector.dataset[priceKey];
+                    servicePriceText = `€${price}`;
+                } else {
+                    servicePriceText = 'Prezzo non definito';
+                }
+            } else {
+                // Per i piani senza selettore di località (Yoga)
+                const priceElement = planCard.querySelector('.current-price');
+                servicePriceText = priceElement ? priceElement.textContent : 'N/D';
+            }
+
+            // 2. Popola il modale con i dati recuperati
+            document.getElementById('modal-individual-service-name').textContent = serviceName;
+            document.getElementById('modal-individual-service-price').textContent = servicePriceText;
+            
+            // Aggiungiamo anche il titolo del modale per la traduzione
+             const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+             const modalTitle = languages[currentLang]?.individualBookingTitle || "Dettagli Prenotazione"; // Fallback
+             document.getElementById('modal-individual-title').textContent = modalTitle;
+
+
+            // 3. Popola i pulsanti di pagamento (riutilizzando la funzione aggiornata)
+            const paymentContainer = document.getElementById('modal-individual-payment-options');
+            if (typeof populatePaymentButtons === 'function' && productCode) {
+                 // Prima di popolare, ripulisci il contenitore
+                paymentContainer.innerHTML = ''; 
+                // Chiamiamo la funzione specificando il container del nuovo modale
+                populatePaymentButtons(productCode, 'modal-individual-payment-options');
+            } else {
+                 paymentContainer.innerHTML = '<p>Opzioni di pagamento non disponibili.</p>';
+                 console.error("Funzione 'populatePaymentButtons' non trovata o productCode mancante.");
+            }
+            
+            // 4. Apri il modale
+            openModal('individual-booking-modal');
+        });
+    });
+}
+
+//////////////////////////////////////////////////////
+
+
+
+
+	
 }); // --- Chiusura di DOMContentLoaded ---
 
 // -----------------------------------------------------------
