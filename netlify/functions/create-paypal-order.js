@@ -67,33 +67,36 @@ exports.handler = async (event, context) => {
         }
 
         // 2. Calcola il prezzo finale in base ai dati ricevuti
-        let finalPrice = 0;
-        let description = service.name;
-
-        if (service.price_studio_eur && service.price_home_eur) {
-            // È un servizio con opzione Studio/Domicilio
-            if (location === 'studio') {
-                finalPrice = service.price_studio_eur;
-                description += ' - In Studio';
-            } else if (location === 'home') {
-                finalPrice = service.price_home_eur;
-                description += ' - A Domicilio';
-            } else {
-                throw new Error("Opzione 'location' (studio/home) non specificata.");
-            }
-        } else if (service.price_per_person_eur && service.min_participants) {
-            // È un servizio di gruppo
-            if (!participants || participants < service.min_participants) {
-                throw new Error(`Numero di partecipanti non valido. Minimo: ${service.min_participants}`);
-            }
-            finalPrice = service.price_per_person_eur * participants;
-            description += ` (Gruppo di ${participants} persone)`;
-        } else if (service.price_eur) {
-            // È un servizio con prezzo fisso (es. Yoga individuale)
-            finalPrice = service.price_eur;
-        } else {
-            throw new Error("Impossibile determinare il prezzo per il servizio.");
-        }
+        
+		let finalPrice = 0;
+		let description = service.name;
+		
+		if (location && service.price_studio_eur && service.price_home_eur) {
+			// Caso 1: Servizio con scelta Studio/Domicilio (es. Fisioterapia)
+			if (location === 'studio') {
+				finalPrice = service.price_studio_eur;
+				description += ' - In Studio';
+			} else {
+				finalPrice = service.price_home_eur;
+				description += ' - A Domicilio';
+			}
+		} else if (participants && service.price_per_person_eur) {
+			// Caso 2: Servizio di gruppo (es. Yoga di Gruppo)
+			if (participants < (service.min_participants || 1)) {
+				throw new Error(`Numero di partecipanti non valido. Minimo: ${service.min_participants}`);
+			}
+			finalPrice = service.price_per_person_eur * participants;
+			description += ` (Gruppo di ${participants} persone)`;
+		} else if (service.price_eur) {
+			// Caso 3: Servizio con prezzo fisso semplice (se la colonna price_eur esiste)
+			finalPrice = service.price_eur;
+		} else if (service.price_studio_eur) {
+			// Caso 4 (LA NOSTRA CORREZIONE): Servizio con prezzo fisso solo in studio (es. Yoga Individuale)
+			finalPrice = service.price_studio_eur;
+		} else {
+			// Se nessuna delle condizioni è vera, lancia l'errore
+			throw new Error("Impossibile determinare il prezzo per il servizio.");
+		}
 
         // Arrotonda a due decimali
         finalPrice = parseFloat(finalPrice).toFixed(2);

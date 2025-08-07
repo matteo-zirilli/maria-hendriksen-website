@@ -1489,7 +1489,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const planCard = event.target.closest('.plan');
                 if (!planCard) return;
 
-                const serviceName = planCard.querySelector('h3').textContent;
+                const serviceNameKey = planCard.querySelector('h3').dataset.translateKey;
+				const serviceName = translations[serviceNameKey] || planCard.querySelector('h3').textContent;
                 const productCode = planCard.querySelector('.location-selector')?.dataset.productCode || event.target.dataset.productCode;
                 let servicePriceText = '';
                 
