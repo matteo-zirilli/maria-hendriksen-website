@@ -54,19 +54,31 @@ exports.handler = async (event, context) => {
         }
 
         // 3. Registrazione dell'acquisto su Supabase
-        const { error: insertError } = await supabase
-            .from('purchases')
-            .insert({
-                user_id: userId,
-                product_code: productCode,
-                payment_id: captureId, // Usiamo l'ID della transazione catturata
-                status: 'completed'
-            });
-
-        if (insertError) {
-            console.error("Errore salvataggio su Supabase:", insertError);
-            // Non blocchiamo l'utente, ma logghiamo l'errore per un controllo manuale
-        }
+		const purchaseUnit = capture.result.purchase_units[0];
+		const captureDetails = purchaseUnit.payments.captures[0];
+		
+		const purchaseData = {
+			user_id: userId,
+			product_code: productCode,
+			payment_id: captureDetails.id,
+			status: 'completed',
+			payment_provider: 'paypal',
+			amount: parseFloat(captureDetails.amount.value),
+			currency: captureDetails.amount.currency_code,
+			payer_email: capture.result.payer.email_address,
+			raw_payload: capture.result
+		};
+		
+		const { error: insertError } = await supabase
+			.from('purchases')
+			.insert(purchaseData);
+		
+		if (insertError) {
+			console.error("Errore salvataggio su Supabase:", insertError);
+			// Non blocchiamo l'utente, ma logghiamo l'errore.
+		} else {
+			console.log("Acquisto salvato con successo su Supabase per l'utente:", userId);
+		}
 
         return {
             statusCode: 200,
