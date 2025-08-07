@@ -193,7 +193,8 @@ const languages = {
         "reviewLabelRating": "Valutazione (da 1 a 5 stelle):",
         "reviewLabelMessage": "La tua recensione:",
         "reviewSubmitButton": "Invia Recensione",
-        "reviewFormNotes": "Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per la tua condivisione!"
+        "reviewFormNotes": "Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per la tua condivisione!",
+		"bookingForText": "Stai prenotando:"
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -373,7 +374,8 @@ const languages = {
         "reviewLabelRating": "Rating (1 to 5 stars):",
         "reviewLabelMessage": "Your review:",
         "reviewSubmitButton": "Send Review",
-        "reviewFormNotes": "Note: Reviews submitted via this form will be moderated before publication. Thank you for sharing!"
+        "reviewFormNotes": "Note: Reviews submitted via this form will be moderated before publication. Thank you for sharing!",
+		"bookingForText": "You are booking:"
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -553,7 +555,8 @@ const languages = {
         "reviewLabelRating": "Valoración (de 1 a 5 estrellas):",
         "reviewLabelMessage": "Tu reseña:",
         "reviewSubmitButton": "Enviar Reseña",
-        "reviewFormNotes": "Nota: Las reseñas enviadas a través de este formulario serán moderadas antes de su publicación. ¡Gracias por compartir!"
+        "reviewFormNotes": "Nota: Las reseñas enviadas a través de este formulario serán moderadas antes de su publicación. ¡Gracias por compartir!",
+		"bookingForText": "Estás reservando:"
     }
 };
 
@@ -1495,8 +1498,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				const translations = languages[currentLang] || languages['it'];
 			
 				// 2. ORA possiamo usare 'translations' per ottenere il nome del servizio.
-				const serviceNameKey = planCard.querySelector('h3').dataset.translateKey;
-				const serviceName = translations[serviceNameKey] || planCard.querySelector('h3').textContent;
+				const serviceName = planCard.querySelector('h3').textContent;
 				// --- FINE DELLA CORREZIONE ---
 			
 				const productCode = planCard.querySelector('.location-selector')?.dataset.productCode || event.target.dataset.productCode;
