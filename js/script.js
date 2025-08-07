@@ -1655,30 +1655,64 @@ function renderPayPalButtons(orderId, productCode) {
     paypal.Buttons({
         createOrder: (data, actions) => orderId,
 
-        onApprove: (data, actions) => {
-            console.log("Pagamento approvato:", data);
-            if(paymentOptions) {
-                 paymentOptions.innerHTML = `<p style="color:green; font-weight:bold; text-align:center;">Pagamento completato! ✅<br>Verrai reindirizzato tra pochi secondi...</p>`;
-            }
-
-            setTimeout(() => {
-                let redirectUrl = '';
-                if (productCode.startsWith('FISIO')) {
-                    redirectUrl = `https://wa.me/${CONTACT_INFO.whatsapp}`;
-                } else if (productCode === 'YOGA1') {
-                    redirectUrl = BOOKING_LINKS.yoga_individuale;
-                } else if (productCode === 'YOGA5' || productCode.includes('G')) {
-                    redirectUrl = BOOKING_LINKS.yoga_pacchetti;
-                }
-
-                if (redirectUrl) {
-                    window.location.href = redirectUrl;
-                } else {
-                    closeModal('individual-booking-modal');
-                    closeModal('group-booking-modal');
-                }
-            }, 4000);
-        },
+        onApprove: async (data, actions) => {
+			console.log("Pagamento approvato dal cliente:", data);
+			if(paymentOptions) {
+				paymentOptions.innerHTML = `<p style="font-weight:bold; text-align:center;">Elaborazione pagamento in corso...</p>`;
+			}
+		
+			try {
+				const { data: { session } } = await supabase.auth.getSession();
+				if (!session) throw new Error("Sessione utente non trovata.");
+		
+				// Chiama la nostra nuova funzione backend per catturare e salvare
+				const response = await fetch('/.netlify/functions/capture-paypal-order', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${session.access_token}`
+					},
+					body: JSON.stringify({
+						orderID: data.orderID,
+						productCode: productCode
+					})
+				});
+		
+				if (!response.ok) {
+					const errorData = await response.json();
+					throw new Error(errorData.error || 'Errore nella registrazione del pagamento.');
+				}
+		
+				// Se tutto è andato a buon fine, mostra il messaggio di successo e reindirizza
+				if(paymentOptions) {
+					paymentOptions.innerHTML = `<p style="color:green; font-weight:bold; text-align:center;">Pagamento completato! ✅<br>Verrai reindirizzato tra pochi secondi...</p>`;
+				}
+		
+				setTimeout(() => {
+					let redirectUrl = '';
+					if (productCode.startsWith('FISIO')) {
+						redirectUrl = `https://wa.me/${CONTACT_INFO.whatsapp}`;
+					} else if (productCode === 'YOGA1') {
+						redirectUrl = BOOKING_LINKS.yoga_individuale;
+					} else if (productCode === 'YOGA5' || productCode.includes('G')) {
+						redirectUrl = BOOKING_LINKS.yoga_pacchetti;
+					}
+		
+					if (redirectUrl) {
+						window.location.href = redirectUrl;
+					} else {
+						closeModal('individual-booking-modal');
+						closeModal('group-booking-modal');
+					}
+				}, 4000);
+		
+			} catch (error) {
+				console.error("Errore in onApprove:", error);
+				if(paymentOptions) {
+					paymentOptions.innerHTML = `<p style="color:red; text-align:center;">Si è verificato un errore dopo l'approvazione: ${error.message}. Contatta l'assistenza.</p>`;
+				}
+			}
+		},
 
         onError: (err) => {
             console.error("Errore PayPal SDK:", err);
