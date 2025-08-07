@@ -1486,51 +1486,60 @@ document.addEventListener('DOMContentLoaded', () => {
     if (allIndividualBookingButtons.length > 0 && individualBookingModal) {
         allIndividualBookingButtons.forEach(button => {
             button.addEventListener('click', (event) => {
-                const planCard = event.target.closest('.plan');
-                if (!planCard) return;
-
-                const serviceNameKey = planCard.querySelector('h3').dataset.translateKey;
+				const planCard = event.target.closest('.plan');
+				if (!planCard) return;
+			
+				// --- INIZIO DELLA CORREZIONE ---
+				// 1. Definiamo le traduzioni QUI, all'inizio della funzione.
+				const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+				const translations = languages[currentLang] || languages['it'];
+			
+				// 2. ORA possiamo usare 'translations' per ottenere il nome del servizio.
+				const serviceNameKey = planCard.querySelector('h3').dataset.translateKey;
 				const serviceName = translations[serviceNameKey] || planCard.querySelector('h3').textContent;
-                const productCode = planCard.querySelector('.location-selector')?.dataset.productCode || event.target.dataset.productCode;
-                let servicePriceText = '';
-                
-                const locationSelector = planCard.querySelector('.location-selector');
-                if (locationSelector) {
-                    const selectedLocationRadio = locationSelector.querySelector('input[type="radio"]:checked');
-                    if(selectedLocationRadio) {
-                        const locationValue = selectedLocationRadio.value;
-                        const priceKey = `price${locationValue.charAt(0).toUpperCase() + locationValue.slice(1)}`;
-                        const price = locationSelector.dataset[priceKey];
-                        servicePriceText = `€${price}`;
-                    } else {
-                        servicePriceText = 'Prezzo non definito';
-                    }
-                } else {
-                    const priceElement = planCard.querySelector('.current-price');
-                    servicePriceText = priceElement ? priceElement.textContent : 'N/D';
-                }
-
-                document.getElementById('modal-individual-service-price').textContent = servicePriceText;
-                
-                const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-                const translations = languages[currentLang] || languages['it'];
-                document.getElementById('modal-individual-title').textContent = translations.individualBookingTitle || "Dettagli Prenotazione";
-                
-                const serviceNameElement = document.getElementById('modal-individual-service-name-value');
-                if (serviceNameElement) {
-                    serviceNameElement.textContent = serviceName;
-                }
-
-                const paymentContainer = document.getElementById('modal-individual-payment-options');
-                if (typeof populatePaymentButtons === 'function' && productCode) {
-                    paymentContainer.innerHTML = ''; 
-                    populatePaymentButtons(productCode, 'modal-individual-payment-options');
-                } else {
-                     paymentContainer.innerHTML = '<p>Opzioni di pagamento non disponibili.</p>';
-                }
-                
-                openModal('individual-booking-modal');
-            });
+				// --- FINE DELLA CORREZIONE ---
+			
+				const productCode = planCard.querySelector('.location-selector')?.dataset.productCode || event.target.dataset.productCode;
+				let servicePriceText = '';
+			
+				const locationSelector = planCard.querySelector('.location-selector');
+				if (locationSelector) {
+					const selectedLocationRadio = locationSelector.querySelector('input[type="radio"]:checked');
+					if(selectedLocationRadio) {
+						const locationValue = selectedLocationRadio.value;
+						const priceKey = `price${locationValue.charAt(0).toUpperCase() + locationValue.slice(1)}`;
+						const price = locationSelector.dataset[priceKey];
+						servicePriceText = `€${price}`;
+					} else {
+						servicePriceText = 'Prezzo non definito';
+					}
+				} else {
+					const priceElement = planCard.querySelector('.current-price');
+					servicePriceText = priceElement ? priceElement.textContent : 'N/D';
+				}
+			
+				document.getElementById('modal-individual-service-price').textContent = servicePriceText;
+			
+				// Popola il titolo del modale (la variabile 'translations' esiste già)
+				document.getElementById('modal-individual-title').textContent = translations.individualBookingTitle || "Dettagli Prenotazione";
+			
+				// Popola il paragrafo con il nome del servizio
+				const bookingInfoParagraph = document.getElementById('modal-booking-info');
+				if (bookingInfoParagraph) {
+					const bookingForText = translations.bookingForText || "Stai prenotando:";
+					bookingInfoParagraph.innerHTML = `${bookingForText} <strong>${serviceName}</strong>`;
+				}
+			
+				const paymentContainer = document.getElementById('modal-individual-payment-options');
+				if (typeof populatePaymentButtons === 'function' && productCode) {
+					paymentContainer.innerHTML = ''; 
+					populatePaymentButtons(productCode, 'modal-individual-payment-options');
+				} else {
+					paymentContainer.innerHTML = '<p>Opzioni di pagamento non disponibili.</p>';
+				}
+			
+				openModal('individual-booking-modal');
+			});
         });
     }
 
