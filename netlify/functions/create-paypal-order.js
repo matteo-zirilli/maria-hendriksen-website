@@ -1,5 +1,6 @@
 // netlify/functions/create-paypal-order.js
 
+const jwt = require('jsonwebtoken');
 const { createClient } = require('@supabase/supabase-js');
 const paypal = require('@paypal/checkout-server-sdk');
 
@@ -22,11 +23,32 @@ exports.handler = async (event, context) => {
     }
 
     try {
-        const user = context.clientContext?.user;
-        if (!user) {
-            return { statusCode: 401, body: JSON.stringify({ error: 'Utente non autenticato.' }) };
-        }
-        const userId = user.sub;
+        // Blocco di autenticazione manuale
+		let userId;
+		try {
+			const authHeader = event.headers.authorization;
+			if (!authHeader || !authHeader.startsWith('Bearer ')) {
+				throw new Error('Token non fornito o malformato.');
+			}
+			const token = authHeader.split(' ')[1];
+		
+			// Verifica il token usando la chiave segreta che abbiamo impostato su Netlify
+			const decoded = jwt.verify(token, process.env.JWT_SECRET);
+		
+			// Il 'sub' nel token è l'ID dell'utente di Supabase
+			userId = decoded.sub;
+			if (!userId) {
+				throw new Error('ID utente non trovato nel token.');
+			}
+		
+		} catch (error) {
+			console.error('Errore di autenticazione:', error.message);
+			return { 
+				statusCode: 401, 
+				body: JSON.stringify({ error: 'Utente non autenticato.' }) 
+			};
+		}
+		// Fine blocco di autenticazione manuale
 
         const { productCode, location, participants } = JSON.parse(event.body);
         if (!productCode) {
