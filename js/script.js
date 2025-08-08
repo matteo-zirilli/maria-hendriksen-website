@@ -196,7 +196,7 @@ const languages = {
         "reviewFormNotes": "Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per la tua condivisione!",
 		"bookingForText": "Stai prenotando:",
 		"bizumCTAButton": "Invia Conferma via WhatsApp",
-		"whatsappMessage": "Ciao Maria, ho appena registrato un pagamento Bizum per il servizio '[SERVICE_NAME]'. Vorrei finalizzare la prenotazione. Grazie!",
+		"whatsappMessage": "Ciao Maria, ti contatto dal tuo sito. Vorrei acquistare il servizio '[SERVICE_NAME]' e pagare con Bizum. Resto in attesa di istruzioni. Grazie!",
 		"bizumInfoText": "Per questo servizio, la prenotazione si finalizza con un contatto personale. Procedi su WhatsApp per definire l'appuntamento e il pagamento direttamente con Maria.",
 		"bizumProceedButton": "Procedi su WhatsApp"
     },
@@ -381,7 +381,7 @@ const languages = {
         "reviewFormNotes": "Note: Reviews submitted via this form will be moderated before publication. Thank you for sharing!",
 		"bookingForText": "You are booking:",
 		"bizumCTAButton": "Send Confirmation via WhatsApp",
-		"whatsappMessage": "Hi Maria, I have just registered a Bizum payment for the '[SERVICE_NAME]' service. I'd like to finalize the booking. Thanks!",
+		"whatsappMessage": "Hi Maria, I'm contacting you from your website. I'd like to purchase the '[SERVICE_NAME]' service and pay with Bizum. I'm awaiting instructions. Thanks!",
 		"bizumInfoText": "For this service, the booking is finalized with personal contact. Proceed on WhatsApp to arrange your appointment and payment directly with Maria.",
 		"bizumProceedButton": "Proceed on WhatsApp"
     },
@@ -566,7 +566,7 @@ const languages = {
         "reviewFormNotes": "Nota: Las reseñas enviadas a través de este formulario serán moderadas antes de su publicación. ¡Gracias por compartir!",
 		"bookingForText": "Estás reservando:",
 		"bizumCTAButton": "Enviar Confirmación por WhatsApp",
-		"whatsappMessage": "Hola Maria, acabo de registrar un pago con Bizum para el servicio '[NOMBRE_DEL_SERVICIO]'. Me gustaría finalizar la reserva. ¡Gracias!",
+		"whatsappMessage": "Hola Maria, te contacto desde tu web. Me gustaría comprar el servicio '[NOMBRE_DEL_SERVICIO]' y pagar con Bizum. Quedo a la espera de instrucciones. ¡Gracias!",
 		"bizumInfoText": "Para este servicio, la reserva se finaliza con un contacto personal. Procede en WhatsApp para definir tu cita y el pago directamente con Maria.",
 		"bizumProceedButton": "Proceder en WhatsApp"
 		
@@ -1223,7 +1223,22 @@ function handleBizumPurchase(options) {
     // --- 1. Raccogli i dati necessari ---
     const priceText = modal.querySelector('.current-price').textContent.replace('€', '').replace(',', '.');
     const finalPrice = parseFloat(priceText);
-    const serviceName = modal.querySelector('#modal-booking-info strong')?.textContent || options.productCode;
+    
+	let serviceName;
+	if (modal.id === 'individual-booking-modal') {
+		// Per il modale individuale, leggiamo il nome già presente
+		serviceName = modal.querySelector('#modal-booking-info strong')?.textContent;
+	} else {
+		// Per il modale di gruppo, troviamo la "card" originale sulla pagina usando il productCode
+		const planCard = document.querySelector(`.plan[data-product-code="${options.productCode}"]`);
+		if (planCard) {
+			serviceName = planCard.querySelector('h3')?.textContent;
+		}
+	}
+	// Se per qualche motivo il nome non viene trovato, usa il productCode come ultima risorsa
+	serviceName = serviceName || options.productCode;
+	
+	
 
     const currentLang = localStorage.getItem('preferredLanguage') || 'it';
     const t = languages[currentLang] || languages['it'];
