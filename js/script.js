@@ -194,7 +194,9 @@ const languages = {
         "reviewLabelMessage": "La tua recensione:",
         "reviewSubmitButton": "Invia Recensione",
         "reviewFormNotes": "Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per la tua condivisione!",
-		"bookingForText": "Stai prenotando:"
+		"bookingForText": "Stai prenotando:",
+		"bizumCTAButton": "Invia Conferma via WhatsApp",
+		"whatsappMessage": "Ciao Maria, ho appena registrato un pagamento Bizum per il servizio '[SERVICE_NAME]'. Vorrei finalizzare la prenotazione. Grazie!"
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -375,7 +377,9 @@ const languages = {
         "reviewLabelMessage": "Your review:",
         "reviewSubmitButton": "Send Review",
         "reviewFormNotes": "Note: Reviews submitted via this form will be moderated before publication. Thank you for sharing!",
-		"bookingForText": "You are booking:"
+		"bookingForText": "You are booking:",
+		"bizumCTAButton": "Send Confirmation via WhatsApp",
+		"whatsappMessage": "Hi Maria, I have just registered a Bizum payment for the '[SERVICE_NAME]' service. I'd like to finalize the booking. Thanks!"
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -556,7 +560,9 @@ const languages = {
         "reviewLabelMessage": "Tu reseña:",
         "reviewSubmitButton": "Enviar Reseña",
         "reviewFormNotes": "Nota: Las reseñas enviadas a través de este formulario serán moderadas antes de su publicación. ¡Gracias por compartir!",
-		"bookingForText": "Estás reservando:"
+		"bookingForText": "Estás reservando:",
+		"bizumCTAButton": "Enviar Confirmación por WhatsApp",
+		"whatsappMessage": "Hola Maria, acabo de registrar un pago con Bizum para el servicio '[NOMBRE_DEL_SERVICIO]'. Me gustaría finalizar la reserva. ¡Gracias!"
     }
 };
 
@@ -1185,6 +1191,93 @@ function renderPayPalButton(orderID, containerId, lessonId) {
     }
 }
 
+
+
+
+
+
+
+////////////////////////////////funzione bizum///////////////////////////
+
+
+// NUOVA FUNZIONE PER GESTIRE BIZUM CON CONFERMA WHATSAPP
+// Funzione per gestire il pagamento manuale con Bizum e la conferma via WhatsApp
+function handleBizumPurchase(options) {
+    if (!currentUser) {
+        alert("Devi effettuare il login per procedere.");
+        openModal('login-modal');
+        return;
+    }
+
+    const modal = document.querySelector('.auth-modal[style*="display: flex"]');
+    const paymentContainer = modal.querySelector('.payment-options-container');
+    if (!paymentContainer) return;
+
+    // --- 1. Raccogli i dati necessari ---
+    const priceText = modal.querySelector('.current-price').textContent.replace('€', '').replace(',', '.');
+    const finalPrice = parseFloat(priceText);
+    const serviceName = modal.querySelector('#modal-booking-info strong')?.textContent || options.productCode;
+
+    const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+    const t = languages[currentLang] || languages['it'];
+
+    // --- 2. Prepara il messaggio e il link WhatsApp ---
+    let whatsappText = t.whatsappMessage || "Ciao Maria, ho registrato un pagamento per [SERVICE_NAME]";
+    
+    // Sostituisce il segnaposto con il nome del servizio corretto
+    const placeholder = currentLang === 'es' ? '[NOMBRE_DEL_SERVICIO]' : '[SERVICE_NAME]';
+    whatsappText = whatsappText.replace(placeholder, serviceName);
+    
+    const whatsappUrl = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(whatsappText)}`;
+
+    // --- 3. Aggiorna l'interfaccia del modale con il pulsante WhatsApp ---
+    paymentContainer.innerHTML = `
+        <h4 style="text-align:center; margin-top:0;">${t.bizumInstructionsTitle}</h4>
+        <p style="font-size: 0.9em; text-align:center;">${t.bizumInstructionsText}</p>
+        <a href="${whatsappUrl}" target="_blank" id="whatsapp-confirm-button" class="cta-button" style="width:100%; margin-top:10px; text-align:center; display:block;">
+            ${t.bizumCTAButton}
+        </a>
+    `;
+
+    // --- 4. Aggiungi l'azione di salvataggio al click del pulsante WhatsApp ---
+    document.getElementById('whatsapp-confirm-button').addEventListener('click', async () => {
+        const button = document.getElementById('whatsapp-confirm-button');
+        button.textContent = t.bizumProcessing;
+
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) throw new Error("Sessione utente non trovata.");
+
+            // Chiama la funzione backend per registrare il pagamento come "pending"
+            fetch('/.netlify/functions/record-manual-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${session.access_token}`
+                },
+                body: JSON.stringify({
+                    productCode: options.productCode,
+                    amount: finalPrice,
+                    currency: 'EUR',
+                    paymentProvider: 'bizum'
+                })
+            });
+
+            // Chiudi il modale dopo un breve ritardo per dare tempo a WhatsApp di aprirsi
+            setTimeout(() => {
+                closeModal('individual-booking-modal');
+                closeModal('group-booking-modal');
+            }, 1000);
+
+        } catch (error) {
+            alert(`Si è verificato un errore: ${error.message}`);
+            button.textContent = t.bizumCTAButton; // Ripristina il testo del bottone in caso di errore
+        }
+    });
+}
+
+///////////////////////////////fine funzione Bizum///////////////////////////
+
 // -----------------------------------------------------------
 //               LISTENER PRINCIPALE E INIZIALIZZAZIONE
 // -----------------------------------------------------------
@@ -1590,12 +1683,16 @@ function populatePaymentButtons(productCode, containerId = 'modal-payment-option
             }
             
             if (method === 'paypal') {
-                if (typeof handlePayPalPurchase === 'function') {
-                    handlePayPalPurchase(options);
-                }
-            } else {
-                alert(`Il pagamento con ${buttons[method].text} non è ancora disponibile.`);
-            }
+				if (typeof handlePayPalPurchase === 'function') {
+					handlePayPalPurchase(options);
+				}
+			} else if (method === 'bizum') {
+				if (typeof handleBizumPurchase === 'function') {
+					handleBizumPurchase(options);
+				}
+			} else {
+				alert(`Il pagamento con ${buttons[method].text} non è ancora disponibile.`);
+			}
         });
     });
 }
