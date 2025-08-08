@@ -196,7 +196,9 @@ const languages = {
         "reviewFormNotes": "Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per la tua condivisione!",
 		"bookingForText": "Stai prenotando:",
 		"bizumCTAButton": "Invia Conferma via WhatsApp",
-		"whatsappMessage": "Ciao Maria, ho appena registrato un pagamento Bizum per il servizio '[SERVICE_NAME]'. Vorrei finalizzare la prenotazione. Grazie!"
+		"whatsappMessage": "Ciao Maria, ho appena registrato un pagamento Bizum per il servizio '[SERVICE_NAME]'. Vorrei finalizzare la prenotazione. Grazie!",
+		"bizumInfoText": "Per questo servizio, la prenotazione si finalizza con un contatto personale. Procedi su WhatsApp per definire l'appuntamento e il pagamento direttamente con Maria.",
+		"bizumProceedButton": "Procedi su WhatsApp"
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -379,7 +381,9 @@ const languages = {
         "reviewFormNotes": "Note: Reviews submitted via this form will be moderated before publication. Thank you for sharing!",
 		"bookingForText": "You are booking:",
 		"bizumCTAButton": "Send Confirmation via WhatsApp",
-		"whatsappMessage": "Hi Maria, I have just registered a Bizum payment for the '[SERVICE_NAME]' service. I'd like to finalize the booking. Thanks!"
+		"whatsappMessage": "Hi Maria, I have just registered a Bizum payment for the '[SERVICE_NAME]' service. I'd like to finalize the booking. Thanks!",
+		"bizumInfoText": "For this service, the booking is finalized with personal contact. Proceed on WhatsApp to arrange your appointment and payment directly with Maria.",
+		"bizumProceedButton": "Proceed on WhatsApp"
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -562,7 +566,10 @@ const languages = {
         "reviewFormNotes": "Nota: Las reseñas enviadas a través de este formulario serán moderadas antes de su publicación. ¡Gracias por compartir!",
 		"bookingForText": "Estás reservando:",
 		"bizumCTAButton": "Enviar Confirmación por WhatsApp",
-		"whatsappMessage": "Hola Maria, acabo de registrar un pago con Bizum para el servicio '[NOMBRE_DEL_SERVICIO]'. Me gustaría finalizar la reserva. ¡Gracias!"
+		"whatsappMessage": "Hola Maria, acabo de registrar un pago con Bizum para el servicio '[NOMBRE_DEL_SERVICIO]'. Me gustaría finalizar la reserva. ¡Gracias!",
+		"bizumInfoText": "Para este servicio, la reserva se finaliza con un contacto personal. Procede en WhatsApp para definir tu cita y el pago directamente con Maria.",
+		"bizumProceedButton": "Proceder en WhatsApp"
+		
     }
 };
 
@@ -1201,7 +1208,7 @@ function renderPayPalButton(orderID, containerId, lessonId) {
 
 
 // NUOVA FUNZIONE PER GESTIRE BIZUM CON CONFERMA WHATSAPP
-// Funzione per gestire il pagamento manuale con Bizum e la conferma via WhatsApp
+// Funzione per Bizum che reindirizza a WhatsApp per finalizzare
 function handleBizumPurchase(options) {
     if (!currentUser) {
         alert("Devi effettuare il login per procedere.");
@@ -1222,31 +1229,24 @@ function handleBizumPurchase(options) {
     const t = languages[currentLang] || languages['it'];
 
     // --- 2. Prepara il messaggio e il link WhatsApp ---
-    let whatsappText = t.whatsappMessage || "Ciao Maria, ho registrato un pagamento per [SERVICE_NAME]";
-    
-    // Sostituisce il segnaposto con il nome del servizio corretto
+    let whatsappText = t.whatsappMessage || "Ciao Maria, ho prenotato il servizio [SERVICE_NAME]";
     const placeholder = currentLang === 'es' ? '[NOMBRE_DEL_SERVICIO]' : '[SERVICE_NAME]';
     whatsappText = whatsappText.replace(placeholder, serviceName);
-    
     const whatsappUrl = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(whatsappText)}`;
 
-    // --- 3. Aggiorna l'interfaccia del modale con il pulsante WhatsApp ---
+    // --- 3. Aggiorna l'interfaccia del modale con il nuovo testo e pulsante ---
     paymentContainer.innerHTML = `
-        <h4 style="text-align:center; margin-top:0;">${t.bizumInstructionsTitle}</h4>
-        <p style="font-size: 0.9em; text-align:center;">${t.bizumInstructionsText}</p>
-        <a href="${whatsappUrl}" target="_blank" id="whatsapp-confirm-button" class="cta-button" style="width:100%; margin-top:10px; text-align:center; display:block;">
-            ${t.bizumCTAButton}
+        <p style="font-size: 0.95em; text-align:center; padding: 10px 0;">${t.bizumInfoText}</p>
+        <a href="${whatsappUrl}" target="_blank" id="whatsapp-confirm-button" class="cta-button" style="width:100%; margin-top:15px; text-align:center; display:block;">
+            ${t.bizumProceedButton}
         </a>
     `;
 
-    // --- 4. Aggiungi l'azione di salvataggio al click del pulsante WhatsApp ---
+    // --- 4. Aggiungi l'azione di salvataggio al click ---
     document.getElementById('whatsapp-confirm-button').addEventListener('click', async () => {
-        const button = document.getElementById('whatsapp-confirm-button');
-        button.textContent = t.bizumProcessing;
-
         try {
             const { data: { session } } = await supabase.auth.getSession();
-            if (!session) throw new Error("Sessione utente non trovata.");
+            if (!session) return; // Non bloccare l'utente se la sessione non è pronta
 
             // Chiama la funzione backend per registrare il pagamento come "pending"
             fetch('/.netlify/functions/record-manual-payment', {
@@ -1270,8 +1270,8 @@ function handleBizumPurchase(options) {
             }, 1000);
 
         } catch (error) {
-            alert(`Si è verificato un errore: ${error.message}`);
-            button.textContent = t.bizumCTAButton; // Ripristina il testo del bottone in caso di errore
+            console.error("Errore durante la registrazione del pagamento Bizum:", error);
+            // Non mostriamo un alert all'utente per non interrompere il reindirizzamento a WhatsApp
         }
     });
 }
