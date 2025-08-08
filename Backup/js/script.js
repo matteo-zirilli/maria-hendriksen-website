@@ -1,8 +1,6 @@
 // ===========================================================
-//  SCRIPT.JS COMPLETO - Include funzioni per recensioni dinamiche
+//  SCRIPT.JS COMPLETO E CORRETTO - 07/08/2025
 // ===========================================================
-
-// In script.js, AGGIUNGI questo blocco all'inizio del file
 
 const BOOKING_LINKS = {
     yoga_individuale: "https://tidycal.com/guillerminadn/prenotazione-lezione-yoga-individuale",
@@ -16,7 +14,6 @@ const CONTACT_INFO = {
 
 const languages = {
     it: {
-        // --- Stringhe Comuni (Header/Footer) ---
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia e Yoga",
         "navHome": "Homepage",
         "navAbout": "Chi Sono",
@@ -25,24 +22,21 @@ const languages = {
         "navContent": "I Miei Contenuti",
         "navBooking": "Prenota/Contatti",
         "footerText": "&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.",
-
-        // --- index.html ---
         "heroMotto": "Ascolta il tuo corpo.<br>Respira nel presente.<br>Muoviti verso il benessere.",
         "mainSubtitle": "Fisioterapista esperta e Istruttrice di Yoga certificata, dedicata al tuo benessere.",
         "ctaButton": "Scopri di più e Prenota",
-		"signup-button": "Registrati", // Chiave generale per bottoni di registrazione
+        "signup-button": "Registrati",
         "mottoPart1": "Ascolta il tuo corpo.",
         "mottoPart2": "Respira nel presente.",
         "mottoPart3": "Muoviti verso il benessere.",
-		"heroCtaButton": "Scopri i miei servizi",
+        "heroCtaButton": "Scopri i miei servizi",
         "introTitle": "Il mio approccio",
         "introText": "Combino le tecniche della fisioterapia moderna con la saggezza dello yoga per offrire un percorso di recupero e benessere personalizzato. Ogni corpo racconta una storia unica e merita ascolto, cura e rispetto. Attraverso un approccio integrato, aiuto le persone a ritrovare equilibrio, forza e consapevolezza, accompagnandole in un viaggio verso un benessere profondo e duraturo. Credo che la salute non sia solo l’assenza di dolore, ma una condizione di armonia tra corpo, mente e respiro. La mia motivazione nasce dal desiderio autentico di aiutare le persone a sentirsi meglio con sé stesse, a riconnettersi con il proprio corpo e a riscoprire la propria energia vitale.",
-		"approachEyebrow": "Il mio approccio",
-		"approachTitle": "Un Approccio Integrato", 
-        // --- chi-sono.html ---
+        "approachEyebrow": "Il mio approccio",
+        "approachTitle": "Un Approccio Integrato",
         "pageTitleAbout": "Chi Sono - Maria G. Hendriksen",
         "aboutHeading": "Chi Sono",
-		"aboutQualifications": "Le mie qualifiche",
+        "aboutQualifications": "Le mie qualifiche",
         "Qualification1": "Laurea in Kinesiologia e Fisiatria conseguita presso l'Universidad Católica de La Plata, Argentina, con Apostilla de La Haya che ne certifica l'autenticità internazionale.",
         "caption_degree_certificate": "Estratto del Certificato di Laurea",
         "caption_apostille": "Apostilla de La Haya",
@@ -57,8 +51,6 @@ const languages = {
         "value2": "<strong>Approccio Olistico:</strong> Considero la persona nella sua interezza: corpo, mente ed emozioni.",
         "value3": "<strong>Professionalità e Aggiornamento:</strong> Mi impegno in una formazione continua per offrirti le tecniche più efficaci.",
         "value4": "<strong>Empatia e Supporto:</strong> Ti accompagno nel tuo percorso con dedizione e incoraggiamento.",
-
-        // --- servizi.html ---
         "pageTitleServices": "Servizi - Fisioterapia e Yoga - Maria G. Hendriksen",
         "servicesHeading": "I Miei Servizi",
         "servicesIntro": "Ogni percorso, sia esso fisioterapico, yogico o una combinazione dei due, è attentamente personalizzato. Lavoro insieme a te per definire obiettivi realistici e per fornirti gli strumenti e la consapevolezza necessari non solo per raggiungere il benessere, ma anche per mantenerlo nel tempo, prevenendo future problematiche.",
@@ -78,69 +70,66 @@ const languages = {
         "yogaPoint4": "<strong>Yoga Prenatale/Postnatale:</strong> Supporto specifico per le donne durante la gravidanza e nel periodo successivo al parto.",
         "yogaBenefits": "Benefici: Riduzione dello stress, miglioramento della postura, aumento della flessibilità e della forza, maggiore consapevolezza corporea, miglioramento della capacità respiratoria.",
         "servicesContactPrompt": "Per maggiori dettagli sui servizi o per discutere le tue esigenze specifiche, non esitare a <a href=\"prenota.html\">contattarmi</a>.",
-
-        // --- piani.html ---
         "pageTitlePlans": "Piani e Tariffe - Maria G. Hendriksen",
-		"plansHeading": "Piani e Tariffe",
-		"plansIntro": "Scegli il piano più adatto alle tue esigenze. Per soluzioni personalizzate o pacchetti combinati Fisioterapia+Yoga, <a href=\"prenota.html\">contattami</a>.",
-		"plansNote": "Nota: I pagamenti si effettuano preferibilmente al momento della seduta (contanti, Bizum). Per pacchetti o pagamenti anticipati è possibile richiedere bonifico bancario o link per pagamento online.",
-		"planFisioSingleTitle": "Seduta Fisioterapia Singola",
-		"planFisioSingleDesc": "Valutazione e trattamento fisioterapico individuale.",
-		"planFisioSingleFeat1": "Durata: circa 60 minuti",
-		"planFisioSingleFeat2": "Trattamento personalizzato",
-		"planFisioSingleButton": "Prenota Ora",
-		"planFisio5Title": "Ciclo 5 Sedute Fisioterapia",
-		"planFisio5Desc": "Pacchetto conveniente per un percorso riabilitativo completo.",
-		"planFisio5Feat1": "5 sedute individuali (60 min/cad.)",
-		"planFisio5Feat2": "Monitoraggio progressi",
-		"planFisio5Feat3": "Sconto rispetto alla seduta singola",
-		"planFisio5Button": "Prenota Ciclo",
-		"planYogaIndSingleTitle": "Lezione Yoga Individuale",
-		"planYogaIndSingleDesc": "Pratica personalizzata One-to-One.",
-		"planYogaIndSingleFeat1": "Durata: 60 minuti",
-		"planYogaIndSingleFeat2": "Adatta a tutti i livelli",
-		"planYogaIndSingleFeat3": "Focus su obiettivi specifici",
-		"planYogaIndSinglePrice": "€25",
-		"planYogaIndSingleButton": "Prenota Lezione",
-		"planYogaInd5Title": "Pacchetto 5 Lezioni Yoga Individuali",
-		"planYogaInd5Desc": "Percorso continuativo per approfondire la pratica.",
-		"planYogaInd5Feat1": "5 lezioni individuali (60 min/cad.)",
-		"planYogaInd5Feat2": "Flessibilità oraria",
-		"planYogaInd5Feat3": "Sconto sul totale",
-		"planYogaInd5Button": "Acquista Pacchetto",
-		"planYogaGroupSingleTitle": "Lezione Yoga di Gruppo (Drop-in)",
-		"planYogaGroupSingleDesc": "Partecipa a una delle nostre classi di gruppo.",
-		"planYogaGroupSingleFeat1": "Verifica l'orario delle classi",
-		"planYogaGroupSingleFeat2": "Adatta a diversi livelli",
-		"planYogaGroupSinglePrice": "€15 a persona",
-		"planYogaGroupSingleButton": "Prenota Classe",
-		"planYogaGroup10Title": "Pacchetto 10 Lezioni Yoga di Gruppo",
-		"planYogaGroup10Desc": "Frequenta le classi di gruppo con convenienza.",
-		"planYogaGroup10Feat1": "Accesso a 10 lezioni di gruppo",
-		"planYogaGroup10Feat2": "Validità: 3 mesi",
-		"planYogaGroup10Feat3": "Massima convenienza",
-		"planYogaGroup10Button": "Acquista Carnet",
-		"planFisioSinglePriceStudio": "€50 - In Studio",
-		"planFisioSinglePriceHome": "€65 - A Domicilio",
-		"planFisio5CurrentPriceStudio": "€220 - In Studio",
-		"planFisio5OriginalPriceStudio": "Invece di <s>€250</s>",
-		"planFisio5CurrentPriceHome": "€290 - A Domicilio",
-		"planFisio5OriginalPriceHome": "Invece di <s>€325</s>",
-		"planYogaInd5CurrentPrice": "€110",
-		"planYogaInd5OriginalPrice": "Invece di <s>€125</s>",
-		"planYogaGroupFeatMin": "Minimo 4 partecipanti",
-		"planYogaGroup10FeatMin2": "Minimo 4 partecipanti per classe",
-		"planYogaGroup10CurrentPrice": "€320",
-		"planYogaGroup10OriginalPrice": "Invece di <s>€600</s>",
-		"groupBookingTitle": "Prenotazione di Gruppo",
-		"participantsLabel": "Numero Partecipanti:",
-		"pricePerGroupLabel": "per l'intero gruppo",
-		"paymentMethodLabel": "Scegli un metodo di pagamento:",
-		"locationStudio": "In Studio",
-		"locationHome": "A Domicilio",
-		"insteadOf": "Invece di",
-
-        // --- prenota.html ---
+        "plansHeading": "Piani e Tariffe",
+        "plansIntro": "Scegli il piano più adatto alle tue esigenze. Per soluzioni personalizzate o pacchetti combinati Fisioterapia+Yoga, <a href=\"prenota.html\">contattami</a>.",
+        "plansNote": "Nota: I pagamenti si effettuano preferibilmente al momento della seduta (contanti, Bizum). Per pacchetti o pagamenti anticipati è possibile richiedere bonifico bancario o link per pagamento online.",
+        "planFisioSingleTitle": "Seduta Fisioterapia Singola",
+        "planFisioSingleDesc": "Valutazione e trattamento fisioterapico individuale.",
+        "planFisioSingleFeat1": "Durata: circa 60 minuti",
+        "planFisioSingleFeat2": "Trattamento personalizzato",
+        "planFisioSingleButton": "Prenota Ora",
+        "planFisio5Title": "Ciclo 5 Sedute Fisioterapia",
+        "planFisio5Desc": "Pacchetto conveniente per un percorso riabilitativo completo.",
+        "planFisio5Feat1": "5 sedute individuali (60 min/cad.)",
+        "planFisio5Feat2": "Monitoraggio progressi",
+        "planFisio5Feat3": "Sconto rispetto alla seduta singola",
+        "planFisio5Button": "Prenota Ciclo",
+        "planYogaIndSingleTitle": "Lezione Yoga Individuale",
+        "planYogaIndSingleDesc": "Pratica personalizzata One-to-One.",
+        "planYogaIndSingleFeat1": "Durata: 60 minuti",
+        "planYogaIndSingleFeat2": "Adatta a tutti i livelli",
+        "planYogaIndSingleFeat3": "Focus su obiettivi specifici",
+        "planYogaIndSinglePrice": "€25",
+        "planYogaIndSingleButton": "Prenota Lezione",
+        "planYogaInd5Title": "Pacchetto 5 Lezioni Yoga Individuali",
+        "planYogaInd5Desc": "Percorso continuativo per approfondire la pratica.",
+        "planYogaInd5Feat1": "5 lezioni individuali (60 min/cad.)",
+        "planYogaInd5Feat2": "Sconto sul totale",
+        "planYogaInd5Button": "Acquista Pacchetto",
+        "planYogaGroupSingleTitle": "Lezione Yoga di Gruppo (Drop-in)",
+        "planYogaGroupSingleDesc": "Partecipa a una delle nostre classi di gruppo.",
+        "planYogaGroupSingleFeat1": "Verifica l'orario delle classi",
+        "planYogaGroupSingleFeat2": "Adatta a diversi livelli",
+        "planYogaGroupSinglePrice": "€15 a persona",
+        "planYogaGroupSingleButton": "Prenota Classe",
+        "planYogaGroup10Title": "Pacchetto 10 Lezioni Yoga di Gruppo",
+        "planYogaGroup10Desc": "Frequenta le classi di gruppo con convenienza.",
+        "planYogaGroup10Feat1": "Accesso a 10 lezioni di gruppo",
+        "planYogaGroup10Feat2": "Validità: 3 mesi",
+        "planYogaGroup10Feat3": "Massima convenienza",
+        "planYogaGroup10Button": "Acquista Carnet",
+        "planFisioSinglePriceStudio": "€50 - In Studio",
+        "planFisioSinglePriceHome": "€65 - A Domicilio",
+        "planFisio5CurrentPriceStudio": "€220 - In Studio",
+        "planFisio5OriginalPriceStudio": "Invece di <s>€250</s>",
+        "planFisio5CurrentPriceHome": "€290 - A Domicilio",
+        "planFisio5OriginalPriceHome": "Invece di <s>€325</s>",
+        "planYogaInd5CurrentPrice": "€110",
+        "planYogaInd5OriginalPrice": "Invece di <s>€125</s>",
+        "planYogaGroupFeatMin": "Minimo 4 partecipanti",
+        "planYogaGroup10FeatMin2": "Minimo 4 partecipanti per classe",
+        "planYogaGroup10CurrentPrice": "€320",
+        "planYogaGroup10OriginalPrice": "Invece di <s>€600</s>",
+        "groupBookingTitle": "Prenotazione di Gruppo",
+        "participantsLabel": "Numero Partecipanti:",
+        "pricePerGroupLabel": "per l'intero gruppo",
+        "paymentMethodLabel": "Scegli un metodo di pagamento:",
+        "locationStudio": "In Studio",
+        "locationHome": "A Domicilio",
+        "insteadOf": "Invece di",
+        "individualBookingTitle": "Dettagli Prenotazione",
+        "bookingFor": "Stai prenotando: <strong id=\"modal-individual-service-name-value\"></strong>",
         "pageTitleBooking": "Prenota / Contatti - Maria G. Hendriksen",
         "bookingTitleWidget": "Prenota Incontro Conoscitivo Online",
         "bookingInstructionsWidget": "Utilizza il calendario qui sotto per scegliere un orario disponibile per un incontro conoscitivo gratuito (30 min).",
@@ -166,27 +155,24 @@ const languages = {
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
         "contactPhone": "Telefono: <a href=\"tel:+393299460634\">+39 3299460634</a>",
         "contactAddress": "Indirizzo Studio: Palma de Maiorca (contattami per dettagli)",
-		
-		"contactLabelWhatsapp": "WhatsApp",
-		"contactLabelEmail": "Email",
-		"contactLabelPhone": "Telefono",
-		"contactLabelInstagram": "Instagram",
-
-        // --- contenuti.html ---
+        "contactLabelWhatsapp": "WhatsApp",
+        "contactLabelEmail": "Email",
+        "contactLabelPhone": "Telefono",
+        "contactLabelInstagram": "Instagram",
         "pageTitleContent": "I Miei Contenuti - Maria Guillermina Hendriksen",
         "contentHeading": "I Miei Contenuti",
         "contentIntro": "Esplora risorse, video e articoli dedicati allo Yoga e alla Fisioterapia per approfondire la tua pratica e il tuo percorso di benessere.",
         "contentYogaTitle": "Contenuti Yoga",
         "contentYogaDesc": "Video di lezioni, sequenze specifiche, tecniche di respirazione e meditazione guidata per arricchire la tua pratica yoga a casa.",
-		"purchasable-lessons-section1": "Video Lezioni Acquistabili",
-		"ratingOptionDefault": "-- Seleziona Valutazione --",
+        "purchasable-lessons-section1": "Video Lezioni Acquistabili",
+        "ratingOptionDefault": "-- Seleziona Valutazione --",
         "ratingOption5": "★★★★★ (Eccellente)",
         "ratingOption4": "★★★★☆ (Molto Buono)",
         "ratingOption3": "★★★☆☆ (Buono)",
         "ratingOption2": "★★☆☆☆ (Sufficiente)",
         "ratingOption1": "★☆☆☆☆ (Insufficiente)",
-		"dynamic_login_prompt": 'Effettua il <a href="#" onclick="openModal(\'login-modal\'); return false;">login</a> o <a href="#" onclick="openModal(\'signup-modal\'); return false;">registrati</a> per vedere i contenuti disponibili e le opzioni di acquisto.',
-		"purchasable-lessons-paragraph": "Accedi a lezioni complete e approfondimenti esclusivi acquistando l'accesso qui sotto.",
+        "dynamic_login_prompt": "Effettua il <a href=\"#\" onclick=\"openModal('login-modal'); return false;\">login</a> o <a href=\"#\" onclick=\"openModal('signup-modal'); return false;\">registrati</a> per vedere i contenuti disponibili e le opzioni di acquisto.",
+        "purchasable-lessons-paragraph": "Accedi a lezioni complete e approfondimenti esclusivi acquistando l'accesso qui sotto.",
         "yogaVideo1Title": "Titolo Contenuto Yoga 1 (es. Sequenza Mattutina Energizzante)",
         "yogaVideo1Desc": "Breve descrizione del contenuto del video o dell'articolo. Invita a cliccare per vedere di più.",
         "yogaVideo2Title": "Titolo Contenuto Yoga 2 (es. Meditazione Guidata per il Rilassamento)",
@@ -207,10 +193,14 @@ const languages = {
         "reviewLabelRating": "Valutazione (da 1 a 5 stelle):",
         "reviewLabelMessage": "La tua recensione:",
         "reviewSubmitButton": "Invia Recensione",
-        "reviewFormNotes": "Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per la tua condivisione!"
+        "reviewFormNotes": "Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per la tua condivisione!",
+		"bookingForText": "Stai prenotando:",
+		"bizumCTAButton": "Invia Conferma via WhatsApp",
+		"whatsappMessage": "Ciao Maria, ti contatto dal tuo sito. Vorrei acquistare il servizio '[SERVICE_NAME]' e pagare con Bizum. Resto in attesa di istruzioni. Grazie!",
+		"bizumInfoText": "Per questo servizio, la prenotazione si finalizza con un contatto personale. Procedi su WhatsApp per definire l'appuntamento e il pagamento direttamente con Maria.",
+		"bizumProceedButton": "Procedi su WhatsApp"
     },
     en: {
-        // --- Common Strings (Header/Footer) ---
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
         "navHome": "Homepage",
         "navAbout": "About Me",
@@ -219,24 +209,21 @@ const languages = {
         "navContent": "My Content",
         "navBooking": "Booking/Contact",
         "footerText": "&copy; 2025 Maria Guillermina Hendriksen. All rights reserved.",
-
-        // --- index.html ---
         "heroMotto": "Listen to your body.<br>Breathe into the present.<br>Move towards well-being.",
         "mainSubtitle": "Experienced Physiotherapist and Certified Yoga Instructor, dedicated to your well-being.",
         "ctaButton": "Learn More and Book",
-		"signup-button": "Sign Up",
+        "signup-button": "Sign Up",
         "mottoPart1": "Listen to your body.",
         "mottoPart2": "Breathe into the present.",
         "mottoPart3": "Move towards well-being.",
-		"heroCtaButton": "Discover my services",
+        "heroCtaButton": "Discover my services",
         "introTitle": "My Approach",
         "introText": "I combine modern physiotherapy techniques with the wisdom of yoga to offer a personalized path to recovery and well-being. Every body tells a unique story and deserves to be heard, cared for, and respected. Through an integrated approach, I help people restore balance, strength, and awareness, guiding them on a journey toward deep and lasting wellness. I believe that health is not just the absence of pain, but a state of harmony between body, mind, and breath. My motivation comes from a genuine desire to help people feel better within themselves, reconnect with their bodies, and rediscover their vital energy.",
-		"approachEyebrow": "My approach",
-		"approachTitle": "An Integrated Approach", 
-        // --- chi-sono.html ---
+        "approachEyebrow": "My approach",
+        "approachTitle": "An Integrated Approach",
         "pageTitleAbout": "About Me - Maria G. Hendriksen",
         "aboutHeading": "About Me",
-		"aboutQualifications": "My Qualifications",
+        "aboutQualifications": "My Qualifications",
         "Qualification1": "Degree in Kinesiology and Physiatry obtained from the Universidad Católica de La Plata, Argentina, with Hague Apostille certifying its international authenticity.",
         "caption_degree_certificate": "Excerpt from Degree Certificate",
         "caption_apostille": "Haya Apostille",
@@ -251,8 +238,6 @@ const languages = {
         "value2": "<strong>Holistic Approach:</strong> I consider the person in their entirety: body, mind, and emotions.",
         "value3": "<strong>Professionalism and Continuous Learning:</strong> I am committed to ongoing training to offer you the most effective techniques.",
         "value4": "<strong>Empathy and Support:</strong> I accompany you on your journey with dedication and encouragement.",
-
-        // --- servizi.html ---
         "pageTitleServices": "Services - Physiotherapy and Yoga - Maria G. Hendriksen",
         "servicesHeading": "My Services",
         "servicesIntro": "Every path, whether it be physiotherapy, yoga, or a combination of both, is carefully personalized. I work together with you to define realistic goals and provide you with the tools and awareness necessary not only to achieve well-being but also to maintain it over time, preventing future issues.",
@@ -272,67 +257,64 @@ const languages = {
         "yogaPoint4": "<strong>Prenatal/Postnatal Yoga:</strong> Specific support for women during pregnancy and the postpartum period.",
         "yogaBenefits": "Benefits: Stress reduction, improved posture, increased flexibility and strength, greater body awareness, improved breathing capacity.",
         "servicesContactPrompt": "For more details on the services or to discuss your specific needs, please do not hesitate to <a href=\"prenota.html\">contact me</a>.",
-
-        // --- piani.html ---
-        
-		"pageTitlePlans": "Plans and Rates - Maria G. Hendriksen",
-		"plansHeading": "Plans and Rates",
-		"plansIntro": "Choose the plan that best suits your needs. For customized solutions or combined Physiotherapy+Yoga packages, <a href=\"prenota.html\">contact me</a>.",
-		"plansNote": "Note: Payments are preferably made at the time of the session (cash, Bizum). For packages or advance payments, bank transfer or an online payment link can be requested.",
-		"planFisioSingleTitle": "Single Physiotherapy Session",
-		"planFisioSingleDesc": "Individual physiotherapy assessment and treatment.",
-		"planFisioSingleFeat1": "Duration: approx. 60 minutes",
-		"planFisioSingleFeat2": "Personalized treatment",
-		"planFisioSingleButton": "Book Now",
-		"planFisio5Title": "5 Physiotherapy Sessions Cycle",
-		"planFisio5Desc": "Convenient package for a complete rehabilitation path.",
-		"planFisio5Feat1": "5 individual sessions (60 min/each)",
-		"planFisio5Feat2": "Progress monitoring",
-		"planFisio5Feat3": "Discount compared to single session",
-		"planFisio5Button": "Book Cycle",
-		"planYogaIndSingleTitle": "Individual Yoga Lesson",
-		"planYogaIndSingleDesc": "Personalized One-to-One practice.",
-		"planYogaIndSingleFeat1": "Duration: 60 minutes",
-		"planYogaIndSingleFeat2": "Suitable for all levels",
-		"planYogaIndSingleFeat3": "Focus on specific goals",
-		"planYogaIndSinglePrice": "€25",
-		"planYogaIndSingleButton": "Book Lesson",
-		"planYogaInd5Title": "Package of 5 Individual Yoga Lessons",
-		"planYogaInd5Desc": "Continuous path to deepen the practice.",
-		"planYogaInd5Button": "Purchase Package",
-		"planYogaGroupSingleTitle": "Group Yoga Lesson (Drop-in)",
-		"planYogaGroupSingleDesc": "Join one of our group classes.",
-		"planYogaGroupSingleFeat1": "Check class schedule",
-		"planYogaGroupSingleFeat2": "Suitable for different levels",
-		"planYogaGroupSinglePrice": "€15 per person",
-		"planYogaGroupSingleButton": "Book Class",
-		"planYogaGroup10Title": "Package of 10 Group Yoga Lessons",
-		"planYogaGroup10Desc": "Attend group classes conveniently.",
-		"planYogaGroup10Feat1": "Access to 10 group lessons",
-		"planYogaGroup10Feat2": "Validity: 3 months",
-		"planYogaGroup10Feat3": "Maximum convenience",
-		"planYogaGroup10Button": "Purchase Card",
-		"planFisioSinglePriceStudio": "€50 - At the Studio",
-		"planFisioSinglePriceHome": "€65 - At your Home",
-		"planFisio5CurrentPriceStudio": "€220 - At the Studio",
-		"planFisio5OriginalPriceStudio": "Instead of <s>€250</s>",
-		"planFisio5CurrentPriceHome": "€290 - At your Home",
-		"planFisio5OriginalPriceHome": "Instead of <s>€325</s>",
-		"planYogaInd5CurrentPrice": "€110",
-		"planYogaInd5OriginalPrice": "Instead of <s>€125</s>",
-		"planYogaGroupFeatMin": "Minimum 4 participants",
-		"planYogaGroup10FeatMin2": "Minimum 4 participants per class",
-		"planYogaGroup10CurrentPrice": "€320",
-		"planYogaGroup10OriginalPrice": "Instead of <s>€600</s>",
-		"groupBookingTitle": "Group Booking",
-		"participantsLabel": "Number of Participants:",
-		"pricePerGroupLabel": "for the entire group",
-		"paymentMethodLabel": "Choose a payment method:",
-		"locationStudio": "At the Studio",
-		"locationHome": "At your Home",
-		"insteadOf": "Instead of",
-
-        // --- prenota.html ---
+        "pageTitlePlans": "Plans and Rates - Maria G. Hendriksen",
+        "plansHeading": "Plans and Rates",
+        "plansIntro": "Choose the plan that best suits your needs. For customized solutions or combined Physiotherapy+Yoga packages, <a href=\"prenota.html\">contact me</a>.",
+        "plansNote": "Note: Payments are preferably made at the time of the session (cash, Bizum). For packages or advance payments, bank transfer or an online payment link can be requested.",
+        "planFisioSingleTitle": "Single Physiotherapy Session",
+        "planFisioSingleDesc": "Individual physiotherapy assessment and treatment.",
+        "planFisioSingleFeat1": "Duration: approx. 60 minutes",
+        "planFisioSingleFeat2": "Personalized treatment",
+        "planFisioSingleButton": "Book Now",
+        "planFisio5Title": "5 Physiotherapy Sessions Cycle",
+        "planFisio5Desc": "Convenient package for a complete rehabilitation path.",
+        "planFisio5Feat1": "5 individual sessions (60 min/each)",
+        "planFisio5Feat2": "Progress monitoring",
+        "planFisio5Feat3": "Discount compared to single session",
+        "planFisio5Button": "Book Cycle",
+        "planYogaIndSingleTitle": "Individual Yoga Lesson",
+        "planYogaIndSingleDesc": "Personalized One-to-One practice.",
+        "planYogaIndSingleFeat1": "Duration: 60 minutes",
+        "planYogaIndSingleFeat2": "Suitable for all levels",
+        "planYogaIndSingleFeat3": "Focus on specific goals",
+        "planYogaIndSinglePrice": "€25",
+        "planYogaIndSingleButton": "Book Lesson",
+        "planYogaInd5Title": "Package of 5 Individual Yoga Lessons",
+        "planYogaInd5Desc": "Continuous path to deepen the practice.",
+        "planYogaInd5Button": "Purchase Package",
+        "planYogaGroupSingleTitle": "Group Yoga Lesson (Drop-in)",
+        "planYogaGroupSingleDesc": "Join one of our group classes.",
+        "planYogaGroupSingleFeat1": "Check class schedule",
+        "planYogaGroupSingleFeat2": "Suitable for different levels",
+        "planYogaGroupSinglePrice": "€15 per person",
+        "planYogaGroupSingleButton": "Book Class",
+        "planYogaGroup10Title": "Package of 10 Group Yoga Lessons",
+        "planYogaGroup10Desc": "Attend group classes conveniently.",
+        "planYogaGroup10Feat1": "Access to 10 group lessons",
+        "planYogaGroup10Feat2": "Validity: 3 months",
+        "planYogaGroup10Feat3": "Maximum convenience",
+        "planYogaGroup10Button": "Purchase Card",
+        "planFisioSinglePriceStudio": "€50 - At the Studio",
+        "planFisioSinglePriceHome": "€65 - At your Home",
+        "planFisio5CurrentPriceStudio": "€220 - At the Studio",
+        "planFisio5OriginalPriceStudio": "Instead of <s>€250</s>",
+        "planFisio5CurrentPriceHome": "€290 - At your Home",
+        "planFisio5OriginalPriceHome": "Instead of <s>€325</s>",
+        "planYogaInd5CurrentPrice": "€110",
+        "planYogaInd5OriginalPrice": "Instead of <s>€125</s>",
+        "planYogaGroupFeatMin": "Minimum 4 participants",
+        "planYogaGroup10FeatMin2": "Minimum 4 participants per class",
+        "planYogaGroup10CurrentPrice": "€320",
+        "planYogaGroup10OriginalPrice": "Instead of <s>€600</s>",
+        "groupBookingTitle": "Group Booking",
+        "participantsLabel": "Number of Participants:",
+        "pricePerGroupLabel": "for the entire group",
+        "paymentMethodLabel": "Choose a payment method:",
+        "locationStudio": "At the Studio",
+        "locationHome": "At your Home",
+        "insteadOf": "Instead of",
+        "individualBookingTitle": "Booking Details",
+        "bookingFor": "You are booking: <strong id=\"modal-individual-service-name-value\"></strong>",
         "pageTitleBooking": "Booking / Contact - Maria G. Hendriksen",
         "bookingTitleWidget": "Book Online Discovery Call",
         "bookingInstructionsWidget": "Use the calendar below to choose an available time for a free discovery call (30 min).",
@@ -358,27 +340,24 @@ const languages = {
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
         "contactPhone": "Phone: <a href=\"tel:+393299460634\">+39 3299460634</a>",
         "contactAddress": "Studio Address: Palma de Mallorca (contact me for details)",
-		
-		"contactLabelWhatsapp": "WhatsApp",
-		"contactLabelEmail": "Email",
-		"contactLabelPhone": "Phone", // <-- Tradotto
-		"contactLabelInstagram": "Instagram",
-
-        // --- contenuti.html ---
+        "contactLabelWhatsapp": "WhatsApp",
+        "contactLabelEmail": "Email",
+        "contactLabelPhone": "Phone",
+        "contactLabelInstagram": "Instagram",
         "pageTitleContent": "My Content - Maria Guillermina Hendriksen",
         "contentHeading": "My Content",
         "contentIntro": "Explore resources, videos, and articles dedicated to Yoga and Physiotherapy to deepen your practice and wellness journey.",
         "contentYogaTitle": "Yoga Content",
-		"ratingOptionDefault": "-- Select Rating --",
+        "ratingOptionDefault": "-- Select Rating --",
         "ratingOption5": "★★★★★ (Excellent)",
         "ratingOption4": "★★★★☆ (Very Good)",
         "ratingOption3": "★★★☆☆ (Good)",
         "ratingOption2": "★★☆☆☆ (Fair)",
         "ratingOption1": "★☆☆☆☆ (Poor)",
         "contentYogaDesc": "Lesson videos, specific sequences, breathing techniques, and guided meditations to enrich your home yoga practice.",
-		"purchasable-lessons-section1": "Purchasable Video Lessons",
-		"dynamic_login_prompt": 'Please <a href="#" onclick="openModal(\'login-modal\'); return false;">log in</a> or <a href="#" onclick="openModal(\'signup-modal\'); return false;">sign up</a> to see available content and purchase options.',
-		"purchasable-lessons-paragraph": "Access full lessons and exclusive insights by purchasing access below.",
+        "purchasable-lessons-section1": "Purchasable Video Lessons",
+        "dynamic_login_prompt": "Please <a href=\"#\" onclick=\"openModal('login-modal'); return false;\">log in</a> or <a href=\"#\" onclick=\"openModal('signup-modal'); return false;\">sign up</a> to see available content and purchase options.",
+        "purchasable-lessons-paragraph": "Access full lessons and exclusive insights by purchasing access below.",
         "yogaVideo1Title": "Yoga Content Title 1 (e.g., Energizing Morning Sequence)",
         "yogaVideo1Desc": "Brief description of the video or article content. Invites clicking to see more.",
         "yogaVideo2Title": "Yoga Content Title 2 (e.g., Guided Meditation for Relaxation)",
@@ -399,10 +378,14 @@ const languages = {
         "reviewLabelRating": "Rating (1 to 5 stars):",
         "reviewLabelMessage": "Your review:",
         "reviewSubmitButton": "Send Review",
-        "reviewFormNotes": "Note: Reviews submitted via this form will be moderated before publication. Thank you for sharing!"
+        "reviewFormNotes": "Note: Reviews submitted via this form will be moderated before publication. Thank you for sharing!",
+		"bookingForText": "You are booking:",
+		"bizumCTAButton": "Send Confirmation via WhatsApp",
+		"whatsappMessage": "Hi Maria, I'm contacting you from your website. I'd like to purchase the '[SERVICE_NAME]' service and pay with Bizum. I'm awaiting instructions. Thanks!",
+		"bizumInfoText": "For this service, the booking is finalized with personal contact. Proceed on WhatsApp to arrange your appointment and payment directly with Maria.",
+		"bizumProceedButton": "Proceed on WhatsApp"
     },
     es: {
-        // --- Common Strings (Header/Footer) ---
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
         "navHome": "Inicio",
         "navAbout": "Sobre Mí",
@@ -411,24 +394,21 @@ const languages = {
         "navContent": "Mis Contenidos",
         "navBooking": "Reservas/Contacto",
         "footerText": "&copy; 2025 Maria Guillermina Hendriksen. Todos los derechos reservados.",
-
-        // --- index.html ---
         "heroMotto": "Escucha a tu cuerpo.<br>Respira en el presente.<br>Muévete hacia el bienestar.",
         "mainSubtitle": "Fisioterapeuta experta e Instructora de Yoga certificada, dedicada a tu bienestar.",
         "ctaButton": "Descubre Más y Reserva",
-		"signup-button": "Regístrate",
-         "mottoPart1": "Escucha a tu cuerpo.",
+        "signup-button": "Regístrate",
+        "mottoPart1": "Escucha a tu cuerpo.",
         "mottoPart2": "Respira en el presente.",
         "mottoPart3": "Muévete hacia el bienestar.",
-		"heroCtaButton": "Descubre mis servicios",
+        "heroCtaButton": "Descubre mis servicios",
         "introTitle": "Mi Enfoque",
         "introText": "Combino las técnicas de la fisioterapia moderna con la sabiduría del yoga para ofrecer un camino personalizado de recuperación y bienestar. Cada cuerpo cuenta una historia única y merece ser escuchado, cuidado y respetado. A través de un enfoque integral, acompaño a las personas a recuperar el equilibrio, la fuerza y la conciencia, guiándolas hacia un bienestar profundo y duradero. Creo que la salud no es solo la ausencia de dolor, sino un estado de armonía entre el cuerpo, la mente y la respiración. Mi motivación nace del deseo auténtico de ayudar a las personas a sentirse mejor consigo mismas, a reconectar con su cuerpo y a redescubrir su energía vital.",
-		"approachEyebrow": "Mi enfoque",
-		"approachTitle": "Un Enfoque Integrado",
-        // --- chi-sono.html ---
+        "approachEyebrow": "Mi enfoque",
+        "approachTitle": "Un Enfoque Integrado",
         "pageTitleAbout": "Sobre Mí - Maria G. Hendriksen",
         "aboutHeading": "Sobre Mí",
-		"aboutQualifications": "Mis Cualificaciones",
+        "aboutQualifications": "Mis Cualificaciones",
         "Qualification1": "Licenciatura en Kinesiología y Fisiatría obtenida en la Universidad Católica de La Plata, Argentina, con Apostilla de La Haya que certifica su autenticidad internacional.",
         "caption_degree_certificate": "Extracto del Certificado de Grado",
         "caption_apostille": "Apostilla de La Haya",
@@ -443,8 +423,6 @@ const languages = {
         "value2": "<strong>Enfoque Holístico:</strong> Considero a la persona en su totalidad: cuerpo, mente y emociones.",
         "value3": "<strong>Profesionalidad y Actualización:</strong> Me comprometo a una formación continua para ofrecerte las técnicas más eficaces.",
         "value4": "<strong>Empatía y Apoyo:</strong> Te acompaño en tu camino con dedicación y aliento.",
-
-        // --- servizi.html ---
         "pageTitleServices": "Servicios - Fisioterapia y Yoga - Maria G. Hendriksen",
         "servicesHeading": "Mis Servicios",
         "servicesIntro": "Cada camino, ya sea fisioterapéutico, yóguico o una combinación de ambos, es cuidadosamente personalizado. Trabajo contigo para definir objetivos realistas y proporcionarte las herramientas y la conciencia necesarias no solo para alcanzar el bienestar, sino también para mantenerlo en el tiempo, previniendo problemas futuros.",
@@ -464,67 +442,64 @@ const languages = {
         "yogaPoint4": "<strong>Yoga Prenatal/Postnatal:</strong> Apoyo específico para mujeres durante el embarazo y en el período posterior al parto.",
         "yogaBenefits": "Beneficios: Reducción del estrés, mejora de la postura, aumento de la flexibilidad y la fuerza, mayor conciencia corporal, mejora de la capacidad respiratoria.",
         "servicesContactPrompt": "Para más detalles sobre los servicios o para discutir tus necesidades específicas, no dudes en <a href=\"prenota.html\">contactarme</a>.",
-
-        // --- piani.html ---
-    
-		"pageTitlePlans": "Planes y Tarifas - Maria G. Hendriksen",
-		"plansHeading": "Planes y Tarifas",
-		"plansIntro": "Elige el plan que mejor se adapte a tus necesidades. Para soluciones personalizadas o paquetes combinados Fisioterapia+Yoga, <a href=\"prenota.html\">contáctame</a>.",
-		"plansNote": "Nota: Los pagos se realizan preferentemente en el momento de la sesión (efectivo, Bizum). Para paquetes o pagos anticipados, se puede solicitar transferencia bancaria o enlace para pago online.",
-		"planFisioSingleTitle": "Sesión Única de Fisioterapia",
-		"planFisioSingleDesc": "Evaluación y tratamiento fisioterapéutico individual.",
-		"planFisioSingleFeat1": "Duración: aprox. 60 minutos",
-		"planFisioSingleFeat2": "Tratamiento personalizado",
-		"planFisioSingleButton": "Reserva Ahora",
-		"planFisio5Title": "Ciclo 5 Sesiones de Fisioterapia",
-		"planFisio5Desc": "Paquete conveniente para un camino de rehabilitación completo.",
-		"planFisio5Feat1": "5 sesiones individuales (60 min/cada)",
-		"planFisio5Feat2": "Seguimiento del progreso",
-		"planFisio5Feat3": "Descuento respecto a la sesión única",
-		"planFisio5Button": "Reserva Ciclo",
-		"planYogaIndSingleTitle": "Clase Individual de Yoga",
-		"planYogaIndSingleDesc": "Práctica personalizada One-to-One.",
-		"planYogaIndSingleFeat1": "Duración: 60 minutos",
-		"planYogaIndSingleFeat2": "Adaptada a todos los niveles",
-		"planYogaIndSingleFeat3": "Enfoque en objetivos específicos",
-		"planYogaIndSinglePrice": "€25",
-		"planYogaIndSingleButton": "Reserva Clase",
-		"planYogaInd5Title": "Paquete 5 Clases Individuales de Yoga",
-		"planYogaInd5Desc": "Camino continuo para profundizar la práctica.",
-		"planYogaInd5Button": "Comprar Paquete",
-		"planYogaGroupSingleTitle": "Clase Grupal de Yoga (Drop-in)",
-		"planYogaGroupSingleDesc": "Participa en una de nuestras clases grupales.",
-		"planYogaGroupSingleFeat1": "Verifica el horario de las clases",
-		"planYogaGroupSingleFeat2": "Adaptada a diferentes niveles",
-		"planYogaGroupSinglePrice": "€15 por persona",
-		"planYogaGroupSingleButton": "Reserva Clase",
-		"planYogaGroup10Title": "Paquete 10 Clases Grupales de Yoga",
-		"planYogaGroup10Desc": "Asiste a las clases grupales con conveniencia.",
-		"planYogaGroup10Feat1": "Acceso a 10 clases grupales",
-		"planYogaGroup10Feat2": "Validez: 3 meses",
-		"planYogaGroup10Feat3": "Máxima conveniencia",
-		"planYogaGroup10Button": "Comprar Bono",
-		"planFisioSinglePriceStudio": "€50 - En el Estudio",
-		"planFisioSinglePriceHome": "€65 - A Domicilio",
-		"planFisio5CurrentPriceStudio": "€220 - En el Estudio",
-		"planFisio5OriginalPriceStudio": "En lugar de <s>€250</s>",
-		"planFisio5CurrentPriceHome": "€290 - A Domicilio",
-		"planFisio5OriginalPriceHome": "En lugar de <s>€325</s>",
-		"planYogaInd5CurrentPrice": "€110",
-		"planYogaInd5OriginalPrice": "En lugar de <s>€125</s>",
-		"planYogaGroupFeatMin": "Mínimo 4 participantes",
-		"planYogaGroup10FeatMin2": "Mínimo 4 participantes por clase",
-		"planYogaGroup10CurrentPrice": "€320",
-		"planYogaGroup10OriginalPrice": "En lugar de <s>€600</s>",
-		"groupBookingTitle": "Reserva de Grupo",
-		"participantsLabel": "Número de Participantes:",
-		"pricePerGroupLabel": "para el grupo entero",
-		"paymentMethodLabel": "Elige un método de pago:",
-		"locationStudio": "En el Estudio",
-		"locationHome": "A Domicilio",
-		"insteadOf": "En lugar de",
-
-        // --- prenota.html ---
+        "pageTitlePlans": "Planes y Tarifas - Maria G. Hendriksen",
+        "plansHeading": "Planes y Tarifas",
+        "plansIntro": "Elige el plan que mejor se adapte a tus necesidades. Para soluciones personalizadas o paquetes combinados Fisioterapia+Yoga, <a href=\"prenota.html\">contáctame</a>.",
+        "plansNote": "Nota: Los pagos se realizan preferentemente en el momento de la sesión (efectivo, Bizum). Para paquetes o pagos anticipados, se puede solicitar transferencia bancaria o enlace para pago online.",
+        "planFisioSingleTitle": "Sesión Única de Fisioterapia",
+        "planFisioSingleDesc": "Evaluación y tratamiento fisioterapéutico individual.",
+        "planFisioSingleFeat1": "Duración: aprox. 60 minutos",
+        "planFisioSingleFeat2": "Tratamiento personalizado",
+        "planFisioSingleButton": "Reserva Ahora",
+        "planFisio5Title": "Ciclo 5 Sesiones de Fisioterapia",
+        "planFisio5Desc": "Paquete conveniente para un camino de rehabilitación completo.",
+        "planFisio5Feat1": "5 sesiones individuales (60 min/cada)",
+        "planFisio5Feat2": "Seguimiento del progreso",
+        "planFisio5Feat3": "Descuento respecto a la sesión única",
+        "planFisio5Button": "Reserva Ciclo",
+        "planYogaIndSingleTitle": "Clase Individual de Yoga",
+        "planYogaIndSingleDesc": "Práctica personalizada One-to-One.",
+        "planYogaIndSingleFeat1": "Duración: 60 minutos",
+        "planYogaIndSingleFeat2": "Adaptada a todos los niveles",
+        "planYogaIndSingleFeat3": "Enfoque en objetivos específicos",
+        "planYogaIndSinglePrice": "€25",
+        "planYogaIndSingleButton": "Reserva Clase",
+        "planYogaInd5Title": "Paquete 5 Clases Individuales de Yoga",
+        "planYogaInd5Desc": "Camino continuo para profundizar la práctica.",
+        "planYogaInd5Button": "Comprar Paquete",
+        "planYogaGroupSingleTitle": "Clase Grupal de Yoga (Drop-in)",
+        "planYogaGroupSingleDesc": "Participa en una de nuestras clases grupales.",
+        "planYogaGroupSingleFeat1": "Verifica el horario de las clases",
+        "planYogaGroupSingleFeat2": "Adaptada a diferentes niveles",
+        "planYogaGroupSinglePrice": "€15 por persona",
+        "planYogaGroupSingleButton": "Reserva Clase",
+        "planYogaGroup10Title": "Paquete 10 Clases Grupales de Yoga",
+        "planYogaGroup10Desc": "Asiste a las clases grupales con conveniencia.",
+        "planYogaGroup10Feat1": "Acceso a 10 clases grupales",
+        "planYogaGroup10Feat2": "Validez: 3 meses",
+        "planYogaGroup10Feat3": "Máxima conveniencia",
+        "planYogaGroup10Button": "Comprar Bono",
+        "planFisioSinglePriceStudio": "€50 - En el Estudio",
+        "planFisioSinglePriceHome": "€65 - A Domicilio",
+        "planFisio5CurrentPriceStudio": "€220 - En el Estudio",
+        "planFisio5OriginalPriceStudio": "En lugar de <s>€250</s>",
+        "planFisio5CurrentPriceHome": "€290 - A Domicilio",
+        "planFisio5OriginalPriceHome": "En lugar de <s>€325</s>",
+        "planYogaInd5CurrentPrice": "€110",
+        "planYogaInd5OriginalPrice": "En lugar de <s>€125</s>",
+        "planYogaGroupFeatMin": "Mínimo 4 participantes",
+        "planYogaGroup10FeatMin2": "Mínimo 4 participantes por clase",
+        "planYogaGroup10CurrentPrice": "€320",
+        "planYogaGroup10OriginalPrice": "En lugar de <s>€600</s>",
+        "groupBookingTitle": "Reserva de Grupo",
+        "participantsLabel": "Número de Participantes:",
+        "pricePerGroupLabel": "para el grupo entero",
+        "paymentMethodLabel": "Elige un método de pago:",
+        "locationStudio": "En el Estudio",
+        "locationHome": "A Domicilio",
+        "insteadOf": "En lugar de",
+        "individualBookingTitle": "Detalles de la Reserva",
+        "bookingFor": "Estás reservando: <strong id=\"modal-individual-service-name-value\"></strong>",
         "pageTitleBooking": "Reservas / Contacto - Maria G. Hendriksen",
         "bookingTitleWidget": "Reserva Encuentro Informativo Online",
         "bookingInstructionsWidget": "Utiliza el calendario abajo para elegir un horario disponible para un encuentro informativo gratuito (30 min).",
@@ -550,27 +525,24 @@ const languages = {
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
         "contactPhone": "Teléfono: <a href=\"tel:+393299460634\">+39 3299460634</a>",
         "contactAddress": "Dirección Estudio: Palma de Mallorca (contáctame para detalles)",
-		
-		"contactLabelWhatsapp": "WhatsApp",
-		"contactLabelEmail": "Email",
-		"contactLabelPhone": "Teléfono", // <-- Tradotto
-		"contactLabelInstagram": "Instagram",
-
-        // --- contenuti.html ---
+        "contactLabelWhatsapp": "WhatsApp",
+        "contactLabelEmail": "Email",
+        "contactLabelPhone": "Teléfono",
+        "contactLabelInstagram": "Instagram",
         "pageTitleContent": "Mis Contenidos - Maria Guillermina Hendriksen",
         "contentHeading": "Mis Contenidos",
         "contentIntro": "Explora recursos, videos y artículos dedicados al Yoga y la Fisioterapia para profundizar tu práctica y tu camino hacia el bienestar.",
         "contentYogaTitle": "Contenidos de Yoga",
-		"ratingOptionDefault": "-- Selecciona Valoración --",
+        "ratingOptionDefault": "-- Selecciona Valoración --",
         "ratingOption5": "★★★★★ (Excelente)",
         "ratingOption4": "★★★★☆ (Muy Bueno)",
         "ratingOption3": "★★★☆☆ (Bueno)",
         "ratingOption2": "★★☆☆☆ (Suficiente)",
         "ratingOption1": "★☆☆☆☆ (Insuficiente)",
-		"dynamic_login_prompt": 'Por favor, <a href="#" onclick="openModal(\'login-modal\'); return false;">inicia sesión</a> o <a href="#" onclick="openModal(\'signup-modal\'); return false;">regístrate</a> para ver el contenido disponible y las opciones de compra.',
+        "dynamic_login_prompt": "Por favor, <a href=\"#\" onclick=\"openModal('login-modal'); return false;\">inicia sesión</a> o <a href=\"#\" onclick=\"openModal('signup-modal'); return false;\">regístrate</a> para ver el contenido disponible y las opciones de compra.",
         "contentYogaDesc": "Videos de clases, secuencias específicas, técnicas de respiración y meditación guiada para enriquecer tu práctica de yoga en casa.",
-		"purchasable-lessons-section1": "Videolecciones Disponibles para Comprar",
-		"purchasable-lessons-paragraph": "Accede a lecciones completas y contenidos exclusivos comprando el acceso aquí abajo.",
+        "purchasable-lessons-section1": "Videolecciones Disponibles para Comprar",
+        "purchasable-lessons-paragraph": "Accede a lecciones completas y contenidos exclusivos comprando el acceso aquí abajo.",
         "yogaVideo1Title": "Título Contenido Yoga 1 (ej. Secuencia Matutina Energizante)",
         "yogaVideo1Desc": "Breve descripción del contenido del video o artículo. Invita a hacer clic para ver más.",
         "yogaVideo2Title": "Título Contenido Yoga 2 (ej. Meditación Guiada para la Relajación)",
@@ -591,7 +563,13 @@ const languages = {
         "reviewLabelRating": "Valoración (de 1 a 5 estrellas):",
         "reviewLabelMessage": "Tu reseña:",
         "reviewSubmitButton": "Enviar Reseña",
-        "reviewFormNotes": "Nota: Las reseñas enviadas a través de este formulario serán moderadas antes de su publicación. ¡Gracias por compartir!"
+        "reviewFormNotes": "Nota: Las reseñas enviadas a través de este formulario serán moderadas antes de su publicación. ¡Gracias por compartir!",
+		"bookingForText": "Estás reservando:",
+		"bizumCTAButton": "Enviar Confirmación por WhatsApp",
+		"whatsappMessage": "Hola Maria, te contacto desde tu web. Me gustaría comprar el servicio '[NOMBRE_DEL_SERVICIO]' y pagar con Bizum. Quedo a la espera de instrucciones. ¡Gracias!",
+		"bizumInfoText": "Para este servicio, la reserva se finaliza con un contacto personal. Procede en WhatsApp para definir tu cita y el pago directamente con Maria.",
+		"bizumProceedButton": "Proceder en WhatsApp"
+		
     }
 };
 
@@ -699,21 +677,19 @@ function displayStars(rating) {
     return `<span class="review-stars">${starsHTML}</span>`;
 }
 
-// In script.js
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-        modal.style.display = 'flex'; // <-- Cambia da 'block' a 'flex'
+        modal.style.display = 'flex';
     } else {
         console.error(`Modal with id ${modalId} not found.`);
     }
 }
 
-// In script.js
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-        modal.style.display = 'none'; // <-- Questo rimane 'none', quindi è già corretto.
+        modal.style.display = 'none';
         const errorP = modal.querySelector('.error-message');
         if (errorP) errorP.textContent = '';
         const msgP = modal.querySelector('.success-message');
@@ -724,9 +700,6 @@ function closeModal(modalId) {
         console.error(`Modal with id ${modalId} not found.`);
     }
 }
-
-
-
 
 // -----------------------------------------------------------
 //               FUNZIONI SPECIFICHE (Recensioni, Autenticazione, Contenuti Video)
@@ -821,35 +794,31 @@ function updateAuthStateUI(user) {
     const guestInfo = document.getElementById('guest-info');
     const userInfo = document.getElementById('user-info');
     const userEmailSpan = document.getElementById('user-email');
-    const signupButtonHeader = document.getElementById('signup-button'); // Bottone Registrati nell'header principale
-
-    // Se nel menu mobile hai ID diversi per questi elementi (es. guest-info-mobile), dovrai selezionarli e aggiornarli qui.
-    // Per ora assumo che usi gli stessi ID o che il menu mobile duplichi questi elementi.
+    const signupButtonHeader = document.getElementById('signup-button');
 
     if (!guestInfo || !userInfo || !userEmailSpan) {
         console.warn("Elementi UI per stato autenticazione non trovati (guest-info, user-info, user-email).");
         return;
     }
 
-    if (user) { // Logged In
+    if (user) {
         guestInfo.style.display = 'none';
-        if(signupButtonHeader) signupButtonHeader.style.display = 'none'; // Nascondi "Registrati" se loggato
-        userInfo.style.display = 'inline'; // O 'block' o 'flex' a seconda del tuo layout
+        if(signupButtonHeader) signupButtonHeader.style.display = 'none';
+        userInfo.style.display = 'inline';
         userEmailSpan.textContent = user.email;
-    } else { // Logged Out
-        guestInfo.style.display = 'inline'; // O 'block' o 'flex'
-        if(signupButtonHeader) signupButtonHeader.style.display = 'inline-block'; // Mostra "Registrati" se sloggato
+    } else {
+        guestInfo.style.display = 'inline';
+        if(signupButtonHeader) signupButtonHeader.style.display = 'inline-block';
         userInfo.style.display = 'none';
         userEmailSpan.textContent = '';
     }
 }
 
-
 async function checkInitialAuthState() {
     if (!supabase) {
         console.warn("Supabase non inizializzato, impossibile controllare stato auth iniziale.");
         updateAuthStateUI(null);
-        initializePageBasedOnAuthState(null); // Assicurati di inizializzare anche la pagina
+        initializePageBasedOnAuthState(null);
         return;
     }
     try {
@@ -873,11 +842,11 @@ async function checkInitialAuthState() {
 
 function initializePageBasedOnAuthState(user) {
      const videoGrid = document.getElementById('video-lessons-grid');
-     const loginPromptContainer = document.getElementById('login-prompt-container'); // Aggiunto selettore
+     const loginPromptContainer = document.getElementById('login-prompt-container');
 
      if (videoGrid) {
          if (user) {
-            if (loginPromptContainer) loginPromptContainer.style.display = 'none'; // Nascondi prompt login
+            if (loginPromptContainer) loginPromptContainer.style.display = 'none';
              if (typeof loadVideoLessons === 'function') {
                  loadVideoLessons();
              } else { console.warn('Function loadVideoLessons not defined yet.'); }
@@ -885,8 +854,8 @@ function initializePageBasedOnAuthState(user) {
              if (typeof displayLoginMessage === 'function') {
                  displayLoginMessage();
              } else {
-                videoGrid.innerHTML = ''; // Pulisci griglia
-                if (loginPromptContainer) { // Mostra prompt login se esiste
+                videoGrid.innerHTML = '';
+                if (loginPromptContainer) {
                     const currentLang = localStorage.getItem('preferredLanguage') || 'it';
                     loginPromptContainer.innerHTML = languages[currentLang]?.dynamic_login_prompt || languages['it']?.dynamic_login_prompt || '<p>Please log in.</p>';
                     loginPromptContainer.style.display = 'block';
@@ -908,11 +877,10 @@ function displayLoginMessage() {
 
     if (loginPromptContainer) {
         const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-        let messageHtml = languages[currentLang]?.dynamic_login_prompt || languages['it']?.dynamic_login_prompt || '<p>Please log in to view content.</p>'; // Testo di fallback migliorato
+        let messageHtml = languages[currentLang]?.dynamic_login_prompt || languages['it']?.dynamic_login_prompt || '<p>Please log in to view content.</p>';
         loginPromptContainer.innerHTML = messageHtml;
         loginPromptContainer.style.display = 'block';
     } else {
-        // Fallback se login-prompt-container non esiste, ma video-lessons-grid sì
         if(grid) grid.innerHTML = '<p>Effettua il login per vedere i contenuti e le opzioni di acquisto.</p>';
     }
 }
@@ -969,7 +937,7 @@ function displayVideoLessons(lessons, purchasedLessonIds) {
         return;
     }
     grid.innerHTML = '';
-    grid.style.display = 'grid'; // Assicurati che la griglia sia visibile
+    grid.style.display = 'grid';
 
     if (lessons.length === 0) {
         grid.innerHTML = '<p>Nessuna video lezione disponibile al momento.</p>';
@@ -1029,7 +997,7 @@ async function loadVideoLessons() {
     grid.style.display = 'grid';
 
     if (!currentUser) {
-        displayLoginMessage(); // Chiama per mostrare il prompt di login se l'utente non è loggato
+        displayLoginMessage();
         return;
     }
 
@@ -1050,14 +1018,14 @@ async function loadVideoLessons() {
 
 function addPurchaseButtonListeners() {
     document.querySelectorAll('.paypal-buy-button').forEach(button => {
-        button.replaceWith(button.cloneNode(true)); // Rimuove vecchi listener
+        button.replaceWith(button.cloneNode(true));
     });
      document.querySelectorAll('.paypal-buy-button').forEach(button => {
          button.addEventListener('click', handlePayPalBuyClick);
      });
 
     document.querySelectorAll('.mercadopago-buy-button').forEach(button => {
-         button.replaceWith(button.cloneNode(true)); // Rimuove vecchi listener
+         button.replaceWith(button.cloneNode(true));
      });
       document.querySelectorAll('.mercadopago-buy-button').forEach(button => {
          button.addEventListener('click', handleMercadoPagoBuyClick);
@@ -1066,14 +1034,13 @@ function addPurchaseButtonListeners() {
 
 function addWatchButtonListeners() {
     document.querySelectorAll('.watch-button').forEach(button => {
-         button.replaceWith(button.cloneNode(true)); // Rimuove vecchi listener
+         button.replaceWith(button.cloneNode(true));
      });
      document.querySelectorAll('.watch-button').forEach(button => {
         button.addEventListener('click', (event) => {
             const lessonId = event.target.dataset.lessonId;
             console.log(`Click su "Guarda Ora" per lezione: ${lessonId}`);
             alert(`Funzionalità "Guarda Ora" per la lezione ${lessonId} non ancora implementata.`);
-            // Esempio: window.location.href = `/watch?lesson=${lessonId}`;
         });
     });
 }
@@ -1081,7 +1048,7 @@ function addWatchButtonListeners() {
 async function handlePayPalBuyClick(event) {
     const button = event.target;
     const lessonId = button.dataset.lessonId;
-    const price = button.dataset.price; // Non strettamente necessario qui se il backend lo sa
+    const price = button.dataset.price;
     const purchaseButtonsDiv = button.closest('.purchase-buttons');
     const payPalContainerId = `paypal-button-container-${lessonId}`;
     const payPalContainer = document.getElementById(payPalContainerId);
@@ -1231,6 +1198,101 @@ function renderPayPalButton(orderID, containerId, lessonId) {
     }
 }
 
+
+
+
+
+
+
+////////////////////////////////funzione bizum///////////////////////////
+
+
+// NUOVA FUNZIONE PER GESTIRE BIZUM CON CONFERMA WHATSAPP
+// Funzione per Bizum che reindirizza a WhatsApp per finalizzare
+function handleBizumPurchase(options) {
+    if (!currentUser) {
+        alert("Devi effettuare il login per procedere.");
+        openModal('login-modal');
+        return;
+    }
+
+    const modal = document.querySelector('.auth-modal[style*="display: flex"]');
+    const paymentContainer = modal.querySelector('.payment-options-container');
+    if (!paymentContainer) return;
+
+    // --- 1. Raccogli i dati necessari ---
+    const priceText = modal.querySelector('.current-price').textContent.replace('€', '').replace(',', '.');
+    const finalPrice = parseFloat(priceText);
+    
+	let serviceName;
+	if (modal.id === 'individual-booking-modal') {
+		// Per il modale individuale, leggiamo il nome già presente
+		serviceName = modal.querySelector('#modal-booking-info strong')?.textContent;
+	} else {
+		// Per il modale di gruppo, troviamo la "card" originale sulla pagina usando il productCode
+		const planCard = document.querySelector(`.plan[data-product-code="${options.productCode}"]`);
+		if (planCard) {
+			serviceName = planCard.querySelector('h3')?.textContent;
+		}
+	}
+	// Se per qualche motivo il nome non viene trovato, usa il productCode come ultima risorsa
+	serviceName = serviceName || options.productCode;
+	
+	
+
+    const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+    const t = languages[currentLang] || languages['it'];
+
+    // --- 2. Prepara il messaggio e il link WhatsApp ---
+    let whatsappText = t.whatsappMessage || "Ciao Maria, ho prenotato il servizio [SERVICE_NAME]";
+    const placeholder = currentLang === 'es' ? '[NOMBRE_DEL_SERVICIO]' : '[SERVICE_NAME]';
+    whatsappText = whatsappText.replace(placeholder, serviceName);
+    const whatsappUrl = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(whatsappText)}`;
+
+    // --- 3. Aggiorna l'interfaccia del modale con il nuovo testo e pulsante ---
+    paymentContainer.innerHTML = `
+        <p style="font-size: 0.95em; text-align:center; padding: 10px 0;">${t.bizumInfoText}</p>
+        <a href="${whatsappUrl}" target="_blank" id="whatsapp-confirm-button" class="cta-button" style="width:100%; margin-top:15px; text-align:center; display:block;">
+            ${t.bizumProceedButton}
+        </a>
+    `;
+
+    // --- 4. Aggiungi l'azione di salvataggio al click ---
+    document.getElementById('whatsapp-confirm-button').addEventListener('click', async () => {
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) return; // Non bloccare l'utente se la sessione non è pronta
+
+            // Chiama la funzione backend per registrare il pagamento come "pending"
+            fetch('/.netlify/functions/record-manual-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${session.access_token}`
+                },
+                body: JSON.stringify({
+                    productCode: options.productCode,
+                    amount: finalPrice,
+                    currency: 'EUR',
+                    paymentProvider: 'bizum'
+                })
+            });
+
+            // Chiudi il modale dopo un breve ritardo per dare tempo a WhatsApp di aprirsi
+            setTimeout(() => {
+                closeModal('individual-booking-modal');
+                closeModal('group-booking-modal');
+            }, 1000);
+
+        } catch (error) {
+            console.error("Errore durante la registrazione del pagamento Bizum:", error);
+            // Non mostriamo un alert all'utente per non interrompere il reindirizzamento a WhatsApp
+        }
+    });
+}
+
+///////////////////////////////fine funzione Bizum///////////////////////////
+
 // -----------------------------------------------------------
 //               LISTENER PRINCIPALE E INIZIALIZZAZIONE
 // -----------------------------------------------------------
@@ -1238,75 +1300,51 @@ function renderPayPalButton(orderID, containerId, lessonId) {
 document.addEventListener('DOMContentLoaded', () => {
 	
 	console.log("DEBUG: DOM Caricato. Esecuzione script avviata.");
-    console.log("DOM completamente caricato e analizzato.");
 
+    document.querySelectorAll('.location-selector').forEach(selector => {
+        const planCard = selector.closest('.plan');
+        if (!planCard) return;
 
+        const priceEl = planCard.querySelector('.current-price');
+        const originalPriceEl = planCard.querySelector('.original-price');
+        const radios = selector.querySelectorAll('input[type="radio"]');
 
-	// In script.js, SOSTITUISCI il vecchio blocco per il selettore Studio/Domicilio con QUESTO
+        function updatePrice() {
+            const selectedRadio = selector.querySelector('input[type="radio"]:checked');
+            if (!selectedRadio) return;
 
-// --- LOGICA CORRETTA PER SELETTORE STUDIO/DOMICILIO ---
-	document.querySelectorAll('.plan[data-price-studio]').forEach(planCard => {
-		const priceEl = planCard.querySelector('.current-price');
-		const originalPriceEl = planCard.querySelector('.original-price');
-		const radios = planCard.querySelectorAll('.location-selector input[type="radio"]'); // Seleziona TUTTI i radio button
-	
-		// In script.js, DENTRO il blocco "LOGICA CORRETTA...", sostituisci la funzione updatePrice
+            const selectedValue = selectedRadio.value;
+            const capitalizedValue = selectedValue.charAt(0).toUpperCase() + selectedValue.slice(1);
 
-	function updatePrice() {
-		const selectedRadio = planCard.querySelector('.location-selector input[type="radio"]:checked');
-		if (!selectedRadio) return; // Se non c'è nessuna selezione, non fare nulla
-	
-		const selectedValue = selectedRadio.value; // 'studio' o 'home'
-	
-		// --- INIZIO BLOCCO DI CODICE CORRETTO ---
-		let price, originalPrice;
-	
-		if (selectedValue === 'studio') {
-			// Legge gli attributi data-price-studio e data-original-price-studio
-			price = planCard.dataset.priceStudio;
-			originalPrice = planCard.dataset.originalPriceStudio;
-		} else if (selectedValue === 'home') {
-			// Legge gli attributi data-price-home e data-original-price-home
-			price = planCard.dataset.priceHome;
-			originalPrice = planCard.dataset.originalPriceHome;
-		}
-		// --- FINE BLOCCO DI CODICE CORRETTO ---
-	
-		const lang = localStorage.getItem('preferredLanguage') || 'it';
-		const translations = languages[lang] || languages['it'];
-	
-		// Aggiorna il prezzo corrente
-		if (price) {
-			priceEl.textContent = `€${price}`;
-		} else {
-			priceEl.textContent = 'N/D'; // Messaggio di fallback
-		}
-		
-		// Aggiorna il prezzo originale (se esiste per quella selezione)
-		if (originalPriceEl) {
-			if (originalPrice) {
-				const insteadOfText = translations.insteadOf || "Invece di";
-				originalPriceEl.innerHTML = `${insteadOfText} <s>€${originalPrice}</s>`;
-				originalPriceEl.style.display = 'block'; // Mostra l'elemento
-			} else {
-				originalPriceEl.style.display = 'none'; // Nascondi se non c'è un prezzo originale
-			}
-		}
-	}
-	
-		// Aggiungi un "ascoltatore" a ogni radio button
-		// Quando uno cambia, la funzione updatePrice viene eseguita
-		radios.forEach(radio => {
-			radio.addEventListener('change', updatePrice);
-		});
-	
-		// Esegui la funzione una volta al caricamento della pagina per impostare il prezzo iniziale
-		updatePrice();
-	});
+            const price = selector.dataset[`price${capitalizedValue}`];
+            const originalPrice = selector.dataset[`originalPrice${capitalizedValue}`];
+            
+            const lang = localStorage.getItem('preferredLanguage') || 'it';
+            const translations = languages[lang] || languages['it'];
 
+            if (price) {
+                priceEl.textContent = `€${price}`;
+            } else {
+                priceEl.textContent = 'N/D';
+            }
+            
+            if (originalPriceEl) {
+                if (originalPrice) {
+                    const insteadOfText = translations.insteadOf || "Invece di";
+                    originalPriceEl.innerHTML = `${insteadOfText} <s>€${originalPrice}</s>`;
+                    originalPriceEl.style.display = 'block';
+                } else {
+                    originalPriceEl.style.display = 'none';
+                }
+            }
+        }
 
+        radios.forEach(radio => {
+            radio.addEventListener('change', updatePrice);
+        });
 
-
+        updatePrice();
+    });
 
     const savedLang = localStorage.getItem('preferredLanguage');
     const defaultLang = 'it';
@@ -1350,13 +1388,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 	
-	
-	
-	
-	
-
     const loginButton = document.getElementById('login-button');
-    const signupButton = document.getElementById('signup-button'); // Questo seleziona l'ID 'signup-button'
+    const signupButton = document.getElementById('signup-button');
     const logoutButton = document.getElementById('logout-button');
     const loginForm = document.getElementById('login-form');
     const signupForm = document.getElementById('signup-form');
@@ -1365,7 +1398,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const signupMessageP = document.getElementById('signup-message');
 
     loginButton?.addEventListener('click', () => openModal('login-modal'));
-    signupButton?.addEventListener('click', () => openModal('signup-modal')); // Listener per ID 'signup-button'
+    signupButton?.addEventListener('click', () => openModal('signup-modal'));
     logoutButton?.addEventListener('click', async () => {
         if (!supabase) return;
         logoutButton.disabled = true;
@@ -1432,7 +1465,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (reviewForm) {
         if (typeof handleReviewSubmit === 'function') {
             reviewForm.addEventListener('submit', handleReviewSubmit);
-            console.log("Listener per invio recensione aggiunto.");
         } else {
             console.error("Funzione handleReviewSubmit non definita.");
         }
@@ -1453,249 +1485,361 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('reviews-list-container')) {
         if (typeof loadReviews === 'function') {
             loadReviews();
-            console.log("Caricamento iniziale recensioni avviato.");
         } else {
              console.error("Funzione loadReviews non definita.");
         }
     }
 	
-	
-	
-	
-	
-	
-	
-	
+    const hamburgerButton = document.getElementById('hamburger-menu');
+    const mainNav = document.getElementById('main-nav');
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+    if (hamburgerButton && mainNav) {
+        mainNav.classList.remove('menu-aperto');
+        hamburgerButton.classList.remove('attivo');
+        hamburgerButton.setAttribute('aria-expanded', 'false');
+        hamburgerButton.setAttribute('aria-label', 'Apri menu');
 
-    // --- LOGICA MENU HAMBURGER ---
-const hamburgerButton = document.getElementById('hamburger-menu');
-const mainNav = document.getElementById('main-nav');
-console.log('MGH_DEBUG: DOM Content Loaded. Looking for hamburger menu elements.'); // Log 1
+        hamburgerButton.addEventListener('click', () => {
+            mainNav.classList.toggle('menu-aperto');
+            hamburgerButton.classList.toggle('attivo');
+            const isExpanded = mainNav.classList.contains('menu-aperto');
+            hamburgerButton.setAttribute('aria-expanded', isExpanded.toString());
+            hamburgerButton.setAttribute('aria-label', isExpanded ? 'Chiudi menu' : 'Apri menu');
+        });
 
-if (hamburgerButton && mainNav) {
-    console.log('MGH_DEBUG: Hamburger button and mainNav found.'); // Log 2
-	
-	// =======================================================================
-    // ===== INSERISCI QUI LE RIGHE PER FORZARE LO STATO INIZIALE CHIUSO =====
-    // =======================================================================
-    console.log('MGH_DEBUG: Forcing initial closed state for JS.');
-    mainNav.classList.remove('menu-aperto');
-    hamburgerButton.classList.remove('attivo');
-    hamburgerButton.setAttribute('aria-expanded', 'false');
-    hamburgerButton.setAttribute('aria-label', 'Apri menu');
-    // =======================================================================
-    // ===== FINE BLOCCO STATO INIZIALE                                  =====
-    // =======================================================================
-	
-
-    hamburgerButton.addEventListener('click', () => {
-        console.log('MGH_DEBUG: Hamburger button clicked.'); // Log 3
-        mainNav.classList.toggle('menu-aperto');
-        hamburgerButton.classList.toggle('attivo');
-        const isExpanded = mainNav.classList.contains('menu-aperto');
-        hamburgerButton.setAttribute('aria-expanded', isExpanded.toString());
-        hamburgerButton.setAttribute('aria-label', isExpanded ? 'Chiudi menu' : 'Apri menu');
-    });
-
-    function closeMobileMenu() {
-        console.log('MGH_DEBUG: Attempting to close mobile menu.'); // Log 4
-        if (mainNav.classList.contains('menu-aperto')) {
-            mainNav.classList.remove('menu-aperto');
-            hamburgerButton.classList.remove('attivo');
-            hamburgerButton.setAttribute('aria-expanded', 'false');
-            hamburgerButton.setAttribute('aria-label', 'Apri menu');
-            console.log('MGH_DEBUG: Mobile menu closed.'); // Log 5
-        } else {
-            console.log('MGH_DEBUG: Mobile menu was already closed or not in "menu-aperto" state.'); // Log 6
-        }
-    }
-
-    // Chiudi il menu al click sui link di navigazione principali <a>
-    const navLinks = mainNav.querySelectorAll('ul > li > a'); // Selettore pagine principali
-    console.log('MGH_DEBUG: Number of navLinks found with "ul > li > a":', navLinks.length); // Log 7
-
-    if (navLinks.length === 0) {
-        const allLinksInMainNav = mainNav.querySelectorAll('a');
-        console.log('MGH_DEBUG: Trying broader selector: Number of all links in mainNav:', allLinksInMainNav.length); // Log 8
-        allLinksInMainNav.forEach(link => {
-            if (!link.closest('.language-switcher') && !link.closest('#auth-container')) {
-                console.log('MGH_DEBUG: Found link with broader selector (not lang/auth):', link.href, link.id, link.className); // Log 9
+        function closeMobileMenu() {
+            if (mainNav.classList.contains('menu-aperto')) {
+                mainNav.classList.remove('menu-aperto');
+                hamburgerButton.classList.remove('attivo');
+                hamburgerButton.setAttribute('aria-expanded', 'false');
+                hamburgerButton.setAttribute('aria-label', 'Apri menu');
             }
+        }
+
+        const navLinks = mainNav.querySelectorAll('ul > li > a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
         });
-        console.log('MGH_DEBUG: If navLinks.length is 0, listeners are not attached to page links.');
+        
+        const langButtonsInMobileMenu = mainNav.querySelectorAll('.language-switcher button');
+        langButtonsInMobileMenu.forEach(button => {
+            button.addEventListener('click', closeMobileMenu);
+        });
+        
+        const authButtonsInMobileMenu = mainNav.querySelectorAll('#auth-container button');
+        authButtonsInMobileMenu.forEach(button => {
+            button.addEventListener('click', closeMobileMenu);
+        });
     }
 
-    navLinks.forEach(link => {
-        console.log('MGH_DEBUG: Attaching click listener to navLink:', link.href); // Log 10
-        link.addEventListener('click', (event) => {
-            console.log('MGH_DEBUG: navLink clicked, href:', event.currentTarget.href); // Log 11
-            closeMobileMenu();
-        });
-    });
-    
-    // Chiudi il menu al click sui bottoni lingua DENTRO il menu mobile
-    const langButtonsInMobileMenu = mainNav.querySelectorAll('.language-switcher button');
-    langButtonsInMobileMenu.forEach(button => {
-        button.addEventListener('click', closeMobileMenu); // Semplice, l'azione lingua è già gestita
-    });
-    
-    // Chiudi il menu al click sui BOTTONI DI AUTENTICAZIONE DENTRO il menu mobile
-    const authButtonsInMobileMenu = mainNav.querySelectorAll('#auth-container button');
-    authButtonsInMobileMenu.forEach(button => {
-        button.addEventListener('click', () => { 
-            // I console.log specifici per questi bottoni sono opzionali qui,
-            // la cosa importante è che chiamino closeMobileMenu().
-            // L'azione del bottone (aprire modale, logout) è già gestita dai listener globali
-            // sugli ID specifici (login-button, signup-button, logout-button).
-            closeMobileMenu();
-        });
-    });
+    const allGroupBookingButtons = document.querySelectorAll('.open-group-booking-modal');
+    const groupBookingModal = document.getElementById('group-booking-modal');
 
-} else {
-    console.log('MGH_DEBUG: Hamburger button or mainNav NOT found.'); // Log 12
-    if (!hamburgerButton) console.log('MGH_DEBUG: Reason: hamburgerButton is null.');
-    if (!mainNav) console.log('MGH_DEBUG: Reason: mainNav is null.');
-}
-// --- FINE LOGICA MENU HAMBURGER ---
+    if (allGroupBookingButtons.length > 0 && groupBookingModal) {
+        
+        const participantsInput = groupBookingModal.querySelector('#modal-participants-input');
+        const calculatedPriceEl = groupBookingModal.querySelector('#modal-calculated-price');
+        const errorMessageEl = groupBookingModal.querySelector('#modal-participant-error');
+        const paymentOptionsContainer = groupBookingModal.querySelector('#modal-payment-options');
 
+        let currentCardData = {};
 
-
-console.log("DEBUG: Inizio logica prenotazione gruppo."); // <-- AGGIUNGI QUESTA RIGA
-
-
-// In script.js, incolla questo blocco completo dentro document.addEventListener('DOMContentLoaded', ... )
-
-// --- NUOVA LOGICA COMPLETA E CORRETTA PER PRENOTAZIONE DI GRUPPO ---
-const allGroupBookingButtons = document.querySelectorAll('.open-group-booking-modal');
-const groupBookingModal = document.getElementById('group-booking-modal');
-
-if (allGroupBookingButtons.length > 0 && groupBookingModal) {
-	
-	 console.log("DEBUG: Bottone e modale TROVATI nel DOM. Aggiungo i listener."); // <-- AGGIUNGI QUESTA RIGA
-    const participantsInput = groupBookingModal.querySelector('#modal-participants-input');
-    const calculatedPriceEl = groupBookingModal.querySelector('#modal-calculated-price');
-    const errorMessageEl = groupBookingModal.querySelector('#modal-participant-error');
-    const paymentOptionsContainer = groupBookingModal.querySelector('#modal-payment-options');
-
-    let currentCardData = {}; // Oggetto per memorizzare i dati della card cliccata
-
-    // Funzione che calcola il prezzo e aggiorna il modale
-    const updateGroupPrice = () => {
-        const numParticipants = parseInt(participantsInput.value, 10);
-        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-        const errorMessages = {
-            it: `Il numero minimo è ${currentCardData.minParticipants} partecipanti.`,
-            en: `The minimum is ${currentCardData.minParticipants} participants.`,
-            es: `El número mínimo es de ${currentCardData.minParticipants} participantes.`
-        };
-
-        if (isNaN(numParticipants) || numParticipants < currentCardData.minParticipants) {
-            errorMessageEl.textContent = errorMessages[currentLang] || errorMessages['it'];
-            errorMessageEl.style.display = 'block';
-            calculatedPriceEl.textContent = '-';
-            paymentOptionsContainer.style.visibility = 'hidden';
-        } else {
-            errorMessageEl.style.display = 'none';
-            const totalPrice = numParticipants * currentCardData.pricePerPerson;
-            const formattedPrice = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(totalPrice);
-            calculatedPriceEl.textContent = formattedPrice;
-            paymentOptionsContainer.style.visibility = 'visible';
-        }
-    };
-
-    // Aggiungiamo un listener a OGNI bottone "Prenota Classe"
-    allGroupBookingButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-			console.log("DEBUG: Bottone 'Prenota Classe' CLICCATO!"); // <-- AGGIUNGI QUESTA RIGA
-            const planCard = event.target.closest('.plan');
-            
-            // Salva i dati della card che è stata cliccata
-            currentCardData = {
-                productCode: planCard.dataset.productCode,
-                pricePerPerson: parseFloat(planCard.dataset.pricePerPerson),
-                minParticipants: parseInt(planCard.dataset.minParticipants, 10)
+        const updateGroupPrice = () => {
+            const numParticipants = parseInt(participantsInput.value, 10);
+            const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+            const errorMessages = {
+                it: `Il numero minimo è ${currentCardData.minParticipants} partecipanti.`,
+                en: `The minimum is ${currentCardData.minParticipants} participants.`,
+                es: `El número mínimo es de ${currentCardData.minParticipants} participantes.`
             };
 
-            // Imposta i valori iniziali nel modale
-            participantsInput.value = currentCardData.minParticipants;
-            participantsInput.min = currentCardData.minParticipants;
-            
-            // Popola i bottoni di pagamento con il product_code corretto
-            populatePaymentButtons(currentCardData.productCode);
-            
-            // Calcola il prezzo iniziale e apri il modale
-            updateGroupPrice();
-            openModal('group-booking-modal');
+            if (isNaN(numParticipants) || numParticipants < currentCardData.minParticipants) {
+                errorMessageEl.textContent = errorMessages[currentLang] || errorMessages['it'];
+                errorMessageEl.style.display = 'block';
+                calculatedPriceEl.textContent = '-';
+                paymentOptionsContainer.style.visibility = 'hidden';
+            } else {
+                errorMessageEl.style.display = 'none';
+                const totalPrice = numParticipants * currentCardData.pricePerPerson;
+                const formattedPrice = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(totalPrice);
+                calculatedPriceEl.textContent = formattedPrice;
+                paymentOptionsContainer.style.visibility = 'visible';
+            }
+        };
+
+        allGroupBookingButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const planCard = event.target.closest('.plan');
+                currentCardData = {
+                    productCode: planCard.dataset.productCode,
+                    pricePerPerson: parseFloat(planCard.dataset.pricePerPerson),
+                    minParticipants: parseInt(planCard.dataset.minParticipants, 10)
+                };
+
+                participantsInput.value = currentCardData.minParticipants;
+                participantsInput.min = currentCardData.minParticipants;
+                
+                if (typeof populatePaymentButtons === 'function') {
+                    populatePaymentButtons(currentCardData.productCode, 'modal-payment-options');
+                }
+                
+                updateGroupPrice();
+                openModal('group-booking-modal');
+            });
         });
-    });
-
-    // Listener per ricalcolare il prezzo quando l'utente cambia il numero
-    participantsInput.addEventListener('input', updateGroupPrice);
-
-    function populatePaymentButtons(productCode) {
-        const paymentContainer = document.getElementById('modal-payment-options');
-        if (!paymentContainer) return;
-    
-        // Definiamo i bottoni con le loro icone SVG complete
-        // In script.js, DENTRO la funzione populatePaymentButtons
-
-		const buttons = {
-			paypal: {
-				text: "PayPal",
-				icon: `<svg viewBox="0 0 96 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.56 26.5h8.84L21.32 3.8H12.5L9.9 20.38c-.12 1.08-.2 1.8-.24 2.14H9.6c.32-1.2.6-2.4.84-3.64L12.56 0H3.32L0 26.5h7.56Z" fill="#253B80"/><path d="M43.32 26.5h7.56L47.56 3.8h-7.56l3.32 22.7Z" fill="#253B80"/><path d="M51.12 3.8h-6.76c-2.44 0-4.6.48-6.48 1.44-1.88.96-3.32 2.36-4.32 4.2-.92 1.76-1.4 3.8-1.4 6.12 0 2.92.56 5.36 1.68 7.32 1.12 2 2.76 3.48 4.92 4.44 2.16.96 4.72 1.44 7.68 1.44h2.52c.4 0 .68-.04.84-.12.16-.08.28-.2.36-.36l.2-.44.88-6.12h-5.4c-1.48 0-2.6-.28-3.36-.84-.8-.56-1.16-1.4-1.08-2.52.08-1.4.92-2.12 2.52-2.12h8.24l2.04-14.08Zm-5.32 16.56c-.48 1.32-1.2 1.96-2.16 1.96-1.2 0-2.12-.52-2.76-1.56-.64-1.04-.92-2.32-.84-3.84.08-1.8.6-3.2 1.56-4.2s2.24-1.56 3.84-1.56h4.48l-.84 5.92-3.28 3.08Z" fill="#179BD7"/><path d="M69.84 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76 1.48-1.56 3.32-2.56 5.52-3s4.4-.64 6.6-.64c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#253B80"/><path d="M89.36 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76C79.8 1.64 81.64.64 83.84.2S88.08 0 90.28 0c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#179BD7"/></svg>`
-			},
-			mercadopago: {
-				text: "Mercado Pago",
-				icon: `<svg viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.6 8.56a2.64 2.64 0 0 0-2.1-2.24L22.99 2.1a.44.44 0 0 0-.4 0L9.08 6.32a2.64 2.64 0 0 0-2.1 2.24L5.1 14.8a2.64 2.64 0 0 0 2.52 3.02h25.4a2.64 2.64 0 0 0 2.52-3.02l-1.92-6.24Z" fill="#00AEEF"/></svg>`
-			},
-			bizum: {
-				text: "Bizum",
-				icon: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"/></svg>`
-			}
-		};
-        let buttonsHTML = '';
-        for (const key in buttons) {
-            buttonsHTML += `<button class="payment-button ${key}" data-product-code="${productCode}">${buttons[key].icon} <span>${buttons[key].text}</span></button>`;
-        }
-        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-		const labelText = languages[currentLang]?.paymentMethodLabel || languages['it'].paymentMethodLabel;
-		
-		paymentContainer.innerHTML = `<p>${labelText}</p>` + buttonsHTML;
+        participantsInput.addEventListener('input', updateGroupPrice);
     }
-}
-// --- FINE NUOVA LOGICA ---
 
+    // --- LOGICA PER PRENOTAZIONE INDIVIDUALE ---
+    const allIndividualBookingButtons = document.querySelectorAll('.open-individual-booking-modal');
+    const individualBookingModal = document.getElementById('individual-booking-modal');
 
-
-
-
-
-
-
-
-
-
-
-
-
+    if (allIndividualBookingButtons.length > 0 && individualBookingModal) {
+        allIndividualBookingButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+				const planCard = event.target.closest('.plan');
+				if (!planCard) return;
+			
+				// --- INIZIO DELLA CORREZIONE ---
+				// 1. Definiamo le traduzioni QUI, all'inizio della funzione.
+				const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+				const translations = languages[currentLang] || languages['it'];
+			
+				// 2. ORA possiamo usare 'translations' per ottenere il nome del servizio.
+				const serviceName = planCard.querySelector('h3').textContent;
+				// --- FINE DELLA CORREZIONE ---
+			
+				const productCode = planCard.querySelector('.location-selector')?.dataset.productCode || event.target.dataset.productCode;
+				let servicePriceText = '';
+			
+				const locationSelector = planCard.querySelector('.location-selector');
+				if (locationSelector) {
+					const selectedLocationRadio = locationSelector.querySelector('input[type="radio"]:checked');
+					if(selectedLocationRadio) {
+						const locationValue = selectedLocationRadio.value;
+						const priceKey = `price${locationValue.charAt(0).toUpperCase() + locationValue.slice(1)}`;
+						const price = locationSelector.dataset[priceKey];
+						servicePriceText = `€${price}`;
+					} else {
+						servicePriceText = 'Prezzo non definito';
+					}
+				} else {
+					const priceElement = planCard.querySelector('.current-price');
+					servicePriceText = priceElement ? priceElement.textContent : 'N/D';
+				}
+			
+				document.getElementById('modal-individual-service-price').textContent = servicePriceText;
+			
+				// Popola il titolo del modale (la variabile 'translations' esiste già)
+				document.getElementById('modal-individual-title').textContent = translations.individualBookingTitle || "Dettagli Prenotazione";
+			
+				// Popola il paragrafo con il nome del servizio
+				const bookingInfoParagraph = document.getElementById('modal-booking-info');
+				if (bookingInfoParagraph) {
+					const bookingForText = translations.bookingForText || "Stai prenotando:";
+					bookingInfoParagraph.innerHTML = `${bookingForText} <strong>${serviceName}</strong>`;
+				}
+			
+				const paymentContainer = document.getElementById('modal-individual-payment-options');
+				if (typeof populatePaymentButtons === 'function' && productCode) {
+					paymentContainer.innerHTML = ''; 
+					populatePaymentButtons(productCode, 'modal-individual-payment-options');
+				} else {
+					paymentContainer.innerHTML = '<p>Opzioni di pagamento non disponibili.</p>';
+				}
+			
+				openModal('individual-booking-modal');
+			});
+        });
+    }
 
 }); // --- Chiusura di DOMContentLoaded ---
+
+// --- Aggiungi qui le funzioni di pagamento (populatePaymentButtons, handlePayPalPurchase, renderPayPalButtons) ---
+// ===================================================================
+// --- FUNZIONI DI PAGAMENTO (FASE 2) ---
+// ===================================================================
+
+function populatePaymentButtons(productCode, containerId = 'modal-payment-options') {
+    const paymentContainer = document.getElementById(containerId);
+    if (!paymentContainer) return;
+
+    const buttons = {
+        paypal: { text: "PayPal", icon: `<svg viewBox="0 0 96 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.56 26.5h8.84L21.32 3.8H12.5L9.9 20.38c-.12 1.08-.2 1.8-.24 2.14H9.6c.32-1.2.6-2.4.84-3.64L12.56 0H3.32L0 26.5h7.56Z" fill="#253B80"/><path d="M43.32 26.5h7.56L47.56 3.8h-7.56l3.32 22.7Z" fill="#253B80"/><path d="M51.12 3.8h-6.76c-2.44 0-4.6.48-6.48 1.44-1.88.96-3.32 2.36-4.32 4.2-.92 1.76-1.4 3.8-1.4 6.12 0 2.92.56 5.36 1.68 7.32 1.12 2 2.76 3.48 4.92 4.44 2.16.96 4.72 1.44 7.68 1.44h2.52c.4 0 .68-.04.84-.12.16-.08.28-.2.36-.36l.2-.44.88-6.12h-5.4c-1.48 0-2.6-.28-3.36-.84-.8-.56-1.16-1.4-1.08-2.52.08-1.4.92-2.12 2.52-2.12h8.24l2.04-14.08Zm-5.32 16.56c-.48 1.32-1.2 1.96-2.16 1.96-1.2 0-2.12-.52-2.76-1.56-.64-1.04-.92-2.32-.84-3.84.08-1.8.6-3.2 1.56-4.2s2.24-1.56 3.84-1.56h4.48l-.84 5.92-3.28 3.08Z" fill="#179BD7"/><path d="M69.84 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76 1.48-1.56 3.32-2.56 5.52-3s4.4-.64 6.6-.64c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#253B80"/><path d="M89.36 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76C79.8 1.64 81.64.64 83.84.2S88.08 0 90.28 0c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#179BD7"/></svg>` },
+        mercadopago: { text: "Mercado Pago", icon: `<svg viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.6 8.56a2.64 2.64 0 0 0-2.1-2.24L22.99 2.1a.44.44 0 0 0-.4 0L9.08 6.32a2.64 2.64 0 0 0-2.1 2.24L5.1 14.8a2.64 2.64 0 0 0 2.52 3.02h25.4a2.64 2.64 0 0 0 2.52-3.02l-1.92-6.24Z" fill="#00AEEF"/></svg>` },
+        bizum: { text: "Bizum", icon: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"/></svg>` }
+    };
+
+    let buttonsHTML = '';
+    for (const key in buttons) {
+        buttonsHTML += `<button class="payment-button ${key}" data-method="${key}">${buttons[key].icon} <span>${buttons[key].text}</span></button>`;
+    }
+    const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+    const labelText = languages[currentLang]?.paymentMethodLabel || languages['it'].paymentMethodLabel;
+    paymentContainer.innerHTML = `<p data-translate-key="paymentMethodLabel">${labelText}</p>` + buttonsHTML;
+
+    paymentContainer.querySelectorAll('.payment-button').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const method = event.currentTarget.dataset.method;
+            const modal = event.currentTarget.closest('.auth-modal');
+            let options = { productCode };
+
+            if (modal.id === 'group-booking-modal') {
+                options.participants = parseInt(modal.querySelector('#modal-participants-input').value, 10);
+            } else if (modal.id === 'individual-booking-modal') {
+                const planCard = document.querySelector(`.open-individual-booking-modal[data-product-code="${productCode}"]`)?.closest('.plan') 
+                            || document.querySelector(`.location-selector[data-product-code="${productCode}"]`)?.closest('.plan');
+                if (planCard && planCard.querySelector('.location-selector')) {
+                    const radio = planCard.querySelector('input[type="radio"]:checked');
+                    if (radio) {
+                        options.location = radio.value;
+                    }
+                }
+            }
+            
+            if (method === 'paypal') {
+				if (typeof handlePayPalPurchase === 'function') {
+					handlePayPalPurchase(options);
+				}
+			} else if (method === 'bizum') {
+				if (typeof handleBizumPurchase === 'function') {
+					handleBizumPurchase(options);
+				}
+			} else {
+				alert(`Il pagamento con ${buttons[method].text} non è ancora disponibile.`);
+			}
+        });
+    });
+}
+
+async function handlePayPalPurchase(options) {
+    if (!currentUser) {
+        alert("Devi effettuare il login per poter acquistare.");
+        openModal('login-modal');
+        return;
+    }
+
+    console.log("Avvio acquisto PayPal con opzioni:", options);
+
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) throw new Error("Sessione utente non trovata. Prova a fare di nuovo il login.");
+
+        const response = await fetch('/.netlify/functions/create-paypal-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify(options)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Errore dal server: ${response.status}`);
+        }
+
+        const orderData = await response.json();
+        if (!orderData.orderId) throw new Error("ID Ordine PayPal non ricevuto dal backend.");
+
+        console.log("Ordine PayPal creato con ID:", orderData.orderId);
+        if (typeof renderPayPalButtons === 'function') {
+            renderPayPalButtons(orderData.orderId, options.productCode);
+        }
+
+    } catch (error) {
+        console.error("Errore in handlePayPalPurchase:", error);
+        alert(`Si è verificato un errore: ${error.message}`);
+    }
+}
+
+function renderPayPalButtons(orderId, productCode) {
+    const paymentOptions = document.querySelector('.auth-modal[style*="display: flex"] .payment-options-container');
+    if(paymentOptions) {
+        paymentOptions.innerHTML = '<div id="paypal-button-container" style="min-height: 120px;"></div><p style="text-align:center; margin-top:10px;">Completa il pagamento qui sopra.</p>';
+    }
+
+    if (typeof paypal === 'undefined') {
+        console.error("PayPal SDK non è caricato.");
+        return;
+    }
+
+    paypal.Buttons({
+        createOrder: (data, actions) => orderId,
+
+        onApprove: async (data, actions) => {
+			console.log("Pagamento approvato dal cliente:", data);
+			if(paymentOptions) {
+				paymentOptions.innerHTML = `<p style="font-weight:bold; text-align:center;">Elaborazione pagamento in corso...</p>`;
+			}
+		
+			try {
+				const { data: { session } } = await supabase.auth.getSession();
+				if (!session) throw new Error("Sessione utente non trovata.");
+		
+				// Chiama la nostra nuova funzione backend per catturare e salvare
+				const response = await fetch('/.netlify/functions/capture-paypal-order', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${session.access_token}`
+					},
+					body: JSON.stringify({
+						orderID: data.orderID,
+						productCode: productCode
+					})
+				});
+		
+				if (!response.ok) {
+					const errorData = await response.json();
+					throw new Error(errorData.error || 'Errore nella registrazione del pagamento.');
+				}
+		
+				// Se tutto è andato a buon fine, mostra il messaggio di successo e reindirizza
+				if(paymentOptions) {
+					paymentOptions.innerHTML = `<p style="color:green; font-weight:bold; text-align:center;">Pagamento completato! ✅<br>Verrai reindirizzato tra pochi secondi...</p>`;
+				}
+		
+				setTimeout(() => {
+					let redirectUrl = '';
+					if (productCode.startsWith('FISIO')) {
+						redirectUrl = `https://wa.me/${CONTACT_INFO.whatsapp}`;
+					} else if (productCode === 'YOGA1') {
+						redirectUrl = BOOKING_LINKS.yoga_individuale;
+					} else if (productCode === 'YOGA5' || productCode.includes('G')) {
+						redirectUrl = BOOKING_LINKS.yoga_pacchetti;
+					}
+		
+					if (redirectUrl) {
+						window.location.href = redirectUrl;
+					} else {
+						closeModal('individual-booking-modal');
+						closeModal('group-booking-modal');
+					}
+				}, 4000);
+		
+			} catch (error) {
+				console.error("Errore in onApprove:", error);
+				if(paymentOptions) {
+					paymentOptions.innerHTML = `<p style="color:red; text-align:center;">Si è verificato un errore dopo l'approvazione: ${error.message}. Contatta l'assistenza.</p>`;
+				}
+			}
+		},
+
+        onError: (err) => {
+            console.error("Errore PayPal SDK:", err);
+            if(paymentOptions) {
+                paymentOptions.innerHTML = `<p style="color:red; text-align:center;">Si è verificato un errore durante il pagamento. Riprova.</p>`;
+            }
+        },
+
+        onCancel: (data) => {
+            console.log("Pagamento annullato:", data);
+            closeModal('individual-booking-modal');
+            closeModal('group-booking-modal');
+        }
+    }).render('#paypal-button-container');
+}
 
 // -----------------------------------------------------------
 //               LISTENER GLOBALI (es. Auth State Change)
