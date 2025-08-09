@@ -1,94 +1,67 @@
 // netlify/functions/mercadopago-webhook.js
-const mercadopago = require('mercadopago');
 const { createClient } = require('@supabase/supabase-js');
+const { MercadoPagoConfig, Payment } = require('mercadopago'); // <-- SINTASSI MODERNA (v2)
 
-// Configura Supabase
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
-// Configura MercadoPago
-mercadopago.configure({
-    access_token: process.env.MERCADOPAGO_ARG_ACCESS_TOKEN // Usa le chiavi per l'Argentina
+// Inizializzazione del client v2
+const client = new MercadoPagoConfig({
+    accessToken: process.env.MERCADOPAGO_ARG_ACCESS_TOKEN
 });
 
 exports.handler = async (event, context) => {
-    if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, body: 'Method Not Allowed' };
-    }
+    if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method Not Allowed' };
 
-    const body = JSON.parse(event.body);
-    const notificationType = body.type;
-    const paymentId = body.data?.id;
+    try {
+        const body = JSON.parse(event.body);
+        const notificationType = body.type;
+        const paymentId = body.data?.id;
 
-    if (notificationType === 'payment' && paymentId) {
-        try {
-            // 1. Ottieni i dettagli completi del pagamento da MercadoPago
-            const paymentInfo = await mercadopago.payment.findById(paymentId);
-            if (!paymentInfo || !paymentInfo.body) {
-                throw new Error(`Impossibile recuperare info per il pagamento ${paymentId}`);
-            }
-            const paymentDetails = paymentInfo.body;
+        if (notificationType === 'payment' && paymentId) {
+            // Recupero del pagamento con la sintassi v2
+            const payment = new Payment(client);
+            const paymentDetails = await payment.get({ id: paymentId });
 
-            const status = paymentDetails.status;
-            const externalReference = paymentDetails.external_reference;
-            const orderIdFromMP = paymentDetails.id.toString();
+            if (!paymentDetails) throw new Error(`Info non recuperate per pagamento ${paymentId}`);
 
-            // 2. Estrai productCode e userId da external_reference
+            const { status, external_reference, id: orderIdFromMP, transaction_amount, currency_id } = paymentDetails;
+            const payerEmail = paymentDetails.payer?.email;
+
             let productCode = null;
             let userId = null;
-            if (externalReference && typeof externalReference === 'string') {
-                const parts = externalReference.split(';');
-                productCode = parts[0];
-                if (parts.length === 2 && parts[1]) {
-                    userId = parts[1];
-                }
+            if (external_reference) {
+                [productCode, userId] = external_reference.split(';');
             }
 
-            // 3. Processa solo se il pagamento è approvato e abbiamo i dati
             if (status === 'approved' && productCode) {
-                // Controllo per evitare doppi inserimenti
-                const { data: existingPurchase } = await supabase
-                    .from('purchases')
-                    .select('id')
-                    .eq('payment_provider', 'mercadopago')
-                    .eq('payment_id', orderIdFromMP)
-                    .maybeSingle();
-
+                const { data: existingPurchase } = await supabase.from('purchases').select('id').eq('payment_provider', 'mercadopago').eq('payment_id', orderIdFromMP.toString()).maybeSingle();
                 if (existingPurchase) {
-                    console.log(`Pagamento ${orderIdFromMP} già presente. Evento duplicato ignorato.`);
+                    console.log(`Pagamento ${orderIdFromMP} già presente. Ignorato.`);
                     return { statusCode: 200, body: 'Duplicate event ignored' };
                 }
 
-                // 4. Inserimento nel Database
                 const purchaseRecord = {
                     user_id: userId || null,
-                    product_code: productCode, // <-- MODIFICA CHIAVE
+                    product_code: productCode,
                     payment_provider: 'mercadopago',
-                    payment_id: orderIdFromMP,
+                    payment_id: orderIdFromMP.toString(),
                     status: 'completed',
-                    amount: paymentDetails.transaction_amount ? parseFloat(paymentDetails.transaction_amount) : null,
-                    currency: paymentDetails.currency_id || null,
-                    payer_email: paymentDetails.payer?.email || null,
+                    amount: transaction_amount ? parseFloat(transaction_amount) : null,
+                    currency: currency_id || null,
+                    payer_email: payerEmail || null,
                     raw_payload: paymentDetails
                 };
 
-                const { error: insertError } = await supabase
-                    .from('purchases')
-                    .insert([purchaseRecord]);
+                const { error: insertError } = await supabase.from('purchases').insert([purchaseRecord]);
+                if (insertError) throw new Error(`Errore DB: ${insertError.message}`);
 
-                if (insertError) {
-                    throw new Error(`Errore Supabase durante l'inserimento: ${insertError.message}`);
-                }
-                
-                console.log(`=== INSERIMENTO MERCADOPAGO SU SUPABASE RIUSCITO (ID: ${orderIdFromMP}) ===`);
+                console.log(`=== ACQUISTO MERCADOPAGO REGISTRATO (ID: ${orderIdFromMP}) ===`);
             }
-        } catch (error) {
-            console.error(`Errore durante il processamento del webhook MercadoPago:`, error);
-            return { statusCode: 500, body: JSON.stringify({ error: 'Webhook processing failed' }) };
         }
+    } catch (error) {
+        console.error(`Errore Webhook MercadoPago:`, error);
+        return { statusCode: 500, body: JSON.stringify({ error: 'Webhook processing failed' }) };
     }
 
-    // Rispondi 200 OK a MercadoPago per confermare la ricezione della notifica
     return { statusCode: 200, body: 'Webhook received' };
 };
