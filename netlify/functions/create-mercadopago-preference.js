@@ -12,7 +12,7 @@ const client = new MercadoPagoConfig({
 exports.handler = async (event, context) => {
     if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method Not Allowed' };
     try {
-        // ... (Autenticazione Utente - rimane invariata)
+        // Autenticazione Utente
         const authHeader = event.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) return { statusCode: 401, body: JSON.stringify({ error: 'Token non fornito.' }) };
         const token = authHeader.split(' ')[1];
@@ -20,32 +20,28 @@ exports.handler = async (event, context) => {
         const userId = decoded.sub;
         if (!userId) return { statusCode: 401, body: JSON.stringify({ error: 'ID utente non trovato.' }) };
 
-        // Ricevi anche la lingua dal frontend
         const { productCode, location, participants, lang } = JSON.parse(event.body);
         if (!productCode) return { statusCode: 400, body: JSON.stringify({ error: 'productCode mancante.' }) };
 
-        // Recupera il servizio dal database, incluse le nuove colonne
+        // **INIZIO CORREZIONE**
+        // Rimosso 'min_participants' dalla select perché non è una colonna del database
         const { data: service, error: serviceError } = await supabase
             .from('services')
-            .select('name, name_en, name_es, price_ars, price_studio_ars, price_home_ars, price_per_person_ars, min_participants')
+            .select('name, name_en, name_es, price_ars, price_studio_ars, price_home_ars, price_per_person_ars')
             .eq('product_code', productCode)
             .single();
+        // **FINE CORREZIONE**
 
         if (serviceError || !service) throw new Error(`Servizio ${productCode} non trovato.`);
 
-        // --- INIZIO LOGICA TRADUZIONE ---
-        // Seleziona il titolo corretto in base alla lingua
-        let serviceTitle = service.name; // Default italiano
-        if (lang === 'en' && service.name_en) {
-            serviceTitle = service.name_en;
-        } else if (lang === 'es' && service.name_es) {
-            serviceTitle = service.name_es;
-        }
-        // --- FINE LOGICA TRADUZIONE ---
+        let serviceTitle = service.name;
+        if (lang === 'en' && service.name_en) serviceTitle = service.name_en;
+        if (lang === 'es' && service.name_es) serviceTitle = service.name_es;
 
-        // ... (Calcolo del Prezzo - rimane invariato)
         let finalPriceARS = 0;
         if (service.price_per_person_ars && participants) {
+            // La validazione del numero minimo di partecipanti avviene già nel frontend,
+            // quindi possiamo procedere direttamente al calcolo.
             finalPriceARS = service.price_per_person_ars * participants;
         } else if (location && service.price_studio_ars && service.price_home_ars) {
             finalPriceARS = (location === 'studio') ? service.price_studio_ars : service.price_home_ars;
@@ -60,7 +56,7 @@ exports.handler = async (event, context) => {
         const preferenceBody = {
             items: [{
                 id: productCode,
-                title: serviceTitle, // <-- USA IL TITOLO TRADOTTO
+                title: serviceTitle,
                 quantity: 1,
                 currency_id: 'ARS',
                 unit_price: parseFloat(finalPriceARS)
