@@ -1293,6 +1293,61 @@ function handleBizumPurchase(options) {
 
 ///////////////////////////////fine funzione Bizum///////////////////////////
 
+
+
+
+
+
+////////////////////////////////funzione MercadoPago///////////////////////////
+
+// Funzione per avviare il pagamento con Mercado Pago
+async function handleMercadoPagoPurchase(options) {
+    if (!currentUser) {
+        alert("Devi effettuare il login per poter acquistare.");
+        openModal('login-modal');
+        return;
+    }
+
+    const modal = document.querySelector('.auth-modal[style*="display: flex"]');
+    const button = modal.querySelector('.payment-button.mercadopago');
+    button.disabled = true;
+    button.innerHTML += ' <span>(Inizializzazione...)</span>';
+
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) throw new Error("Sessione utente non trovata.");
+
+        const response = await fetch('/.netlify/functions/create-mercadopago-preference', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify(options)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Errore nella creazione della preferenza di pagamento.');
+        }
+
+        const data = await response.json();
+        // Reindirizza l'utente alla pagina di checkout di Mercado Pago
+        window.location.href = data.init_point;
+
+    } catch (error) {
+        alert(`Si è verificato un errore: ${error.message}`);
+        button.disabled = false;
+        button.querySelector('span').textContent = 'Mercado Pago';
+    }
+}
+
+
+///////////////////////////////fine funzione MercadoPago////////////////////////
+
+
+
+
 // -----------------------------------------------------------
 //               LISTENER PRINCIPALE E INIZIALIZZAZIONE
 // -----------------------------------------------------------
@@ -1698,13 +1753,11 @@ function populatePaymentButtons(productCode, containerId = 'modal-payment-option
             }
             
             if (method === 'paypal') {
-				if (typeof handlePayPalPurchase === 'function') {
-					handlePayPalPurchase(options);
-				}
+				if (typeof handlePayPalPurchase === 'function') handlePayPalPurchase(options);
 			} else if (method === 'bizum') {
-				if (typeof handleBizumPurchase === 'function') {
-					handleBizumPurchase(options);
-				}
+				if (typeof handleBizumPurchase === 'function') handleBizumPurchase(options);
+			} else if (method === 'mercadopago') { // <-- AGGIUNGI QUESTO BLOCCO
+				if (typeof handleMercadoPagoPurchase === 'function') handleMercadoPagoPurchase(options);
 			} else {
 				alert(`Il pagamento con ${buttons[method].text} non è ancora disponibile.`);
 			}
