@@ -1,19 +1,18 @@
 // netlify/functions/create-mercadopago-preference.js
 const jwt = require('jsonwebtoken');
 const { createClient } = require('@supabase/supabase-js');
-const { MercadoPagoConfig, Preference } = require('mercadopago'); // <-- SINTASSI MODERNA (v2)
+const { MercadoPagoConfig, Preference } = require('mercadopago');
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
-// Inizializzazione del client v2
 const client = new MercadoPagoConfig({
     accessToken: process.env.MERCADOPAGO_ARG_ACCESS_TOKEN
 });
 
 exports.handler = async (event, context) => {
-    // ... (tutta la logica di autenticazione, recupero servizio e calcolo prezzo rimane IDENTICA)
     if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method Not Allowed' };
     try {
+        // ... (Autenticazione Utente - rimane invariata)
         const authHeader = event.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) return { statusCode: 401, body: JSON.stringify({ error: 'Token non fornito.' }) };
         const token = authHeader.split(' ')[1];
@@ -21,12 +20,30 @@ exports.handler = async (event, context) => {
         const userId = decoded.sub;
         if (!userId) return { statusCode: 401, body: JSON.stringify({ error: 'ID utente non trovato.' }) };
 
-        const { productCode, location, participants } = JSON.parse(event.body);
+        // Ricevi anche la lingua dal frontend
+        const { productCode, location, participants, lang } = JSON.parse(event.body);
         if (!productCode) return { statusCode: 400, body: JSON.stringify({ error: 'productCode mancante.' }) };
 
-        const { data: service, error: serviceError } = await supabase.from('services').select('*').eq('product_code', productCode).single();
+        // Recupera il servizio dal database, incluse le nuove colonne
+        const { data: service, error: serviceError } = await supabase
+            .from('services')
+            .select('name, name_en, name_es, price_ars, price_studio_ars, price_home_ars, price_per_person_ars, min_participants')
+            .eq('product_code', productCode)
+            .single();
+
         if (serviceError || !service) throw new Error(`Servizio ${productCode} non trovato.`);
 
+        // --- INIZIO LOGICA TRADUZIONE ---
+        // Seleziona il titolo corretto in base alla lingua
+        let serviceTitle = service.name; // Default italiano
+        if (lang === 'en' && service.name_en) {
+            serviceTitle = service.name_en;
+        } else if (lang === 'es' && service.name_es) {
+            serviceTitle = service.name_es;
+        }
+        // --- FINE LOGICA TRADUZIONE ---
+
+        // ... (Calcolo del Prezzo - rimane invariato)
         let finalPriceARS = 0;
         if (service.price_per_person_ars && participants) {
             finalPriceARS = service.price_per_person_ars * participants;
@@ -43,7 +60,7 @@ exports.handler = async (event, context) => {
         const preferenceBody = {
             items: [{
                 id: productCode,
-                title: service.name,
+                title: serviceTitle, // <-- USA IL TITOLO TRADOTTO
                 quantity: 1,
                 currency_id: 'ARS',
                 unit_price: parseFloat(finalPriceARS)
@@ -58,14 +75,10 @@ exports.handler = async (event, context) => {
             notification_url: `${process.env.URL}/.netlify/functions/mercadopago-webhook`
         };
 
-        // Creazione della preferenza con la sintassi v2
         const preference = new Preference(client);
         const result = await preference.create({ body: preferenceBody });
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ init_point: result.init_point })
-        };
+        return { statusCode: 200, body: JSON.stringify({ init_point: result.init_point }) };
 
     } catch (error) {
         console.error("ERRORE GRAVE in create-mercadopago-preference:", error);

@@ -1312,6 +1312,8 @@ async function handleMercadoPagoPurchase(options) {
     const button = modal.querySelector('.payment-button.mercadopago');
     button.disabled = true;
     button.innerHTML += ' <span>(Inizializzazione...)</span>';
+	const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+	options.lang = currentLang;
 
     try {
         const { data: { session } } = await supabase.auth.getSession();
