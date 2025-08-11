@@ -512,10 +512,17 @@ main section {
     display: flex;
     flex-direction: column;
 }
+/* NUOVO STILE PER IL CONTENITORE DELL'ANTEPRIMA */
+.content-thumbnail {
+    aspect-ratio: 16 / 9; /* Forza le proporzioni 16:9, come YouTube */
+    overflow: hidden; /* Nasconde le parti dell'immagine che potrebbero fuoriuscire */
+}
+
+/* STILE AGGIORNATO PER L'IMMAGINE */
 .content-thumbnail img {
     width: 100%;
-    height: 180px;
-    object-fit: cover;
+    height: 100%; /* L'immagine ora riempie il contenitore al 100% */
+    object-fit: cover; /* Mantiene il taglio corretto senza distorcere */
 }
 .content-text {
     padding: 15px 20px;
