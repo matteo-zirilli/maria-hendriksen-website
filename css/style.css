@@ -499,13 +499,24 @@ main section {
 
 .content-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 20px;
-    /* --- RIGHE DA AGGIUNGERE --- */
-    max-width: 1100px; /* Imposta una larghezza massima */
-    margin-left: auto;  /* Centra la griglia */
-    margin-right: auto; /* Centra la griglia */
+    gap: 30px; /* Spazio tra gli elementi */
+    grid-template-columns: 1fr; /* Impostazione di base: 1 colonna per schermi piccoli (mobile) */
+    max-width: 1100px;
+    margin: 20px auto 0 auto; /* Centra la griglia e aggiunge margine */
+}
+
+/* Media query per tablet e schermi medi: mostra 2 colonne */
+@media (min-width: 600px) {
+    .content-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Media query per desktop e schermi grandi: mostra 3 colonne */
+@media (min-width: 900px) {
+    .content-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 
