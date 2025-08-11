@@ -198,7 +198,10 @@ const languages = {
 		"bizumCTAButton": "Invia Conferma via WhatsApp",
 		"whatsappMessage": "Ciao Maria, ti contatto dal tuo sito. Vorrei acquistare il servizio '[SERVICE_NAME]' e pagare con Bizum. Resto in attesa di istruzioni. Grazie!",
 		"bizumInfoText": "Per questo servizio, la prenotazione si finalizza con un contatto personale. Procedi su WhatsApp per definire l'appuntamento e il pagamento direttamente con Maria.",
-		"bizumProceedButton": "Procedi su WhatsApp"
+		"bizumProceedButton": "Procedi su WhatsApp",
+		"youtubeSectionTitle": "Seguimi su YouTube",
+		"youtubeSectionText": "Non perderti i nuovi video e le lezioni complete. Iscriviti al canale per rimanere sempre aggiornato.",
+		"youtubeSectionButton": "Iscriviti Ora"
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -383,7 +386,10 @@ const languages = {
 		"bizumCTAButton": "Send Confirmation via WhatsApp",
 		"whatsappMessage": "Hi Maria, I'm contacting you from your website. I'd like to purchase the '[SERVICE_NAME]' service and pay with Bizum. I'm awaiting instructions. Thanks!",
 		"bizumInfoText": "For this service, the booking is finalized with personal contact. Proceed on WhatsApp to arrange your appointment and payment directly with Maria.",
-		"bizumProceedButton": "Proceed on WhatsApp"
+		"bizumProceedButton": "Proceed on WhatsApp",
+		"youtubeSectionTitle": "Follow me on YouTube",
+		"youtubeSectionText": "Don't miss new videos and full lessons. Subscribe to the channel to stay up to date.",
+		"youtubeSectionButton": "Subscribe Now"
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -568,7 +574,10 @@ const languages = {
 		"bizumCTAButton": "Enviar Confirmación por WhatsApp",
 		"whatsappMessage": "Hola Maria, te contacto desde tu web. Me gustaría comprar el servicio '[NOMBRE_DEL_SERVICIO]' y pagar con Bizum. Quedo a la espera de instrucciones. ¡Gracias!",
 		"bizumInfoText": "Para este servicio, la reserva se finaliza con un contacto personal. Procede en WhatsApp para definir tu cita y el pago directamente con Maria.",
-		"bizumProceedButton": "Proceder en WhatsApp"
+		"bizumProceedButton": "Proceder en WhatsApp",
+		"youtubeSectionTitle": "Sígueme en YouTube",
+		"youtubeSectionText": "No te pierdas los nuevos vídeos y las clases completas. Suscríbete al canal para mantenerte siempre al día.",
+		"youtubeSectionButton": "Suscríbete Ahora"
 		
     }
 };
