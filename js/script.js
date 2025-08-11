@@ -1349,6 +1349,132 @@ async function handleMercadoPagoPurchase(options) {
 
 
 
+//////////////////////////////VIDEO CONTENTS///////////////////////////////////
+
+
+
+// ===================================================================
+// --- NUOVE FUNZIONI PER LA PAGINA CONTENUTI (VIDEO DINAMICI) ---
+// ===================================================================
+
+// Funzione per creare e aprire il modale del video
+function openVideoModal(videoUrl) {
+    // Estrai l'ID del video di YouTube dall'URL
+    let videoId = null;
+    try {
+        const url = new URL(videoUrl);
+        if (url.hostname.includes('youtube.com')) {
+            videoId = url.searchParams.get('v');
+        } else if (url.hostname.includes('youtu.be')) {
+            videoId = url.pathname.slice(1);
+        }
+    } catch (e) {
+        console.error("URL del video non valido:", videoUrl);
+        return;
+    }
+
+    if (!videoId) {
+        alert("Impossibile trovare l'ID del video di YouTube.");
+        return;
+    }
+
+    // Crea l'HTML del modale
+    const modalHTML = `
+        <div id="video-modal" class="auth-modal" style="display:flex;">
+            <div class="modal-content" style="max-width: 900px; padding: 10px; background-color: black;">
+                <span class="close-button" style="color: white; top: -10px; right: 5px; font-size: 40px;" onclick="closeVideoModal()">&times;</span>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                    <iframe 
+                        src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Aggiungi il modale al body e definisci la funzione per chiuderlo
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    window.closeVideoModal = function() {
+        const modal = document.getElementById('video-modal');
+        if (modal) modal.remove();
+    }
+}
+
+
+// Funzione principale per caricare e mostrare i video
+async function loadAndDisplayVideos() {
+    const yogaGrid = document.getElementById('yoga-videos-grid');
+    const fisioGrid = document.getElementById('fisio-videos-grid');
+    if (!yogaGrid || !fisioGrid) return;
+
+    try {
+        const response = await fetch('/.netlify/functions/get-video-content');
+        if (!response.ok) throw new Error('Errore di rete nel recupero dei video.');
+        
+        const videos = await response.json();
+
+        // Pulisci i contenitori
+        yogaGrid.innerHTML = '';
+        fisioGrid.innerHTML = '';
+        
+        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+
+        videos.forEach(video => {
+            // Seleziona titolo e descrizione in base alla lingua
+            let title = video.name;
+            let description = video.description;
+            if (currentLang === 'en' && video.name_en) title = video.name_en;
+            if (currentLang === 'es' && video.name_es) title = video.name_es;
+            if (currentLang === 'en' && video.description_en) description = video.description_en;
+            if (currentLang === 'es' && video.description_es) description = video.description_es;
+
+            // Crea l'HTML per la card del video
+            const videoCardHTML = `
+                <div class="content-item" data-video-url="${video.video_url}" style="cursor: pointer;">
+                    <div class="content-thumbnail">
+                        <img src="https://img.youtube.com/vi/${new URL(video.video_url).searchParams.get('v')}/hqdefault.jpg" alt="Anteprima per ${title}">
+                    </div>
+                    <div class="content-text">
+                        <h3 class="content-title">${title}</h3>
+                        <p class="content-description">${description || ''}</p>
+                    </div>
+                </div>
+            `;
+
+            // Aggiungi la card alla griglia corretta
+            if (video.category === 'yoga') {
+                yogaGrid.innerHTML += videoCardHTML;
+            } else if (video.category === 'fisioterapia') {
+                fisioGrid.innerHTML += videoCardHTML;
+            }
+        });
+
+        // Aggiungi gli event listener a tutte le card create
+        document.querySelectorAll('.content-item[data-video-url]').forEach(card => {
+            card.addEventListener('click', () => {
+                openVideoModal(card.dataset.videoUrl);
+            });
+        });
+
+    } catch (error) {
+        console.error("Errore nel caricamento dei video:", error);
+        yogaGrid.innerHTML = `<p>Impossibile caricare i contenuti. Riprova più tardi.</p>`;
+        fisioGrid.innerHTML = '';
+    }
+}
+
+
+
+
+
+///////////////////////////FINE VIDEO CONTENTS////////////////////////////////
+
+
+
 
 // -----------------------------------------------------------
 //               LISTENER PRINCIPALE E INIZIALIZZAZIONE
@@ -1546,6 +1672,19 @@ document.addEventListener('DOMContentLoaded', () => {
              console.error("Funzione loadReviews non definita.");
         }
     }
+	
+	
+	/////////////////////////////PER I VIDEO CONTENTS////////////////////////////////
+	
+	// Avvia il caricamento dei video solo se siamo nella pagina dei contenuti
+	if (document.getElementById('yoga-videos-grid')) {
+		loadAndDisplayVideos();
+	}
+	//////////////////////////FINE VIDEO CONTENTS/////////////////////////////
+	
+	
+	
+	
 	
     const hamburgerButton = document.getElementById('hamburger-menu');
     const mainNav = document.getElementById('main-nav');

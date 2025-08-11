@@ -1,53 +1,47 @@
 // netlify/functions/create-mercadopago-preference.js
 const jwt = require('jsonwebtoken');
 const { createClient } = require('@supabase/supabase-js');
-const mercadopago = require('mercadopago');
+const { MercadoPagoConfig, Preference } = require('mercadopago');
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
-// Configura MercadoPago per l'Argentina
-mercadopago.configure({
-    access_token: process.env.MERCADOPAGO_ARG_ACCESS_TOKEN 
+const client = new MercadoPagoConfig({
+    accessToken: process.env.MERCADOPAGO_ARG_ACCESS_TOKEN
 });
 
 exports.handler = async (event, context) => {
-    if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, body: 'Method Not Allowed' };
-    }
-
-    // 1. Autenticazione Utente
-    let userId;
+    if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method Not Allowed' };
     try {
+        // Autenticazione Utente
         const authHeader = event.headers.authorization;
-        if (!authHeader || !authHeader.startsWith('Bearer ')) throw new Error('Token non fornito.');
+        if (!authHeader || !authHeader.startsWith('Bearer ')) return { statusCode: 401, body: JSON.stringify({ error: 'Token non fornito.' }) };
         const token = authHeader.split(' ')[1];
         const decoded = jwt.verify(token, process.env.SUPABASE_JWT_SECRET);
-        userId = decoded.sub;
-        if (!userId) throw new Error('ID utente non trovato nel token.');
-    } catch (error) {
-        return { statusCode: 401, body: JSON.stringify({ error: 'Utente non autenticato.' }) };
-    }
+        const userId = decoded.sub;
+        if (!userId) return { statusCode: 401, body: JSON.stringify({ error: 'ID utente non trovato.' }) };
 
-    try {
-        const { productCode, location, participants } = JSON.parse(event.body);
-        if (!productCode) {
-            return { statusCode: 400, body: JSON.stringify({ error: 'productCode mancante.' }) };
-        }
+        const { productCode, location, participants, lang } = JSON.parse(event.body);
+        if (!productCode) return { statusCode: 400, body: JSON.stringify({ error: 'productCode mancante.' }) };
 
-        // 2. Recupera il servizio dal database
+        // **INIZIO CORREZIONE**
+        // Rimosso 'min_participants' dalla select perché non è una colonna del database
         const { data: service, error: serviceError } = await supabase
             .from('services')
-            .select('*')
+            .select('name, name_en, name_es, price_ars, price_studio_ars, price_home_ars, price_per_person_ars')
             .eq('product_code', productCode)
             .single();
+        // **FINE CORREZIONE**
 
-        if (serviceError || !service) {
-            throw new Error(`Servizio con codice ${productCode} non trovato.`);
-        }
+        if (serviceError || !service) throw new Error(`Servizio ${productCode} non trovato.`);
 
-        // 3. Calcola il prezzo finale IN PESOS ARGENTINI (ARS)
+        let serviceTitle = service.name;
+        if (lang === 'en' && service.name_en) serviceTitle = service.name_en;
+        if (lang === 'es' && service.name_es) serviceTitle = service.name_es;
+
         let finalPriceARS = 0;
         if (service.price_per_person_ars && participants) {
+            // La validazione del numero minimo di partecipanti avviene già nel frontend,
+            // quindi possiamo procedere direttamente al calcolo.
             finalPriceARS = service.price_per_person_ars * participants;
         } else if (location && service.price_studio_ars && service.price_home_ars) {
             finalPriceARS = (location === 'studio') ? service.price_studio_ars : service.price_home_ars;
@@ -56,16 +50,15 @@ exports.handler = async (event, context) => {
         } else if (service.price_studio_ars) {
             finalPriceARS = service.price_studio_ars;
         } else {
-            throw new Error("Prezzo in ARS non trovato per questo servizio.");
+            throw new Error("Prezzo in ARS non trovato.");
         }
 
-        // 4. Creazione della Preferenza di Pagamento
-        const preference = {
+        const preferenceBody = {
             items: [{
                 id: productCode,
-                title: service.name,
+                title: serviceTitle,
                 quantity: 1,
-                currency_id: 'ARS', // Valuta argentina
+                currency_id: 'ARS',
                 unit_price: parseFloat(finalPriceARS)
             }],
             back_urls: {
@@ -78,18 +71,14 @@ exports.handler = async (event, context) => {
             notification_url: `${process.env.URL}/.netlify/functions/mercadopago-webhook`
         };
 
-        const response = await mercadopago.preferences.create(preference);
+        const preference = new Preference(client);
+        const result = await preference.create({ body: preferenceBody });
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ init_point: response.body.init_point })
-        };
+        return { statusCode: 200, body: JSON.stringify({ init_point: result.init_point }) };
 
     } catch (error) {
-        console.error("ERRORE in create-mercadopago-preference:", error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: error.message })
-        };
+        console.error("ERRORE GRAVE in create-mercadopago-preference:", error);
+        if (error.name === 'JsonWebTokenError') return { statusCode: 401, body: JSON.stringify({ error: 'Token non valido.' }) };
+        return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
     }
 };
