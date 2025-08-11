@@ -782,29 +782,42 @@ async function handleReviewSubmit(event) {
     submitButton.disabled = true;
 
     try {
-        const response = await fetch('/.netlify/functions/submit-review', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, rating, comment }),
-        });
-        if (!response.ok) {
-            let errorMsg = `Errore HTTP: ${response.status}`;
-            try {
-                 const errorData = await response.json();
-                 errorMsg = errorData.error || errorData.message || errorMsg;
-            } catch(e) { /* Ignora */ }
-            throw new Error(errorMsg);
-        }
-        messageDiv.textContent = 'Recensione inviata con successo! Sarà visibile dopo l\'approvazione.';
-        messageDiv.className = 'form-message success';
-        form.reset();
-    } catch (error) {
-        console.error('Errore invio recensione:', error);
-        messageDiv.textContent = `Errore nell'invio della recensione: ${error.message}. Riprova più tardi.`;
-        messageDiv.className = 'form-message error';
-    } finally {
-        submitButton.disabled = false;
-    }
+		// Prendi la sessione dell'utente per ottenere il token
+		const { data: { session } } = await supabase.auth.getSession();
+		if (!session) {
+			// Se l'utente non è loggato, mostra un errore o apri il modale di login
+			throw new Error("Devi effettuare il login per lasciare una recensione.");
+		}
+	
+		const response = await fetch('/.netlify/functions/submit-review', {
+			method: 'POST',
+			headers: { 
+				'Content-Type': 'application/json',
+				// Ecco dove "mostriamo il pass" di sicurezza
+				'Authorization': `Bearer ${session.access_token}`
+			},
+			body: JSON.stringify({ name, rating, comment }),
+		});
+	
+		if (!response.ok) {
+			let errorMsg = `Errore HTTP: ${response.status}`;
+			try {
+				const errorData = await response.json();
+				errorMsg = errorData.error || errorData.message || errorMsg;
+			} catch(e) { /* Ignora */ }
+			throw new Error(errorMsg);
+		}
+		messageDiv.textContent = 'Recensione inviata con successo! Sarà visibile dopo l\'approvazione.';
+		messageDiv.className = 'form-message success';
+		form.reset();
+	
+	} catch (error) {
+		console.error('Errore invio recensione:', error);
+		messageDiv.textContent = `Errore nell'invio della recensione: ${error.message}. Riprova più tardi.`;
+		messageDiv.className = 'form-message error';
+	} finally {
+		submitButton.disabled = false;
+	}
 }
 
 function updateAuthStateUI(user) {
