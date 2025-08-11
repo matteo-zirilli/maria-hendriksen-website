@@ -648,6 +648,14 @@ function changeLanguage(lang) {
             displayLoginMessage();
         }
     }
+	
+	
+	// Alla fine della funzione changeLanguage(lang)...
+
+	// Se ci troviamo nella pagina dei contenuti, ricarica i video per aggiornare le traduzioni
+	if (document.getElementById('yoga-videos-grid')) {
+		loadAndDisplayVideos();
+	}
 }
 
 function updateActiveButton(lang) {
@@ -1358,16 +1366,16 @@ async function handleMercadoPagoPurchase(options) {
 // ===================================================================
 
 // Funzione per creare e aprire il modale del video
+// Sostituisci la vecchia funzione openVideoModal con questa
 function openVideoModal(videoUrl) {
-    // Estrai l'ID del video di YouTube dall'URL
+    // Rimuovi eventuali modali rimasti aperti per errore
+    const existingModal = document.getElementById('video-modal');
+    if (existingModal) existingModal.remove();
+
     let videoId = null;
     try {
         const url = new URL(videoUrl);
-        if (url.hostname.includes('youtube.com')) {
-            videoId = url.searchParams.get('v');
-        } else if (url.hostname.includes('youtu.be')) {
-            videoId = url.pathname.slice(1);
-        }
+        videoId = url.hostname.includes('youtube.com') ? url.searchParams.get('v') : url.pathname.slice(1);
     } catch (e) {
         console.error("URL del video non valido:", videoUrl);
         return;
@@ -1378,12 +1386,11 @@ function openVideoModal(videoUrl) {
         return;
     }
 
-    // Crea l'HTML del modale
     const modalHTML = `
-        <div id="video-modal" class="auth-modal" style="display:flex;">
-            <div class="modal-content" style="max-width: 900px; padding: 10px; background-color: black;">
-                <span class="close-button" style="color: white; top: -10px; right: 5px; font-size: 40px;" onclick="closeVideoModal()">&times;</span>
-                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+        <div id="video-modal" class="auth-modal" style="display:flex; align-items:center; justify-content:center;">
+            <div class="modal-content" style="max-width: 900px; width: 90%; padding: 0; background-color: black; border-radius: 8px; overflow: hidden;">
+                <span id="close-video-button" class="close-button" style="color: white; top: 0px; right: 15px; font-size: 40px; z-index: 10;">&times;</span>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0;">
                     <iframe 
                         src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
                         frameborder="0" 
@@ -1395,13 +1402,22 @@ function openVideoModal(videoUrl) {
             </div>
         </div>
     `;
-    
-    // Aggiungi il modale al body e definisci la funzione per chiuderlo
+
     document.body.insertAdjacentHTML('beforeend', modalHTML);
-    window.closeVideoModal = function() {
+
+    // Aggiungi un listener per la chiusura più robusto
+    document.getElementById('close-video-button').addEventListener('click', () => {
         const modal = document.getElementById('video-modal');
         if (modal) modal.remove();
-    }
+    });
+
+    // Bonus: chiudi anche cliccando sullo sfondo scuro
+    document.getElementById('video-modal').addEventListener('click', (event) => {
+        if (event.target.id === 'video-modal') {
+             const modal = document.getElementById('video-modal');
+             if (modal) modal.remove();
+        }
+    });
 }
 
 
@@ -1436,7 +1452,7 @@ async function loadAndDisplayVideos() {
             const videoCardHTML = `
                 <div class="content-item" data-video-url="${video.video_url}" style="cursor: pointer;">
                     <div class="content-thumbnail">
-                        <img src="https://img.youtube.com/vi/${new URL(video.video_url).searchParams.get('v')}/hqdefault.jpg" alt="Anteprima per ${title}">
+                        <img src="https://img.youtube.com/vi/${new URL(video.video_url).searchParams.get('v')}/maxresdefault.jpg" alt="Anteprima per ${title}">
                     </div>
                     <div class="content-text">
                         <h3 class="content-title">${title}</h3>
