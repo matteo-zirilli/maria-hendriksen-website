@@ -201,7 +201,8 @@ const languages = {
 		"bizumProceedButton": "Procedi su WhatsApp",
 		"youtubeSectionTitle": "Seguimi su YouTube",
 		"youtubeSectionText": "Non perderti i nuovi video e le lezioni complete. Iscriviti al canale per rimanere sempre aggiornato.",
-		"youtubeSectionButton": "Iscriviti Ora"
+		"youtubeSectionButton": "Iscriviti Ora",
+		"noReviewsYet": "Non ci sono ancora recensioni. Sii il primo a lasciarne una!"
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -389,7 +390,8 @@ const languages = {
 		"bizumProceedButton": "Proceed on WhatsApp",
 		"youtubeSectionTitle": "Follow me on YouTube",
 		"youtubeSectionText": "Don't miss new videos and full lessons. Subscribe to the channel to stay up to date.",
-		"youtubeSectionButton": "Subscribe Now"
+		"youtubeSectionButton": "Subscribe Now",
+		"noReviewsYet": "No reviews yet. Be the first to leave one!"
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -577,7 +579,8 @@ const languages = {
 		"bizumProceedButton": "Proceder en WhatsApp",
 		"youtubeSectionTitle": "Sígueme en YouTube",
 		"youtubeSectionText": "No te pierdas los nuevos vídeos y las clases completas. Suscríbete al canal para mantenerte siempre al día.",
-		"youtubeSectionButton": "Suscríbete Ahora"
+		"youtubeSectionButton": "Suscríbete Ahora",
+		"noReviewsYet": "Aún no hay reseñas. ¡Sé el primero en dejar una!"
 		
     }
 };
@@ -732,7 +735,9 @@ async function loadReviews() {
         const reviews = await response.json();
         container.innerHTML = '';
         if (!reviews || reviews.length === 0) {
-            container.innerHTML = '<p>Non ci sono ancora recensioni. Sii il primo a lasciarne una!</p>';
+            const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+			const noReviewsText = languages[currentLang]?.noReviewsYet || languages['it'].noReviewsYet;
+			container.innerHTML = `<p>${noReviewsText}</p>`;
             return;
         }
         reviews.forEach(review => {
