@@ -668,6 +668,12 @@ function changeLanguage(lang) {
 	if (document.getElementById('yoga-videos-grid')) {
 		loadAndDisplayVideos();
 	}
+	
+	
+	// Se ci troviamo in una pagina con le recensioni, ricaricale per aggiornare le traduzioni
+	if (document.getElementById('reviews-list-container')) {
+		loadReviews();
+	}
 }
 
 function updateActiveButton(lang) {
