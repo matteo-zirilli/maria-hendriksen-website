@@ -138,7 +138,7 @@ const languages = {
         "contactFormInstructions": "Compila questo modulo per domande, richieste di informazioni o per prenotare sessioni specifiche. Ti risponderò il prima possibile.",
         "labelName": "Nome:",
         "labelEmail": "Email:",
-        "labelPhone": "Telefono (Opzionale):",
+        "labelPhone": "Cellulare (Opzionale):",
         "labelSubject": "Oggetto:",
         "optionSelectSubject": "-- Seleziona Oggetto --",
         "optionSubjFisio": "Richiesta Appuntamento Fisioterapia",
@@ -153,11 +153,11 @@ const languages = {
         "contactWhatsapp": "WhatsApp: <a href=\"https://wa.me/5492983567655\" target=\"_blank\">+54 9 2983 567655</a>",
         "contactInstagram": "Instagram: <a href=\"https://www.instagram.com/yoguikine?igsh=dDk4bGc3Zm81MWx2\" target=\"_blank\" rel=\"noopener noreferrer\">@yoguikine</a>",
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
-        "contactPhone": "Telefono: <a href=\"tel:+393299460634\">+39 3299460634</a>",
+        "contactPhone": "Cellulare: <a href=\"tel:+34641234679\">+34 641234679</a>",
         "contactAddress": "Indirizzo Studio: Palma de Maiorca (contattami per dettagli)",
         "contactLabelWhatsapp": "WhatsApp",
         "contactLabelEmail": "Email",
-        "contactLabelPhone": "Telefono",
+        "contactLabelPhone": "Cellulare",
         "contactLabelInstagram": "Instagram",
         "pageTitleContent": "I Miei Contenuti - Maria Guillermina Hendriksen",
         "contentHeading": "I Miei Contenuti",
@@ -342,7 +342,7 @@ const languages = {
         "contactWhatsapp": "WhatsApp: <a href=\"https://wa.me/5492983567655\" target=\"_blank\">+54 9 2983 567655</a>",
         "contactInstagram": "Instagram: <a href=\"https://www.instagram.com/yoguikine?igsh=dDk4bGc3Zm81MWx2\" target=\"_blank\" rel=\"noopener noreferrer\">@yoguikine</a>",
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
-        "contactPhone": "Phone: <a href=\"tel:+393299460634\">+39 3299460634</a>",
+        "contactPhone": "Phone: <a href=\"tel:+34641234679\">+34 641234679</a>",
         "contactAddress": "Studio Address: Palma de Mallorca (contact me for details)",
         "contactLabelWhatsapp": "WhatsApp",
         "contactLabelEmail": "Email",
@@ -531,7 +531,7 @@ const languages = {
         "contactWhatsapp": "WhatsApp: <a href=\"https://wa.me/5492983567655\" target=\"_blank\">+54 9 2983 567655</a>",
         "contactInstagram": "Instagram: <a href=\"https://www.instagram.com/yoguikine?igsh=dDk4bGc3Zm81MWx2\" target=\"_blank\" rel=\"noopener noreferrer\">@yoguikine</a>",
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
-        "contactPhone": "Teléfono: <a href=\"tel:+393299460634\">+39 3299460634</a>",
+        "contactPhone": "Teléfono: <a href=\"tel:+34641234679\">+34 641234679</a>",
         "contactAddress": "Dirección Estudio: Palma de Mallorca (contáctame para detalles)",
         "contactLabelWhatsapp": "WhatsApp",
         "contactLabelEmail": "Email",
@@ -1579,7 +1579,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const savedLang = localStorage.getItem('preferredLanguage');
-    const defaultLang = 'it';
+    const defaultLang = 'es';
     let initialLang = defaultLang;
     if (typeof languages !== 'undefined') {
         if (savedLang && languages[savedLang]){
