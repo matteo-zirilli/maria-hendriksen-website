@@ -2116,7 +2116,7 @@ if (presentationContainer) {
     if (videoId) {
         // 1. Inserisce il video in modo permanente nella pagina (con autoplay e mute)
         presentationContainer.innerHTML = `
-            <div class="content-thumbnail" style="margin-top: 20px;">
+            <div class="video-embed-container" style="margin-top: 20px;">
                 <iframe 
                     src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1" 
                     frameborder="0" 

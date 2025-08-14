@@ -1027,4 +1027,16 @@ footer {
     .service-split-layout.yoga-layout .service-image-column {
         order: 0;
     }
+	
+	
+	
+	/* Stile per il contenitore del video incorporato (es. in homepage) */
+	/* Mantiene le proporzioni 16:9 ma senza l'icona Play */
+	.video-embed-container {
+		position: relative;
+		height: 0;
+		padding-top: 56.25%; /* Proporzioni 16:9 */
+		overflow: hidden;
+		border-radius: 8px; /* Aggiungiamo un bordo arrotondato */
+	}
 }
