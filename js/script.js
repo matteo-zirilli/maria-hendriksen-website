@@ -202,7 +202,8 @@ const languages = {
 		"youtubeSectionTitle": "Seguimi su YouTube",
 		"youtubeSectionText": "Non perderti i nuovi video e le lezioni complete. Iscriviti al canale per rimanere sempre aggiornato.",
 		"youtubeSectionButton": "Iscriviti Ora",
-		"noReviewsYet": "Non ci sono ancora recensioni. Sii il primo a lasciarne una!"
+		"noReviewsYet": "Non ci sono ancora recensioni. Sii il primo a lasciarne una!",
+		"loginToPurchase": "Devi effettuare il login per poter acquistare."
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -391,7 +392,8 @@ const languages = {
 		"youtubeSectionTitle": "Follow me on YouTube",
 		"youtubeSectionText": "Don't miss new videos and full lessons. Subscribe to the channel to stay up to date.",
 		"youtubeSectionButton": "Subscribe Now",
-		"noReviewsYet": "No reviews yet. Be the first to leave one!"
+		"noReviewsYet": "No reviews yet. Be the first to leave one!",
+		"loginToPurchase": "You must log in to be able to purchase."
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -580,7 +582,8 @@ const languages = {
 		"youtubeSectionTitle": "Sígueme en YouTube",
 		"youtubeSectionText": "No te pierdas los nuevos vídeos y las clases completas. Suscríbete al canal para mantenerte siempre al día.",
 		"youtubeSectionButton": "Suscríbete Ahora",
-		"noReviewsYet": "Aún no hay reseñas. ¡Sé el primero en dejar una!"
+		"noReviewsYet": "Aún no hay reseñas. ¡Sé el primero en dejar una!",
+		"loginToPurchase": "Debes iniciar sesión para poder comprar."
 		
     }
 };
@@ -1252,10 +1255,19 @@ function renderPayPalButton(orderID, containerId, lessonId) {
 // Funzione per Bizum che reindirizza a WhatsApp per finalizzare
 function handleBizumPurchase(options) {
     if (!currentUser) {
-        alert("Devi effettuare il login per procedere.");
-        openModal('login-modal');
-        return;
-    }
+		// Chiudiamo i modali di pagamento aperti PRIMA di procedere
+		closeModal('individual-booking-modal');
+		closeModal('group-booking-modal');
+	
+		// Mostriamo l'avviso tradotto (logica che abbiamo appena aggiunto)
+		const currentLang = localStorage.getItem('preferredLanguage') || 'es';
+		const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
+		alert(alertMessage);
+	
+		// Apriamo il modale di login
+		openModal('login-modal');
+		return;
+	}
 
     const modal = document.querySelector('.auth-modal[style*="display: flex"]');
     const paymentContainer = modal.querySelector('.payment-options-container');
@@ -1344,10 +1356,19 @@ function handleBizumPurchase(options) {
 // Funzione per avviare il pagamento con Mercado Pago
 async function handleMercadoPagoPurchase(options) {
     if (!currentUser) {
-        alert("Devi effettuare il login per poter acquistare.");
-        openModal('login-modal');
-        return;
-    }
+		// Chiudiamo i modali di pagamento aperti PRIMA di procedere
+		closeModal('individual-booking-modal');
+		closeModal('group-booking-modal');
+	
+		// Mostriamo l'avviso tradotto (logica che abbiamo appena aggiunto)
+		const currentLang = localStorage.getItem('preferredLanguage') || 'es';
+		const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
+		alert(alertMessage);
+	
+		// Apriamo il modale di login
+		openModal('login-modal');
+		return;
+	}
 
     const modal = document.querySelector('.auth-modal[style*="display: flex"]');
     const button = modal.querySelector('.payment-button.mercadopago');
@@ -1957,10 +1978,19 @@ function populatePaymentButtons(productCode, containerId = 'modal-payment-option
 
 async function handlePayPalPurchase(options) {
     if (!currentUser) {
-        alert("Devi effettuare il login per poter acquistare.");
-        openModal('login-modal');
-        return;
-    }
+		// Chiudiamo i modali di pagamento aperti PRIMA di procedere
+		closeModal('individual-booking-modal');
+		closeModal('group-booking-modal');
+	
+		// Mostriamo l'avviso tradotto (logica che abbiamo appena aggiunto)
+		const currentLang = localStorage.getItem('preferredLanguage') || 'es';
+		const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
+		alert(alertMessage);
+	
+		// Apriamo il modale di login
+		openModal('login-modal');
+		return;
+	}
 
     console.log("Avvio acquisto PayPal con opzioni:", options);
 
