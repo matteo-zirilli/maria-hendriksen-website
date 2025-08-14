@@ -2099,7 +2099,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- Logica per il video di presentazione in homepage ---
 // Controlla se siamo sulla homepage cercando un elemento specifico (es. la sezione hero)
 if (document.querySelector('.hero-fullwidth-new')) {
-    const videoPresentazioneURL = "https://www.youtube.com/shorts/Sq2-oV8ko9U"; // <--- INSERISCI QUI IL LINK!
+    const videoPresentazioneURL = "https://www.youtube.com/watch?v=7orJ-qrnXnY"; // <--- INSERISCI QUI IL LINK!
 
     const hasSeenPresentation = localStorage.getItem('hasSeenPresentationVideo');
 
