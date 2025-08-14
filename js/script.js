@@ -2097,21 +2097,94 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // --- Logica per il video di presentazione in homepage ---
-// Controlla se siamo sulla homepage cercando un elemento specifico (es. la sezione hero)
-if (document.querySelector('.hero-fullwidth-new')) {
-    const videoPresentazioneURL = "https://www.youtube.com/watch?v=7orJ-qrnXnY"; // <--- INSERISCI QUI IL LINK!
+// --- Logica per il video di presentazione in homepage (Versione Finale) ---
+// Controlla se siamo sulla homepage
+const presentationContainer = document.getElementById('presentation-video-container');
+if (presentationContainer) {
+    
+    const videoPresentazioneURL = "INSERISCI_QUI_IL_LINK_YOUTUBE_DEL_VIDEO_DI_MARIA";
 
-    const hasSeenPresentation = localStorage.getItem('hasSeenPresentationVideo');
+    const getYoutubeId = (url) => {
+        if (!url) return null;
+        const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        const match = url.match(regex);
+        return match ? match[1] : null;
+    };
 
-    // Se l'utente non ha mai visto il video (è la sua prima visita)
-    if (!hasSeenPresentation) {
-        // Aspettiamo un paio di secondi per non essere troppo aggressivi
-        setTimeout(() => {
-            openVideoModal(videoPresentazioneURL);
-            // Salviamo nel browser che l'utente ha visto il video, così non lo mostriamo più
-            localStorage.setItem('hasSeenPresentationVideo', 'true');
-        }, 2000); // Ritardo di 2 secondi
+    const videoId = getYoutubeId(videoPresentazioneURL);
+
+    if (videoId) {
+        // 1. Inserisce il video in modo permanente nella pagina (con autoplay e mute)
+        presentationContainer.innerHTML = `
+            <div class="content-thumbnail" style="margin-top: 20px;">
+                <iframe 
+                    src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                </iframe>
+            </div>
+        `;
+
+        // 2. Controlla se è la prima visita per mostrare il pop-up
+        const hasSeenPresentation = localStorage.getItem('hasSeenPresentationVideo');
+        if (!hasSeenPresentation) {
+            setTimeout(() => {
+                openVideoModal(videoPresentazioneURL); 
+                localStorage.setItem('hasSeenPresentationVideo', 'true');
+            }, 2000);
+        }
     }
+}
+
+// SOSTITUISCI LA VECCHIA openVideoModal CON QUESTA VERSIONE AGGIORNATA
+function openVideoModal(videoUrl) {
+    const existingModal = document.getElementById('video-modal');
+    if (existingModal) existingModal.remove();
+
+    let videoId = null;
+    if (videoUrl) {
+        const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        const match = videoUrl.match(youtubeRegex);
+        if (match && match[1]) videoId = match[1];
+    }
+
+    if (!videoId) {
+        console.error("ID del video di YouTube non trovato o URL non valido:", videoUrl);
+        return;
+    }
+
+    const modalHTML = `
+        <div id="video-modal" class="auth-modal" style="display:flex; align-items:center; justify-content:center;">
+            <div class="modal-content" style="max-width: 900px; width: 90%; padding: 0; background-color: black; border-radius: 8px; overflow: hidden;">
+                <span id="close-video-button" class="close-button" style="color: white; top: 0px; right: 15px; font-size: 40px; z-index: 10;">&times;</span>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+                    <iframe 
+                        src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    document.getElementById('close-video-button').addEventListener('click', () => {
+        const modal = document.getElementById('video-modal');
+        if (modal) modal.remove();
+    });
+    
+    document.getElementById('video-modal').addEventListener('click', (event) => {
+        if (event.target.id === 'video-modal') {
+             const modal = document.getElementById('video-modal');
+             if (modal) modal.remove();
+        }
+    });
 }
 
 }); // --- Chiusura di DOMContentLoaded ---
