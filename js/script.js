@@ -215,7 +215,13 @@ const languages = {
 		"thankYouText": "Per completare la prenotazione, segui questi due passaggi:",
 		"thankYouButtonForm": "1. Compila la tua Storia Clinica",
 		"thankYouButtonWP": "2. Contatta Maria per Fissare l'Appuntamento",
-		"whatsappMessageFisio": "Ciao Maria, ho appena effettuato il pagamento per una sessione di Fisioterapia e compilato il modulo clinico. Vorrei fissare l'appuntamento. Grazie!"
+		"whatsappMessageFisio": "Ciao Maria, ho appena effettuato il pagamento per una sessione di Fisioterapia e compilato il modulo clinico. Vorrei fissare l'appuntamento. Grazie!",
+		"bizumTitle": "Finalizza con Bizum",
+		"bizumInstructions": "Per completare, invia un Bizum al numero qui sotto. Successivamente, puoi contattare Maria su WhatsApp per fissare l'appuntamento.",
+		"bizumAmount": "Importo:",
+		"bizumPhoneNumber": "Numero di Telefono:",
+		"bizumWhatsappButton": "Contatta su WhatsApp per Prenotare",
+		"bizumFormButton": "Compila Modulo Clinico"
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -410,7 +416,13 @@ const languages = {
 		"thankYouText": "To complete your booking, please follow these two steps:",
 		"thankYouButtonForm": "1. Fill out your Clinical History",
 		"thankYouButtonWP": "2. Contact Maria to Schedule the Appointment",
-		"whatsappMessageFisio": "Hi Maria, I have just paid for a Physiotherapy session and filled out the clinical form. I'd like to schedule the appointment. Thanks!"
+		"whatsappMessageFisio": "Hi Maria, I have just paid for a Physiotherapy session and filled out the clinical form. I'd like to schedule the appointment. Thanks!",
+		"bizumTitle": "Finalize with Bizum",
+		"bizumInstructions": "To complete your purchase, please send a Bizum to the number below. Afterwards, you can contact Maria on WhatsApp to schedule the appointment.",
+		"bizumAmount": "Amount:",
+		"bizumPhoneNumber": "Phone Number:",
+		"bizumWhatsappButton": "Contact on WhatsApp to Book",
+		"bizumFormButton": "Fill Out Clinical Form"
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -605,7 +617,13 @@ const languages = {
 		"thankYouText": "Para completar tu reserva, por favor sigue estos dos pasos:",
 		"thankYouButtonForm": "1. Completa tu Historia Clínica",
 		"thankYouButtonWP": "2. Contacta a Maria para Agendar la Cita",
-		"whatsappMessageFisio": "Hola Maria, acabo de realizar el pago para una sesión de Fisioterapia y he completado el formulario clínico. Me gustaría agendar la cita. ¡Gracias!"
+		"whatsappMessageFisio": "Hola Maria, acabo de realizar el pago para una sesión de Fisioterapia y he completado el formulario clínico. Me gustaría agendar la cita. ¡Gracias!",
+		"bizumTitle": "Finalizar con Bizum",
+		"bizumInstructions": "Para completar tu compra, envía un Bizum al número de abajo. Después, puedes contactar a Maria por WhatsApp para agendar la cita.",
+		"bizumAmount": "Importe:",
+		"bizumPhoneNumber": "Número de Teléfono:",
+		"bizumWhatsappButton": "Contactar por WhatsApp para Reservar",
+		"bizumFormButton": "Completar Formulario Clínico"
 		
     }
 };
@@ -1305,72 +1323,35 @@ function renderPayPalButton(orderID, containerId, lessonId) {
 
 ///////////////funzione di Bizum che integra il reindirizzamento alla pagina per il form///////////////////////////
 
-function handleBizumPurchase(options) {
-    // Blocco di controllo utente non loggato - VERSIONE DEFINITIVA
-	if (!currentUser) {
-		// 1. Chiudiamo i modali di pagamento aperti
-		closeModal('individual-booking-modal');
-		closeModal('group-booking-modal');
-	
-		// 2. Prendiamo il messaggio tradotto
-		const currentLang = localStorage.getItem('preferredLanguage') || 'es';
-		const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
-	
-		// 3. Mostriamo il nostro avviso personalizzato INVECE di alert()
-		showAlert(alertMessage);
-	
-		return; // Interrompe la funzione di pagamento
-	}
+// Funzione per Bizum che registra e mostra le opzioni (WhatsApp e Form)
+async function handleBizumPurchase(options) {
+    if (!currentUser) {
+        closeModal('individual-booking-modal');
+        closeModal('group-booking-modal');
+        const currentLang = localStorage.getItem('preferredLanguage') || 'es';
+        const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
+        showAlert(alertMessage);
+        return;
+    }
 
     const modal = document.querySelector('.auth-modal[style*="display: flex"]');
     const paymentContainer = modal.querySelector('.payment-options-container');
     if (!paymentContainer) return;
 
-    // --- 1. Raccogli i dati necessari ---
     const priceText = modal.querySelector('.current-price').textContent.replace('€', '').replace(',', '.');
     const finalPrice = parseFloat(priceText);
-    
-	let serviceName;
-	if (modal.id === 'individual-booking-modal') {
-		serviceName = modal.querySelector('#modal-booking-info strong')?.textContent;
-	} else {
-		const planCard = document.querySelector(`.plan[data-product-code="${options.productCode}"]`);
-		if (planCard) {
-			serviceName = planCard.querySelector('h3')?.textContent;
-		}
-	}
-	serviceName = serviceName || options.productCode;
-	
-    // CORREZIONE QUI: Usa 'es' come fallback
+    const serviceName = modal.querySelector('#modal-booking-info strong')?.textContent || options.productCode;
+
     const currentLang = localStorage.getItem('preferredLanguage') || 'es';
     const t = languages[currentLang] || languages['es'];
 
-    // --- 2. Prepara il messaggio e il link WhatsApp ---
-    let whatsappText = t.whatsappMessage || "Ciao Maria, ho prenotato il servizio [SERVICE_NAME]";
-    const placeholder = currentLang === 'es' ? '[NOMBRE_DEL_SERVICIO]' : '[SERVICE_NAME]';
-    whatsappText = whatsappText.replace(placeholder, serviceName);
-    const whatsappUrl = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(whatsappText)}`;
-
-    // --- 3. Aggiorna l'interfaccia del modale con il nuovo testo e pulsante ---
-    paymentContainer.innerHTML = `
-        <p style="font-size: 0.95em; text-align:center; padding: 10px 0;">${t.bizumInfoText}</p>
-        <a href="${whatsappUrl}" target="_blank" id="whatsapp-confirm-button" class="cta-button" style="width:100%; margin-top:15px; text-align:center; display:block;">
-            ${t.bizumProceedButton}
-        </a>
-    `;
-
-    // --- 4. Aggiungi l'azione di salvataggio al click ---
-    document.getElementById('whatsapp-confirm-button').addEventListener('click', async () => {
-        try {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) return;
-
+    // --- 1. REGISTRAZIONE IMMEDIATA IN BACKGROUND ---
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
             fetch('/.netlify/functions/record-manual-payment', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${session.access_token}`
-                },
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
                 body: JSON.stringify({
                     productCode: options.productCode,
                     amount: finalPrice,
@@ -1378,16 +1359,40 @@ function handleBizumPurchase(options) {
                     paymentProvider: 'bizum'
                 })
             });
-
-            setTimeout(() => {
-                closeModal('individual-booking-modal');
-                closeModal('group-booking-modal');
-            }, 1000);
-
-        } catch (error) {
-            console.error("Errore durante la registrazione del pagamento Bizum:", error);
         }
-    });
+    } catch (error) {
+        console.error("Errore durante la registrazione Bizum in background:", error);
+    }
+
+    // --- 2. AGGIORNA L'INTERFACCIA DEL MODALE ---
+    const whatsappMessage = t.whatsappMessageFisio || "Ciao Maria, vorrei prenotare una sessione di Fisioterapia.";
+    const whatsappUrl = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
+
+    // Determina se mostrare il pulsante del form
+    const isFisio = options.productCode.startsWith('FISIO');
+    const formLink = GOOGLE_FORM_LINKS[currentLang] || GOOGLE_FORM_LINKS.es;
+    const formButtonHTML = isFisio ? 
+        `<a href="${formLink}" target="_blank" class="cta-button" style="width:100%; text-align:center; display:block;">${t.bizumFormButton}</a>` : '';
+
+    paymentContainer.innerHTML = `
+        <h4 style="text-align:center; margin-top:0;">${t.bizumTitle}</h4>
+        <p style="font-size: 0.9em; text-align:center;">${t.bizumInstructions}</p>
+        <div style="background-color: #f2eee9; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <div style="display:flex; justify-content: space-between; font-size: 1.1em;">
+                <span>${t.bizumAmount}</span>
+                <strong>€${finalPrice.toFixed(2)}</strong>
+            </div>
+            <hr style="border:none; border-top: 1px solid #eae3da; margin: 10px 0;">
+            <div style="display:flex; justify-content: space-between; font-size: 1.1em;">
+                <span>${t.bizumPhoneNumber}</span>
+                <strong>${CONTACT_INFO.phone}</strong>
+            </div>
+        </div>
+        <div class="steps" style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">
+            <a href="${whatsappUrl}" target="_blank" class="cta-button" style="width:100%; text-align:center; display:block;">${t.bizumWhatsappButton}</a>
+            ${formButtonHTML}
+        </div>
+    `;
 }
 
 
