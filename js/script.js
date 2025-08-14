@@ -730,6 +730,31 @@ function closeModal(modalId) {
     }
 }
 
+
+
+
+// Funzione per mostrare un avviso personalizzato e non bloccante
+function showAlert(message) {
+    const alertModal = document.getElementById('custom-alert-modal');
+    const messageP = document.getElementById('custom-alert-message');
+    const okButton = document.getElementById('custom-alert-ok-button');
+
+    if (!alertModal || !messageP || !okButton) return;
+
+    messageP.textContent = message;
+
+    // Definiamo cosa succede quando l'utente clicca OK
+    okButton.onclick = () => {
+        closeModal('custom-alert-modal'); // Chiude l'avviso
+        openModal('login-modal');      // E POI apre il modale di login
+    };
+
+    openModal('custom-alert-modal');
+}
+
+
+
+
 // -----------------------------------------------------------
 //               FUNZIONI SPECIFICHE (Recensioni, Autenticazione, Contenuti Video)
 // -----------------------------------------------------------
@@ -1254,19 +1279,20 @@ function renderPayPalButton(orderID, containerId, lessonId) {
 // NUOVA FUNZIONE PER GESTIRE BIZUM CON CONFERMA WHATSAPP
 // Funzione per Bizum che reindirizza a WhatsApp per finalizzare
 function handleBizumPurchase(options) {
-    if (!currentUser) {
-		// Chiudiamo i modali di pagamento aperti PRIMA di procedere
+    // Blocco di controllo utente non loggato - VERSIONE DEFINITIVA
+	if (!currentUser) {
+		// 1. Chiudiamo i modali di pagamento aperti
 		closeModal('individual-booking-modal');
 		closeModal('group-booking-modal');
 	
-		// Mostriamo l'avviso tradotto (logica che abbiamo appena aggiunto)
+		// 2. Prendiamo il messaggio tradotto
 		const currentLang = localStorage.getItem('preferredLanguage') || 'es';
 		const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
-		alert(alertMessage);
 	
-		// Apriamo il modale di login
-		openModal('login-modal');
-		return;
+		// 3. Mostriamo il nostro avviso personalizzato INVECE di alert()
+		showAlert(alertMessage);
+	
+		return; // Interrompe la funzione di pagamento
 	}
 
     const modal = document.querySelector('.auth-modal[style*="display: flex"]');
@@ -1355,19 +1381,20 @@ function handleBizumPurchase(options) {
 
 // Funzione per avviare il pagamento con Mercado Pago
 async function handleMercadoPagoPurchase(options) {
-    if (!currentUser) {
-		// Chiudiamo i modali di pagamento aperti PRIMA di procedere
+    // Blocco di controllo utente non loggato - VERSIONE DEFINITIVA
+	if (!currentUser) {
+		// 1. Chiudiamo i modali di pagamento aperti
 		closeModal('individual-booking-modal');
 		closeModal('group-booking-modal');
 	
-		// Mostriamo l'avviso tradotto (logica che abbiamo appena aggiunto)
+		// 2. Prendiamo il messaggio tradotto
 		const currentLang = localStorage.getItem('preferredLanguage') || 'es';
 		const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
-		alert(alertMessage);
 	
-		// Apriamo il modale di login
-		openModal('login-modal');
-		return;
+		// 3. Mostriamo il nostro avviso personalizzato INVECE di alert()
+		showAlert(alertMessage);
+	
+		return; // Interrompe la funzione di pagamento
 	}
 
     const modal = document.querySelector('.auth-modal[style*="display: flex"]');
@@ -1977,19 +2004,20 @@ function populatePaymentButtons(productCode, containerId = 'modal-payment-option
 }
 
 async function handlePayPalPurchase(options) {
-    if (!currentUser) {
-		// Chiudiamo i modali di pagamento aperti PRIMA di procedere
+    // Blocco di controllo utente non loggato - VERSIONE DEFINITIVA
+	if (!currentUser) {
+		// 1. Chiudiamo i modali di pagamento aperti
 		closeModal('individual-booking-modal');
 		closeModal('group-booking-modal');
 	
-		// Mostriamo l'avviso tradotto (logica che abbiamo appena aggiunto)
+		// 2. Prendiamo il messaggio tradotto
 		const currentLang = localStorage.getItem('preferredLanguage') || 'es';
 		const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
-		alert(alertMessage);
 	
-		// Apriamo il modale di login
-		openModal('login-modal');
-		return;
+		// 3. Mostriamo il nostro avviso personalizzato INVECE di alert()
+		showAlert(alertMessage);
+	
+		return; // Interrompe la funzione di pagamento
 	}
 
     console.log("Avvio acquisto PayPal con opzioni:", options);
