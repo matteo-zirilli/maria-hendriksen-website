@@ -662,6 +662,8 @@ form input, form select, form textarea {
   position: relative;
   /* RIMOSSA la regola "margin: 10% auto;" */
   box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Aggiunge un'ombra più definita */
+  max-height: 90vh; /* Altezza massima: 90% dell'altezza dello schermo */
+  overflow-y: auto; /* Mostra una barra di scorrimento solo se necessario */
 }
 
 

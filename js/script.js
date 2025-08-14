@@ -1375,6 +1375,7 @@ async function handleBizumPurchase(options) {
         `<a href="${formLink}" target="_blank" class="cta-button" style="width:100%; text-align:center; display:block;">${t.bizumFormButton}</a>` : '';
 
     paymentContainer.innerHTML = `
+		<span class="close-button" onclick="closeModal('individual-booking-modal'); closeModal('group-booking-modal');">&times;</span>
         <h4 style="text-align:center; margin-top:0;">${t.bizumTitle}</h4>
         <p style="font-size: 0.9em; text-align:center;">${t.bizumInstructions}</p>
         <div style="background-color: #f2eee9; padding: 15px; border-radius: 8px; margin: 15px 0;">
