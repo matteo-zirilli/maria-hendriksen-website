@@ -791,6 +791,7 @@ footer {
 }
 .split-content {
     flex: 2; /* Occupa 2/3 dello spazio */
+	position: relative;
 }
 .eyebrow-text {
     text-transform: uppercase;
