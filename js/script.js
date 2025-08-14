@@ -745,9 +745,13 @@ function showAlert(message) {
 
     // Definiamo cosa succede quando l'utente clicca OK
     okButton.onclick = () => {
-        closeModal('custom-alert-modal'); // Chiude l'avviso
-        openModal('login-modal');      // E POI apre il modale di login
-    };
+		closeModal('custom-alert-modal');
+	
+		// Aggiungiamo una piccolissima pausa per dare al browser il tempo di processare la chiusura
+		setTimeout(() => {
+			openModal('login-modal');
+		}, 100); // 100 millisecondi (impercettibile per l'utente)
+	};
 
     openModal('custom-alert-modal');
 }
