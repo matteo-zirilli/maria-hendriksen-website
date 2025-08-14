@@ -23,14 +23,11 @@ exports.handler = async (event, context) => {
         const { productCode, location, participants, lang } = JSON.parse(event.body);
         if (!productCode) return { statusCode: 400, body: JSON.stringify({ error: 'productCode mancante.' }) };
 
-        // **INIZIO CORREZIONE**
-        // Rimosso 'min_participants' dalla select perché non è una colonna del database
         const { data: service, error: serviceError } = await supabase
             .from('services')
             .select('name, name_en, name_es, price_ars, price_studio_ars, price_home_ars, price_per_person_ars')
             .eq('product_code', productCode)
             .single();
-        // **FINE CORREZIONE**
 
         if (serviceError || !service) throw new Error(`Servizio ${productCode} non trovato.`);
 
@@ -40,8 +37,6 @@ exports.handler = async (event, context) => {
 
         let finalPriceARS = 0;
         if (service.price_per_person_ars && participants) {
-            // La validazione del numero minimo di partecipanti avviene già nel frontend,
-            // quindi possiamo procedere direttamente al calcolo.
             finalPriceARS = service.price_per_person_ars * participants;
         } else if (location && service.price_studio_ars && service.price_home_ars) {
             finalPriceARS = (location === 'studio') ? service.price_studio_ars : service.price_home_ars;
@@ -53,6 +48,14 @@ exports.handler = async (event, context) => {
             throw new Error("Prezzo in ARS non trovato.");
         }
 
+        // --- INIZIO DELLA MODIFICA ---
+        // Definiamo dinamicamente l'URL di successo
+        let successUrl = `${process.env.URL}/piani.html?payment_status=mp_success`;
+        if (productCode.startsWith('FISIO')) {
+            successUrl = `${process.env.URL}/grazie-fisio.html`;
+        }
+        // --- FINE DELLA MODIFICA ---
+
         const preferenceBody = {
             items: [{
                 id: productCode,
@@ -62,7 +65,7 @@ exports.handler = async (event, context) => {
                 unit_price: parseFloat(finalPriceARS)
             }],
             back_urls: {
-                success: `${process.env.URL}/piani.html?payment_status=mp_success`,
+                success: successUrl, // <-- USA L'URL DINAMICO
                 failure: `${process.env.URL}/piani.html?payment_status=mp_failure`,
                 pending: `${process.env.URL}/piani.html?payment_status=mp_pending}`
             },
