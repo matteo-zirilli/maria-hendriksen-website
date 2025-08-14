@@ -2095,6 +2095,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
+// --- Logica per il video di presentazione in homepage ---
+// Controlla se siamo sulla homepage cercando un elemento specifico (es. la sezione hero)
+if (document.querySelector('.hero-fullwidth-new')) {
+    const videoPresentazioneURL = "https://www.youtube.com/shorts/Sq2-oV8ko9U"; // <--- INSERISCI QUI IL LINK!
+
+    const hasSeenPresentation = localStorage.getItem('hasSeenPresentationVideo');
+
+    // Se l'utente non ha mai visto il video (è la sua prima visita)
+    if (!hasSeenPresentation) {
+        // Aspettiamo un paio di secondi per non essere troppo aggressivi
+        setTimeout(() => {
+            openVideoModal(videoPresentazioneURL);
+            // Salviamo nel browser che l'utente ha visto il video, così non lo mostriamo più
+            localStorage.setItem('hasSeenPresentationVideo', 'true');
+        }, 2000); // Ritardo di 2 secondi
+    }
+}
+
 }); // --- Chiusura di DOMContentLoaded ---
 
 // --- Aggiungi qui le funzioni di pagamento (populatePaymentButtons, handlePayPalPurchase, renderPayPalButtons) ---
