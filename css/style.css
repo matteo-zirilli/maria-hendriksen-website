@@ -787,13 +787,16 @@ footer {
 }
 /* TROVA E SOSTITUISCI LE VECCHIE REGOLE CON QUESTE */
 
+/* SOSTITUISCI LE VECCHIE REGOLE CON QUESTE */
+
 .split-title {
-    flex-basis: 45%; /* Occupa il 45% dello spazio */
-    min-width: 300px; /* Larghezza minima per evitare che diventi troppo stretto */
+    width: 40%; /* Larghezza fissa: 40% dello spazio */
+    flex-shrink: 0; /* cruciale: impedisce alla colonna di restringersi */
 }
 
 .split-content {
-    flex-basis: 55%; /* Occupa il 55% dello spazio */
+    width: 60%; /* Larghezza fissa: 60% dello spazio */
+    flex-shrink: 0; /* cruciale: impedisce alla colonna di restringersi */
     position: relative; /* Mantiene il video ancorato correttamente */
 }
 
