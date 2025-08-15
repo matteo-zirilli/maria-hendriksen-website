@@ -776,34 +776,6 @@ footer {
     color: var(--colore-accento);        /* Anche il testo diventa color terracotta */
 }
 
-/* Stile per la nuova sezione a due colonne */
-.content-split-section {
-    display: flex;
-    align-items: center; /* Allinea verticalmente al centro */
-    gap: 50px;           /* Aumenta un po' lo spazio tra le colonne */
-    padding: 60px 20px;
-    max-width: 1100px;
-    margin: 40px auto;
-}
-/* TROVA E SOSTITUISCI LE VECCHIE REGOLE CON QUESTE */
-
-/* SOSTITUISCI LE VECCHIE REGOLE CON QUESTE */
-
-.split-title {
-    width: 45%; /* Larghezza fissa: 40% dello spazio */
-    flex-shrink: 0; /* cruciale: impedisce alla colonna di restringersi */
-}
-
-.split-content {
-    width: 55%; /* Larghezza fissa: 60% dello spazio */
-    flex-shrink: 0; /* cruciale: impedisce alla colonna di restringersi */
-    position: relative; /* Mantiene il video ancorato correttamente */
-}
-
-#presentation-video-container {
-    width: 100%;
-}
-
 .eyebrow-text {
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -949,15 +921,7 @@ footer {
         padding: 0 20px; /* Diamo un po' di spazio ai lati */
     }
 
-    /* Regole per la sezione "Il mio approccio" su mobile */
-    .content-split-section {
-        flex-direction: column;
-        gap: 20px;
-        padding: 40px 15px;
-    }
-    .split-title h2 {
-        font-size: 1.8em;
-    }
+    
     
     /* --- FINE REGOLE HOMEPAGE --- */
 
