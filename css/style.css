@@ -785,13 +785,16 @@ footer {
     margin: 40px auto; /* Centra la sezione */
     align-items: flex-start;
 }
+/* TROVA E SOSTITUISCI LE VECCHIE REGOLE CON QUESTE */
+
 .split-title {
-    flex: 1; /* Occupa 1/3 dello spazio */
-    min-width: 250px;
+    flex-basis: 45%; /* Occupa il 45% dello spazio */
+    min-width: 300px; /* Larghezza minima per evitare che diventi troppo stretto */
 }
+
 .split-content {
-    flex: 2; /* Occupa 2/3 dello spazio */
-	position: relative;
+    flex-basis: 55%; /* Occupa il 55% dello spazio */
+    position: relative; /* Mantiene il video ancorato correttamente */
 }
 
 #presentation-video-container {
