@@ -779,23 +779,23 @@ footer {
 /* Stile per la nuova sezione a due colonne */
 .content-split-section {
     display: flex;
-    gap: 40px;
+    align-items: center; /* Allinea verticalmente al centro */
+    gap: 50px;           /* Aumenta un po' lo spazio tra le colonne */
     padding: 60px 20px;
-    max-width: 1000px;
-    margin: 40px auto; /* Centra la sezione */
-    align-items: flex-start;
+    max-width: 1100px;
+    margin: 40px auto;
 }
 /* TROVA E SOSTITUISCI LE VECCHIE REGOLE CON QUESTE */
 
 /* SOSTITUISCI LE VECCHIE REGOLE CON QUESTE */
 
 .split-title {
-    width: 40%; /* Larghezza fissa: 40% dello spazio */
+    width: 45%; /* Larghezza fissa: 40% dello spazio */
     flex-shrink: 0; /* cruciale: impedisce alla colonna di restringersi */
 }
 
 .split-content {
-    width: 60%; /* Larghezza fissa: 60% dello spazio */
+    width: 55%; /* Larghezza fissa: 60% dello spazio */
     flex-shrink: 0; /* cruciale: impedisce alla colonna di restringersi */
     position: relative; /* Mantiene il video ancorato correttamente */
 }
