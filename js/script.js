@@ -696,7 +696,7 @@ const languages = {
 
 
 
-
+let currentLanguage = localStorage.getItem('language') || 'es';
 
 
 // ... fine dell'oggetto languages };
