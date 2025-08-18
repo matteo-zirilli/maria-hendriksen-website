@@ -2036,10 +2036,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 		// --- DETTAGLI STATICI DEI PACCHETTI ---
 		const packageDetails = {
-			'PK_YOGA_01': { titleKey: 'package1Title', descKey: 'package1Desc', image: 'images/package-yoga-mobility.jpg', driveLink: 'IL_TUO_LINK_DRIVE_1' },
-			'PK_YOGA_02': { titleKey: 'package2Title', descKey: 'package2Desc', image: 'images/package-yoga-basics.jpg', driveLink: 'IL_TUO_LINK_DRIVE_2' },
-			'PK_YOGA_03': { titleKey: 'package3Title', descKey: 'package3Desc', image: 'images/package-home-workout.jpg', driveLink: 'IL_TUO_LINK_DRIVE_3' },
-			'PK_YOGA_04': { titleKey: 'package4Title', descKey: 'package4Desc', image: 'images/package-yoga-immersion.jpg', driveLink: 'IL_TUO_LINK_DRIVE_4' }
+			'PK_YOGA_01': { titleKey: 'package1Title', descKey: 'package1Desc', image: 'images/package-yoga-mobility.jpg', driveLink: 'https://drive.google.com/drive/folders/1T9h6fXci7UMMmKqdrQw7o7PnOQmwQKdc?usp=sharing' },
+			'PK_YOGA_02': { titleKey: 'package2Title', descKey: 'package2Desc', image: 'images/package-yoga-basics.jpg', driveLink: 'https://drive.google.com/drive/folders/1mrVU_D5dvCO1x_lJNG8bwr-WbvfllYnj?usp=sharing' },
+			'PK_YOGA_03': { titleKey: 'package3Title', descKey: 'package3Desc', image: 'images/package-home-workout.jpg', driveLink: 'https://drive.google.com/drive/folders/10TBwm11l3XN3C28reEkS95Wlro65HW3i?usp=sharing' },
+			'PK_YOGA_04': { titleKey: 'package4Title', descKey: 'package4Desc', image: 'images/package-yoga-immersion.jpg', driveLink: 'https://drive.google.com/drive/folders/1_NcYRNsSk6Sj0IW6YyxAecRa8qp6ude0?usp=sharing' }
 		};
 	
 		// --- NUOVA FUNZIONE PER IMPOSTARE IL PULSANTE PAYPAL ---
@@ -2152,12 +2152,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			bizumDescription.innerHTML = `o <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${bizumMessage}" target="_blank">paga con Bizum via WhatsApp</a>`;
 			paymentButtonsContainer.appendChild(bizumDescription);
 			
-			updateUITexts(currentLanguage);
+			
 			modal.style.display = 'flex';
 	
 			// Inizializza i pulsanti di pagamento DOPO che il modal è visibile
 			setupPayPalButton(payPalContainer.id, productCode);
 			setupMercadoPagoButton(mercadoPagoContainer.id, productCode, packageTitleText);
+			updateUITexts(currentLanguage);
 		};
 	
 		const closePackageModal = () => {
