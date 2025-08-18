@@ -694,6 +694,33 @@ const languages = {
     }
 };
 
+
+
+
+
+
+// ... fine dell'oggetto languages };
+
+    // ===== INCOLLA QUI QUESTA NUOVA FUNZIONE =====
+    function updateUITexts(lang) {
+        document.querySelectorAll('[data-translate-key]').forEach(element => {
+            const key = element.dataset.translateKey;
+            if (languages[lang] && languages[lang][key]) {
+                if (element.tagName === 'FIGCAPTION' || !languages[lang][key].includes('<')) {
+                     element.textContent = languages[lang][key];
+                } else {
+                     element.innerHTML = languages[lang][key];
+                }
+            }
+        });
+    }
+    // ===============================================
+
+
+
+
+
+
 // --- INIZIALIZZAZIONE SUPABASE ---
 const SUPABASE_URL = 'https://kmnowyskoyordmndfdae.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imttbm93eXNrb3lvcmRtbmRmZGFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyNzUwMTEsImV4cCI6MjA2MTg1MTAxMX0.MdcRpTPTGC8e5wSeqp7chqhP0fsaW50VtiuN2y26eiw';
@@ -734,16 +761,10 @@ function changeLanguage(lang) {
             }
         }
     }
-    document.querySelectorAll('[data-translate-key]').forEach(element => {
-        const key = element.dataset.translateKey;
-        if (languages[lang] && languages[lang][key]) {
-            if (element.tagName === 'FIGCAPTION' || !languages[lang][key].includes('<')) {
-                 element.textContent = languages[lang][key];
-            } else {
-                 element.innerHTML = languages[lang][key];
-            }
-        }
-    });
+
+	updateUITexts(lang);
+
+
     localStorage.setItem('preferredLanguage', lang);
     if (typeof updateActiveButton === 'function') { updateActiveButton(lang); }
 
@@ -2048,7 +2069,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				`;
 				packagesContainer.appendChild(card);
 			});
-			updateContent(currentLanguage);
+			updateUITexts(currentLanguage);
 		};
 	
 		// --- FUNZIONI PER GESTIRE IL MODAL ---
@@ -2062,7 +2083,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			document.getElementById('modal-description').setAttribute('data-translate-key', details.descKey);
 			document.getElementById('modal-drive-link').href = details.driveLink;
 			
-			updateContent(currentLanguage);
+			updateUITexts(currentLanguage);
 			modal.style.display = 'flex';
 		};
 	
