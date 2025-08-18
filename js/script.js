@@ -2092,21 +2092,32 @@ document.addEventListener('DOMContentLoaded', () => {
 		};
 	
 		// --- FUNZIONE PRINCIPALE PER RECUPERARE I DATI ---
+		// Sostituisci la vecchia funzione fetchPackages con questa
 		const fetchPackages = async () => {
 			try {
+				// Esegui la query per selezionare solo i prodotti con i codici specificati
 				const { data, error } = await supabase
 					.from('services')
 					.select('*')
 					.in('product_code', productCodes);
-	
+		
+				// ===== CODICE DI DEBUG AGGIUNTO =====
+				console.log("Risposta ricevuta da Supabase:", { data, error });
+		
 				if (error) {
+					// Se c'è un errore nella chiamata, loggalo e interrompi
 					console.error('Errore nel recuperare i pacchetti da Supabase:', error);
 					return;
 				}
-				
-				packagesData = data; // Salva i dati per usarli nel modal
-				populatePackageCards(data); // Crea le card
-	
+		
+				if (!data || data.length === 0) {
+					console.warn("AVVISO: La chiamata a Supabase ha avuto successo, ma non sono stati trovati pacchetti. Controlla che i 'product_code' nello script corrispondano a quelli nel tuo database Supabase e che le policy RLS permettano la lettura.");
+				}
+				// ===== FINE CODICE DI DEBUG =====
+		
+				// Se i dati sono stati recuperati con successo, popola le card
+				populatePackageCards(data);
+		
 			} catch (err) {
 				console.error('Errore imprevisto durante il fetch:', err);
 			}
