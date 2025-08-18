@@ -2110,7 +2110,9 @@ document.addEventListener('DOMContentLoaded', () => {
 				`;
 				packagesContainer.appendChild(card);
 			});
-			updateUITexts(currentLanguage);
+			setTimeout(() => {
+				updateUITexts(currentLanguage);
+			}, 0);
 		};
 	
 		// --- FUNZIONI PER GESTIRE IL MODAL (aggiornata) ---
