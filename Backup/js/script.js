@@ -7,6 +7,13 @@ const BOOKING_LINKS = {
     yoga_pacchetti: "https://tidycal.com/guillerminadn/pacchetto-lezioni-yoga"
 };
 
+const GOOGLE_FORM_LINKS = {
+    it: "https://forms.gle/316vmw2ndJMNjUd96",
+    en: "https://forms.gle/fM56ACC7sLGJDTbX6",
+    es: "https://forms.gle/kawL6aVzq8YY26H66"
+};
+
+
 const CONTACT_INFO = {
     whatsapp: "+5492983567655", // Numero Argentino per WhatsApp
     phone: "+34641234679"       // Numero Spagnolo per Chiamate
@@ -31,7 +38,7 @@ const languages = {
         "mottoPart3": "Muoviti verso il benessere.",
         "heroCtaButton": "Scopri i miei servizi",
         "introTitle": "Il mio approccio",
-        "introText": "Combino le tecniche della fisioterapia moderna con la saggezza dello yoga per offrire un percorso di recupero e benessere personalizzato. Ogni corpo racconta una storia unica e merita ascolto, cura e rispetto. Attraverso un approccio integrato, aiuto le persone a ritrovare equilibrio, forza e consapevolezza, accompagnandole in un viaggio verso un benessere profondo e duraturo. Credo che la salute non sia solo l’assenza di dolore, ma una condizione di armonia tra corpo, mente e respiro. La mia motivazione nasce dal desiderio autentico di aiutare le persone a sentirsi meglio con sé stesse, a riconnettersi con il proprio corpo e a riscoprire la propria energia vitale.",
+        "introText": "Combino le tecniche della fisioterapia con yoga per un percorso di recupero personalizzato. Il mio approccio integrato aiuta a ritrovare equilibrio e consapevolezza, per un benessere profondo e duraturo.",
         "approachEyebrow": "Il mio approccio",
         "approachTitle": "Un Approccio Integrato",
         "pageTitleAbout": "Chi Sono - Maria G. Hendriksen",
@@ -138,7 +145,7 @@ const languages = {
         "contactFormInstructions": "Compila questo modulo per domande, richieste di informazioni o per prenotare sessioni specifiche. Ti risponderò il prima possibile.",
         "labelName": "Nome:",
         "labelEmail": "Email:",
-        "labelPhone": "Telefono (Opzionale):",
+        "labelPhone": "Cellulare (Opzionale):",
         "labelSubject": "Oggetto:",
         "optionSelectSubject": "-- Seleziona Oggetto --",
         "optionSubjFisio": "Richiesta Appuntamento Fisioterapia",
@@ -153,11 +160,11 @@ const languages = {
         "contactWhatsapp": "WhatsApp: <a href=\"https://wa.me/5492983567655\" target=\"_blank\">+54 9 2983 567655</a>",
         "contactInstagram": "Instagram: <a href=\"https://www.instagram.com/yoguikine?igsh=dDk4bGc3Zm81MWx2\" target=\"_blank\" rel=\"noopener noreferrer\">@yoguikine</a>",
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
-        "contactPhone": "Telefono: <a href=\"tel:+393299460634\">+39 3299460634</a>",
+        "contactPhone": "Cellulare: <a href=\"tel:+34641234679\">+34 641234679</a>",
         "contactAddress": "Indirizzo Studio: Palma de Maiorca (contattami per dettagli)",
         "contactLabelWhatsapp": "WhatsApp",
         "contactLabelEmail": "Email",
-        "contactLabelPhone": "Telefono",
+        "contactLabelPhone": "Cellulare",
         "contactLabelInstagram": "Instagram",
         "pageTitleContent": "I Miei Contenuti - Maria Guillermina Hendriksen",
         "contentHeading": "I Miei Contenuti",
@@ -198,7 +205,23 @@ const languages = {
 		"bizumCTAButton": "Invia Conferma via WhatsApp",
 		"whatsappMessage": "Ciao Maria, ti contatto dal tuo sito. Vorrei acquistare il servizio '[SERVICE_NAME]' e pagare con Bizum. Resto in attesa di istruzioni. Grazie!",
 		"bizumInfoText": "Per questo servizio, la prenotazione si finalizza con un contatto personale. Procedi su WhatsApp per definire l'appuntamento e il pagamento direttamente con Maria.",
-		"bizumProceedButton": "Procedi su WhatsApp"
+		"bizumProceedButton": "Procedi su WhatsApp",
+		"youtubeSectionTitle": "Seguimi su YouTube",
+		"youtubeSectionText": "Non perderti i nuovi video e le lezioni complete. Iscriviti al canale per rimanere sempre aggiornato.",
+		"youtubeSectionButton": "Iscriviti Ora",
+		"noReviewsYet": "Non ci sono ancora recensioni. Sii il primo a lasciarne una!",
+		"loginToPurchase": "Devi effettuare il login per poter acquistare.",
+		"thankYouTitle": "Grazie! Il tuo pagamento è stato ricevuto.",
+		"thankYouText": "Per completare la prenotazione, segui questi due passaggi:",
+		"thankYouButtonForm": "1. Compila la tua Storia Clinica",
+		"thankYouButtonWP": "2. Contatta Maria per Fissare l'Appuntamento",
+		"whatsappMessageFisio": "Ciao Maria, ho appena effettuato il pagamento per una sessione di Fisioterapia e compilato il modulo clinico. Vorrei fissare l'appuntamento. Grazie!",
+		"bizumTitle": "Finalizza con Bizum",
+		"bizumInstructions": "Per completare, invia un Bizum al numero qui sotto. Successivamente, puoi contattare Maria su WhatsApp per fissare l'appuntamento.",
+		"bizumAmount": "Importo:",
+		"bizumPhoneNumber": "Numero di Telefono:",
+		"bizumWhatsappButton": "Contatta su WhatsApp per Prenotare",
+		"bizumFormButton": "Compila Modulo Clinico"
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -218,7 +241,7 @@ const languages = {
         "mottoPart3": "Move towards well-being.",
         "heroCtaButton": "Discover my services",
         "introTitle": "My Approach",
-        "introText": "I combine modern physiotherapy techniques with the wisdom of yoga to offer a personalized path to recovery and well-being. Every body tells a unique story and deserves to be heard, cared for, and respected. Through an integrated approach, I help people restore balance, strength, and awareness, guiding them on a journey toward deep and lasting wellness. I believe that health is not just the absence of pain, but a state of harmony between body, mind, and breath. My motivation comes from a genuine desire to help people feel better within themselves, reconnect with their bodies, and rediscover their vital energy.",
+        "introText": "I combine physiotherapy techniques with yoga for a personalized recovery path. My integrated approach helps restore balance and awareness for deep, lasting well-being.",
         "approachEyebrow": "My approach",
         "approachTitle": "An Integrated Approach",
         "pageTitleAbout": "About Me - Maria G. Hendriksen",
@@ -338,7 +361,7 @@ const languages = {
         "contactWhatsapp": "WhatsApp: <a href=\"https://wa.me/5492983567655\" target=\"_blank\">+54 9 2983 567655</a>",
         "contactInstagram": "Instagram: <a href=\"https://www.instagram.com/yoguikine?igsh=dDk4bGc3Zm81MWx2\" target=\"_blank\" rel=\"noopener noreferrer\">@yoguikine</a>",
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
-        "contactPhone": "Phone: <a href=\"tel:+393299460634\">+39 3299460634</a>",
+        "contactPhone": "Phone: <a href=\"tel:+34641234679\">+34 641234679</a>",
         "contactAddress": "Studio Address: Palma de Mallorca (contact me for details)",
         "contactLabelWhatsapp": "WhatsApp",
         "contactLabelEmail": "Email",
@@ -383,7 +406,23 @@ const languages = {
 		"bizumCTAButton": "Send Confirmation via WhatsApp",
 		"whatsappMessage": "Hi Maria, I'm contacting you from your website. I'd like to purchase the '[SERVICE_NAME]' service and pay with Bizum. I'm awaiting instructions. Thanks!",
 		"bizumInfoText": "For this service, the booking is finalized with personal contact. Proceed on WhatsApp to arrange your appointment and payment directly with Maria.",
-		"bizumProceedButton": "Proceed on WhatsApp"
+		"bizumProceedButton": "Proceed on WhatsApp",
+		"youtubeSectionTitle": "Follow me on YouTube",
+		"youtubeSectionText": "Don't miss new videos and full lessons. Subscribe to the channel to stay up to date.",
+		"youtubeSectionButton": "Subscribe Now",
+		"noReviewsYet": "No reviews yet. Be the first to leave one!",
+		"loginToPurchase": "You must log in to be able to purchase.",
+		"thankYouTitle": "Thank you! Your payment has been received.",
+		"thankYouText": "To complete your booking, please follow these two steps:",
+		"thankYouButtonForm": "1. Fill out your Clinical History",
+		"thankYouButtonWP": "2. Contact Maria to Schedule the Appointment",
+		"whatsappMessageFisio": "Hi Maria, I have just paid for a Physiotherapy session and filled out the clinical form. I'd like to schedule the appointment. Thanks!",
+		"bizumTitle": "Finalize with Bizum",
+		"bizumInstructions": "To complete your purchase, please send a Bizum to the number below. Afterwards, you can contact Maria on WhatsApp to schedule the appointment.",
+		"bizumAmount": "Amount:",
+		"bizumPhoneNumber": "Phone Number:",
+		"bizumWhatsappButton": "Contact on WhatsApp to Book",
+		"bizumFormButton": "Fill Out Clinical Form"
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -403,7 +442,7 @@ const languages = {
         "mottoPart3": "Muévete hacia el bienestar.",
         "heroCtaButton": "Descubre mis servicios",
         "introTitle": "Mi Enfoque",
-        "introText": "Combino las técnicas de la fisioterapia moderna con la sabiduría del yoga para ofrecer un camino personalizado de recuperación y bienestar. Cada cuerpo cuenta una historia única y merece ser escuchado, cuidado y respetado. A través de un enfoque integral, acompaño a las personas a recuperar el equilibrio, la fuerza y la conciencia, guiándolas hacia un bienestar profundo y duradero. Creo que la salud no es solo la ausencia de dolor, sino un estado de armonía entre el cuerpo, la mente y la respiración. Mi motivación nace del deseo auténtico de ayudar a las personas a sentirse mejor consigo mismas, a reconectar con su cuerpo y a redescubrir su energía vital.",
+        "introText": "Combino las técnicas de la fisioterapia con yoga para un camino de recuperación personalizado. Mi enfoque integral ayuda a recuperar el equilibrio y la conciencia para un bienestar profundo y duradero.",
         "approachEyebrow": "Mi enfoque",
         "approachTitle": "Un Enfoque Integrado",
         "pageTitleAbout": "Sobre Mí - Maria G. Hendriksen",
@@ -523,7 +562,7 @@ const languages = {
         "contactWhatsapp": "WhatsApp: <a href=\"https://wa.me/5492983567655\" target=\"_blank\">+54 9 2983 567655</a>",
         "contactInstagram": "Instagram: <a href=\"https://www.instagram.com/yoguikine?igsh=dDk4bGc3Zm81MWx2\" target=\"_blank\" rel=\"noopener noreferrer\">@yoguikine</a>",
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
-        "contactPhone": "Teléfono: <a href=\"tel:+393299460634\">+39 3299460634</a>",
+        "contactPhone": "Teléfono: <a href=\"tel:+34641234679\">+34 641234679</a>",
         "contactAddress": "Dirección Estudio: Palma de Mallorca (contáctame para detalles)",
         "contactLabelWhatsapp": "WhatsApp",
         "contactLabelEmail": "Email",
@@ -568,7 +607,23 @@ const languages = {
 		"bizumCTAButton": "Enviar Confirmación por WhatsApp",
 		"whatsappMessage": "Hola Maria, te contacto desde tu web. Me gustaría comprar el servicio '[NOMBRE_DEL_SERVICIO]' y pagar con Bizum. Quedo a la espera de instrucciones. ¡Gracias!",
 		"bizumInfoText": "Para este servicio, la reserva se finaliza con un contacto personal. Procede en WhatsApp para definir tu cita y el pago directamente con Maria.",
-		"bizumProceedButton": "Proceder en WhatsApp"
+		"bizumProceedButton": "Proceder en WhatsApp",
+		"youtubeSectionTitle": "Sígueme en YouTube",
+		"youtubeSectionText": "No te pierdas los nuevos vídeos y las clases completas. Suscríbete al canal para mantenerte siempre al día.",
+		"youtubeSectionButton": "Suscríbete Ahora",
+		"noReviewsYet": "Aún no hay reseñas. ¡Sé el primero en dejar una!",
+		"loginToPurchase": "Debes iniciar sesión para poder comprar.",
+		"thankYouTitle": "¡Gracias! Hemos recibido tu pago.",
+		"thankYouText": "Para completar tu reserva, por favor sigue estos dos pasos:",
+		"thankYouButtonForm": "1. Completa tu Historia Clínica",
+		"thankYouButtonWP": "2. Contacta a Maria para Agendar la Cita",
+		"whatsappMessageFisio": "Hola Maria, acabo de realizar el pago para una sesión de Fisioterapia y he completado el formulario clínico. Me gustaría agendar la cita. ¡Gracias!",
+		"bizumTitle": "Finalizar con Bizum",
+		"bizumInstructions": "Para completar tu compra, envía un Bizum al número de abajo. Después, puedes contactar a Maria por WhatsApp para agendar la cita.",
+		"bizumAmount": "Importe:",
+		"bizumPhoneNumber": "Número de Teléfono:",
+		"bizumWhatsappButton": "Contactar por WhatsApp para Reservar",
+		"bizumFormButton": "Completar Formulario Clínico"
 		
     }
 };
@@ -648,6 +703,20 @@ function changeLanguage(lang) {
             displayLoginMessage();
         }
     }
+	
+	
+	// Alla fine della funzione changeLanguage(lang)...
+
+	// Se ci troviamo nella pagina dei contenuti, ricarica i video per aggiornare le traduzioni
+	if (document.getElementById('yoga-videos-grid')) {
+		loadAndDisplayVideos();
+	}
+	
+	
+	// Se ci troviamo in una pagina con le recensioni, ricaricale per aggiornare le traduzioni
+	if (document.getElementById('reviews-list-container')) {
+		loadReviews();
+	}
 }
 
 function updateActiveButton(lang) {
@@ -701,6 +770,35 @@ function closeModal(modalId) {
     }
 }
 
+
+
+
+// Funzione per mostrare un avviso personalizzato e non bloccante
+function showAlert(message) {
+    const alertModal = document.getElementById('custom-alert-modal');
+    const messageP = document.getElementById('custom-alert-message');
+    const okButton = document.getElementById('custom-alert-ok-button');
+
+    if (!alertModal || !messageP || !okButton) return;
+
+    messageP.textContent = message;
+
+    // Definiamo cosa succede quando l'utente clicca OK
+    okButton.onclick = () => {
+		closeModal('custom-alert-modal');
+	
+		// Aggiungiamo una piccolissima pausa per dare al browser il tempo di processare la chiusura
+		setTimeout(() => {
+			openModal('login-modal');
+		}, 100); // 100 millisecondi (impercettibile per l'utente)
+	};
+
+    openModal('custom-alert-modal');
+}
+
+
+
+
 // -----------------------------------------------------------
 //               FUNZIONI SPECIFICHE (Recensioni, Autenticazione, Contenuti Video)
 // -----------------------------------------------------------
@@ -715,7 +813,9 @@ async function loadReviews() {
         const reviews = await response.json();
         container.innerHTML = '';
         if (!reviews || reviews.length === 0) {
-            container.innerHTML = '<p>Non ci sono ancora recensioni. Sii il primo a lasciarne una!</p>';
+            const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+			const noReviewsText = languages[currentLang]?.noReviewsYet || languages['it'].noReviewsYet;
+			container.innerHTML = `<p>${noReviewsText}</p>`;
             return;
         }
         reviews.forEach(review => {
@@ -765,29 +865,42 @@ async function handleReviewSubmit(event) {
     submitButton.disabled = true;
 
     try {
-        const response = await fetch('/.netlify/functions/submit-review', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, rating, comment }),
-        });
-        if (!response.ok) {
-            let errorMsg = `Errore HTTP: ${response.status}`;
-            try {
-                 const errorData = await response.json();
-                 errorMsg = errorData.error || errorData.message || errorMsg;
-            } catch(e) { /* Ignora */ }
-            throw new Error(errorMsg);
-        }
-        messageDiv.textContent = 'Recensione inviata con successo! Sarà visibile dopo l\'approvazione.';
-        messageDiv.className = 'form-message success';
-        form.reset();
-    } catch (error) {
-        console.error('Errore invio recensione:', error);
-        messageDiv.textContent = `Errore nell'invio della recensione: ${error.message}. Riprova più tardi.`;
-        messageDiv.className = 'form-message error';
-    } finally {
-        submitButton.disabled = false;
-    }
+		// Prendi la sessione dell'utente per ottenere il token
+		const { data: { session } } = await supabase.auth.getSession();
+		if (!session) {
+			// Se l'utente non è loggato, mostra un errore o apri il modale di login
+			throw new Error("Devi effettuare il login per lasciare una recensione.");
+		}
+	
+		const response = await fetch('/.netlify/functions/submit-review', {
+			method: 'POST',
+			headers: { 
+				'Content-Type': 'application/json',
+				// Ecco dove "mostriamo il pass" di sicurezza
+				'Authorization': `Bearer ${session.access_token}`
+			},
+			body: JSON.stringify({ name, rating, comment }),
+		});
+	
+		if (!response.ok) {
+			let errorMsg = `Errore HTTP: ${response.status}`;
+			try {
+				const errorData = await response.json();
+				errorMsg = errorData.error || errorData.message || errorMsg;
+			} catch(e) { /* Ignora */ }
+			throw new Error(errorMsg);
+		}
+		messageDiv.textContent = 'Recensione inviata con successo! Sarà visibile dopo l\'approvazione.';
+		messageDiv.className = 'form-message success';
+		form.reset();
+	
+	} catch (error) {
+		console.error('Errore invio recensione:', error);
+		messageDiv.textContent = `Errore nell'invio della recensione: ${error.message}. Riprova più tardi.`;
+		messageDiv.className = 'form-message error';
+	} finally {
+		submitButton.disabled = false;
+	}
 }
 
 function updateAuthStateUI(user) {
@@ -1207,12 +1320,17 @@ function renderPayPalButton(orderID, containerId, lessonId) {
 ////////////////////////////////funzione bizum///////////////////////////
 
 
-// NUOVA FUNZIONE PER GESTIRE BIZUM CON CONFERMA WHATSAPP
-// Funzione per Bizum che reindirizza a WhatsApp per finalizzare
-function handleBizumPurchase(options) {
+
+///////////////funzione di Bizum che integra il reindirizzamento alla pagina per il form///////////////////////////
+
+// Funzione per Bizum che registra e mostra le opzioni (WhatsApp e Form)
+async function handleBizumPurchase(options) {
     if (!currentUser) {
-        alert("Devi effettuare il login per procedere.");
-        openModal('login-modal');
+        closeModal('individual-booking-modal');
+        closeModal('group-booking-modal');
+        const currentLang = localStorage.getItem('preferredLanguage') || 'es';
+        const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
+        showAlert(alertMessage);
         return;
     }
 
@@ -1220,56 +1338,20 @@ function handleBizumPurchase(options) {
     const paymentContainer = modal.querySelector('.payment-options-container');
     if (!paymentContainer) return;
 
-    // --- 1. Raccogli i dati necessari ---
     const priceText = modal.querySelector('.current-price').textContent.replace('€', '').replace(',', '.');
     const finalPrice = parseFloat(priceText);
-    
-	let serviceName;
-	if (modal.id === 'individual-booking-modal') {
-		// Per il modale individuale, leggiamo il nome già presente
-		serviceName = modal.querySelector('#modal-booking-info strong')?.textContent;
-	} else {
-		// Per il modale di gruppo, troviamo la "card" originale sulla pagina usando il productCode
-		const planCard = document.querySelector(`.plan[data-product-code="${options.productCode}"]`);
-		if (planCard) {
-			serviceName = planCard.querySelector('h3')?.textContent;
-		}
-	}
-	// Se per qualche motivo il nome non viene trovato, usa il productCode come ultima risorsa
-	serviceName = serviceName || options.productCode;
-	
-	
+    const serviceName = modal.querySelector('#modal-booking-info strong')?.textContent || options.productCode;
 
-    const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-    const t = languages[currentLang] || languages['it'];
+    const currentLang = localStorage.getItem('preferredLanguage') || 'es';
+    const t = languages[currentLang] || languages['es'];
 
-    // --- 2. Prepara il messaggio e il link WhatsApp ---
-    let whatsappText = t.whatsappMessage || "Ciao Maria, ho prenotato il servizio [SERVICE_NAME]";
-    const placeholder = currentLang === 'es' ? '[NOMBRE_DEL_SERVICIO]' : '[SERVICE_NAME]';
-    whatsappText = whatsappText.replace(placeholder, serviceName);
-    const whatsappUrl = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(whatsappText)}`;
-
-    // --- 3. Aggiorna l'interfaccia del modale con il nuovo testo e pulsante ---
-    paymentContainer.innerHTML = `
-        <p style="font-size: 0.95em; text-align:center; padding: 10px 0;">${t.bizumInfoText}</p>
-        <a href="${whatsappUrl}" target="_blank" id="whatsapp-confirm-button" class="cta-button" style="width:100%; margin-top:15px; text-align:center; display:block;">
-            ${t.bizumProceedButton}
-        </a>
-    `;
-
-    // --- 4. Aggiungi l'azione di salvataggio al click ---
-    document.getElementById('whatsapp-confirm-button').addEventListener('click', async () => {
-        try {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) return; // Non bloccare l'utente se la sessione non è pronta
-
-            // Chiama la funzione backend per registrare il pagamento come "pending"
+    // --- 1. REGISTRAZIONE IMMEDIATA IN BACKGROUND ---
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
             fetch('/.netlify/functions/record-manual-payment', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${session.access_token}`
-                },
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
                 body: JSON.stringify({
                     productCode: options.productCode,
                     amount: finalPrice,
@@ -1277,20 +1359,142 @@ function handleBizumPurchase(options) {
                     paymentProvider: 'bizum'
                 })
             });
-
-            // Chiudi il modale dopo un breve ritardo per dare tempo a WhatsApp di aprirsi
-            setTimeout(() => {
-                closeModal('individual-booking-modal');
-                closeModal('group-booking-modal');
-            }, 1000);
-
-        } catch (error) {
-            console.error("Errore durante la registrazione del pagamento Bizum:", error);
-            // Non mostriamo un alert all'utente per non interrompere il reindirizzamento a WhatsApp
         }
-    });
+    } catch (error) {
+        console.error("Errore durante la registrazione Bizum in background:", error);
+    }
+
+    // --- 2. AGGIORNA L'INTERFACCIA DEL MODALE ---
+    const whatsappMessage = t.whatsappMessageFisio || "Ciao Maria, vorrei prenotare una sessione di Fisioterapia.";
+    const whatsappUrl = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
+
+    // Determina se mostrare il pulsante del form
+    const isFisio = options.productCode.startsWith('FISIO');
+    const formLink = GOOGLE_FORM_LINKS[currentLang] || GOOGLE_FORM_LINKS.es;
+    const formButtonHTML = isFisio ? 
+        `<a href="${formLink}" target="_blank" class="cta-button" style="width:100%; text-align:center; display:block;">${t.bizumFormButton}</a>` : '';
+
+    paymentContainer.innerHTML = `
+		<span class="close-button" onclick="closeModal('individual-booking-modal'); closeModal('group-booking-modal');">&times;</span>
+        <h4 style="text-align:center; margin-top:0;">${t.bizumTitle}</h4>
+        <p style="font-size: 0.9em; text-align:center;">${t.bizumInstructions}</p>
+        <div style="background-color: #f2eee9; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <div style="display:flex; justify-content: space-between; font-size: 1.1em;">
+                <span>${t.bizumAmount}</span>
+                <strong>€${finalPrice.toFixed(2)}</strong>
+            </div>
+            <hr style="border:none; border-top: 1px solid #eae3da; margin: 10px 0;">
+            <div style="display:flex; justify-content: space-between; font-size: 1.1em;">
+                <span>${t.bizumPhoneNumber}</span>
+                <strong>${CONTACT_INFO.phone}</strong>
+            </div>
+        </div>
+        <div class="steps" style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">
+            <a href="${whatsappUrl}" target="_blank" class="cta-button" style="width:100%; text-align:center; display:block;">${t.bizumWhatsappButton}</a>
+            ${formButtonHTML}
+        </div>
+    `;
 }
 
+
+
+////////////////fine funzione Bizum per Form/////////////////////////////////////////
+
+
+// NUOVA FUNZIONE PER GESTIRE BIZUM CON CONFERMA WHATSAPP
+// Funzione per Bizum che reindirizza a WhatsApp per finalizzare
+//function handleBizumPurchase(options) {
+//    // Blocco di controllo utente non loggato - VERSIONE DEFINITIVA
+//	if (!currentUser) {
+//		// 1. Chiudiamo i modali di pagamento aperti
+//		closeModal('individual-booking-modal');
+//		closeModal('group-booking-modal');
+//	
+//		// 2. Prendiamo il messaggio tradotto
+//		const currentLang = localStorage.getItem('preferredLanguage') || 'es';
+//		const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
+//	
+//		// 3. Mostriamo il nostro avviso personalizzato INVECE di alert()
+//		showAlert(alertMessage);
+//	
+//		return; // Interrompe la funzione di pagamento
+//	}
+//
+//    const modal = document.querySelector('.auth-modal[style*="display: flex"]');
+//    const paymentContainer = modal.querySelector('.payment-options-container');
+//    if (!paymentContainer) return;
+//
+//    // --- 1. Raccogli i dati necessari ---
+//    const priceText = modal.querySelector('.current-price').textContent.replace('€', '').replace(',', '.');
+//    const finalPrice = parseFloat(priceText);
+//    
+//	let serviceName;
+//	if (modal.id === 'individual-booking-modal') {
+//		// Per il modale individuale, leggiamo il nome già presente
+//		serviceName = modal.querySelector('#modal-booking-info strong')?.textContent;
+//	} else {
+//		// Per il modale di gruppo, troviamo la "card" originale sulla pagina usando il productCode
+//		const planCard = document.querySelector(`.plan[data-product-code="${options.productCode}"]`);
+//		if (planCard) {
+//			serviceName = planCard.querySelector('h3')?.textContent;
+//		}
+//	}
+//	// Se per qualche motivo il nome non viene trovato, usa il productCode come ultima risorsa
+//	serviceName = serviceName || options.productCode;
+//	
+//	
+//
+//    const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+//    const t = languages[currentLang] || languages['it'];
+//
+//    // --- 2. Prepara il messaggio e il link WhatsApp ---
+//    let whatsappText = t.whatsappMessage || "Ciao Maria, ho prenotato il servizio [SERVICE_NAME]";
+//    const placeholder = currentLang === 'es' ? '[NOMBRE_DEL_SERVICIO]' : '[SERVICE_NAME]';
+//    whatsappText = whatsappText.replace(placeholder, serviceName);
+//    const whatsappUrl = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(whatsappText)}`;
+//
+//    // --- 3. Aggiorna l'interfaccia del modale con il nuovo testo e pulsante ---
+//    paymentContainer.innerHTML = `
+//        <p style="font-size: 0.95em; text-align:center; padding: 10px 0;">${t.bizumInfoText}</p>
+//        <a href="${whatsappUrl}" target="_blank" id="whatsapp-confirm-button" class="cta-button" style="width:100%; margin-top:15px; text-align:center; display:block;">
+//            ${t.bizumProceedButton}
+//        </a>
+//    `;
+//
+//    // --- 4. Aggiungi l'azione di salvataggio al click ---
+//    document.getElementById('whatsapp-confirm-button').addEventListener('click', async () => {
+//        try {
+//            const { data: { session } } = await supabase.auth.getSession();
+//            if (!session) return; // Non bloccare l'utente se la sessione non è pronta
+//
+//            // Chiama la funzione backend per registrare il pagamento come "pending"
+//            fetch('/.netlify/functions/record-manual-payment', {
+//                method: 'POST',
+//                headers: {
+//                    'Content-Type': 'application/json',
+//                    'Authorization': `Bearer ${session.access_token}`
+//                },
+//                body: JSON.stringify({
+//                    productCode: options.productCode,
+//                    amount: finalPrice,
+//                    currency: 'EUR',
+//                    paymentProvider: 'bizum'
+//                })
+//            });
+//
+//            // Chiudi il modale dopo un breve ritardo per dare tempo a WhatsApp di aprirsi
+//            setTimeout(() => {
+//                closeModal('individual-booking-modal');
+//                closeModal('group-booking-modal');
+//            }, 1000);
+//
+//        } catch (error) {
+//            console.error("Errore durante la registrazione del pagamento Bizum:", error);
+//            // Non mostriamo un alert all'utente per non interrompere il reindirizzamento a WhatsApp
+//        }
+//    });
+//}
+//
 ///////////////////////////////fine funzione Bizum///////////////////////////
 
 
@@ -1302,11 +1506,21 @@ function handleBizumPurchase(options) {
 
 // Funzione per avviare il pagamento con Mercado Pago
 async function handleMercadoPagoPurchase(options) {
-    if (!currentUser) {
-        alert("Devi effettuare il login per poter acquistare.");
-        openModal('login-modal');
-        return;
-    }
+    // Blocco di controllo utente non loggato - VERSIONE DEFINITIVA
+	if (!currentUser) {
+		// 1. Chiudiamo i modali di pagamento aperti
+		closeModal('individual-booking-modal');
+		closeModal('group-booking-modal');
+	
+		// 2. Prendiamo il messaggio tradotto
+		const currentLang = localStorage.getItem('preferredLanguage') || 'es';
+		const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
+	
+		// 3. Mostriamo il nostro avviso personalizzato INVECE di alert()
+		showAlert(alertMessage);
+	
+		return; // Interrompe la funzione di pagamento
+	}
 
     const modal = document.querySelector('.auth-modal[style*="display: flex"]');
     const button = modal.querySelector('.payment-button.mercadopago');
@@ -1346,6 +1560,140 @@ async function handleMercadoPagoPurchase(options) {
 
 
 ///////////////////////////////fine funzione MercadoPago////////////////////////
+
+
+
+//////////////////////////////VIDEO CONTENTS///////////////////////////////////
+
+
+
+// ===================================================================
+// --- NUOVE FUNZIONI PER LA PAGINA CONTENUTI (VIDEO DINAMICI) ---
+// ===================================================================
+
+// Funzione per creare e aprire il modale del video
+// Sostituisci la vecchia funzione openVideoModal con questa
+function openVideoModal(videoUrl) {
+    // Rimuovi eventuali modali rimasti aperti per errore
+    const existingModal = document.getElementById('video-modal');
+    if (existingModal) existingModal.remove();
+
+    let videoId = null;
+    try {
+        const url = new URL(videoUrl);
+        videoId = url.hostname.includes('youtube.com') ? url.searchParams.get('v') : url.pathname.slice(1);
+    } catch (e) {
+        console.error("URL del video non valido:", videoUrl);
+        return;
+    }
+
+    if (!videoId) {
+        alert("Impossibile trovare l'ID del video di YouTube.");
+        return;
+    }
+
+    const modalHTML = `
+        <div id="video-modal" class="auth-modal" style="display:flex; align-items:center; justify-content:center;">
+            <div class="modal-content" style="max-width: 900px; width: 90%; padding: 0; background-color: black; border-radius: 8px; overflow: hidden;">
+                <span id="close-video-button" class="close-button" style="color: white; top: 0px; right: 15px; font-size: 40px; z-index: 10;">&times;</span>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+                    <iframe 
+                        src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // Aggiungi un listener per la chiusura più robusto
+    document.getElementById('close-video-button').addEventListener('click', () => {
+        const modal = document.getElementById('video-modal');
+        if (modal) modal.remove();
+    });
+
+    // Bonus: chiudi anche cliccando sullo sfondo scuro
+    document.getElementById('video-modal').addEventListener('click', (event) => {
+        if (event.target.id === 'video-modal') {
+             const modal = document.getElementById('video-modal');
+             if (modal) modal.remove();
+        }
+    });
+}
+
+
+// Funzione principale per caricare e mostrare i video
+async function loadAndDisplayVideos() {
+    const yogaGrid = document.getElementById('yoga-videos-grid');
+    const fisioGrid = document.getElementById('fisio-videos-grid');
+    if (!yogaGrid || !fisioGrid) return;
+
+    try {
+        const response = await fetch('/.netlify/functions/get-video-content');
+        if (!response.ok) throw new Error('Errore di rete nel recupero dei video.');
+        
+        const videos = await response.json();
+
+        // Pulisci i contenitori
+        yogaGrid.innerHTML = '';
+        fisioGrid.innerHTML = '';
+        
+        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+
+        videos.forEach(video => {
+            // Seleziona titolo e descrizione in base alla lingua
+            let title = video.name;
+            let description = video.description;
+            if (currentLang === 'en' && video.name_en) title = video.name_en;
+            if (currentLang === 'es' && video.name_es) title = video.name_es;
+            if (currentLang === 'en' && video.description_en) description = video.description_en;
+            if (currentLang === 'es' && video.description_es) description = video.description_es;
+
+            // Crea l'HTML per la card del video
+            const videoCardHTML = `
+                <div class="content-item" data-video-url="${video.video_url}" style="cursor: pointer;">
+                    <div class="content-thumbnail">
+                        <img src="https://img.youtube.com/vi/${new URL(video.video_url).searchParams.get('v')}/maxresdefault.jpg" alt="Anteprima per ${title}">
+                    </div>
+                    <div class="content-text">
+                        <h3 class="content-title">${title}</h3>
+                        <p class="content-description">${description || ''}</p>
+                    </div>
+                </div>
+            `;
+
+            // Aggiungi la card alla griglia corretta
+            if (video.category === 'yoga') {
+                yogaGrid.innerHTML += videoCardHTML;
+            } else if (video.category === 'fisioterapia') {
+                fisioGrid.innerHTML += videoCardHTML;
+            }
+        });
+
+        // Aggiungi gli event listener a tutte le card create
+        document.querySelectorAll('.content-item[data-video-url]').forEach(card => {
+            card.addEventListener('click', () => {
+                openVideoModal(card.dataset.videoUrl);
+            });
+        });
+
+    } catch (error) {
+        console.error("Errore nel caricamento dei video:", error);
+        yogaGrid.innerHTML = `<p>Impossibile caricare i contenuti. Riprova più tardi.</p>`;
+        fisioGrid.innerHTML = '';
+    }
+}
+
+
+
+
+
+///////////////////////////FINE VIDEO CONTENTS////////////////////////////////
 
 
 
@@ -1404,7 +1752,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const savedLang = localStorage.getItem('preferredLanguage');
-    const defaultLang = 'it';
+    const defaultLang = 'es';
     let initialLang = defaultLang;
     if (typeof languages !== 'undefined') {
         if (savedLang && languages[savedLang]){
@@ -1546,6 +1894,43 @@ document.addEventListener('DOMContentLoaded', () => {
              console.error("Funzione loadReviews non definita.");
         }
     }
+	
+	
+	
+	///////////////////////////////////google form///////////////////////////
+	
+	
+	// Logica per la pagina di ringraziamento della Fisioterapia
+	const googleFormLink = document.getElementById('google-form-link');
+	if (googleFormLink) { // Esegui questo codice solo se siamo nella pagina grazie-fisio.html
+		const currentLang = localStorage.getItem('preferredLanguage') || 'es';
+	
+		// Imposta il link corretto per il Google Form in base alla lingua
+		googleFormLink.href = GOOGLE_FORM_LINKS[currentLang] || GOOGLE_FORM_LINKS.es;
+	
+		// Imposta il link corretto per WhatsApp con il messaggio pre-compilato
+		const whatsappLink = document.getElementById('whatsapp-link');
+		if (whatsappLink) {
+			const whatsappMessage = languages[currentLang]?.whatsappMessageFisio || "Ciao Maria, ho pagato per una sessione di Fisioterapia e compilato il modulo. Vorrei fissare l'appuntamento.";
+			whatsappLink.href = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
+		}
+	}
+	
+	
+	////////////////////////////////fine google form/////////////////////////////////
+	
+	
+	/////////////////////////////PER I VIDEO CONTENTS////////////////////////////////
+	
+	// Avvia il caricamento dei video solo se siamo nella pagina dei contenuti
+	if (document.getElementById('yoga-videos-grid')) {
+		loadAndDisplayVideos();
+	}
+	//////////////////////////FINE VIDEO CONTENTS/////////////////////////////
+	
+	
+	
+	
 	
     const hamburgerButton = document.getElementById('hamburger-menu');
     const mainNav = document.getElementById('main-nav');
@@ -1710,6 +2095,97 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
+// --- Logica per il video di presentazione in homepage ---
+// --- Logica per il video di presentazione in homepage (Versione Finale) ---
+// Controlla se siamo sulla homepage
+const presentationContainer = document.getElementById('presentation-video-container');
+if (presentationContainer) {
+    
+    const videoPresentazioneURL = "https://www.youtube.com/watch?v=7orJ-qrnXnY";
+
+    const getYoutubeId = (url) => {
+        if (!url) return null;
+        const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        const match = url.match(regex);
+        return match ? match[1] : null;
+    };
+
+    const videoId = getYoutubeId(videoPresentazioneURL);
+
+    if (videoId) {
+        // 1. Inserisce il video in modo permanente nella pagina (con autoplay e mute)
+        presentationContainer.innerHTML = `
+            <div class="video-embed-container" style="margin-top: 20px;">
+                <iframe 
+                    src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                </iframe>
+            </div>
+        `;
+
+        // 2. Controlla se è la prima visita per mostrare il pop-up
+        const hasSeenPresentation = localStorage.getItem('hasSeenPresentationVideo');
+        if (!hasSeenPresentation) {
+            setTimeout(() => {
+                openVideoModal(videoPresentazioneURL); 
+                localStorage.setItem('hasSeenPresentationVideo', 'true');
+            }, 2000);
+        }
+    }
+}
+
+// SOSTITUISCI LA VECCHIA openVideoModal CON QUESTA VERSIONE AGGIORNATA
+function openVideoModal(videoUrl) {
+    const existingModal = document.getElementById('video-modal');
+    if (existingModal) existingModal.remove();
+
+    let videoId = null;
+    if (videoUrl) {
+        const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        const match = videoUrl.match(youtubeRegex);
+        if (match && match[1]) videoId = match[1];
+    }
+
+    if (!videoId) {
+        console.error("ID del video di YouTube non trovato o URL non valido:", videoUrl);
+        return;
+    }
+
+    const modalHTML = `
+        <div id="video-modal" class="auth-modal" style="display:flex; align-items:center; justify-content:center;">
+            <div class="modal-content" style="max-width: 900px; width: 90%; padding: 0; background-color: black; border-radius: 8px; overflow: hidden;">
+                <span id="close-video-button" class="close-button" style="color: white; top: 0px; right: 15px; font-size: 40px; z-index: 10;">&times;</span>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+                    <iframe 
+                        src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    document.getElementById('close-video-button').addEventListener('click', () => {
+        const modal = document.getElementById('video-modal');
+        if (modal) modal.remove();
+    });
+    
+    document.getElementById('video-modal').addEventListener('click', (event) => {
+        if (event.target.id === 'video-modal') {
+             const modal = document.getElementById('video-modal');
+             if (modal) modal.remove();
+        }
+    });
+}
+
 }); // --- Chiusura di DOMContentLoaded ---
 
 // --- Aggiungi qui le funzioni di pagamento (populatePaymentButtons, handlePayPalPurchase, renderPayPalButtons) ---
@@ -1768,11 +2244,21 @@ function populatePaymentButtons(productCode, containerId = 'modal-payment-option
 }
 
 async function handlePayPalPurchase(options) {
-    if (!currentUser) {
-        alert("Devi effettuare il login per poter acquistare.");
-        openModal('login-modal');
-        return;
-    }
+    // Blocco di controllo utente non loggato - VERSIONE DEFINITIVA
+	if (!currentUser) {
+		// 1. Chiudiamo i modali di pagamento aperti
+		closeModal('individual-booking-modal');
+		closeModal('group-booking-modal');
+	
+		// 2. Prendiamo il messaggio tradotto
+		const currentLang = localStorage.getItem('preferredLanguage') || 'es';
+		const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
+	
+		// 3. Mostriamo il nostro avviso personalizzato INVECE di alert()
+		showAlert(alertMessage);
+	
+		return; // Interrompe la funzione di pagamento
+	}
 
     console.log("Avvio acquisto PayPal con opzioni:", options);
 
@@ -1857,9 +2343,8 @@ function renderPayPalButtons(orderId, productCode) {
 		
 				setTimeout(() => {
 					let redirectUrl = '';
-					if (productCode.startsWith('FISIO')) {
-						redirectUrl = `https://wa.me/${CONTACT_INFO.whatsapp}`;
-					} else if (productCode === 'YOGA1') {
+					if (productCode.startsWith('FISIO')) { redirectUrl = 'grazie-fisio.html'; }
+					else if (productCode === 'YOGA1') {
 						redirectUrl = BOOKING_LINKS.yoga_individuale;
 					} else if (productCode === 'YOGA5' || productCode.includes('G')) {
 						redirectUrl = BOOKING_LINKS.yoga_pacchetti;

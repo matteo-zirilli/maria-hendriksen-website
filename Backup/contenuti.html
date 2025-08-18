@@ -11,80 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-    <style>
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Colonne responsive */
-            gap: 30px; /* Spazio tra gli elementi */
-            margin-top: 20px;
-        }
-        .content-item {
-            border: 1px solid var(--colore-bordi);
-            border-radius: 8px;
-            overflow: hidden; /* Nasconde parti dell'immagine che escono */
-            background-color: var(--colore-sfondo-alt);
-            box-shadow: 0 4px 10px var(--colore-ombra);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex; /* Aggiunto per layout interno flessibile */
-            flex-direction: column; /* Contenuto verticale */
-        }
-         .content-item:hover {
-             transform: translateY(-5px);
-             box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-         }
-        .content-thumbnail img {
-            width: 100%;
-            height: 180px; /* Altezza fissa per le anteprime */
-            object-fit: cover; /* Copre l'area senza distorcere */
-            /* Rimosso border-bottom e border-radius qui, gestiti da .content-item */
-        }
-        .content-text {
-            padding: 15px 20px;
-            flex-grow: 1; /* Fa espandere il testo per occupare spazio */
-            display: flex; /* Layout flessibile per il testo */
-            flex-direction: column; /* Contenuto testo verticale */
-        }
-        .content-title {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: var(--colore-primario);
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-        .content-description {
-            font-size: 0.95em;
-            margin-bottom: 15px; /* Aggiunto spazio sotto la descrizione */
-            flex-grow: 1; /* Fa espandere la descrizione */
-        }
-         /* Stili specifici per i bottoni di acquisto/guarda dentro .content-text */
-         .content-text .cta-button,
-         .content-text .price {
-             margin-top: auto; /* Spinge prezzo e bottoni in fondo alla card */
-             width: 100%;     /* Opzionale: bottoni a larghezza piena */
-             box-sizing: border-box; /* Include padding nel width */
-         }
-          .purchase-buttons {
-              margin-top: 10px;
-              display: flex;
-              flex-direction: column;
-              gap: 8px;
-          }
-          /* Nasconde temporaneamente il bottone MP finché non implementato */
-          .mercadopago-buy-button {
-              /* display: none;  */ /* Decommenta se vuoi nasconderlo per ora */
-          }
-           /* Stili per il link "a" se vuoi mantenere il box cliccabile */
-         .content-item a.static-content-link {
-            text-decoration: none;
-            color: inherit;
-            display: flex; /* Necessario se l'<a> avvolge il contenuto */
-            flex-direction: column; /* Necessario se l'<a> avvolge il contenuto */
-            height: 100%; /* Necessario se l'<a> avvolge il contenuto */
-         }
-          .content-item a.static-content-link:hover .content-title {
-             color: var(--colore-accento);
-         }
-    </style>
+    
 </head>
 <body>
     <header>
@@ -128,70 +55,35 @@
             <h1 id="contentHeading">I Miei Contenuti</h1>
             <p id="contentIntro">Esplora risorse, video e articoli dedicati allo Yoga e alla Fisioterapia per approfondire la tua pratica e il tuo percorso di benessere.</p>
         </section>
-
-        <section class="content-section" id="purchasable-lessons-section">
-            <h2 id='purchasable-lessons-section1'>Video Lezioni Acquistabili</h2>
-            <p id='purchasable-lessons-paragraph'>Accedi a lezioni complete e approfondimenti esclusivi acquistando l'accesso qui sotto.</p>
-			
-			<div id="login-prompt-container" style="margin-bottom: 20px;"></div>
-
-            <div class="content-grid" id="video-lessons-grid">
-                <p>Caricamento contenuti disponibili...</p>
-                </div>
-        </section>
-        <section class="content-section">
-            <h2 id="contentYogaTitle">Contenuti Yoga Gratuiti</h2> <p id="contentYogaDesc">Risorse introduttive e articoli sulla pratica yoga.</p> <div class="content-grid">
-                <div class="content-item">
-                    <a href="#" title="Vai al contenuto" class="static-content-link">
-                        <div class="content-thumbnail">
-                            <img src="images/placeholder-video.png" alt="Anteprima Video Yoga 1">
-                        </div>
-                        <div class="content-text">
-                            <h3 class="content-title" id="yogaVideo1Title">Introduzione allo Yoga</h3>
-                            <p class="content-description" id="yogaVideo1Desc">Scopri i benefici base dello yoga e come iniziare la tua pratica.</p>
-                        </div>
-                    </a>
-                </div>
-                 <div class="content-item">
-                    <a href="#" title="Vai al contenuto" class="static-content-link">
-                        <div class="content-thumbnail">
-                            <img src="images/placeholder-article.png" alt="Anteprima Articolo Yoga 2">
-                        </div>
-                        <div class="content-text">
-                            <h3 class="content-title" id="yogaVideo2Title">L'importanza del Respiro (Pranayama)</h3>
-                            <p class="content-description" id="yogaVideo2Desc">Un breve articolo sulle tecniche base di respirazione nello yoga.</p>
-                        </div>
-                    </a>
-                </div>
-             </div>
-        </section>
+		
+		
+		
+		<section class="youtube-subscribe-section">
+			<h2 data-translate-key="youtubeSectionTitle">Seguimi su YouTube</h2>
+			<p data-translate-key="youtubeSectionText">Non perderti i nuovi video e le lezioni complete. Iscriviti al canale per rimanere sempre aggiornato.</p>
+			<a href="https://www.youtube.com/@guillerminahendriksen464" target="_blank" class="cta-button">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-right: 8px;"><path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.267,4,12,4,12,4S5.733,4,4.186,4.418 c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.733,2,12,2,12s0,4.267,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768 C5.733,20,12,20,12,20s6.267,0,7.814-0.418c0.861-0.23,1.538-0.908,1.768-1.768C22,16.267,22,12,22,12S22,7.733,21.582,6.186z M10,15.464V8.536L16,12L10,15.464z"></path></svg>
+				<span data-translate-key="youtubeSectionButton">Iscriviti Ora</span>
+			</a>
+		</section>
+		
+		
 
         <section class="content-section">
-            <h2 id="contentFisioTitle">Contenuti Fisioterapia Gratuiti</h2> <p id="contentFisioDesc">Consigli pratici e articoli informativi sulla fisioterapia.</p> <div class="content-grid">
-                 <div class="content-item">
-                     <a href="#" title="Vai al contenuto" class="static-content-link">
-                        <div class="content-thumbnail">
-                            <img src="images/placeholder-article.png" alt="Anteprima Articolo Fisioterapia 1">
-                        </div>
-                        <div class="content-text">
-                            <h3 class="content-title" id="fisioContent1Title">5 Consigli per la Schiena</h3>
-                            <p class="content-description" id="fisioContent1Desc">Suggerimenti semplici per prevenire il mal di schiena nella vita quotidiana.</p>
-                        </div>
-                    </a>
-                </div>
-                 <div class="content-item">
-                     <a href="#" title="Vai al contenuto" class="static-content-link">
-                        <div class="content-thumbnail">
-                            <img src="images/placeholder-article.png" alt="Anteprima Articolo Fisioterapia 2">
-                        </div>
-                        <div class="content-text">
-                            <h3 class="content-title" id="fisioContent2Title">Stretching per Chi Lavora Seduto</h3>
-                            <p class="content-description" id="fisioContent2Desc">Alcuni semplici esercizi di stretching da fare alla scrivania.</p>
-                        </div>
-                    </a>
-                </div>
-             </div>
-        </section>
+			<h2 id="contentYogaTitle" data-translate-key="contentYogaTitle">Contenuti Yoga</h2>
+			<div class="content-grid" id="yoga-videos-grid">
+				<p>Caricamento video in corso...</p>
+			</div>
+		</section>
+		
+		<section class="content-section">
+			<h2 id="contentFisioTitle" data-translate-key="contentFisioTitle">Contenuti Fisioterapia</h2>
+			<div class="content-grid" id="fisio-videos-grid">
+				<p>Caricamento video in corso...</p>
+			</div>
+		</section>
+		
+		
         <section class="reviews-section">
            
 

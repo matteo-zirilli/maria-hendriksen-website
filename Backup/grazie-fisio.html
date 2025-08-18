@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grazie! - Maria Guillermina Hendriksen</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .thank-you-container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 40px;
+            text-align: center;
+            background-color: var(--colore-sfondo-header-footer);
+            border: 1px solid var(--colore-bordi);
+            border-radius: 8px;
+        }
+        .thank-you-container h1 {
+            margin-top: 0;
+        }
+        .steps {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        </header>
+
+    <main class="container">
+        <div class="thank-you-container">
+            <h1 data-translate-key="thankYouTitle">Grazie! Il tuo pagamento è stato ricevuto.</h1>
+            <p data-translate-key="thankYouText">Per completare la prenotazione, segui questi due passaggi:</p>
+            <div class="steps">
+                <a id="google-form-link" href="#" target="_blank" class="cta-button" data-translate-key="thankYouButtonForm">1. Compila la tua Storia Clinica</a>
+                <a id="whatsapp-link" href="#" target="_blank" class="cta-button" data-translate-key="thankYouButtonWP">2. Contatta Maria per Fissare l'Appuntamento</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

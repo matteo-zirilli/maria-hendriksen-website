@@ -221,7 +221,29 @@ const languages = {
 		"bizumAmount": "Importo:",
 		"bizumPhoneNumber": "Numero di Telefono:",
 		"bizumWhatsappButton": "Contatta su WhatsApp per Prenotare",
-		"bizumFormButton": "Compila Modulo Clinico"
+		"bizumFormButton": "Compila Modulo Clinico",
+		// --- NUOVI TESTI PER LA SEZIONE PACCHETTI ---
+        "packagesEyebrow": "Percorsi Esclusivi",
+        "packagesTitle": "Approfondisci il Tuo Percorso con i Nostri Pacchetti Video",
+        "packagesSubtitle": "Scegli il percorso più adatto a te. Accedi a collezioni di video on-demand per allenarti dove e quando vuoi, con la guida esperta di Maria.",
+        "packageDiscoverButton": "Scopri di più",
+        
+        "package1Title": "Yoga & Mobilità Funzionale",
+        "package1Desc": "Sblocca il tuo corpo e migliora la postura con questo percorso di 4 lezioni che fonde la consapevolezza dello Yoga con esercizi di mobilità funzionale. Ideale per chi cerca flessibilità e una nuova libertà di movimento.",
+        
+        "package2Title": "Le Basi dello Yoga",
+        "package2Desc": "Inizia o approfondisci il tuo viaggio nello Yoga con questo pacchetto di 2 lezioni essenziali. Pensato per principianti e intermedi, ti guiderà attraverso le fondamenta della pratica, costruendo forza ed equilibrio.",
+
+        "package3Title": "Allenamento Completo a Casa",
+        "package3Desc": "Trasforma il tuo spazio in una palestra con queste 4 lezioni di allenamento completo. Sfrutta bande elastiche e il tuo peso corporeo per un training efficace, completato da esercizi di recupero.",
+
+        "package4Title": "Immersione Totale nello Yoga",
+        "package4Desc": "La collezione definitiva per l'amante dello Yoga. Questo pacchetto di 10 video-lezioni ti accompagnerà attraverso diversi stili e livelli, da pratiche energizzanti a sequenze rilassanti, per un'esperienza completa.",
+        
+        "modalInstructions": "Per accedere, segui questi 2 passi: completa il pagamento e poi invia la richiesta di accesso. L'accesso verrà approvato entro 24 ore dalla verifica.",
+        "modalStep1": "Passo 1: Scegli un metodo di pagamento",
+        "modalStep2": "Passo 2: Richiedi l'accesso",
+        "modalRequestAccess": "Richiedi Accesso alla Cartella"
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -422,7 +444,29 @@ const languages = {
 		"bizumAmount": "Amount:",
 		"bizumPhoneNumber": "Phone Number:",
 		"bizumWhatsappButton": "Contact on WhatsApp to Book",
-		"bizumFormButton": "Fill Out Clinical Form"
+		"bizumFormButton": "Fill Out Clinical Form",
+		// --- NEW TEXTS FOR PACKAGES SECTION ---
+        "packagesEyebrow": "Exclusive Paths",
+        "packagesTitle": "Deepen Your Journey with Our Video Packages",
+        "packagesSubtitle": "Choose the path that suits you best. Access on-demand video collections to train wherever and whenever you want, with Maria's expert guidance.",
+        "packageDiscoverButton": "Discover more",
+
+        "package1Title": "Yoga & Functional Mobility",
+        "package1Desc": "Unlock your body and improve your posture with this 4-lesson journey that blends Yoga awareness with functional mobility exercises. Ideal for those seeking flexibility and a new freedom of movement.",
+
+        "package2Title": "The Basics of Yoga",
+        "package2Desc": "Begin or deepen your Yoga journey with this package of 2 essential lessons. Designed for beginners and intermediates, it will guide you through the foundations of the practice, building strength and balance.",
+
+        "package3Title": "Complete Home Workout",
+        "package3Desc": "Transform your space into a personal gym with these 4 complete workout lessons. Use resistance bands and your body weight for an effective training session, complete with recovery exercises.",
+
+        "package4Title": "Total Yoga Immersion",
+        "package4Desc": "The ultimate collection for the Yoga lover. This package of 10 video lessons will guide you through different styles and levels, from energizing practices to relaxing sequences, for a complete experience.",
+
+        "modalInstructions": "To gain access, follow these 2 steps: complete the payment and then submit the access request. Access will be granted within 24 hours of verification.",
+        "modalStep1": "Step 1: Choose a payment method",
+        "modalStep2": "Step 2: Request access",
+        "modalRequestAccess": "Request Access to Folder"
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -623,7 +667,29 @@ const languages = {
 		"bizumAmount": "Importe:",
 		"bizumPhoneNumber": "Número de Teléfono:",
 		"bizumWhatsappButton": "Contactar por WhatsApp para Reservar",
-		"bizumFormButton": "Completar Formulario Clínico"
+		"bizumFormButton": "Completar Formulario Clínico",
+		// --- NEW TEXTS FOR PACKAGES SECTION ---
+        "packagesEyebrow": "Recorridos Exclusivos",
+        "packagesTitle": "Profundiza Tu Camino con Nuestros Paquetes de Vídeo",
+        "packagesSubtitle": "Elige el recorrido que mejor se adapte a ti. Accede a colecciones de vídeos bajo demanda para entrenar donde y cuando quieras, con la guía experta de María.",
+        "packageDiscoverButton": "Descubre más",
+
+        "package1Title": "Yoga y Movilidad Funcional",
+        "package1Desc": "Desbloquea tu cuerpo y mejora tu postura con este recorrido de 4 clases que fusiona la conciencia del Yoga con ejercicios de movilidad funcional. Ideal para quienes buscan flexibilidad y una nueva libertad de movimiento.",
+
+        "package2Title": "Las Bases del Yoga",
+        "package2Desc": "Inicia o profundiza tu viaje en el Yoga con este paquete de 2 clases esenciales. Diseñado para principiantes e intermedios, te guiará a través de los fundamentos de la práctica, construyendo fuerza y equilibrio.",
+
+        "package3Title": "Entrenamiento Completo en Casa",
+        "package3Desc": "Transforma tu espacio en un gimnasio con estas 4 clases de entrenamiento completo. Utiliza bandas elásticas y tu peso corporal para un training efectivo, complementado con ejercicios de recuperación.",
+
+        "package4Title": "Inmersión Total en el Yoga",
+        "package4Desc": "La colección definitiva para el amante del Yoga. Este paquete de 10 video-clases te acompañará a través de diferentes estilos y niveles, desde prácticas energizantes hasta secuencias relajantes, para una experiencia completa.",
+
+        "modalInstructions": "Para acceder, sigue estos 2 pasos: completa el pago y luego envía la solicitud de acceso. El acceso se aprobará dentro de las 24 horas posteriores a la verificación.",
+        "modalStep1": "Paso 1: Elige un método de pago",
+        "modalStep2": "Paso 2: Solicita el acceso",
+        "modalRequestAccess": "Solicitar Acceso a la Carpeta"
 		
     }
 };
@@ -1927,6 +1993,123 @@ document.addEventListener('DOMContentLoaded', () => {
 		loadAndDisplayVideos();
 	}
 	//////////////////////////FINE VIDEO CONTENTS/////////////////////////////
+	
+	
+	
+	
+
+
+	// ===================================================================
+	// ============= LOGICA PER CARICARE I PACCHETTI VIDEO =============
+	// ===================================================================
+	// Controlla se siamo sulla pagina dei contenuti per eseguire questa logica
+	if (document.getElementById('packages-container')) {
+	
+		// --- VARIABILI E COSTANTI INIZIALI ---
+		const productCodes = ['PK_YOGA_01', 'PK_YOGA_02', 'PK_YOGA_03', 'PK_YOGA_04'];
+		const packagesContainer = document.getElementById('packages-container');
+		const modal = document.getElementById('package-modal');
+		const closeModalButton = document.getElementById('close-package-modal');
+		let packagesData = []; // Qui salveremo i dati da Supabase
+	
+		// --- DETTAGLI STATICI DEI PACCHETTI (inclusi i link di Google Drive) ---
+		// In questo oggetto devi inserire i link che troverai seguendo la guida qui sotto.
+		const packageDetails = {
+			'PK_YOGA_01': { titleKey: 'package1Title', descKey: 'package1Desc', image: 'images/package-yoga-mobility.jpg', driveLink: 'https://drive.google.com/drive/folders/1T9h6fXci7UMMmKqdrQw7o7PnOQmwQKdc?usp=sharing' }, // <-- INSERISCI QUI IL LINK 1
+			'PK_YOGA_02': { titleKey: 'package2Title', descKey: 'package2Desc', image: 'images/package-yoga-basics.jpg', driveLink: 'https://drive.google.com/drive/folders/1mrVU_D5dvCO1x_lJNG8bwr-WbvfllYnj?usp=sharing' }, // <-- INSERISCI QUI IL LINK 2
+			'PK_YOGA_03': { titleKey: 'package3Title', descKey: 'package3Desc', image: 'images/package-home-workout.jpg', driveLink: 'https://drive.google.com/drive/folders/10TBwm11l3XN3C28reEkS95Wlro65HW3i?usp=sharing' }, // <-- INSERISCI QUI IL LINK 3
+			'PK_YOGA_04': { titleKey: 'package4Title', descKey: 'package4Desc', image: 'images/package-yoga-immersion.jpg', driveLink: 'https://drive.google.com/drive/folders/1_NcYRNsSk6Sj0IW6YyxAecRa8qp6ude0?usp=sharing' }  // <-- INSERISCI QUI IL LINK 4
+		};
+	
+		// --- FUNZIONE PER POPOLARE LE CARD ---
+		const populatePackageCards = (packages) => {
+			if (!packagesContainer) return;
+			packagesContainer.innerHTML = ''; // Pulisci il contenitore
+	
+			const sortedPackages = productCodes.map(code => packages.find(p => p.product_code === code));
+	
+			sortedPackages.forEach(pkg => {
+				if (!pkg) return;
+				const details = packageDetails[pkg.product_code];
+				const card = document.createElement('div');
+				card.className = 'package-card';
+				card.innerHTML = `
+					<img src="${details.image}" alt="Immagine Pacchetto" class="package-image">
+					<div class="package-content">
+						<h3 class="package-title" data-translate-key="${details.titleKey}">[Caricamento...]</h3>
+						<p class="package-description" data-translate-key="${details.descKey}">[Caricamento...]</p>
+						<div class="package-price">
+							<span class="price-eur">€${pkg.price_eur}</span> | <span class="price-ars">ARS $${pkg.price_ars}</span>
+						</div>
+						<button class="cta-button package-button" data-product-code="${pkg.product_code}">
+							<span data-translate-key="packageDiscoverButton">Scopri di più</span>
+						</button>
+					</div>
+				`;
+				packagesContainer.appendChild(card);
+			});
+			updateContent(currentLanguage);
+		};
+	
+		// --- FUNZIONI PER GESTIRE IL MODAL ---
+		const openPackageModal = (productCode) => {
+			const selectedPackage = packagesData.find(p => p.product_code === productCode);
+			if (!selectedPackage) return;
+	
+			const details = packageDetails[productCode];
+	
+			document.getElementById('modal-title').setAttribute('data-translate-key', details.titleKey);
+			document.getElementById('modal-description').setAttribute('data-translate-key', details.descKey);
+			document.getElementById('modal-drive-link').href = details.driveLink;
+			
+			updateContent(currentLanguage);
+			modal.style.display = 'flex';
+		};
+	
+		const closePackageModal = () => {
+			modal.style.display = 'none';
+		};
+	
+		// --- FUNZIONE PRINCIPALE PER RECUPERARE I DATI ---
+		const fetchPackages = async () => {
+			try {
+				const { data, error } = await supabase
+					.from('services')
+					.select('*')
+					.in('product_code', productCodes);
+	
+				if (error) {
+					console.error('Errore nel recuperare i pacchetti da Supabase:', error);
+					return;
+				}
+				
+				packagesData = data; // Salva i dati per usarli nel modal
+				populatePackageCards(data); // Crea le card
+	
+			} catch (err) {
+				console.error('Errore imprevisto durante il fetch:', err);
+			}
+		};
+	
+		// --- EVENT LISTENERS (ASCOLTATORI DI EVENTI) ---
+		packagesContainer.addEventListener('click', (event) => {
+			const button = event.target.closest('.package-button');
+			if (button) {
+				openPackageModal(button.dataset.productCode);
+			}
+		});
+		closeModalButton.addEventListener('click', closePackageModal);
+	
+		// --- AVVIO ---
+		fetchPackages(); // Avvia tutto il processo
+	}
+	// ===================================================================
+	// ============= FINE LOGICA CARICAMENTO PACCHETTI =============
+	// ===================================================================
+	
+	
+	
+	
 	
 	
 	
