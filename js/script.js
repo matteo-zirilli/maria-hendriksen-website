@@ -2031,36 +2031,77 @@ document.addEventListener('DOMContentLoaded', () => {
 		const packagesContainer = document.getElementById('packages-container');
 		const modal = document.getElementById('package-modal');
 		const closeModalButton = document.getElementById('close-package-modal');
-		let packagesData = []; // Qui salveremo i dati da Supabase
+		const WHATSAPP_NUMBER = '5492983567655'; // <--- INSERISCI QUI IL NUMERO DI WHATSAPP DI MARIA (con prefisso internazionale, senza + o 00)
+		let packagesData = [];
 	
-		// --- DETTAGLI STATICI DEI PACCHETTI (inclusi i link di Google Drive) ---
-		// In questo oggetto devi inserire i link che troverai seguendo la guida qui sotto.
+		// --- DETTAGLI STATICI DEI PACCHETTI ---
 		const packageDetails = {
-			'PK_YOGA_01': { titleKey: 'package1Title', descKey: 'package1Desc', image: 'images/package-yoga-mobility.jpg', driveLink: 'https://drive.google.com/drive/folders/1T9h6fXci7UMMmKqdrQw7o7PnOQmwQKdc?usp=sharing' }, // <-- INSERISCI QUI IL LINK 1
-			'PK_YOGA_02': { titleKey: 'package2Title', descKey: 'package2Desc', image: 'images/package-yoga-basics.jpg', driveLink: 'https://drive.google.com/drive/folders/1mrVU_D5dvCO1x_lJNG8bwr-WbvfllYnj?usp=sharing' }, // <-- INSERISCI QUI IL LINK 2
-			'PK_YOGA_03': { titleKey: 'package3Title', descKey: 'package3Desc', image: 'images/package-home-workout.jpg', driveLink: 'https://drive.google.com/drive/folders/10TBwm11l3XN3C28reEkS95Wlro65HW3i?usp=sharing' }, // <-- INSERISCI QUI IL LINK 3
-			'PK_YOGA_04': { titleKey: 'package4Title', descKey: 'package4Desc', image: 'images/package-yoga-immersion.jpg', driveLink: 'https://drive.google.com/drive/folders/1_NcYRNsSk6Sj0IW6YyxAecRa8qp6ude0?usp=sharing' }  // <-- INSERISCI QUI IL LINK 4
+			'PK_YOGA_01': { titleKey: 'package1Title', descKey: 'package1Desc', image: 'images/package-yoga-mobility.jpg', driveLink: 'IL_TUO_LINK_DRIVE_1' },
+			'PK_YOGA_02': { titleKey: 'package2Title', descKey: 'package2Desc', image: 'images/package-yoga-basics.jpg', driveLink: 'IL_TUO_LINK_DRIVE_2' },
+			'PK_YOGA_03': { titleKey: 'package3Title', descKey: 'package3Desc', image: 'images/package-home-workout.jpg', driveLink: 'IL_TUO_LINK_DRIVE_3' },
+			'PK_YOGA_04': { titleKey: 'package4Title', descKey: 'package4Desc', image: 'images/package-yoga-immersion.jpg', driveLink: 'IL_TUO_LINK_DRIVE_4' }
 		};
 	
-		// --- FUNZIONE PER POPOLARE LE CARD ---
+		// --- NUOVA FUNZIONE PER IMPOSTARE IL PULSANTE PAYPAL ---
+		const setupPayPalButton = (containerId, productCode) => {
+			paypal.Buttons({
+				createOrder: function() {
+					return fetch('/create-paypal-order', {
+						method: 'POST',
+						headers: {'Content-Type': 'application/json'},
+						body: JSON.stringify({ product_code: productCode })
+					}).then(res => res.json()).then(data => data.orderID);
+				},
+				onApprove: function(data) {
+					return fetch('/capture-paypal-order', {
+						method: 'POST',
+						headers: {'Content-Type': 'application/json'},
+						body: JSON.stringify({ orderID: data.orderID })
+					}).then(res => res.json()).then(details => {
+						alert('Pagamento completato con successo! Riceverai accesso a breve.');
+						closePackageModal();
+					});
+				}
+			}).render('#' + containerId);
+		};
+	
+		// --- NUOVA FUNZIONE PER IMPOSTARE IL PULSANTE MERCADOPAGO ---
+		const setupMercadoPagoButton = async (containerId, productCode, title) => {
+			try {
+				const response = await fetch('/create-mercadopago-preference', {
+					method: 'POST',
+					headers: {'Content-Type': 'application/json'},
+					body: JSON.stringify({ product_code: productCode, title: title })
+				});
+				const preference = await response.json();
+				const mp = new MercadoPago(preference.publicKey);
+				mp.bricks().create("wallet", containerId, {
+					initialization: { preferenceId: preference.preferenceId },
+					customization: { texts: { valueProp: 'smart_option' } }
+				});
+			} catch (error) {
+				console.error("Errore nella creazione della preferenza MercadoPago:", error);
+				document.getElementById(containerId).innerHTML = "<p>Errore nel caricare il pulsante di pagamento.</p>";
+			}
+		};
+		
+		// --- FUNZIONE PER POPOLARE LE CARD (invariata) ---
 		const populatePackageCards = (packages) => {
 			if (!packagesContainer) return;
-			packagesContainer.innerHTML = ''; // Pulisci il contenitore
-	
+			packagesContainer.innerHTML = '';
 			const sortedPackages = productCodes.map(code => packages.find(p => p.product_code === code));
-	
 			sortedPackages.forEach(pkg => {
 				if (!pkg) return;
 				const details = packageDetails[pkg.product_code];
 				const card = document.createElement('div');
 				card.className = 'package-card';
 				card.innerHTML = `
-					<img src="${details.image}" alt="Immagine Pacchetto" class="package-image">
+					<img src="${details.image}" alt="Immagine Pacchetto" class="package-image" style="object-fit: cover;">
 					<div class="package-content">
 						<h3 class="package-title" data-translate-key="${details.titleKey}">[Caricamento...]</h3>
 						<p class="package-description" data-translate-key="${details.descKey}">[Caricamento...]</p>
 						<div class="package-price">
-							<span class="price-eur">€${pkg.price_eur}</span> | <span class="price-ars">ARS $${pkg.price_ars}</span>
+							<span class="price-eur">€${pkg.price_eur}</span>
 						</div>
 						<button class="cta-button package-button" data-product-code="${pkg.product_code}">
 							<span data-translate-key="packageDiscoverButton">Scopri di più</span>
@@ -2072,58 +2113,73 @@ document.addEventListener('DOMContentLoaded', () => {
 			updateUITexts(currentLanguage);
 		};
 	
-		// --- FUNZIONI PER GESTIRE IL MODAL ---
+		// --- FUNZIONI PER GESTIRE IL MODAL (aggiornata) ---
 		const openPackageModal = (productCode) => {
 			const selectedPackage = packagesData.find(p => p.product_code === productCode);
 			if (!selectedPackage) return;
 	
 			const details = packageDetails[productCode];
+			const paymentButtonsContainer = document.getElementById('modal-payment-buttons');
+			paymentButtonsContainer.innerHTML = ''; // Pulisci i pulsanti precedenti
 	
+			// Popola i testi del modal
 			document.getElementById('modal-title').setAttribute('data-translate-key', details.titleKey);
 			document.getElementById('modal-description').setAttribute('data-translate-key', details.descKey);
 			document.getElementById('modal-drive-link').href = details.driveLink;
 			
+			// Crea dinamicamente i pulsanti di pagamento
+			// 1. PayPal
+			const payPalContainer = document.createElement('div');
+			payPalContainer.id = `paypal-button-container-${productCode}`;
+			paymentButtonsContainer.appendChild(payPalContainer);
+			
+			// 2. MercadoPago (con prezzo in ARS)
+			const mercadoPagoContainer = document.createElement('div');
+			mercadoPagoContainer.id = `mercadopago-container-${productCode}`;
+			const mpPriceLabel = document.createElement('p');
+			mpPriceLabel.style.textAlign = 'center';
+			mpPriceLabel.style.marginBottom = '5px';
+			mpPriceLabel.innerHTML = `o <strong style="color: #009ee3;">ARS $${selectedPackage.price_ars}</strong> con`;
+			paymentButtonsContainer.appendChild(mpPriceLabel);
+			paymentButtonsContainer.appendChild(mercadoPagoContainer);
+			
+			// 3. Bizum
+			const bizumDescription = document.createElement('p');
+			bizumDescription.style.textAlign = 'center';
+			bizumDescription.style.marginTop = '15px';
+			const packageTitleText = languages[currentLanguage][details.titleKey] || details.titleKey;
+			const bizumMessage = encodeURIComponent(`Ciao Maria, vorrei acquistare il pacchetto "${packageTitleText}" tramite Bizum.`);
+			bizumDescription.innerHTML = `o <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${bizumMessage}" target="_blank">paga con Bizum via WhatsApp</a>`;
+			paymentButtonsContainer.appendChild(bizumDescription);
+			
 			updateUITexts(currentLanguage);
 			modal.style.display = 'flex';
+	
+			// Inizializza i pulsanti di pagamento DOPO che il modal è visibile
+			setupPayPalButton(payPalContainer.id, productCode);
+			setupMercadoPagoButton(mercadoPagoContainer.id, productCode, packageTitleText);
 		};
 	
 		const closePackageModal = () => {
 			modal.style.display = 'none';
 		};
 	
-		// --- FUNZIONE PRINCIPALE PER RECUPERARE I DATI ---
-		// Sostituisci la vecchia funzione fetchPackages con questa
+		// --- FUNZIONE PRINCIPALE PER RECUPERARE I DATI (invariata) ---
 		const fetchPackages = async () => {
 			try {
-				// Esegui la query per selezionare solo i prodotti con i codici specificati
-				const { data, error } = await supabase
-					.from('services')
-					.select('*')
-					.in('product_code', productCodes);
-		
-				// ===== CODICE DI DEBUG AGGIUNTO =====
-				console.log("Risposta ricevuta da Supabase:", { data, error });
-		
+				const { data, error } = await supabase.from('services').select('*').in('product_code', productCodes);
 				if (error) {
-					// Se c'è un errore nella chiamata, loggalo e interrompi
 					console.error('Errore nel recuperare i pacchetti da Supabase:', error);
 					return;
 				}
-		
-				if (!data || data.length === 0) {
-					console.warn("AVVISO: La chiamata a Supabase ha avuto successo, ma non sono stati trovati pacchetti. Controlla che i 'product_code' nello script corrispondano a quelli nel tuo database Supabase e che le policy RLS permettano la lettura.");
-				}
-				// ===== FINE CODICE DI DEBUG =====
-		
-				// Se i dati sono stati recuperati con successo, popola le card
+				packagesData = data;
 				populatePackageCards(data);
-		
 			} catch (err) {
 				console.error('Errore imprevisto durante il fetch:', err);
 			}
 		};
 	
-		// --- EVENT LISTENERS (ASCOLTATORI DI EVENTI) ---
+		// --- EVENT LISTENERS ---
 		packagesContainer.addEventListener('click', (event) => {
 			const button = event.target.closest('.package-button');
 			if (button) {
@@ -2133,7 +2189,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		closeModalButton.addEventListener('click', closePackageModal);
 	
 		// --- AVVIO ---
-		fetchPackages(); // Avvia tutto il processo
+		fetchPackages();
 	}
 	// ===================================================================
 	// ============= FINE LOGICA CARICAMENTO PACCHETTI =============
