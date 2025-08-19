@@ -760,6 +760,35 @@ try {
 
 let currentUser = null;
 
+
+
+
+
+
+
+
+// ===================================================================
+// ============= FUNZIONE MANCANTE PER L'AUTENTICAZIONE =============
+// ===================================================================
+// Incolla questa funzione vicino alle altre funzioni di autenticazione
+
+async function getSupabaseToken() {
+    const { data, error } = await supabase.auth.getSession();
+    if (error) {
+        console.error('Errore nel recuperare la sessione:', error);
+        return null;
+    }
+    if (data.session) {
+        return data.session.access_token;
+    }
+    return null;
+}
+
+// ===================================================================
+
+
+
+
 // -----------------------------------------------------------
 //               FUNZIONI DI UTILITÀ (Lingua, Stelle, Modali)
 // -----------------------------------------------------------
