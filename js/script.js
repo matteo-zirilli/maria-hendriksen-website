@@ -700,45 +700,24 @@ let currentLanguage = localStorage.getItem('language') || 'es';
 
 
 
-
-// ... fine dell'oggetto languages };
-
 // Nel file script.js, sostituisci la vecchia funzione updateUITexts con questa:
-
-		function updateUITexts(lang) {
-			// Questa parte rimane invariata: traduce tutti gli elementi generici
-			document.querySelectorAll('[data-translate-key]').forEach(element => {
-				const key = element.dataset.translateKey;
-				if (languages[lang] && languages[lang][key]) {
-					if (element.tagName === 'FIGCAPTION' || !languages[lang][key].includes('<')) {
-						element.textContent = languages[lang][key];
-					} else {
-						element.innerHTML = languages[lang][key];
-					}
-				}
-			});
-		
-			// --- BLOCCO AGGIUNTO ---
-			// Aggiungiamo una logica specifica per aggiornare il testo del modale se è aperto.
-			const modalTitle = document.getElementById('modal-title');
-			const modalDesc = document.getElementById('modal-description');
-		
-			// Controlliamo se il modale ha una chiave di traduzione impostata
-			const titleKey = modalTitle.getAttribute('data-translate-key');
-			const descKey = modalDesc.getAttribute('data-translate-key');
-		
-			if (titleKey && languages[lang] && languages[lang][titleKey]) {
-				modalTitle.textContent = languages[lang][titleKey];
-			}
-			if (descKey && languages[lang] && languages[lang][descKey]) {
-				modalDesc.textContent = languages[lang][descKey];
-			}
-			// --- FINE BLOCCO AGGIUNTO ---
-		}
-			// ===============================================
-		
-
-
+function updateUITexts(lang) {
+    // Seleziona TUTTI gli elementi con la chiave di traduzione, anche quelli dentro modali nascosti
+    document.querySelectorAll('[data-translate-key]').forEach(element => {
+        const key = element.dataset.translateKey;
+        // Controlla se la lingua e la chiave esistono nel nostro oggetto
+        if (languages[lang] && languages[lang][key]) {
+            const translation = languages[lang][key];
+            // Se l'elemento è una figcaption o la traduzione non contiene HTML, usa textContent per sicurezza
+            if (element.tagName === 'FIGCAPTION' || !translation.includes('<')) {
+                element.textContent = translation;
+            } else {
+                // Altrimenti, usa innerHTML per interpretare i tag (es. <strong>)
+                element.innerHTML = translation;
+            }
+        }
+    });
+}
 
 
 
@@ -2231,7 +2210,7 @@ if (document.getElementById('packages-container')) {
 
             const mpPriceLabel = document.createElement('p');
             mpPriceLabel.style.textAlign = 'center';
-            mpPriceLabel.innerHTML = `o <strong style="color: #009ee3;">ARS $${selectedPackage.price_ars}</strong> con`;
+            mpPriceLabel.innerHTML = `o paga in Pesos Argentini (<strong style="color: #009ee3;">ARS $${selectedPackage.price_ars}</strong>) con`;
             const mercadoPagoContainer = document.createElement('div');
             mercadoPagoContainer.id = `mercadopago-container-${productCode}`;
             paymentButtonsContainer.appendChild(mpPriceLabel);
@@ -2493,54 +2472,6 @@ if (presentationContainer) {
     }
 }
 
-// SOSTITUISCI LA VECCHIA openVideoModal CON QUESTA VERSIONE AGGIORNATA
-function openVideoModal(videoUrl) {
-    const existingModal = document.getElementById('video-modal');
-    if (existingModal) existingModal.remove();
-
-    let videoId = null;
-    if (videoUrl) {
-        const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-        const match = videoUrl.match(youtubeRegex);
-        if (match && match[1]) videoId = match[1];
-    }
-
-    if (!videoId) {
-        console.error("ID del video di YouTube non trovato o URL non valido:", videoUrl);
-        return;
-    }
-
-    const modalHTML = `
-        <div id="video-modal" class="auth-modal" style="display:flex; align-items:center; justify-content:center;">
-            <div class="modal-content" style="max-width: 900px; width: 90%; padding: 0; background-color: black; border-radius: 8px; overflow: hidden;">
-                <span id="close-video-button" class="close-button" style="color: white; top: 0px; right: 15px; font-size: 40px; z-index: 10;">&times;</span>
-                <div style="position: relative; padding-bottom: 56.25%; height: 0;">
-                    <iframe 
-                        src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                    </iframe>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-
-    document.getElementById('close-video-button').addEventListener('click', () => {
-        const modal = document.getElementById('video-modal');
-        if (modal) modal.remove();
-    });
-    
-    document.getElementById('video-modal').addEventListener('click', (event) => {
-        if (event.target.id === 'video-modal') {
-             const modal = document.getElementById('video-modal');
-             if (modal) modal.remove();
-        }
-    });
-}
 
 }); // --- Chiusura di DOMContentLoaded ---
 
