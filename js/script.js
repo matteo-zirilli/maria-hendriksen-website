@@ -243,7 +243,9 @@ const languages = {
         "modalInstructions": "Per accedere, segui questi 2 passi: completa il pagamento e poi invia la richiesta di accesso. L'accesso verrà approvato entro 24 ore dalla verifica.",
         "modalStep1": "Passo 1: Scegli un metodo di pagamento",
         "modalStep2": "Passo 2: Richiedi l'accesso",
-        "modalRequestAccess": "Richiedi Accesso alla Cartella"
+        "modalRequestAccess": "Richiedi Accesso alla Cartella",
+		"payWithARS": "o paga in Pesos Argentini ({price}) con",
+		"payWithBizum": "o paga con Bizum via WhatsApp"
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -466,7 +468,11 @@ const languages = {
         "modalInstructions": "To gain access, follow these 2 steps: complete the payment and then submit the access request. Access will be granted within 24 hours of verification.",
         "modalStep1": "Step 1: Choose a payment method",
         "modalStep2": "Step 2: Request access",
-        "modalRequestAccess": "Request Access to Folder"
+        "modalRequestAccess": "Request Access to Folder",
+		"planYogaInd5Feat1": "5 individual lessons (60 min/each)",
+		"planYogaInd5Feat2": "Discount on the total price",
+		"payWithARS": "or pay in Argentine Pesos ({price}) with",
+		"payWithBizum": "or pay with Bizum via WhatsApp"
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -689,7 +695,11 @@ const languages = {
         "modalInstructions": "Para acceder, sigue estos 2 pasos: completa el pago y luego envía la solicitud de acceso. El acceso se aprobará dentro de las 24 horas posteriores a la verificación.",
         "modalStep1": "Paso 1: Elige un método de pago",
         "modalStep2": "Paso 2: Solicita el acceso",
-        "modalRequestAccess": "Solicitar Acceso a la Carpeta"
+        "modalRequestAccess": "Solicitar Acceso a la Carpeta",
+		"planYogaInd5Feat1": "5 clases individuales (60 min/cada una)",
+		"planYogaInd5Feat2": "Descuento sobre el total",
+		"payWithARS": "o paga en Pesos Argentinos ({price}) con",
+		"payWithBizum": "o paga con Bizum vía WhatsApp"
 		
     }
 };
@@ -2190,6 +2200,8 @@ if (document.getElementById('packages-container')) {
 
 // In script.js, SOSTITUISCI la vecchia funzione openPackageModal con questa nuova versione
 
+// In script.js, SOSTITUISCI la vecchia funzione openPackageModal con questa versione finale
+
 const openPackageModal = (productCode) => {
     const selectedPackage = packagesData.find(p => p.product_code === productCode);
     if (!selectedPackage) {
@@ -2203,50 +2215,56 @@ const openPackageModal = (productCode) => {
         return;
     }
 
-    // --- Logica di traduzione SEMPLIFICATA ---
-    // 1. Impostiamo solo le chiavi di traduzione
     document.getElementById('modal-title').setAttribute('data-translate-key', details.titleKey);
     document.getElementById('modal-description').setAttribute('data-translate-key', details.descKey);
     document.getElementById('modal-drive-link').href = details.driveLink;
-
-    // 2. La funzione updateUITexts, chiamata da changeLanguage, farà il resto.
     
     const paymentButtonsContainer = document.getElementById('modal-payment-buttons');
-    paymentButtonsContainer.innerHTML = ''; // Pulisce i bottoni precedenti
+    paymentButtonsContainer.innerHTML = '';
 
     if (currentUser) {
         const packageTitleText = languages[currentLanguage][details.titleKey] || details.titleKey;
         
+        // Setup per PayPal (rimane invariato)
         const payPalContainer = document.createElement('div');
         payPalContainer.id = `paypal-button-container-${productCode}`;
+        paymentButtonsContainer.appendChild(payPalContainer);
+        setupPayPalButton(payPalContainer.id, productCode);
+
+        // --- INIZIO MODIFICA PER TESTI TRADUCIBILI ---
         
+        // Testo per MercadoPago
         const mpPriceLabel = document.createElement('p');
         mpPriceLabel.style.textAlign = 'center';
-        mpPriceLabel.innerHTML = `o paga in Pesos Argentini (<strong style="color: #009ee3;">ARS $${selectedPackage.price_ars}</strong>) con`;
+        const arsPriceText = `<strong style="color: #009ee3;">ARS $${selectedPackage.price_ars}</strong>`;
+        mpPriceLabel.innerHTML = languages[currentLanguage].payWithARS.replace('{price}', arsPriceText);
         
-        const mercadoPagoContainer = document.createElement('div');
-        mercadoPagoContainer.id = `mercadopago-container-${productCode}`;
+        // Bottone MercadoPago
+        const mercadoPagoButton = document.createElement('button');
+        mercadoPagoButton.className = 'payment-button mercadopago';
+        mercadoPagoButton.innerHTML = `<svg viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.6 8.56a2.64 2.64 0 0 0-2.1-2.24L22.99 2.1a.44.44 0 0 0-.4 0L9.08 6.32a2.64 2.64 0 0 0-2.1 2.24L5.1 14.8a2.64 2.64 0 0 0 2.52 3.02h25.4a2.64 2.64 0 0 0 2.52-3.02l-1.92-6.24Z" fill="#00AEEF"/></svg> <span>Paga con Mercado Pago</span>`;
+        mercadoPagoButton.addEventListener('click', () => {
+            handleMercadoPagoPurchase({ productCode: productCode, title: packageTitleText, lang: currentLanguage });
+        });
+
+        paymentButtonsContainer.appendChild(mpPriceLabel);
+        paymentButtonsContainer.appendChild(mercadoPagoButton);
         
+        // Testo per Bizum
         const bizumDescription = document.createElement('p');
         bizumDescription.style.textAlign = 'center';
         const bizumMessage = encodeURIComponent(`Ciao Maria, vorrei acquistare il pacchetto "${packageTitleText}" tramite Bizum.`);
-        bizumDescription.innerHTML = `o <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${bizumMessage}" target="_blank">paga con Bizum via WhatsApp</a>`;
-
-        paymentButtonsContainer.appendChild(payPalContainer);
-        paymentButtonsContainer.appendChild(mpPriceLabel);
-        paymentButtonsContainer.appendChild(mercadoPagoContainer);
+        const bizumLink = `<a href="https://wa.me/${WHATSAPP_NUMBER}?text=${bizumMessage}" target="_blank">${languages[currentLanguage].payWithBizum}</a>`;
+        bizumDescription.innerHTML = bizumLink;
         paymentButtonsContainer.appendChild(bizumDescription);
 
-        // Ora le funzioni di setup ricevono i dati corretti
-        setupPayPalButton(payPalContainer.id, productCode);
-        setupMercadoPagoButton(mercadoPagoContainer.id, productCode, packageTitleText);
+        // --- FINE MODIFICA ---
 
     } else {
         paymentButtonsContainer.innerHTML = `<p class="error-message" data-translate-key="loginToPurchase"></p>`;
     }
     
     modal.style.display = 'flex';
-    // Assicuriamoci che i testi del modale appena aperto siano nella lingua giusta
     updateUITexts(currentLanguage);
 };
 
