@@ -2063,47 +2063,88 @@ document.addEventListener('DOMContentLoaded', () => {
 			'PK_YOGA_04': { titleKey: 'package4Title', descKey: 'package4Desc', image: 'images/package-yoga-immersion.jpg', driveLink: 'https://drive.google.com/drive/folders/1_NcYRNsSk6Sj0IW6YyxAecRa8qp6ude0?usp=sharing' }
 		};
 	
-		// --- NUOVA FUNZIONE PER IMPOSTARE IL PULSANTE PAYPAL ---
+		// SOSTITUISCI la vecchia funzione setupPayPalButton con questa
 		const setupPayPalButton = (containerId, productCode) => {
-			paypal.Buttons({
-				createOrder: function() {
-					return fetch('/create-paypal-order', {
-						method: 'POST',
-						headers: {'Content-Type': 'application/json'},
-						body: JSON.stringify({ product_code: productCode })
-					}).then(res => res.json()).then(data => data.orderID);
-				},
-				onApprove: function(data) {
-					return fetch('/capture-paypal-order', {
-						method: 'POST',
-						headers: {'Content-Type': 'application/json'},
-						body: JSON.stringify({ orderID: data.orderID })
-					}).then(res => res.json()).then(details => {
-						alert('Pagamento completato con successo! Riceverai accesso a breve.');
-						closePackageModal();
-					});
+			const maxTries = 15; // Tenta per circa 3 secondi
+			let currentTry = 0;
+		
+			const interval = setInterval(() => {
+				// Controlla se l'oggetto 'paypal' è stato caricato e reso disponibile
+				if (typeof paypal !== 'undefined') {
+					clearInterval(interval); // Ferma il controllo, abbiamo trovato l'oggetto!
+		
+					// Ora che 'paypal' è disponibile, esegui il codice originale
+					paypal.Buttons({
+						createOrder: function() {
+							// La tua logica esistente
+							return fetch('/.netlify/functions/create-paypal-order', {
+								method: 'POST',
+								headers: {'Content-Type': 'application/json'},
+								body: JSON.stringify({ product_code: productCode })
+							}).then(res => res.json()).then(data => data.orderId); // Corretto orderID in orderId
+						},
+						onApprove: function(data) {
+							// La tua logica esistente
+							return fetch('/.netlify/functions/capture-paypal-order', {
+								method: 'POST',
+								headers: {'Content-Type': 'application/json'},
+								body: JSON.stringify({ orderId: data.orderID }) // Corretto orderID in orderId
+							}).then(res => res.json()).then(details => {
+								alert('Pagamento completato con successo! Riceverai accesso a breve.');
+								closePackageModal();
+							});
+						}
+					}).render('#' + containerId);
+		
+				} else if (currentTry >= maxTries) {
+					clearInterval(interval); // Ferma i tentativi per evitare loop infiniti
+					console.error("L'SDK di PayPal non è stato caricato in tempo.");
+					document.getElementById(containerId).innerHTML = "<p>Errore nel caricare il pulsante PayPal.</p>";
+				} else {
+					currentTry++;
 				}
-			}).render('#' + containerId);
+			}, 200); // Controlla ogni 200 millisecondi
 		};
-	
-		// --- NUOVA FUNZIONE PER IMPOSTARE IL PULSANTE MERCADOPAGO ---
+		
+		// SOSTITUISCI la vecchia funzione setupMercadoPagoButton con questa
 		const setupMercadoPagoButton = async (containerId, productCode, title) => {
-			try {
-				const response = await fetch('/create-mercadopago-preference', {
-					method: 'POST',
-					headers: {'Content-Type': 'application/json'},
-					body: JSON.stringify({ product_code: productCode, title: title })
-				});
-				const preference = await response.json();
-				const mp = new MercadoPago(preference.publicKey);
-				mp.bricks().create("wallet", containerId, {
-					initialization: { preferenceId: preference.preferenceId },
-					customization: { texts: { valueProp: 'smart_option' } }
-				});
-			} catch (error) {
-				console.error("Errore nella creazione della preferenza MercadoPago:", error);
-				document.getElementById(containerId).innerHTML = "<p>Errore nel caricare il pulsante di pagamento.</p>";
-			}
+			const maxTries = 15;
+			let currentTry = 0;
+		
+			const interval = setInterval(async () => {
+				// Controlla se l'oggetto 'MercadoPago' è stato caricato
+				if (typeof MercadoPago !== 'undefined') {
+					clearInterval(interval); // Ferma il controllo
+		
+					// Ora che 'MercadoPago' è disponibile, esegui la logica originale
+					try {
+						const response = await fetch('/.netlify/functions/create-mercadopago-preference', {
+							method: 'POST',
+							headers: {'Content-Type': 'application/json'},
+							body: JSON.stringify({ product_code: productCode, title: title })
+						});
+						const preference = await response.json();
+		
+						// Assicurati che le chiavi pubbliche siano caricate da Netlify
+						const mp = new MercadoPago(preference.publicKey); 
+		
+						mp.bricks().create("wallet", containerId, {
+							initialization: { preferenceId: preference.preferenceId },
+							customization: { texts: { valueProp: 'smart_option' } }
+						});
+					} catch (error) {
+						console.error("Errore nella creazione della preferenza MercadoPago:", error);
+						document.getElementById(containerId).innerHTML = "<p>Errore nel caricare il pulsante di pagamento.</p>";
+					}
+		
+				} else if (currentTry >= maxTries) {
+					clearInterval(interval);
+					console.error("L'SDK di MercadoPago non è stato caricato in tempo.");
+					document.getElementById(containerId).innerHTML = "<p>Errore nel caricare il pulsante di pagamento.</p>";
+				} else {
+					currentTry++;
+				}
+			}, 200);
 		};
 		
 		// --- FUNZIONE PER POPOLARE LE CARD (invariata) ---
