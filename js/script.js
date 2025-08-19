@@ -2198,9 +2198,7 @@ if (document.getElementById('packages-container')) {
         }, 0);
     };
 
-// In script.js, SOSTITUISCI la vecchia funzione openPackageModal con questa nuova versione
-
-// In script.js, SOSTITUISCI la vecchia funzione openPackageModal con questa versione finale
+// In script.js, SOSTITUISCI la funzione openPackageModal con questa versione
 
 const openPackageModal = (productCode) => {
     const selectedPackage = packagesData.find(p => p.product_code === productCode);
@@ -2225,40 +2223,32 @@ const openPackageModal = (productCode) => {
     if (currentUser) {
         const packageTitleText = languages[currentLanguage][details.titleKey] || details.titleKey;
         
-        // Setup per PayPal (rimane invariato)
         const payPalContainer = document.createElement('div');
         payPalContainer.id = `paypal-button-container-${productCode}`;
-        paymentButtonsContainer.appendChild(payPalContainer);
-        setupPayPalButton(payPalContainer.id, productCode);
-
-        // --- INIZIO MODIFICA PER TESTI TRADUCIBILI ---
         
-        // Testo per MercadoPago
         const mpPriceLabel = document.createElement('p');
         mpPriceLabel.style.textAlign = 'center';
         const arsPriceText = `<strong style="color: #009ee3;">ARS $${selectedPackage.price_ars}</strong>`;
         mpPriceLabel.innerHTML = languages[currentLanguage].payWithARS.replace('{price}', arsPriceText);
         
-        // Bottone MercadoPago
-        const mercadoPagoButton = document.createElement('button');
-        mercadoPagoButton.className = 'payment-button mercadopago';
-        mercadoPagoButton.innerHTML = `<svg viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.6 8.56a2.64 2.64 0 0 0-2.1-2.24L22.99 2.1a.44.44 0 0 0-.4 0L9.08 6.32a2.64 2.64 0 0 0-2.1 2.24L5.1 14.8a2.64 2.64 0 0 0 2.52 3.02h25.4a2.64 2.64 0 0 0 2.52-3.02l-1.92-6.24Z" fill="#00AEEF"/></svg> <span>Paga con Mercado Pago</span>`;
-        mercadoPagoButton.addEventListener('click', () => {
-            handleMercadoPagoPurchase({ productCode: productCode, title: packageTitleText, lang: currentLanguage });
-        });
-
-        paymentButtonsContainer.appendChild(mpPriceLabel);
-        paymentButtonsContainer.appendChild(mercadoPagoButton);
+        // Creiamo il contenitore per il bottone "Brick" di MercadoPago
+        const mercadoPagoContainer = document.createElement('div');
+        mercadoPagoContainer.id = `mercadopago-container-${productCode}`;
         
-        // Testo per Bizum
         const bizumDescription = document.createElement('p');
         bizumDescription.style.textAlign = 'center';
         const bizumMessage = encodeURIComponent(`Ciao Maria, vorrei acquistare il pacchetto "${packageTitleText}" tramite Bizum.`);
-        const bizumLink = `<a href="https://wa.me/${WHATSAPP_NUMBER}?text=${bizumMessage}" target="_blank">${languages[currentLanguage].payWithBizum}</a>`;
+        const bizumLink = `<a href="https://wa.me/5492983567655?text=${bizumMessage}" target="_blank">${languages[currentLanguage].payWithBizum}</a>`;
         bizumDescription.innerHTML = bizumLink;
+
+        paymentButtonsContainer.appendChild(payPalContainer);
+        paymentButtonsContainer.appendChild(mpPriceLabel);
+        paymentButtonsContainer.appendChild(mercadoPagoContainer);
         paymentButtonsContainer.appendChild(bizumDescription);
 
-        // --- FINE MODIFICA ---
+        // Chiamiamo le funzioni di setup originali
+        setupPayPalButton(payPalContainer.id, productCode);
+        setupMercadoPagoButton(mercadoPagoContainer.id, productCode, packageTitleText);
 
     } else {
         paymentButtonsContainer.innerHTML = `<p class="error-message" data-translate-key="loginToPurchase"></p>`;
