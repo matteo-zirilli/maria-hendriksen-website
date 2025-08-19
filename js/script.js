@@ -2133,13 +2133,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			
 			
 			
-			// --- AGGIUNGI QUESTO BLOCCO ---
-			// Imposta immediatamente il testo corretto usando la lingua attuale
-			const packageTitleText = languages[currentLanguage][details.titleKey] || details.titleKey;
-			const packageDescText = languages[currentLanguage][details.descKey] || details.descKey;
-			document.getElementById('modal-title').textContent = packageTitleText;
-			document.getElementById('modal-description').textContent = packageDescText;
-			// --- FINE BLOCCO DA AGGIUNGERE ---
+			
 			
 			
 			
