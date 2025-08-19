@@ -2117,35 +2117,29 @@ document.addEventListener('DOMContentLoaded', () => {
 			}, 0);
 		};
 	
-		// --- FUNZIONI PER GESTIRE IL MODAL (aggiornata) ---
+				// --- FUNZIONI PER GESTIRE IL MODAL (aggiornata) ---
+				// Sostituisci la tua intera funzione con questa versione corretta
 		const openPackageModal = (productCode) => {
 			const selectedPackage = packagesData.find(p => p.product_code === productCode);
 			if (!selectedPackage) return;
-	
+		
 			const details = packageDetails[productCode];
 			const paymentButtonsContainer = document.getElementById('modal-payment-buttons');
 			paymentButtonsContainer.innerHTML = ''; // Pulisci i pulsanti precedenti
-	
-			// Popola i testi del modal
-			document.getElementById('modal-title').setAttribute('data-translate-key', details.titleKey);
-			document.getElementById('modal-description').setAttribute('data-translate-key', details.descKey);
-			
-			
-			
-			// --- IL BLOCCO CHE HAI AGGIUNTO ---
-			// Imposta immediatamente il testo corretto usando la lingua attuale
+		
+			// --- CORREZIONE QUI ---
+			// 1. Dichiariamo le variabili per i testi UNA SOLA VOLTA all'inizio.
 			const packageTitleText = languages[currentLanguage][details.titleKey] || details.titleKey;
 			const packageDescText = languages[currentLanguage][details.descKey] || details.descKey;
+		
+			// 2. Assegniamo subito i testi e gli attributi al modal.
+			document.getElementById('modal-title').setAttribute('data-translate-key', details.titleKey);
+			document.getElementById('modal-description').setAttribute('data-translate-key', details.descKey);
 			document.getElementById('modal-title').textContent = packageTitleText;
 			document.getElementById('modal-description').textContent = packageDescText;
-			// --- FINE BLOCCO ---
-			
 			document.getElementById('modal-drive-link').href = details.driveLink;
 			
-			
-			
-			
-			
+			// --- IL RESTO DEL CODICE ---
 			// Crea dinamicamente i pulsanti di pagamento
 			// 1. PayPal
 			const payPalContainer = document.createElement('div');
@@ -2166,14 +2160,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			const bizumDescription = document.createElement('p');
 			bizumDescription.style.textAlign = 'center';
 			bizumDescription.style.marginTop = '15px';
-			const packageTitleText = languages[currentLanguage][details.titleKey] || details.titleKey;
+			// 3. Riutilizziamo la variabile 'packageTitleText' senza ridichiararla.
 			const bizumMessage = encodeURIComponent(`Ciao Maria, vorrei acquistare il pacchetto "${packageTitleText}" tramite Bizum.`);
 			bizumDescription.innerHTML = `o <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${bizumMessage}" target="_blank">paga con Bizum via WhatsApp</a>`;
 			paymentButtonsContainer.appendChild(bizumDescription);
 			
-			
 			modal.style.display = 'flex';
-	
+		
 			// Inizializza i pulsanti di pagamento DOPO che il modal è visibile
 			setupPayPalButton(payPalContainer.id, productCode);
 			setupMercadoPagoButton(mercadoPagoContainer.id, productCode, packageTitleText);
