@@ -2129,10 +2129,18 @@ document.addEventListener('DOMContentLoaded', () => {
 			// Popola i testi del modal
 			document.getElementById('modal-title').setAttribute('data-translate-key', details.titleKey);
 			document.getElementById('modal-description').setAttribute('data-translate-key', details.descKey);
+			
+			
+			
+			// --- IL BLOCCO CHE HAI AGGIUNTO ---
+			// Imposta immediatamente il testo corretto usando la lingua attuale
+			const packageTitleText = languages[currentLanguage][details.titleKey] || details.titleKey;
+			const packageDescText = languages[currentLanguage][details.descKey] || details.descKey;
+			document.getElementById('modal-title').textContent = packageTitleText;
+			document.getElementById('modal-description').textContent = packageDescText;
+			// --- FINE BLOCCO ---
+			
 			document.getElementById('modal-drive-link').href = details.driveLink;
-			
-			
-			
 			
 			
 			
