@@ -699,6 +699,8 @@ const languages = {
 let currentLanguage = localStorage.getItem('language') || 'es';
 
 
+
+
 // ... fine dell'oggetto languages };
 
     // ===== INCOLLA QUI QUESTA NUOVA FUNZIONE =====
@@ -2128,6 +2130,19 @@ document.addEventListener('DOMContentLoaded', () => {
 			document.getElementById('modal-title').setAttribute('data-translate-key', details.titleKey);
 			document.getElementById('modal-description').setAttribute('data-translate-key', details.descKey);
 			document.getElementById('modal-drive-link').href = details.driveLink;
+			
+			
+			
+			// --- AGGIUNGI QUESTO BLOCCO ---
+			// Imposta immediatamente il testo corretto usando la lingua attuale
+			const packageTitleText = languages[currentLanguage][details.titleKey] || details.titleKey;
+			const packageDescText = languages[currentLanguage][details.descKey] || details.descKey;
+			document.getElementById('modal-title').textContent = packageTitleText;
+			document.getElementById('modal-description').textContent = packageDescText;
+			// --- FINE BLOCCO DA AGGIUNGERE ---
+			
+			
+			
 			
 			// Crea dinamicamente i pulsanti di pagamento
 			// 1. PayPal
