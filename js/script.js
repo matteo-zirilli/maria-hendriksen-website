@@ -2063,84 +2063,124 @@ document.addEventListener('DOMContentLoaded', () => {
 			'PK_YOGA_04': { titleKey: 'package4Title', descKey: 'package4Desc', image: 'images/package-yoga-immersion.jpg', driveLink: 'https://drive.google.com/drive/folders/1_NcYRNsSk6Sj0IW6YyxAecRa8qp6ude0?usp=sharing' }
 		};
 	
-		// SOSTITUISCI la vecchia funzione setupPayPalButton con questa
+		// SOSTITUISCI la vecchia funzione setupPayPalButton con questa versione SICURA
 		const setupPayPalButton = (containerId, productCode) => {
-			const maxTries = 15; // Tenta per circa 3 secondi
+			// La logica per attendere il caricamento dell'SDK va bene, la teniamo.
+			const maxTries = 15;
 			let currentTry = 0;
-		
-			const interval = setInterval(() => {
-				// Controlla se l'oggetto 'paypal' è stato caricato e reso disponibile
+			const interval = setInterval(async () => { // Aggiunto async qui
 				if (typeof paypal !== 'undefined') {
-					clearInterval(interval); // Ferma il controllo, abbiamo trovato l'oggetto!
+					clearInterval(interval);
+					
+					// --- INIZIO MODIFICA IMPORTANTE ---
+					try {
+						// 1. Otteniamo il token dell'utente loggato
+						const token = await getSupabaseToken();
+						if (!token) {
+							// Se l'utente non è loggato, non mostriamo il bottone e usciamo.
+							document.getElementById(containerId).innerHTML = '<p class="error-message" data-translate-key="loginToBuy">Effettua il login per acquistare.</p>';
+							updateUITexts(currentLanguage); // Traduce il messaggio
+							return;
+						}
 		
-					// Ora che 'paypal' è disponibile, esegui il codice originale
-					paypal.Buttons({
-						createOrder: function() {
-							// La tua logica esistente
-							return fetch('/.netlify/functions/create-paypal-order', {
-								method: 'POST',
-								headers: {'Content-Type': 'application/json'},
-								body: JSON.stringify({ product_code: productCode })
-							}).then(res => res.json()).then(data => data.orderId); // Corretto orderID in orderId
-						},
-						onApprove: function(data) {
-							// La tua logica esistente
-							return fetch('/.netlify/functions/capture-paypal-order', {
-								method: 'POST',
-								headers: {'Content-Type': 'application/json'},
-								body: JSON.stringify({ orderId: data.orderID }) // Corretto orderID in orderId
-							}).then(res => res.json()).then(details => {
+						// 2. Eseguiamo la creazione del bottone PayPal
+						paypal.Buttons({
+							createOrder: async function() { // Aggiunto async qui
+								const response = await fetch('/.netlify/functions/create-paypal-order', {
+									method: 'POST',
+									headers: {
+										'Content-Type': 'application/json',
+										'Authorization': `Bearer ${token}` // 3. Inviamo il token!
+									},
+									body: JSON.stringify({ product_code: productCode })
+								});
+								const data = await response.json();
+								if (!response.ok) throw new Error(data.error || 'Errore server');
+								return data.orderId;
+							},
+							onApprove: async function(data) { // Aggiunto async qui
+								// La logica di onApprove richiede anche il token per la cattura
+								const captureToken = await getSupabaseToken();
+								const response = await fetch('/.netlify/functions/capture-paypal-order', {
+									method: 'POST',
+									headers: {
+										'Content-Type': 'application/json',
+										'Authorization': `Bearer ${captureToken}`
+									},
+									body: JSON.stringify({ orderId: data.orderID, product_code: productCode }) // Includi product_code se serve
+								});
+								const details = await response.json();
+								if (!response.ok) throw new Error(details.error || 'Errore cattura pagamento');
+								
 								alert('Pagamento completato con successo! Riceverai accesso a breve.');
 								closePackageModal();
-							});
-						}
-					}).render('#' + containerId);
+							}
+						}).render('#' + containerId);
+		
+					} catch (error) {
+						console.error("Errore durante il setup di PayPal:", error);
+						document.getElementById(containerId).innerHTML = `<p class="error-message">${error.message}</p>`;
+					}
+					// --- FINE MODIFICA IMPORTANTE ---
 		
 				} else if (currentTry >= maxTries) {
-					clearInterval(interval); // Ferma i tentativi per evitare loop infiniti
+					clearInterval(interval);
 					console.error("L'SDK di PayPal non è stato caricato in tempo.");
-					document.getElementById(containerId).innerHTML = "<p>Errore nel caricare il pulsante PayPal.</p>";
+					document.getElementById(containerId).innerHTML = "<p class='error-message'>Errore nel caricare il pulsante PayPal.</p>";
 				} else {
 					currentTry++;
 				}
-			}, 200); // Controlla ogni 200 millisecondi
+			}, 200);
 		};
 		
-		// SOSTITUISCI la vecchia funzione setupMercadoPagoButton con questa
+		// SOSTITUISCI la vecchia funzione setupMercadoPagoButton con questa versione SICURA
 		const setupMercadoPagoButton = async (containerId, productCode, title) => {
 			const maxTries = 15;
 			let currentTry = 0;
-		
 			const interval = setInterval(async () => {
-				// Controlla se l'oggetto 'MercadoPago' è stato caricato
 				if (typeof MercadoPago !== 'undefined') {
-					clearInterval(interval); // Ferma il controllo
-		
-					// Ora che 'MercadoPago' è disponibile, esegui la logica originale
+					clearInterval(interval);
+					
+					// --- INIZIO MODIFICA IMPORTANTE ---
 					try {
+						// 1. Otteniamo il token dell'utente loggato
+						const token = await getSupabaseToken();
+						if (!token) {
+							document.getElementById(containerId).innerHTML = ''; // Nascondi se non loggato
+							return;
+						}
+		
+						// 2. Chiamiamo la funzione Netlify con il token
 						const response = await fetch('/.netlify/functions/create-mercadopago-preference', {
 							method: 'POST',
-							headers: {'Content-Type': 'application/json'},
+							headers: {
+								'Content-Type': 'application/json',
+								'Authorization': `Bearer ${token}` // 3. Inviamo il token!
+							},
 							body: JSON.stringify({ product_code: productCode, title: title })
 						});
+		
 						const preference = await response.json();
-		
-						// Assicurati che le chiavi pubbliche siano caricate da Netlify
-						const mp = new MercadoPago(preference.publicKey); 
-		
+						if (!response.ok) { // Controlla se la risposta è andata a buon fine
+							throw new Error(preference.error || `Errore ${response.status}`);
+						}
+						
+						const mp = new MercadoPago(preference.publicKey);
 						mp.bricks().create("wallet", containerId, {
 							initialization: { preferenceId: preference.preferenceId },
 							customization: { texts: { valueProp: 'smart_option' } }
 						});
+		
 					} catch (error) {
 						console.error("Errore nella creazione della preferenza MercadoPago:", error);
-						document.getElementById(containerId).innerHTML = "<p>Errore nel caricare il pulsante di pagamento.</p>";
+						document.getElementById(containerId).innerHTML = `<p class="error-message">${error.message}</p>`;
 					}
+					// --- FINE MODIFICA IMPORTANTE ---
 		
 				} else if (currentTry >= maxTries) {
 					clearInterval(interval);
 					console.error("L'SDK di MercadoPago non è stato caricato in tempo.");
-					document.getElementById(containerId).innerHTML = "<p>Errore nel caricare il pulsante di pagamento.</p>";
+					document.getElementById(containerId).innerHTML = "<p class='error-message'>Errore nel caricare il pulsante di pagamento.</p>";
 				} else {
 					currentTry++;
 				}
