@@ -2059,90 +2059,104 @@ if (document.getElementById('packages-container')) {
     };
 
     // --- FUNZIONE ROBUSTA PER PAYPAL (CON AUTENTICAZIONE E ATTESA SDK) ---
-    const setupPayPalButton = (containerId, productCode) => {
-        const maxTries = 15; let currentTry = 0;
-        const interval = setInterval(async () => {
-            if (typeof paypal !== 'undefined' && typeof getSupabaseToken === 'function') {
-                clearInterval(interval);
-                try {
-                    const token = await getSupabaseToken();
-                    if (!token) return;
+    // In script.js, SOSTITUISCI la vecchia funzione setupPayPalButton
 
-                    paypal.Buttons({
-                        createOrder: async () => {
-                            if (!productCode) throw new Error("productCode PayPal mancante.");
-                            const response = await fetch('/.netlify/functions/create-paypal-order', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                                body: JSON.stringify({ product_code: productCode })
-                            });
-                            const data = await response.json();
-                            if (!response.ok) throw new Error(data.error || 'Errore server PayPal');
-                            return data.orderId;
-                        },
-                        onApprove: async (data) => {
-                            const captureToken = await getSupabaseToken();
-                            const response = await fetch('/.netlify/functions/capture-paypal-order', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${captureToken}` },
-                                body: JSON.stringify({ orderId: data.orderID, product_code: productCode })
-                            });
-                            const details = await response.json();
-                            if (!response.ok) throw new Error(details.error || 'Errore cattura pagamento');
-                            
-                            alert('Pagamento completato con successo! Riceverai accesso a breve.');
-                            closePackageModal();
-                        },
-                        onError: (err) => {
-                             console.error("Errore SDK PayPal:", err);
-                             document.getElementById(containerId).innerHTML = `<p class="error-message">Errore durante il pagamento con PayPal.</p>`;
-                        }
-                    }).render('#' + containerId);
-                } catch (error) {
-                    console.error("Errore durante il setup di PayPal:", error);
-                    document.getElementById(containerId).innerHTML = `<p class="error-message">${error.message}</p>`;
-                }
-            } else if (currentTry++ >= maxTries) {
-                clearInterval(interval);
-                console.error("L'SDK di PayPal o getSupabaseToken non sono stati caricati in tempo.");
-            }
-        }, 200);
-    };
+	const setupPayPalButton = (containerId, productCode) => {
+		const maxTries = 15; let currentTry = 0;
+		const interval = setInterval(async () => {
+			const container = document.getElementById(containerId);
+			if (!container) { clearInterval(interval); return; }
+	
+			if (typeof paypal !== 'undefined' && typeof getSupabaseToken === 'function') {
+				clearInterval(interval);
+				try {
+					const token = await getSupabaseToken();
+					if (!token) throw new Error("Utente non autenticato.");
+	
+					paypal.Buttons({
+						createOrder: async () => {
+							if (!productCode) throw new Error("Codice prodotto mancante per PayPal.");
+							const response = await fetch('/.netlify/functions/create-paypal-order', {
+								method: 'POST',
+								headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+								// --- CORREZIONE QUI ---
+								body: JSON.stringify({ productCode: productCode })
+							});
+							const data = await response.json();
+							if (!response.ok) throw new Error(data.error || 'Errore server PayPal');
+							return data.orderId;
+						},
+						onApprove: async (data) => {
+							const captureToken = await getSupabaseToken();
+							const response = await fetch('/.netlify/functions/capture-paypal-order', {
+								method: 'POST',
+								headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${captureToken}` },
+								// --- CORREZIONE ANCHE QUI PER SICUREZZA ---
+								body: JSON.stringify({ orderId: data.orderID, productCode: productCode })
+							});
+							const details = await response.json();
+							if (!response.ok) throw new Error(details.error || 'Errore nella finalizzazione del pagamento');
+	
+							alert('Pagamento completato con successo! Riceverai accesso a breve.');
+							closePackageModal();
+						},
+						onError: (err) => {
+							console.error("Errore SDK PayPal:", err);
+							container.innerHTML = `<p class="error-message">Errore durante il pagamento con PayPal.</p>`;
+						}
+					}).render('#' + containerId);
+				} catch (error) {
+					console.error("Errore durante il setup di PayPal:", error);
+					container.innerHTML = `<p class="error-message">${error.message}</p>`;
+				}
+			} else if (currentTry++ >= maxTries) {
+				clearInterval(interval);
+				console.error("Timeout: L'SDK di PayPal non è stato caricato in tempo.");
+				container.innerHTML = `<p class="error-message">Il servizio di pagamento PayPal non è al momento disponibile. Riprova più tardi.</p>`;
+			}
+		}, 200);
+	};
 
-    // --- FUNZIONE ROBUSTA PER MERCADOPAGO (CON AUTENTICAZIONE E ATTESA SDK) ---
-    const setupMercadoPagoButton = (containerId, productCode, title) => {
-        const maxTries = 15; let currentTry = 0;
-        const interval = setInterval(async () => {
-            if (typeof MercadoPago !== 'undefined' && typeof getSupabaseToken === 'function') {
-                clearInterval(interval);
-                try {
-                    const token = await getSupabaseToken();
-                    if (!token) return;
-                    
-                    if (!productCode) throw new Error("productCode MercadoPago mancante.");
-                    const response = await fetch('/.netlify/functions/create-mercadopago-preference', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                        body: JSON.stringify({ product_code: productCode, title: title })
-                    });
-                    const preference = await response.json();
-                    if (!response.ok) throw new Error(preference.error || `Errore dal server: ${response.statusText}`);
-                    
-                    const mp = new MercadoPago(preference.publicKey);
-                    mp.bricks().create("wallet", containerId, {
-                        initialization: { preferenceId: preference.preferenceId },
-                        customization: { texts: { valueProp: 'smart_option' } }
-                    });
-                } catch (error) {
-                    console.error("Errore nella creazione della preferenza MercadoPago:", error);
-                    document.getElementById(containerId).innerHTML = `<p class="error-message">${error.message}</p>`;
-                }
-            } else if (currentTry++ >= maxTries) {
-                clearInterval(interval);
-                console.error("L'SDK di MercadoPago o getSupabaseToken non sono stati caricati in tempo.");
-            }
-        }, 200);
-    };
+   // In script.js, SOSTITUISCI la vecchia funzione setupMercadoPagoButton
+
+	const setupMercadoPagoButton = (containerId, productCode, title) => {
+		const maxTries = 15; let currentTry = 0;
+		const interval = setInterval(async () => {
+			const container = document.getElementById(containerId);
+			if (!container) { clearInterval(interval); return; }
+	
+			if (typeof MercadoPago !== 'undefined' && typeof getSupabaseToken === 'function') {
+				clearInterval(interval);
+				try {
+					const token = await getSupabaseToken();
+					if (!token) throw new Error("Utente non autenticato.");
+					if (!productCode) throw new Error("Codice prodotto mancante per MercadoPago.");
+	
+					const response = await fetch('/.netlify/functions/create-mercadopago-preference', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+						// --- CORREZIONE QUI ---
+						body: JSON.stringify({ productCode: productCode, title: title })
+					});
+					const preference = await response.json();
+					if (!response.ok) throw new Error(preference.error || `Errore dal server: ${response.statusText}`);
+	
+					const mp = new MercadoPago(preference.publicKey);
+					mp.bricks().create("wallet", containerId, {
+						initialization: { preferenceId: preference.preferenceId },
+						customization: { texts: { valueProp: 'smart_option' } }
+					});
+				} catch (error) {
+					console.error("Errore nella creazione della preferenza MercadoPago:", error);
+					container.innerHTML = `<p class="error-message">${error.message}</p>`;
+				}
+			} else if (currentTry++ >= maxTries) {
+				clearInterval(interval);
+				console.error("Timeout: L'SDK di MercadoPago non è stato caricato in tempo.");
+				container.innerHTML = `<p class="error-message">Il servizio di pagamento MercadoPago non è al momento disponibile. Riprova più tardi.</p>`;
+			}
+		}, 200);
+	};
 
     // --- FUNZIONE PER POPOLARE LE CARD (invariata) ---
     const populatePackageCards = (packages) => {
