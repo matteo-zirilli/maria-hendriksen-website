@@ -703,21 +703,40 @@ let currentLanguage = localStorage.getItem('language') || 'es';
 
 // ... fine dell'oggetto languages };
 
-    // ===== INCOLLA QUI QUESTA NUOVA FUNZIONE =====
-    function updateUITexts(lang) {
-        document.querySelectorAll('[data-translate-key]').forEach(element => {
-            const key = element.dataset.translateKey;
-            if (languages[lang] && languages[lang][key]) {
-                if (element.tagName === 'FIGCAPTION' || !languages[lang][key].includes('<')) {
-                     element.textContent = languages[lang][key];
-                } else {
-                     element.innerHTML = languages[lang][key];
-                }
-            }
-        });
-    }
-    // ===============================================
+// Nel file script.js, sostituisci la vecchia funzione updateUITexts con questa:
 
+		function updateUITexts(lang) {
+			// Questa parte rimane invariata: traduce tutti gli elementi generici
+			document.querySelectorAll('[data-translate-key]').forEach(element => {
+				const key = element.dataset.translateKey;
+				if (languages[lang] && languages[lang][key]) {
+					if (element.tagName === 'FIGCAPTION' || !languages[lang][key].includes('<')) {
+						element.textContent = languages[lang][key];
+					} else {
+						element.innerHTML = languages[lang][key];
+					}
+				}
+			});
+		
+			// --- BLOCCO AGGIUNTO ---
+			// Aggiungiamo una logica specifica per aggiornare il testo del modale se è aperto.
+			const modalTitle = document.getElementById('modal-title');
+			const modalDesc = document.getElementById('modal-description');
+		
+			// Controlliamo se il modale ha una chiave di traduzione impostata
+			const titleKey = modalTitle.getAttribute('data-translate-key');
+			const descKey = modalDesc.getAttribute('data-translate-key');
+		
+			if (titleKey && languages[lang] && languages[lang][titleKey]) {
+				modalTitle.textContent = languages[lang][titleKey];
+			}
+			if (descKey && languages[lang] && languages[lang][descKey]) {
+				modalDesc.textContent = languages[lang][descKey];
+			}
+			// --- FINE BLOCCO AGGIUNTO ---
+		}
+			// ===============================================
+		
 
 
 
