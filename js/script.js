@@ -2067,9 +2067,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 	
 	
-	
-
-// ===================================================================
+	// ===================================================================
 // ============= LOGICA PER CARICARE I PACCHETTI VIDEO =============
 // ===================================================================
 
@@ -2096,14 +2094,15 @@ if (document.getElementById('packages-container')) {
     const setupPayPalButton = (containerId, productCode) => {
         const maxTries = 15; let currentTry = 0;
         const interval = setInterval(async () => {
-            if (typeof paypal !== 'undefined') {
+            if (typeof paypal !== 'undefined' && typeof getSupabaseToken === 'function') {
                 clearInterval(interval);
                 try {
                     const token = await getSupabaseToken();
-                    if (!token) return; // Se utente non è loggato, non fa nulla
+                    if (!token) return;
 
                     paypal.Buttons({
                         createOrder: async () => {
+                            if (!productCode) throw new Error("productCode PayPal mancante.");
                             const response = await fetch('/.netlify/functions/create-paypal-order', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -2137,8 +2136,7 @@ if (document.getElementById('packages-container')) {
                 }
             } else if (currentTry++ >= maxTries) {
                 clearInterval(interval);
-                console.error("L'SDK di PayPal non è stato caricato in tempo.");
-                document.getElementById(containerId).innerHTML = "<p class='error-message'>Il servizio di pagamento PayPal non è disponibile al momento.</p>";
+                console.error("L'SDK di PayPal o getSupabaseToken non sono stati caricati in tempo.");
             }
         }, 200);
     };
@@ -2147,19 +2145,20 @@ if (document.getElementById('packages-container')) {
     const setupMercadoPagoButton = (containerId, productCode, title) => {
         const maxTries = 15; let currentTry = 0;
         const interval = setInterval(async () => {
-            if (typeof MercadoPago !== 'undefined') {
+            if (typeof MercadoPago !== 'undefined' && typeof getSupabaseToken === 'function') {
                 clearInterval(interval);
                 try {
                     const token = await getSupabaseToken();
-                    if (!token) return; // Se utente non è loggato, non fa nulla
-
+                    if (!token) return;
+                    
+                    if (!productCode) throw new Error("productCode MercadoPago mancante.");
                     const response = await fetch('/.netlify/functions/create-mercadopago-preference', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                         body: JSON.stringify({ product_code: productCode, title: title })
                     });
                     const preference = await response.json();
-                    if (!response.ok) throw new Error(preference.error || `Errore ${response.status}`);
+                    if (!response.ok) throw new Error(preference.error || `Errore dal server: ${response.statusText}`);
                     
                     const mp = new MercadoPago(preference.publicKey);
                     mp.bricks().create("wallet", containerId, {
@@ -2172,8 +2171,7 @@ if (document.getElementById('packages-container')) {
                 }
             } else if (currentTry++ >= maxTries) {
                 clearInterval(interval);
-                console.error("L'SDK di MercadoPago non è stato caricato in tempo.");
-                document.getElementById(containerId).innerHTML = "<p class='error-message'>Il servizio di pagamento MercadoPago non è disponibile al momento.</p>";
+                console.error("L'SDK di MercadoPago o getSupabaseToken non sono stati caricati in tempo.");
             }
         }, 200);
     };
@@ -2211,31 +2209,26 @@ if (document.getElementById('packages-container')) {
     // --- FUNZIONI PER GESTIRE IL MODAL (corretta e pulita) ---
     const openPackageModal = (productCode) => {
         const selectedPackage = packagesData.find(p => p.product_code === productCode);
-        if (!selectedPackage) return;
+        if (!selectedPackage || !productCode) {
+            console.error("Dati del pacchetto o productCode non validi.");
+            return;
+        }
 
         const details = packageDetails[productCode];
         const paymentButtonsContainer = document.getElementById('modal-payment-buttons');
-        paymentButtonsContainer.innerHTML = ''; // Pulisci sempre i pulsanti precedenti
+        paymentButtonsContainer.innerHTML = '';
 
-        // Dichiara le variabili per i testi UNA SOLA VOLTA
         const packageTitleText = languages[currentLanguage][details.titleKey] || details.titleKey;
-        const packageDescText = languages[currentLanguage][details.descKey] || details.descKey;
-
-        // Imposta subito testi e attributi per il modale
+        
         document.getElementById('modal-title').setAttribute('data-translate-key', details.titleKey);
-        document.getElementById('modal-title').textContent = packageTitleText;
         document.getElementById('modal-description').setAttribute('data-translate-key', details.descKey);
-        document.getElementById('modal-description').textContent = packageDescText;
         document.getElementById('modal-drive-link').href = details.driveLink;
         
-        // CONTROLLO LOGIN: Mostra i bottoni solo se l'utente è loggato
         if (currentUser) {
-            // 1. PayPal
             const payPalContainer = document.createElement('div');
             payPalContainer.id = `paypal-button-container-${productCode}`;
             paymentButtonsContainer.appendChild(payPalContainer);
-            
-            // 2. MercadoPago
+
             const mpPriceLabel = document.createElement('p');
             mpPriceLabel.style.textAlign = 'center';
             mpPriceLabel.innerHTML = `o <strong style="color: #009ee3;">ARS $${selectedPackage.price_ars}</strong> con`;
@@ -2243,31 +2236,27 @@ if (document.getElementById('packages-container')) {
             mercadoPagoContainer.id = `mercadopago-container-${productCode}`;
             paymentButtonsContainer.appendChild(mpPriceLabel);
             paymentButtonsContainer.appendChild(mercadoPagoContainer);
-            
-            // 3. Bizum
+
             const bizumDescription = document.createElement('p');
             bizumDescription.style.textAlign = 'center';
             const bizumMessage = encodeURIComponent(`Ciao Maria, vorrei acquistare il pacchetto "${packageTitleText}" tramite Bizum.`);
             bizumDescription.innerHTML = `o <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${bizumMessage}" target="_blank">paga con Bizum via WhatsApp</a>`;
             paymentButtonsContainer.appendChild(bizumDescription);
 
-            // Inizializza i bottoni di pagamento ORA che i container esistono
             setupPayPalButton(payPalContainer.id, productCode);
             setupMercadoPagoButton(mercadoPagoContainer.id, productCode, packageTitleText);
         } else {
-            // Mostra un messaggio se l'utente non è loggato
             paymentButtonsContainer.innerHTML = `<p class="error-message" data-translate-key="loginToBuy">Per procedere con l'acquisto, effettua il login o registrati.</p>`;
         }
         
         modal.style.display = 'flex';
-        updateUITexts(currentLanguage); // Assicura che anche il messaggio di login venga tradotto
+        updateUITexts(currentLanguage);
     };
 
     const closePackageModal = () => {
         modal.style.display = 'none';
     };
 
-    // --- FUNZIONE PRINCIPALE PER RECUPERARE I DATI (invariata) ---
     const fetchPackages = async () => {
         try {
             const { data, error } = await supabase.from('services').select('*').in('product_code', productCodes);
@@ -2279,7 +2268,6 @@ if (document.getElementById('packages-container')) {
         }
     };
 
-    // --- EVENT LISTENERS ---
     packagesContainer.addEventListener('click', (event) => {
         const button = event.target.closest('.package-button');
         if (button) {
@@ -2288,15 +2276,13 @@ if (document.getElementById('packages-container')) {
     });
     closeModalButton.addEventListener('click', closePackageModal);
 
-    // --- AVVIO ---
     fetchPackages();
 }
 
 // ===================================================================
 // ============= FINE LOGICA CARICAMENTO PACCHETTI =============
 // ===================================================================
-	
-	
+
 	
 	
 	
