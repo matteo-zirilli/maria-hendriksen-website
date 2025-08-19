@@ -52,11 +52,9 @@
 
     <main class="container">
         <section>
-            <h1 id="contentHeading">I Miei Contenuti</h1>
-            <p id="contentIntro">Esplora risorse, video e articoli dedicati allo Yoga e alla Fisioterapia per approfondire la tua pratica e il tuo percorso di benessere.</p>
+            <h1 id="contentHeading" data-translate-key="contentHeading">I Miei Contenuti</h1>
+            <p id="contentIntro" data-translate-key="contentIntro">Esplora risorse, video e articoli dedicati allo Yoga e alla Fisioterapia per approfondire la tua pratica e il tuo percorso di benessere.</p>
         </section>
-		
-		
 		
 		<section class="youtube-subscribe-section">
 			<h2 data-translate-key="youtubeSectionTitle">Seguimi su YouTube</h2>
@@ -67,14 +65,11 @@
 			</a>
 		</section>
 		
-		
-
         <section class="content-section">
 			<h2 id="contentYogaTitle" data-translate-key="contentYogaTitle">Contenuti Yoga</h2>
 			<div class="content-grid" id="yoga-videos-grid">
 				<p>Caricamento video in corso...</p>
 			</div>
-			
 			
 			<div id="pacchetti-video" style="padding-top: 60px; padding-bottom: 50px;">
 			
@@ -90,14 +85,7 @@
 					</div>
 			
 			</div>
-			
-			
 		</section>
-		
-		
-		
-		
-		
 		
 		<section class="content-section">
 			<h2 id="contentFisioTitle" data-translate-key="contentFisioTitle">Contenuti Fisioterapia</h2>
@@ -106,55 +94,12 @@
 			</div>
 		</section>
 		
-		
         <section class="reviews-section">
            
+            <h2 id="reviewsHeading" data-translate-key="reviewsHeading">Dicono di Me / Recensioni</h2>
 
-            <h3 id="dynamicReviewsHeading">Le Vostre Recensioni</h3>
-            <div id="reviews-list-container">
-                <p>Caricamento recensioni...</p> </div>
-
-            <hr style="margin: 30px 0;">
-
-            <h3 id="reviewFormHeading">Lascia la Tua Recensione</h3>
-            <p id="reviewFormIntro">
-                Hai seguito delle lezioni o un percorso di fisioterapia con me? La tua opinione è preziosa! Compila il modulo
-                qui sotto per condividere la tua esperienza.
-            </p>
-
-            <form id="review-form">
-                <label for="reviewName" id="reviewLabelName">Il tuo nome (o come vuoi apparire):</label>
-                <input type="text" id="reviewName" name="nome" required>
-
-                <label for="reviewRating" id="reviewLabelRating">Valutazione (da 1 a 5 stelle):</label>
-                <div class="star-rating">
-					<select id="reviewRating" name="valutazione_stelle" required>
-						<option value="" id="ratingOptionDefault">-- Seleziona Valutazione --</option>
-						<option value="5" id="ratingOption5">★★★★★ (Eccellente)</option>
-						<option value="4" id="ratingOption4">★★★★☆ (Molto Buono)</option>
-						<option value="3" id="ratingOption3">★★★☆☆ (Buono)</option>
-						<option value="2" id="ratingOption2">★★☆☆☆ (Sufficiente)</option>
-						<option value="1" id="ratingOption1">★☆☆☆☆ (Insufficiente)</option>
-					</select>
-				</div>
-
-                <label for="reviewComment" id="reviewLabelMessage">La tua recensione:</label>
-                <textarea id="reviewComment" name="messaggio_recensione" rows="5" required></textarea>
-
-                <div id="review-form-message" class="form-message" role="status" aria-live="polite"></div>
-
-                <button type="submit" id="reviewSubmitButton">Invia Recensione</button>
-
-                <p class="review-form-notes" id="reviewFormNotes">
-                    Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per
-                    la tua condivisione!
-                </p>
-            </form>
-			
-			 <h2 id="reviewsHeading">Dicono di Me / Recensioni</h2>
-
-            <h3 id="testimonialGalleryHeading">Alcune Testimonianze</h3>
-            <p id="testimonialGalleryIntro">
+            <h3 id="testimonialGalleryHeading" data-translate-key="testimonialGalleryHeading">Alcune Testimonianze</h3>
+            <p id="testimonialGalleryIntro" data-translate-key="testimonialGalleryIntro">
                 Qui puoi vedere alcuni dei messaggi e delle esperienze condivise da chi ha seguito un percorso con me.
             </p>
             <div class="testimonial-gallery">
@@ -166,23 +111,59 @@
             </div>
 
             <hr style="margin: 30px 0;">
+
+            <h3 id="dynamicReviewsHeading" data-translate-key="dynamicReviewsHeading">Le Vostre Recensioni</h3>
+            <div id="reviews-list-container">
+                <p>Caricamento recensioni...</p> </div>
+
+            <hr style="margin: 30px 0;">
+
+            <h3 id="reviewFormHeading" data-translate-key="reviewFormHeading">Lascia la Tua Recensione</h3>
+            <p id="reviewFormIntro" data-translate-key="reviewFormIntro">
+                Hai seguito delle lezioni o un percorso di fisioterapia con me? La tua opinione è preziosa! Compila il modulo
+                qui sotto per condividere la tua esperienza.
+            </p>
+
+            <form id="review-form">
+                <label for="reviewName" id="reviewLabelName" data-translate-key="reviewLabelName">Il tuo nome (o come vuoi apparire):</label>
+                <input type="text" id="reviewName" name="nome" required>
+
+                <label for="reviewRating" id="reviewLabelRating" data-translate-key="reviewLabelRating">Valutazione (da 1 a 5 stelle):</label>
+                <div class="star-rating">
+					<select id="reviewRating" name="valutazione_stelle" required>
+						<option value="" id="ratingOptionDefault" data-translate-key="ratingOptionDefault">-- Seleziona Valutazione --</option>
+						<option value="5" id="ratingOption5" data-translate-key="ratingOption5">★★★★★ (Eccellente)</option>
+						<option value="4" id="ratingOption4" data-translate-key="ratingOption4">★★★★☆ (Molto Buono)</option>
+						<option value="3" id="ratingOption3" data-translate-key="ratingOption3">★★★☆☆ (Buono)</option>
+						<option value="2" id="ratingOption2" data-translate-key="ratingOption2">★★☆☆☆ (Sufficiente)</option>
+						<option value="1" id="ratingOption1" data-translate-key="ratingOption1">★☆☆☆☆ (Insufficiente)</option>
+					</select>
+				</div>
+
+                <label for="reviewComment" id="reviewLabelMessage" data-translate-key="reviewLabelMessage">La tua recensione:</label>
+                <textarea id="reviewComment" name="messaggio_recensione" rows="5" required></textarea>
+
+                <div id="review-form-message" class="form-message" role="status" aria-live="polite"></div>
+
+                <button type="submit" id="reviewSubmitButton" data-translate-key="reviewSubmitButton">Invia Recensione</button>
+
+                <p class="review-form-notes" id="reviewFormNotes" data-translate-key="reviewFormNotes">
+                    Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per
+                    la tua condivisione!
+                </p>
+            </form>
         </section>
-        </main> <footer>
+    </main>
+    
+    <footer>
         <div class="container">
-            <p id="footerText">&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.</p>
+            <p id="footerText" data-translate-key="footerText">&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
     <script src="https://sdk.mercadopago.com/js/v2"></script>
-    
-    
 	<script src="https://www.paypal.com/sdk/js?client-id=AUGpFj_tWjcdMsYD3RYGC2-_9EIlwhYVHfy5JlMt8eBu5ebS6u1SkaQ4OAuo_blThQYYTq3XAU0tCOVa&currency=EUR&disable-funding=card,sepa,giropay&intent=capture"></script>
-    
-    
-	
-	
 	<script src="js/script.js"></script>
 
     <div id="login-modal" class="auth-modal">
@@ -216,13 +197,11 @@
         </div>
     </div>
 	
-	
-	
 	<div id="package-modal" class="auth-modal">
 			<div class="modal-content">
 				<span class="close-button" id="close-package-modal">&times;</span>
-				<h3 id="modal-title">[Titolo Pacchetto]</h3>
-				<p id="modal-description">[Descrizione Pacchetto]</p>
+				<h3 id="modal-title"></h3>
+				<p id="modal-description"></p>
 				
 				<div class="modal-instructions">
 					<p data-translate-key="modalInstructions">
@@ -242,12 +221,5 @@
 				</div>
 			</div>
 		</div>
-	
-	
-	
-	
-	
-	
-	
     </body>
 </html>

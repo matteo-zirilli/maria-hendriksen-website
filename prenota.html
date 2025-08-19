@@ -13,74 +13,73 @@
         /* Stili specifici per il form */
         form label {
             display: block;
-            margin-top: 15px; /* Aumentato leggermente */
-            font-weight: bold; /* Già presente in style.css? Se sì, rimuovere da qui */
-            color: var(--colore-testo); /* Assicurati colore */
+            margin-top: 15px;
+            font-weight: bold;
+            color: var(--colore-testo);
         }
         form input[type="text"],
         form input[type="email"],
-        form input[type="tel"], /* Aggiunto tel */
+        form input[type="tel"],
         form select,
         form textarea {
             width: 100%;
-            padding: 10px; /* Aumentato padding */
+            padding: 10px;
             margin-top: 5px;
-            border: 1px solid var(--colore-bordi); /* Usa var(--colore-bordi) */
+            border: 1px solid var(--colore-bordi);
             border-radius: 4px;
-            box-sizing: border-box; /* Include padding e border nella larghezza totale */
-            background-color: #fff; /* Sfondo bianco */
-            color: var(--colore-testo); /* Colore testo input */
-            font-size: 1em; /* Dimensione font input */
+            box-sizing: border-box;
+            background-color: #fff;
+            color: var(--colore-testo);
+            font-size: 1em;
         }
         form input:focus,
         form select:focus,
         form textarea:focus {
-            border-color: var(--colore-primario); /* Evidenzia bordo al focus */
-            outline: none; /* Rimuove outline di default */
-            box-shadow: 0 0 5px rgba(45, 139, 139, 0.3); /* Ombra leggera al focus */
+            border-color: var(--colore-primario);
+            outline: none;
+            box-shadow: 0 0 5px rgba(45, 139, 139, 0.3);
         }
-        form button[type="submit"] { /* Selettore più specifico */
-            background-color: var(--colore-primario); /* Usa var */
-            color: var(--colore-testo-chiaro); /* Usa var */
-            padding: 12px 25px; /* Coerente con .cta-button */
+        form button[type="submit"] {
+            background-color: var(--colore-primario);
+            color: var(--colore-testo-chiaro);
+            padding: 12px 25px;
             border: none;
-            border-radius: 5px; /* Coerente con .cta-button */
+            border-radius: 5px;
             cursor: pointer;
             font-size: 1em;
-            font-weight: 700; /* Grassetto */
+            font-weight: 700;
             margin-top: 20px;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
         form button[type="submit"]:hover {
-            background-color: var(--colore-accento); /* Usa var */
-            transform: translateY(-2px); /* Leggero sollevamento */
+            background-color: var(--colore-accento);
+            transform: translateY(-2px);
         }
-        /* Stile per il widget Calendly (se usato) */
         .calendly-inline-widget { margin-top: 20px; }
-        hr { /* Stile separatore */
+        hr {
             border: none;
             border-top: 1px solid var(--colore-bordi);
-            margin: 50px 0; /* Aumentato spazio */
+            margin: 50px 0;
         }
-        #directContacts ul { /* Stile lista contatti */
+        #directContacts ul {
              list-style: none;
              padding: 0;
         }
          #directContacts li {
-             margin-bottom: 10px; /* Spazio tra i contatti */
-             font-size: 1.1em; /* Leggermente più grande */
+             margin-bottom: 10px;
+             font-size: 1.1em;
          }
          #directContacts li a {
-            color: var(--colore-primario); /* Colore link */
+            color: var(--colore-primario);
          }
          #directContacts li a:hover {
-             color: var(--colore-accento); /* Colore link hover */
+             color: var(--colore-accento);
          }
 
     </style>
      </head>
 <body>
-    <<header>
+    <header>
     <div class="container header-container">
         
         <button class="hamburger-menu" id="hamburger-menu" aria-label="Apri menu" aria-expanded="false" aria-controls="main-nav">
@@ -119,37 +118,37 @@
     <main class="container">
 
         <section id="bookingWidgetSection">
-            <h1 id="bookingTitleWidget">Prenota la Tua Sessione Online</h1>
-            <p id="bookingInstructionsWidget">Utilizza il calendario interattivo qui sotto per scegliere il servizio desiderato e trovare un orario disponibile per il tuo appuntamento (se disponibile).</p>
+            <h1 id="bookingTitleWidget" data-translate-key="bookingTitleWidget">Prenota la Tua Sessione Online</h1>
+            <p id="bookingInstructionsWidget" data-translate-key="bookingInstructionsWidget">Utilizza il calendario interattivo qui sotto per scegliere il servizio desiderato e trovare un orario disponibile per il tuo appuntamento (se disponibile).</p>
 
             <div class="calendly-inline-widget" data-url="https://calendly.com/yogaguille/discovery-call" style="min-width:320px;height:700px;"></div>
              <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-            <p id="bookingWidgetAltContact">Se hai difficoltà con la prenotazione online o hai esigenze particolari, puoi utilizzare il modulo di contatto sottostante o gli altri recapiti.</p>
+            <p id="bookingWidgetAltContact" data-translate-key="bookingWidgetAltContact">Se hai difficoltà con la prenotazione online o hai esigenze particolari, puoi utilizzare il modulo di contatto sottostante o gli altri recapiti.</p>
         </section>
         <hr> <section id="contactFormSection">
-            <h2 id="contactFormTitle">Modulo di Contatto / Richiesta Info</h2>
-            <p id="contactFormInstructions">Compila questo modulo per domande, richieste di informazioni o se preferisci prenotare tramite contatto diretto. Ti risponderò il prima possibile.</p>
+            <h2 id="contactFormTitle" data-translate-key="contactFormTitle">Modulo di Contatto / Richiesta Info</h2>
+            <p id="contactFormInstructions" data-translate-key="contactFormInstructions">Compila questo modulo per domande, richieste di informazioni o se preferisci prenotare tramite contatto diretto. Ti risponderò il prima possibile.</p>
 
             <form id="contactForm" action="https://formspree.io/f/mzzvonvz" method="POST">
-                <label for="name" id="labelName">Nome:</label>
+                <label for="name" id="labelName" data-translate-key="labelName">Nome:</label>
                 <input type="text" id="name" name="name" required>
 
-                <label for="email" id="labelEmail">Email:</label>
-                <input type="email" id="email" name="_replyto" required> <label for="phone" id="labelPhone">Telefono (Opzionale):</label>
-                <input type="tel" id="phone" name="phone"> <label for="subject" id="labelSubject">Oggetto:</label>
+                <label for="email" id="labelEmail" data-translate-key="labelEmail">Email:</label>
+                <input type="email" id="email" name="_replyto" required> <label for="phone" id="labelPhone" data-translate-key="labelPhone">Telefono (Opzionale):</label>
+                <input type="tel" id="phone" name="phone"> <label for="subject" id="labelSubject" data-translate-key="labelSubject">Oggetto:</label>
                  <select id="subject" name="subject" required>
-                    <option value="" id="optionSelectSubject">-- Seleziona Oggetto --</option>
-                    <option value="Richiesta Appuntamento Fisioterapia" id="optionSubjFisio">Richiesta Appuntamento Fisioterapia</option>
-                    <option value="Richiesta Lezione Yoga Individuale" id="optionSubjYogaInd">Richiesta Lezione Yoga Individuale</option>
-                    <option value="Info Yoga di Gruppo" id="optionSubjYogaGroup">Info Yoga di Gruppo</option>
-                    <option value="Info Generali" id="optionSubjInfo">Info Generali</option>
-                    <option value="Altro" id="optionSubjOther">Altro</option>
+                    <option value="" id="optionSelectSubject" data-translate-key="optionSelectSubject">-- Seleziona Oggetto --</option>
+                    <option value="Richiesta Appuntamento Fisioterapia" id="optionSubjFisio" data-translate-key="optionSubjFisio">Richiesta Appuntamento Fisioterapia</option>
+                    <option value="Richiesta Lezione Yoga Individuale" id="optionSubjYogaInd" data-translate-key="optionSubjYogaInd">Richiesta Lezione Yoga Individuale</option>
+                    <option value="Info Yoga di Gruppo" id="optionSubjYogaGroup" data-translate-key="optionSubjYogaGroup">Info Yoga di Gruppo</option>
+                    <option value="Info Generali" id="optionSubjInfo" data-translate-key="optionSubjInfo">Info Generali</option>
+                    <option value="Altro" id="optionSubjOther" data-translate-key="optionSubjOther">Altro</option>
                 </select>
 
-                <label for="message" id="labelMessage">Il tuo messaggio:</label>
+                <label for="message" id="labelMessage" data-translate-key="labelMessage">Il tuo messaggio:</label>
                 <textarea id="message" name="message" rows="5" required></textarea>
 
-                <button type="submit" id="submitButton">Invia Messaggio</button>
+                <button type="submit" id="submitButton" data-translate-key="submitButton">Invia Messaggio</button>
             </form>
         </section>
         <hr> <section id="directContacts">
@@ -175,12 +174,11 @@
 					</a>
 				</div>
 			</section>
-        </section>
         </main>
 
     <footer>
         <div class="container">
-             <p id="footerText">&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.</p>
+             <p id="footerText" data-translate-key="footerText">&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.</p>
          </div>
     </footer>
 
