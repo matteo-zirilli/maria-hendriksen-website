@@ -696,7 +696,7 @@ const languages = {
 
 
 
-let currentLanguage = localStorage.getItem('language') || 'es';
+let currentLanguage = localStorage.getItem('preferredLanguage') || 'es';
 
 
 
@@ -1687,24 +1687,23 @@ async function handleMercadoPagoPurchase(options) {
 // --- NUOVE FUNZIONI PER LA PAGINA CONTENUTI (VIDEO DINAMICI) ---
 // ===================================================================
 
-// Funzione per creare e aprire il modale del video
-// Sostituisci la vecchia funzione openVideoModal con questa
+// Nel file script.js, SOSTITUISCI la vecchia funzione openVideoModal con questa
+
 function openVideoModal(videoUrl) {
     // Rimuovi eventuali modali rimasti aperti per errore
     const existingModal = document.getElementById('video-modal');
     if (existingModal) existingModal.remove();
 
     let videoId = null;
-    try {
-        const url = new URL(videoUrl);
-        videoId = url.hostname.includes('youtube.com') ? url.searchParams.get('v') : url.pathname.slice(1);
-    } catch (e) {
-        console.error("URL del video non valido:", videoUrl);
-        return;
+    if (videoUrl) {
+        // Ho reso questa parte più robusta per catturare tutti i tipi di link YouTube
+        const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        const match = videoUrl.match(youtubeRegex);
+        if (match && match[1]) videoId = match[1];
     }
 
     if (!videoId) {
-        alert("Impossibile trovare l'ID del video di YouTube.");
+        console.error("ID del video di YouTube non trovato o URL non valido:", videoUrl);
         return;
     }
 
@@ -1714,7 +1713,7 @@ function openVideoModal(videoUrl) {
                 <span id="close-video-button" class="close-button" style="color: white; top: 0px; right: 15px; font-size: 40px; z-index: 10;">&times;</span>
                 <div style="position: relative; padding-bottom: 56.25%; height: 0;">
                     <iframe 
-                        src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                        src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1" 
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen
@@ -1724,16 +1723,14 @@ function openVideoModal(videoUrl) {
             </div>
         </div>
     `;
-
+    
     document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-    // Aggiungi un listener per la chiusura più robusto
     document.getElementById('close-video-button').addEventListener('click', () => {
         const modal = document.getElementById('video-modal');
         if (modal) modal.remove();
     });
-
-    // Bonus: chiudi anche cliccando sullo sfondo scuro
+    
     document.getElementById('video-modal').addEventListener('click', (event) => {
         if (event.target.id === 'video-modal') {
              const modal = document.getElementById('video-modal');
@@ -2225,7 +2222,7 @@ if (document.getElementById('packages-container')) {
             setupPayPalButton(payPalContainer.id, productCode);
             setupMercadoPagoButton(mercadoPagoContainer.id, productCode, packageTitleText);
         } else {
-            paymentButtonsContainer.innerHTML = `<p class="error-message" data-translate-key="loginToBuy">Per procedere con l'acquisto, effettua il login o registrati.</p>`;
+             paymentButtonsContainer.innerHTML = `<p class="error-message" data-translate-key="loginToBuy"></p>`;
         }
         
         modal.style.display = 'flex';
