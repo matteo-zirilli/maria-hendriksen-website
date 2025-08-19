@@ -772,31 +772,31 @@ async function getSupabaseToken() {
 //               FUNZIONI DI UTILITÀ (Lingua, Stelle, Modali)
 // -----------------------------------------------------------
 
+// In script.js, usa questa come versione finale e definitiva di changeLanguage
+
 function changeLanguage(lang) {
-     if (!languages || !languages[lang]) {
+    if (!languages || !languages[lang]) {
         console.error("Lingua non supportata o oggetto 'languages' non definito:", lang);
         return;
-     }
-    document.documentElement.lang = lang;
-    for (const key in languages[lang]) {
-        const elementById = document.getElementById(key);
-        if (elementById) {
-            if (elementById.tagName === 'OPTION') {
-                elementById.textContent = languages[lang][key];
-            } else if (key.startsWith('pageTitle')) {
-                document.title = languages[lang][key];
-            } else {
-                elementById.innerHTML = languages[lang][key];
-            }
-        }
     }
+    
+    document.documentElement.lang = lang;
+    
+    // --- PARTE RIMOSSA ---
+    // Abbiamo eliminato il vecchio ciclo "for (const key in languages[lang])" che creava conflitti.
+    // ----------------------
 
-	updateUITexts(lang);
+    // AGGIUNTO: Aggiorniamo la variabile globale qui, per coerenza in tutto lo script.
+    currentLanguage = lang;
 
+    // MANTENUTO E CENTRALE: Questa è ora l'unica funzione che si occupa di modificare i testi.
+    updateUITexts(lang);
 
+    // MANTENUTO: Salvataggio e aggiornamento del pulsante attivo.
     localStorage.setItem('preferredLanguage', lang);
     if (typeof updateActiveButton === 'function') { updateActiveButton(lang); }
 
+    // MANTENUTO: Tutta la tua logica specifica per le varie sezioni, che è corretta.
     const videoElement = document.getElementById('presentationVideo');
     if (videoElement) {
         let videoSrc = '';
@@ -808,31 +808,23 @@ function changeLanguage(lang) {
         if (videoElement.getAttribute('src') !== videoSrc) {
             videoElement.src = videoSrc;
             videoElement.load();
-            console.log(`Video source changed to: ${videoSrc}`);
         }
     }
-	
-	const videoGrid = document.getElementById('video-lessons-grid');
+    
+    const videoGrid = document.getElementById('video-lessons-grid');
     if (videoGrid && (!currentUser || currentUser === null)) {
         if (typeof displayLoginMessage === 'function') {
-            console.log("Lingua cambiata, utente non loggato, richiamo displayLoginMessage per aggiornare il prompt.");
             displayLoginMessage();
         }
     }
-	
-	
-	// Alla fine della funzione changeLanguage(lang)...
-
-	// Se ci troviamo nella pagina dei contenuti, ricarica i video per aggiornare le traduzioni
-	if (document.getElementById('yoga-videos-grid')) {
-		loadAndDisplayVideos();
-	}
-	
-	
-	// Se ci troviamo in una pagina con le recensioni, ricaricale per aggiornare le traduzioni
-	if (document.getElementById('reviews-list-container')) {
-		loadReviews();
-	}
+    
+    if (document.getElementById('yoga-videos-grid')) {
+        loadAndDisplayVideos();
+    }
+    
+    if (document.getElementById('reviews-list-container')) {
+        loadReviews();
+    }
 }
 
 function updateActiveButton(lang) {
@@ -2182,52 +2174,67 @@ if (document.getElementById('packages-container')) {
         }, 0);
     };
 
-    // --- FUNZIONI PER GESTIRE IL MODAL (corretta e pulita) ---
-    const openPackageModal = (productCode) => {
-        const selectedPackage = packagesData.find(p => p.product_code === productCode);
-        if (!selectedPackage || !productCode) {
-            console.error("Dati del pacchetto o productCode non validi.");
-            return;
-        }
+// In script.js, SOSTITUISCI la vecchia funzione openPackageModal con questa nuova versione
 
-        const details = packageDetails[productCode];
-        const paymentButtonsContainer = document.getElementById('modal-payment-buttons');
-        paymentButtonsContainer.innerHTML = '';
+const openPackageModal = (productCode) => {
+    const selectedPackage = packagesData.find(p => p.product_code === productCode);
+    if (!selectedPackage) {
+        console.error("Dati del pacchetto non trovati per il productCode:", productCode);
+        return;
+    }
 
+    const details = packageDetails[productCode];
+    if (!details) {
+        console.error("Dettagli statici non trovati per il productCode:", productCode);
+        return;
+    }
+
+    // --- Logica di traduzione SEMPLIFICATA ---
+    // 1. Impostiamo solo le chiavi di traduzione
+    document.getElementById('modal-title').setAttribute('data-translate-key', details.titleKey);
+    document.getElementById('modal-description').setAttribute('data-translate-key', details.descKey);
+    document.getElementById('modal-drive-link').href = details.driveLink;
+
+    // 2. La funzione updateUITexts, chiamata da changeLanguage, farà il resto.
+    
+    const paymentButtonsContainer = document.getElementById('modal-payment-buttons');
+    paymentButtonsContainer.innerHTML = ''; // Pulisce i bottoni precedenti
+
+    if (currentUser) {
         const packageTitleText = languages[currentLanguage][details.titleKey] || details.titleKey;
         
-        document.getElementById('modal-title').setAttribute('data-translate-key', details.titleKey);
-        document.getElementById('modal-description').setAttribute('data-translate-key', details.descKey);
-        document.getElementById('modal-drive-link').href = details.driveLink;
+        const payPalContainer = document.createElement('div');
+        payPalContainer.id = `paypal-button-container-${productCode}`;
         
-        if (currentUser) {
-            const payPalContainer = document.createElement('div');
-            payPalContainer.id = `paypal-button-container-${productCode}`;
-            paymentButtonsContainer.appendChild(payPalContainer);
-
-            const mpPriceLabel = document.createElement('p');
-            mpPriceLabel.style.textAlign = 'center';
-            mpPriceLabel.innerHTML = `o paga in Pesos Argentini (<strong style="color: #009ee3;">ARS $${selectedPackage.price_ars}</strong>) con`;
-            const mercadoPagoContainer = document.createElement('div');
-            mercadoPagoContainer.id = `mercadopago-container-${productCode}`;
-            paymentButtonsContainer.appendChild(mpPriceLabel);
-            paymentButtonsContainer.appendChild(mercadoPagoContainer);
-
-            const bizumDescription = document.createElement('p');
-            bizumDescription.style.textAlign = 'center';
-            const bizumMessage = encodeURIComponent(`Ciao Maria, vorrei acquistare il pacchetto "${packageTitleText}" tramite Bizum.`);
-            bizumDescription.innerHTML = `o <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${bizumMessage}" target="_blank">paga con Bizum via WhatsApp</a>`;
-            paymentButtonsContainer.appendChild(bizumDescription);
-
-            setupPayPalButton(payPalContainer.id, productCode);
-            setupMercadoPagoButton(mercadoPagoContainer.id, productCode, packageTitleText);
-        } else {
-             paymentButtonsContainer.innerHTML = `<p class="error-message" data-translate-key="loginToBuy"></p>`;
-        }
+        const mpPriceLabel = document.createElement('p');
+        mpPriceLabel.style.textAlign = 'center';
+        mpPriceLabel.innerHTML = `o paga in Pesos Argentini (<strong style="color: #009ee3;">ARS $${selectedPackage.price_ars}</strong>) con`;
         
-        modal.style.display = 'flex';
-        updateUITexts(currentLanguage);
-    };
+        const mercadoPagoContainer = document.createElement('div');
+        mercadoPagoContainer.id = `mercadopago-container-${productCode}`;
+        
+        const bizumDescription = document.createElement('p');
+        bizumDescription.style.textAlign = 'center';
+        const bizumMessage = encodeURIComponent(`Ciao Maria, vorrei acquistare il pacchetto "${packageTitleText}" tramite Bizum.`);
+        bizumDescription.innerHTML = `o <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${bizumMessage}" target="_blank">paga con Bizum via WhatsApp</a>`;
+
+        paymentButtonsContainer.appendChild(payPalContainer);
+        paymentButtonsContainer.appendChild(mpPriceLabel);
+        paymentButtonsContainer.appendChild(mercadoPagoContainer);
+        paymentButtonsContainer.appendChild(bizumDescription);
+
+        // Ora le funzioni di setup ricevono i dati corretti
+        setupPayPalButton(payPalContainer.id, productCode);
+        setupMercadoPagoButton(mercadoPagoContainer.id, productCode, packageTitleText);
+
+    } else {
+        paymentButtonsContainer.innerHTML = `<p class="error-message" data-translate-key="loginToPurchase"></p>`;
+    }
+    
+    modal.style.display = 'flex';
+    // Assicuriamoci che i testi del modale appena aperto siano nella lingua giusta
+    updateUITexts(currentLanguage);
+};
 
     const closePackageModal = () => {
         modal.style.display = 'none';
