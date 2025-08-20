@@ -1025,6 +1025,48 @@ footer {
 }
 
 
+/* ==========================================================================
+   Stili per Galleria Testimonianze (pagina Contenuti) - VERSIONE MOSAICO
+   ========================================================================== */
+
+.testimonial-gallery {
+    /* Usiamo le colonne CSS per creare l'effetto mosaico */
+    column-count: 3; /* Numero di colonne su schermi grandi */
+    column-gap: 20px; /* Spazio tra le colonne */
+}
+
+.testimonial-image {
+    /* Ogni immagine ora è un blocco a sé stante */
+    display: inline-block; /* Fondamentale per il layout a colonne */
+    width: 100%; /* Occupa tutta la larghezza della sua colonna */
+    margin-bottom: 20px; /* Spazio verticale tra le immagini */
+    break-inside: avoid; /* Evita che un'immagine venga spezzata tra due colonne */
+
+    /* Stili estetici che manteniamo */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--colore-ombra);
+    overflow: hidden;
+    border: 1px solid var(--colore-bordi);
+}
+
+.testimonial-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Rendiamo il tutto responsive per schermi più piccoli */
+@media (max-width: 900px) {
+    .testimonial-gallery {
+        column-count: 2; /* Due colonne su tablet */
+    }
+}
+
+@media (max-width: 600px) {
+    .testimonial-gallery {
+        column-count: 1; /* Una colonna su mobile */
+    }
+}
 
 
 /* Aggiungi questo codice dentro il tag <style> che si trova nell'head del file */
