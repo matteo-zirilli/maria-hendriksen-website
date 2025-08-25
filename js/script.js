@@ -2487,7 +2487,7 @@ const openPackageModal = (productCode) => {
 const presentationContainer = document.getElementById('presentation-video-container');
 if (presentationContainer) {
     
-    const videoPresentazioneURL = "https://www.youtube.com/watch?v=7orJ-qrnXnY";
+    const videoPresentazioneURL = "https://www.youtube.com/watch?v=-vF0UrqYfxs";
 
     const getYoutubeId = (url) => {
         if (!url) return null;
