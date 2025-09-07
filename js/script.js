@@ -1097,6 +1097,8 @@ async function handleReviewSubmit(event) {
 
 // AGGIUNGI QUESTO NUOVO BLOCCO ALLA FINE DI script.js
 
+// in script.js, SOSTITUISCI la vecchia setupReviewsSlider con questa
+
 function setupReviewsSlider() {
     const slider = document.querySelector('.reviews-slider');
     if (!slider) return;
@@ -1105,7 +1107,7 @@ function setupReviewsSlider() {
     const prevButton = slider.querySelector('.slider-arrow--prev');
     const nextButton = slider.querySelector('.slider-arrow--next');
     const slides = Array.from(track.children);
-    let slideInterval;
+    let slideInterval; // Variabile per gestire l'autoplay
 
     if (slides.length <= 1) {
         prevButton.classList.add('is-hidden');
@@ -1123,16 +1125,8 @@ function setupReviewsSlider() {
 
     const updateArrows = () => {
         const slidesPerPage = getSlidesPerPage();
-        if (currentIndex === 0) {
-            prevButton.classList.add('is-hidden');
-        } else {
-            prevButton.classList.remove('is-hidden');
-        }
-        if (currentIndex >= slides.length - slidesPerPage) {
-            nextButton.classList.add('is-hidden');
-        } else {
-            nextButton.classList.remove('is-hidden');
-        }
+        prevButton.classList.toggle('is-hidden', currentIndex === 0);
+        nextButton.classList.toggle('is-hidden', currentIndex >= slides.length - slidesPerPage);
     };
 
     const moveToSlide = (targetIndex) => {
@@ -1143,33 +1137,26 @@ function setupReviewsSlider() {
         if (targetIndex > maxIndex) targetIndex = maxIndex;
 
         const slideWidth = slides[0].getBoundingClientRect().width;
-        const gap = 20; // Lo stesso valore del 'gap' nel CSS
+        const gap = 20;
         track.style.transform = `translateX(-${targetIndex * (slideWidth + gap)}px)`;
         currentIndex = targetIndex;
         updateArrows();
     };
 
-    nextButton.addEventListener('click', () => {
-        const slidesPerPage = getSlidesPerPage();
-        moveToSlide(currentIndex + slidesPerPage);
-    });
-
-    prevButton.addEventListener('click', () => {
-        const slidesPerPage = getSlidesPerPage();
-        moveToSlide(currentIndex - slidesPerPage);
-    });
+    // --- LOGICA PER L'AUTOPLAY (AGGIUNTA) ---
 
     const autoPlay = () => {
         const slidesPerPage = getSlidesPerPage();
-        let nextIndex = currentIndex + slidesPerPage;
-        if (nextIndex >= slides.length - slidesPerPage + 1) {
-            nextIndex = 0; // Torna all'inizio
+        let nextIndex = currentIndex + 1;
+        // Se arriva alla fine, torna all'inizio
+        if (nextIndex > slides.length - slidesPerPage) {
+            nextIndex = 0;
         }
         moveToSlide(nextIndex);
     };
 
     const startAutoPlay = () => {
-        stopAutoPlay(); // Evita intervalli multipli
+        stopAutoPlay();
         slideInterval = setInterval(autoPlay, 5000); // Cambia slide ogni 5 secondi
     };
 
@@ -1177,12 +1164,26 @@ function setupReviewsSlider() {
         clearInterval(slideInterval);
     };
 
+    nextButton.addEventListener('click', () => {
+        stopAutoPlay();
+        moveToSlide(currentIndex + 1);
+        startAutoPlay();
+    });
+
+    prevButton.addEventListener('click', () => {
+        stopAutoPlay();
+        moveToSlide(currentIndex - 1);
+        startAutoPlay();
+    });
+
     slider.addEventListener('mouseenter', stopAutoPlay);
     slider.addEventListener('mouseleave', startAutoPlay);
 
-    // Inizializzazione
+    // --- FINE LOGICA AUTOPLAY ---
+
+    // Avvio iniziale
     updateArrows();
-    startAutoPlay();
+    startAutoPlay(); // Fa partire l'autoplay al caricamento della pagina
     window.addEventListener('resize', () => moveToSlide(currentIndex));
 }
 
@@ -1190,12 +1191,101 @@ function setupReviewsSlider() {
 
 
 
+// AGGIUNGI QUESTA NUOVA FUNZIONE ALLA FINE DI script.js
 
 
+// in script.js, SOSTITUISCI la vecchia setupTestimonialsSlider con questa
 
+function setupTestimonialsSlider() {
+    const slider = document.querySelector('.testimonial-carousel');
+    if (!slider) return;
 
+    const track = slider.querySelector('.testimonial-carousel__track');
+    const prevButton = slider.querySelector('.slider-arrow--prev');
+    const nextButton = slider.querySelector('.slider-arrow--next');
+    const slides = Array.from(track.children);
+    let slideInterval; // Variabile per gestire l'autoplay
 
+    if (slides.length <= 1) { // Se c'è una sola immagine, nascondi le frecce
+        prevButton.classList.add('is-hidden');
+        nextButton.classList.add('is-hidden');
+        return;
+    }
 
+    let currentIndex = 0;
+
+    const getSlidesPerPage = () => {
+        if (window.innerWidth >= 1024) return 3;
+        if (window.innerWidth >= 768) return 2;
+        return 1;
+    };
+
+    const updateArrows = () => {
+        const slidesPerPage = getSlidesPerPage();
+        prevButton.classList.toggle('is-hidden', currentIndex === 0);
+        nextButton.classList.toggle('is-hidden', currentIndex >= slides.length - slidesPerPage);
+    };
+
+    const moveToSlide = (targetIndex) => {
+        const slidesPerPage = getSlidesPerPage();
+        const maxIndex = slides.length - slidesPerPage;
+
+        if (targetIndex < 0) targetIndex = 0;
+        if (targetIndex > maxIndex) targetIndex = maxIndex;
+
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        const gap = 20;
+        track.style.transform = `translateX(-${targetIndex * (slideWidth + gap)}px)`;
+        currentIndex = targetIndex;
+        updateArrows();
+    };
+
+    // --- NUOVA LOGICA PER L'AUTOPLAY ---
+
+    // Funzione che fa partire lo scorrimento automatico
+    const startAutoPlay = () => {
+        stopAutoPlay(); // Prima fermiamo qualsiasi autoplay precedente per sicurezza
+        slideInterval = setInterval(() => {
+            const slidesPerPage = getSlidesPerPage();
+            let nextIndex = currentIndex + 1;
+            // Se arriva alla fine, torna all'inizio
+            if (nextIndex > slides.length - slidesPerPage) {
+                nextIndex = 0;
+            }
+            moveToSlide(nextIndex);
+        }, 4000); // Cambia immagine ogni 4 secondi (puoi modificare questo valore)
+    };
+
+    // Funzione che ferma lo scorrimento
+    const stopAutoPlay = () => {
+        clearInterval(slideInterval);
+    };
+
+    // Quando l'utente clicca le frecce, ferma l'autoplay e riavvialo dopo un po'
+    nextButton.addEventListener('click', () => {
+        stopAutoPlay();
+        moveToSlide(currentIndex + 1);
+        startAutoPlay();
+    });
+
+    prevButton.addEventListener('click', () => {
+        stopAutoPlay();
+        moveToSlide(currentIndex - 1);
+        startAutoPlay();
+    });
+
+    // Ferma l'autoplay quando il mouse è sopra il carosello
+    slider.addEventListener('mouseenter', stopAutoPlay);
+    // Riavvia l'autoplay quando il mouse esce
+    slider.addEventListener('mouseleave', startAutoPlay);
+
+    // --- FINE NUOVA LOGICA ---
+
+    // Avvio iniziale
+    updateArrows();
+    startAutoPlay(); // Fa partire l'autoplay al caricamento della pagina
+    window.addEventListener('resize', () => moveToSlide(currentIndex));
+}
 
 
 
@@ -2520,23 +2610,7 @@ if (whatsappContactButton && interestModal) {
 
 
 
-// SOSTITUISCI IL VECCHIO BLOCCO JS DEL CAROSELLO CON QUESTO
-const track = document.getElementById('testimonial-track');
 
-if (track) {
-    // Diagnosi: stampiamo quante immagini trova lo script
-    console.log('Numero di immagini trovate dallo script:', track.children.length);
-
-    const originalItems = Array.from(track.children);
-
-    if (originalItems.length > 0) {
-        originalItems.forEach(item => {
-            const clone = item.cloneNode(true);
-            track.appendChild(clone);
-        });
-        track.classList.add('scrolling');
-    }
-}
 
 
 
@@ -2755,7 +2829,7 @@ if (presentationContainer) {
     }
 }
 
-
+	setupTestimonialsSlider(); 
 }); // --- Chiusura di DOMContentLoaded ---
 
 // --- Aggiungi qui le funzioni di pagamento (populatePaymentButtons, handlePayPalPurchase, renderPayPalButtons) ---

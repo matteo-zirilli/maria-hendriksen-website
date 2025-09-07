@@ -1111,49 +1111,59 @@ footer {
 /* STILI CAROSELLO TESTIMONIANZE (VERSIONE CORRETTA)      */
 /* ======================================================= */
 
-/* VERIFICA CHE QUESTO SIA L'UNICO BLOCCO PER IL CAROSELLO IN style.css */
 
-/* Il contenitore principale che crea la "finestra" */
+/* =============================================================== */
+/* BLOCCO FINALE PER CAROSELLO TESTIMONIANZE (CON FRECCE)            */
+/* =============================================================== */
+
+/* Il contenitore principale */
 .testimonial-carousel {
     position: relative;
-    overflow: hidden;
-    padding: 10px 0;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    /* Aggiungiamo il contenitore per la "finestra" che nasconde le altre slide */
+    overflow: hidden; 
 }
-/* La "striscia" che contiene e sposta le immagini */
+
+/* La "striscia" che si muove */
 .testimonial-carousel__track {
     display: flex;
-    flex-wrap: nowrap;
     gap: 20px;
+    transition: transform 0.5s ease-in-out; /* Animazione fluida */
 }
-/* Applica l'animazione solo quando la classe 'scrolling' è presente */
-.testimonial-carousel__track.scrolling {
-    animation: scrollTrack 50s linear infinite;
-}
-/* Metti in pausa al passaggio del mouse */
-.testimonial-carousel:hover .testimonial-carousel__track.scrolling {
-    animation-play-state: paused;
-}
-/* La singola immagine/card nel carosello */
+
+/* La singola immagine/card */
 .testimonial-carousel__item {
-    flex: 0 0 auto;
-    height: 100px; /* Puoi modificare questo valore se vuoi */
-    width: auto;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    height: 100px; /* L'altezza che avevi scelto */
+    /* Su mobile, ogni immagine occupa tutto lo spazio disponibile */
+    width: 100%; 
 }
+
 .testimonial-carousel__item img {
     display: block;
     height: 100%;
-    width: auto;
+    width: 100%;
+    /* 'cover' assicura che l'immagine riempia lo spazio senza deformarsi */
+    object-fit: contain;
+	background-color: var(--colore-sfondo);
 }
-/* L'animazione per lo scorrimento */
-@keyframes scrollTrack {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+
+/* Regole per schermi più grandi (Tablet) */
+@media (min-width: 768px) {
+    .testimonial-carousel__item {
+        /* Mostra 2 immagini alla volta */
+        width: calc(50% - 10px); 
+    }
 }
+
+/* Regole per schermi ancora più grandi (Desktop) */
+@media (min-width: 1024px) {
+    .testimonial-carousel__item {
+        /* Mostra 3 immagini alla volta */
+        width: calc(33.333% - 14px);
+    }
+}
+
+
 
 
 /* Aggiungi questo codice dentro il tag <style> che si trova nell'head del file */
