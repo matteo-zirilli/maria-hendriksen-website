@@ -1190,7 +1190,89 @@ footer {
 
 
 
+/* ======================================================= */
+/* STILI PER CAROSELLO RECENSIONI INTERATTIVO              */
+/* ======================================================= */
 
+.reviews-slider {
+    position: relative; /* Serve come base per posizionare le frecce */
+}
+
+.reviews-slider__container {
+    overflow: hidden; /* Nasconde le recensioni fuori dalla vista */
+}
+
+.reviews-slider__track {
+    display: flex;
+    gap: 20px;
+    /* La transizione crea l'effetto di scorrimento fluido */
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Stile base delle card di recensione nel carosello */
+.reviews-slider__track .review-item {
+    flex-shrink: 0;
+    margin-bottom: 0;
+    white-space: normal;
+    height: auto;
+    /* Su mobile, ogni recensione occupa il 100% dello spazio */
+    width: 100%; 
+}
+
+/* Frecce di navigazione */
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--colore-bordi);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-arrow:hover {
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.slider-arrow--prev {
+    left: -15px;
+}
+
+.slider-arrow--next {
+    right: -15px;
+}
+
+/* Stile per nascondere una freccia quando non è utilizzabile */
+.slider-arrow.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Stili per schermi più grandi (Tablet e Desktop) */
+@media (min-width: 768px) {
+    .reviews-slider__track .review-item {
+        /* Mostra 2 recensioni alla volta */
+        width: calc(50% - 10px); 
+    }
+    .slider-arrow--prev { left: -20px; }
+    .slider-arrow--next { right: -20px; }
+}
+
+@media (min-width: 1024px) {
+    .reviews-slider__track .review-item {
+        /* Mostra 3 recensioni alla volta */
+        width: calc(33.333% - 14px);
+    }
+}
 
 
 

@@ -975,23 +975,29 @@ function showAlert(message) {
 //               FUNZIONI SPECIFICHE (Recensioni, Autenticazione, Contenuti Video)
 // -----------------------------------------------------------
 
+// SOSTITUISCI la vecchia funzione loadReviews con questa
 async function loadReviews() {
     const container = document.getElementById('reviews-list-container');
     if (!container) return;
+
     container.innerHTML = '<p>Caricamento recensioni in corso...</p>';
+
     try {
         const response = await fetch('/.netlify/functions/get-reviews');
         if (!response.ok) throw new Error(`Errore HTTP: ${response.status}`);
+
         const reviews = await response.json();
-        container.innerHTML = '';
+        container.innerHTML = ''; 
+
         if (!reviews || reviews.length === 0) {
             const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-			const noReviewsText = languages[currentLang]?.noReviewsYet || languages['it'].noReviewsYet;
-			container.innerHTML = `<p>${noReviewsText}</p>`;
+            const noReviewsText = languages[currentLang]?.noReviewsYet || languages['it'].noReviewsYet;
+            container.innerHTML = `<p>${noReviewsText}</p>`;
             return;
         }
+
         reviews.forEach(review => {
-             const reviewElement = document.createElement('div');
+            const reviewElement = document.createElement('div');
             reviewElement.className = 'review-item';
             const reviewDate = new Date(review.created_at).toLocaleDateString('it-IT', {
                 year: 'numeric', month: 'long', day: 'numeric'
@@ -1008,11 +1014,17 @@ async function loadReviews() {
             `;
             container.appendChild(reviewElement);
         });
+
+        // Avvia la logica del carosello solo dopo aver caricato le recensioni
+        setupReviewsSlider();
+
     } catch (error) {
         console.error('Errore nel caricamento delle recensioni:', error);
         container.innerHTML = '<p>Spiacenti, non è stato possibile caricare le recensioni al momento.</p>';
     }
 }
+
+
 
 async function handleReviewSubmit(event) {
     event.preventDefault();
@@ -1074,6 +1086,121 @@ async function handleReviewSubmit(event) {
 		submitButton.disabled = false;
 	}
 }
+
+
+
+
+
+
+
+
+
+// AGGIUNGI QUESTO NUOVO BLOCCO ALLA FINE DI script.js
+
+function setupReviewsSlider() {
+    const slider = document.querySelector('.reviews-slider');
+    if (!slider) return;
+
+    const track = slider.querySelector('.reviews-slider__track');
+    const prevButton = slider.querySelector('.slider-arrow--prev');
+    const nextButton = slider.querySelector('.slider-arrow--next');
+    const slides = Array.from(track.children);
+    let slideInterval;
+
+    if (slides.length <= 1) {
+        prevButton.classList.add('is-hidden');
+        nextButton.classList.add('is-hidden');
+        return;
+    }
+
+    let currentIndex = 0;
+
+    const getSlidesPerPage = () => {
+        if (window.innerWidth >= 1024) return 3;
+        if (window.innerWidth >= 768) return 2;
+        return 1;
+    };
+
+    const updateArrows = () => {
+        const slidesPerPage = getSlidesPerPage();
+        if (currentIndex === 0) {
+            prevButton.classList.add('is-hidden');
+        } else {
+            prevButton.classList.remove('is-hidden');
+        }
+        if (currentIndex >= slides.length - slidesPerPage) {
+            nextButton.classList.add('is-hidden');
+        } else {
+            nextButton.classList.remove('is-hidden');
+        }
+    };
+
+    const moveToSlide = (targetIndex) => {
+        const slidesPerPage = getSlidesPerPage();
+        const maxIndex = slides.length - slidesPerPage;
+
+        if (targetIndex < 0) targetIndex = 0;
+        if (targetIndex > maxIndex) targetIndex = maxIndex;
+
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        const gap = 20; // Lo stesso valore del 'gap' nel CSS
+        track.style.transform = `translateX(-${targetIndex * (slideWidth + gap)}px)`;
+        currentIndex = targetIndex;
+        updateArrows();
+    };
+
+    nextButton.addEventListener('click', () => {
+        const slidesPerPage = getSlidesPerPage();
+        moveToSlide(currentIndex + slidesPerPage);
+    });
+
+    prevButton.addEventListener('click', () => {
+        const slidesPerPage = getSlidesPerPage();
+        moveToSlide(currentIndex - slidesPerPage);
+    });
+
+    const autoPlay = () => {
+        const slidesPerPage = getSlidesPerPage();
+        let nextIndex = currentIndex + slidesPerPage;
+        if (nextIndex >= slides.length - slidesPerPage + 1) {
+            nextIndex = 0; // Torna all'inizio
+        }
+        moveToSlide(nextIndex);
+    };
+
+    const startAutoPlay = () => {
+        stopAutoPlay(); // Evita intervalli multipli
+        slideInterval = setInterval(autoPlay, 5000); // Cambia slide ogni 5 secondi
+    };
+
+    const stopAutoPlay = () => {
+        clearInterval(slideInterval);
+    };
+
+    slider.addEventListener('mouseenter', stopAutoPlay);
+    slider.addEventListener('mouseleave', startAutoPlay);
+
+    // Inizializzazione
+    updateArrows();
+    startAutoPlay();
+    window.addEventListener('resize', () => moveToSlide(currentIndex));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function updateAuthStateUI(user) {
     const guestInfo = document.getElementById('guest-info');
@@ -2848,3 +2975,10 @@ if (supabase) {
 } else {
     console.warn("Supabase client non disponibile, onAuthStateChange non verrà monitorato.");
 }
+
+
+
+
+
+
+
