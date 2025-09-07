@@ -253,7 +253,17 @@ const languages = {
         "modalStep2": "Passo 2: Richiedi l'accesso",
         "modalRequestAccess": "Richiedi Accesso alla Cartella",
 		"payWithARS": "o paga in Pesos Argentini ({price}) con",
-		"payWithBizum": "o paga con Bizum via WhatsApp"
+		"payWithBizum": "o paga con Bizum via WhatsApp",
+		"heroContactPrompt": "Hai domande o preferisci un contatto diretto? Scrivimi, sarò felice di risponderti.",
+		"heroContactButton": "Contattami su WhatsApp",
+		"whatsappModalTitle": "Dimmi di più, a cosa sei interessato/a?",
+		"whatsappModalOptionYoga": "Yoga",
+		"whatsappModalOptionFisio": "Fisioterapia",
+		"whatsappModalOptionBoth": "Entrambi",
+		"whatsappBaseMessage": "Ciao Maria, ti contatto dal tuo sito web. Sarei interessato/a a ricevere maggiori informazioni riguardo ",
+		"whatsappServiceYoga": "i tuoi servizi di Yoga.",
+		"whatsappServiceFisio": "i tuoi servizi di Fisioterapia.",
+		"whatsappServiceBoth": "i tuoi servizi combinati di Yoga e Fisioterapia."
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -488,7 +498,17 @@ const languages = {
 		"planYogaInd5Feat1": "5 individual lessons (60 min/each)",
 		"planYogaInd5Feat2": "Discount on the total price",
 		"payWithARS": "or pay in Argentine Pesos ({price}) with",
-		"payWithBizum": "or pay with Bizum via WhatsApp"
+		"payWithBizum": "or pay with Bizum via WhatsApp",
+		"heroContactPrompt": "Do you have questions or prefer direct contact? Write to me, I'll be happy to reply.",
+		"heroContactButton": "Contact me on WhatsApp",
+		"whatsappModalTitle": "Tell me more, what are you interested in?",
+		"whatsappModalOptionYoga": "Yoga",
+		"whatsappModalOptionFisio": "Physiotherapy",
+		"whatsappModalOptionBoth": "Both",
+		"whatsappBaseMessage": "Hello Maria, I'm contacting you from your website. I would be interested in receiving more information about ",
+		"whatsappServiceYoga": "your Yoga services.",
+		"whatsappServiceFisio": "your Physiotherapy services.",
+		"whatsappServiceBoth": "your combined Yoga and Physiotherapy services."
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -723,7 +743,17 @@ const languages = {
 		"planYogaInd5Feat1": "5 clases individuales (60 min/cada una)",
 		"planYogaInd5Feat2": "Descuento sobre el total",
 		"payWithARS": "o paga en Pesos Argentinos ({price}) con",
-		"payWithBizum": "o paga con Bizum vía WhatsApp"
+		"payWithBizum": "o paga con Bizum vía WhatsApp",
+		"heroContactPrompt": "¿Tienes preguntas o prefieres un contacto directo? Escríbeme, estaré encantada de responderte.",
+		"heroContactButton": "Contáctame por WhatsApp",
+		"whatsappModalTitle": "Cuéntame más, ¿en qué estás interesado/a?",
+		"whatsappModalOptionYoga": "Yoga",
+		"whatsappModalOptionFisio": "Fisioterapia",
+		"whatsappModalOptionBoth": "Ambos",
+		"whatsappBaseMessage": "Hola Maria, te contacto desde tu sitio web. Estaría interesado/a en recibir más información sobre ",
+		"whatsappServiceYoga": "tus servicios de Yoga.",
+		"whatsappServiceFisio": "tus servicios de Fisioterapia.",
+		"whatsappServiceBoth": "tus servicios combinados de Yoga y Fisioterapia."
 		
     }
 };
@@ -2307,6 +2337,82 @@ const openPackageModal = (productCode) => {
 
     fetchPackages();
 }
+
+
+
+// Inserisci questo blocco di codice in script.js, dentro DOMContentLoaded
+
+// --- Logica per il nuovo pulsante WhatsApp in Homepage ---
+const whatsappContactButton = document.getElementById('whatsapp-contact-button');
+const interestModal = document.getElementById('interest-modal');
+
+if (whatsappContactButton && interestModal) {
+    // 1. Apri il modale al click del pulsante principale
+    whatsappContactButton.addEventListener('click', () => {
+        openModal('interest-modal');
+    });
+
+    // 2. Gestisci il click sulle opzioni di interesse
+    const choiceButtons = interestModal.querySelectorAll('.modal-choice-button');
+    choiceButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const interest = button.dataset.interest; // "Yoga", "Fisioterapia", o "Both"
+            
+            // Recupera la lingua corrente per costruire il messaggio corretto
+            const lang = localStorage.getItem('preferredLanguage') || 'it';
+            const translations = languages[lang] || languages['it'];
+
+            // Costruisci il messaggio finale
+            let serviceMessage = '';
+            if (interest === 'Yoga') {
+                serviceMessage = translations.whatsappServiceYoga;
+            } else if (interest === 'Fisioterapia') {
+                serviceMessage = translations.whatsappServiceFisio;
+            } else if (interest === 'Both') {
+                serviceMessage = translations.whatsappServiceBoth;
+            }
+
+            const fullMessage = translations.whatsappBaseMessage + serviceMessage;
+
+            // Prendi il numero di telefono dalle costanti globali
+            const whatsappNumber = CONTACT_INFO.whatsapp;
+            
+            // Crea il link e aprilo in una nuova scheda
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(fullMessage)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            // Chiudi il modale
+            closeModal('interest-modal');
+        });
+    });
+}
+
+
+
+
+
+
+
+// SOSTITUISCI IL VECCHIO BLOCCO JS DEL CAROSELLO CON QUESTO
+const track = document.getElementById('testimonial-track');
+
+if (track) {
+    // Diagnosi: stampiamo quante immagini trova lo script
+    console.log('Numero di immagini trovate dallo script:', track.children.length);
+
+    const originalItems = Array.from(track.children);
+
+    if (originalItems.length > 0) {
+        originalItems.forEach(item => {
+            const clone = item.cloneNode(true);
+            track.appendChild(clone);
+        });
+        track.classList.add('scrolling');
+    }
+}
+
+
+
 
 // ===================================================================
 // ============= FINE LOGICA CARICAMENTO PACCHETTI =============

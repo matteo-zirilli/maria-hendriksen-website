@@ -505,6 +505,49 @@ main section {
     margin: 20px auto 0 auto; /* Centra la griglia e aggiunge margine */
 }
 
+
+
+
+/* Aggiungi questo codice alla fine di style.css */
+
+.hero-contact-prompt {
+    color: var(--colore-testo-chiaro);
+    margin-top: 40px; /* Aumenta lo spazio dal pulsante sopra */
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+.modal-choice-container {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-choice-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--colore-primario);
+    background-color: var(--colore-sfondo-alt);
+    color: var(--colore-primario);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.modal-choice-button:hover {
+    background-color: var(--colore-primario);
+    color: var(--colore-testo-chiaro);
+    transform: translateY(-2px);
+}
+
+
+
+
+
 /* Media query per tablet e schermi medi: mostra 2 colonne */
 @media (min-width: 600px) {
     .content-grid {
@@ -726,54 +769,86 @@ footer {
 /* Stile per la nuova Hero a tutto schermo */
 /* SOSTITUISCI LE VECCHIE REGOLE DELLA HERO CON QUESTE */
 
-/* Stile per la nuova Hero con immagine reale */
+/* ======================================================= */
+/* STILI HERO SECTION (VERSIONE DEFINITIVA E RESPONSIVE)   */
+/* ======================================================= */
+
 .hero-fullwidth-new {
-    position: relative; /* Contenitore per il testo posizionato in modo assoluto */
+    position: relative; /* Serve per l'overlay scuro */
     width: 100%;
-    line-height: 0; /* Rimuove spazi extra sotto l'immagine */
+    height: 90vh; /* Occupa il 90% dell'altezza dello schermo */
+
+    /* Impostiamo l'immagine come sfondo */
+    background-image: url('../images/nuova-immagine-yoga.jpg');
+    background-size: cover; /* Copre tutto lo spazio senza distorsioni */
+    background-position: center center; /* Mantiene l'immagine centrata */
+
+    /* Usiamo flexbox per centrare il contenuto in modo perfetto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hero-main-image {
-    width: 100%;
-    height: auto; /* L'altezza si adatta per mantenere le proporzioni */
-    filter: brightness(0.7); /* Manteniamo l'effetto scuro */
-    display: block; /* Rimuove eventuali spazi bianchi */
+/* Aggiungiamo un velo scuro per migliorare la leggibilità del testo */
+.hero-fullwidth-new::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); /* Overlay nero al 30% */
+    z-index: 1;
 }
 
 .hero-content {
-    position: absolute; /* Posiziona il testo sopra l'immagine */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centra perfettamente il testo */
-    width: 100%;
-    padding: 20px;
-    text-align: center;
+    position: relative; /* Per stare sopra l'overlay */
     z-index: 2;
+    width: 90%;
+    max-width: 800px; /* Larghezza massima per il testo */
+    text-align: center;
+    color: white; /* Tutto il testo qui dentro sarà bianco */
 }
 
 .hero-content h1 {
-    font-size: 3.5em;
-    color: white;
+    font-size: 3.2em;
     font-weight: 400;
-    margin: 0;
     line-height: 1.4;
+    margin: 0 0 30px 0;
+	color: white;
 }
-
 
 .hero-content .cta-button {
-    margin-top: 30px;
-
-    /* Stile "luce su scuro" con !important per forzare la visibilità */
-    border-color: var(--colore-testo-chiaro) !important; /* Bordo bianco (forzato) */
-    color: var(--colore-testo-chiaro) !important;        /* Testo bianco (forzato) */
+    border-color: white;
+    color: white;
+    margin: 5px;
 }
 
-/* SOSTITUISCI la vecchia regola .hero-content .cta-button:hover con QUESTA */
-
 .hero-content .cta-button:hover {
-    background-color: transparent; /* Assicura che lo sfondo resti trasparente */
-    border-color: var(--colore-accento); /* Il bordo diventa color terracotta */
-    color: var(--colore-accento);        /* Anche il testo diventa color terracotta */
+    background-color: white;
+    color: var(--colore-primario);
+}
+
+.hero-contact-prompt {
+    color: white;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    opacity: 0.95;
+}
+
+/* Regole specifiche per schermi piccoli */
+@media (max-width: 768px) {
+    .hero-fullwidth-new {
+        height: 85vh; /* Leggermente più bassa su mobile */
+    }
+    .hero-content h1 {
+        font-size: 2.3em; /* Testo più piccolo su mobile */
+    }
+    .hero-contact-prompt {
+        font-size: 1em;
+        margin-top: 30px;
+    }
 }
 
 .eyebrow-text {
@@ -1029,43 +1104,55 @@ footer {
    Stili per Galleria Testimonianze (pagina Contenuti) - VERSIONE MOSAICO
    ========================================================================== */ 
 
-.testimonial-gallery {
-    /* Usiamo le colonne CSS per creare l'effetto mosaico */
-    column-count: 3; /* Numero di colonne su schermi grandi */
-    column-gap: 20px; /* Spazio tra le colonne */
-}
 
-.testimonial-image {
-    /* Ogni immagine ora è un blocco a sé stante */
-    display: inline-block; /* Fondamentale per il layout a colonne */
-    width: 100%; /* Occupa tutta la larghezza della sua colonna */
-    margin-bottom: 20px; /* Spazio verticale tra le immagini */
-    break-inside: avoid; /* Evita che un'immagine venga spezzata tra due colonne */
 
-    /* Stili estetici che manteniamo */
-    border-radius: 8px;
-    box-shadow: 0 4px 10px var(--colore-ombra);
+
+/* ======================================================= */
+/* STILI CAROSELLO TESTIMONIANZE (VERSIONE CORRETTA)      */
+/* ======================================================= */
+
+/* VERIFICA CHE QUESTO SIA L'UNICO BLOCCO PER IL CAROSELLO IN style.css */
+
+/* Il contenitore principale che crea la "finestra" */
+.testimonial-carousel {
+    position: relative;
     overflow: hidden;
-    border: 1px solid var(--colore-bordi);
+    padding: 10px 0;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
 }
-
-.testimonial-image img {
-    width: 100%;
-    height: auto;
+/* La "striscia" che contiene e sposta le immagini */
+.testimonial-carousel__track {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+/* Applica l'animazione solo quando la classe 'scrolling' è presente */
+.testimonial-carousel__track.scrolling {
+    animation: scrollTrack 50s linear infinite;
+}
+/* Metti in pausa al passaggio del mouse */
+.testimonial-carousel:hover .testimonial-carousel__track.scrolling {
+    animation-play-state: paused;
+}
+/* La singola immagine/card nel carosello */
+.testimonial-carousel__item {
+    flex: 0 0 auto;
+    height: 100px; /* Puoi modificare questo valore se vuoi */
+    width: auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.testimonial-carousel__item img {
     display: block;
+    height: 100%;
+    width: auto;
 }
-
-/* Rendiamo il tutto responsive per schermi più piccoli */
-@media (max-width: 900px) {
-    .testimonial-gallery {
-        column-count: 2; /* Due colonne su tablet */
-    }
-}
-
-@media (max-width: 600px) {
-    .testimonial-gallery {
-        column-count: 1; /* Una colonna su mobile */
-    }
+/* L'animazione per lo scorrimento */
+@keyframes scrollTrack {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
 }
 
 
@@ -1119,19 +1206,40 @@ footer {
     h1 { font-size: 2em; }
     h2 { font-size: 1.6em; }
 
-    /* --- REGOLE PER LA HOMEPAGE MOBILE (CORRETTE) --- */
-
-    /* L'unica cosa da modificare per la hero section su mobile è la dimensione del testo.
-       Manteniamo il posizionamento assoluto del desktop per far sì che il testo resti SOPRA l'immagine. */
-    .hero-content h1 {
-        font-size: 6vw; /* Il testo si adatta alla larghezza dello schermo */
-        line-height: 1.5;
-        padding: 0 20px; /* Diamo un po' di spazio ai lati */
-    }
-
-    
-    
-    /* --- FINE REGOLE HOMEPAGE --- */
+    /* ======================================================= */
+	/* NUOVE REGOLE PER HERO SECTION SU MOBILE                 */
+	/* ======================================================= */
+	
+	.hero-content {
+		/* Riduciamo la larghezza per non toccare i bordi */
+		width: 90%; 
+	}
+	
+	.hero-content h1 {
+		font-size: 2.2em; /* Dimensione fissa e leggibile */
+		line-height: 1.3;
+		margin-bottom: 20px;
+	}
+	
+	.hero-content .cta-button {
+		padding: 12px 25px;
+		font-size: 0.9em;
+	}
+	
+	.hero-contact-prompt {
+		font-size: 1em; /* Dimensione adatta per mobile */
+		line-height: 1.5;
+		margin-top: 30px; /* Aumentiamo lo spazio dal primo bottone */
+		margin-bottom: 15px;
+	}
+	
+	#whatsapp-contact-button {
+		margin-top: 0; /* Rimuoviamo il margine extra se presente */
+	}
+	
+		
+		
+		/* --- FINE REGOLE HOMEPAGE --- */
 
 
     /* Regole preesistenti per il menu Hamburger (mantenute) */

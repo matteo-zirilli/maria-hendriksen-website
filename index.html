@@ -49,16 +49,21 @@
 
     <main>
 		<section class="hero-fullwidth-new">
-			<img src="images/nuova-immagine-yoga.jpg" alt="Persona che pratica yoga in uno studio" class="hero-main-image">
-			
 			<div class="hero-content">
 				<h1 id="heroMotto" data-translate-key="heroMotto">
 					Ascolta il tuo corpo.<br>
 					Respira nel presente.<br>
 					Muoviti verso il benessere.
 				</h1>
-				
+		
 				<a href="servizi.html" class="cta-button" id="heroCtaButton" data-translate-key="heroCtaButton">Scopri i miei servizi</a>
+		
+				<p class="hero-contact-prompt" data-translate-key="heroContactPrompt">
+					Hai domande o preferisci un contatto diretto? Scrivimi, sarò felice di risponderti.
+				</p>
+				<button class="cta-button" id="whatsapp-contact-button" data-translate-key="heroContactButton">
+					Contattami su WhatsApp
+				</button>
 			</div>
 		</section>
 	
@@ -119,5 +124,22 @@
             </form>
         </div>
     </div>
+	
+	
+	
+	<div id="interest-modal" class="auth-modal">
+		<div class="modal-content">
+			<span class="close-button" onclick="closeModal('interest-modal')">&times;</span>
+			<h3 data-translate-key="whatsappModalTitle">Dimmi di più, a cosa sei interessato/a?</h3>
+			<div class="modal-choice-container">
+				<button class="modal-choice-button" data-interest="Yoga" data-translate-key="whatsappModalOptionYoga">Yoga</button>
+				<button class="modal-choice-button" data-interest="Fisioterapia" data-translate-key="whatsappModalOptionFisio">Fisioterapia</button>
+				<button class="modal-choice-button" data-interest="Both" data-translate-key="whatsappModalOptionBoth">Entrambi</button>
+			</div>
+		</div>
+	</div>
+	
+	
+	
 </body>
 </html>
