@@ -211,8 +211,8 @@ const languages = {
         "reviewFormNotes": "Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per la tua condivisione!",
 		"bookingForText": "Stai prenotando:",
 		"bizumCTAButton": "Invia Conferma via WhatsApp",
-		"whatsappMessage": "Ciao Maria, ti contatto dal tuo sito. Vorrei acquistare il servizio '[SERVICE_NAME]' e pagare con Bizum. Resto in attesa di istruzioni. Grazie!",
-		"bizumInfoText": "Per questo servizio, la prenotazione si finalizza con un contatto personale. Procedi su WhatsApp per definire l'appuntamento e il pagamento direttamente con Maria.",
+		"whatsappMessage": "Ciao Guille, ti contatto dal tuo sito. Vorrei acquistare il servizio '[SERVICE_NAME]' e pagare con Bizum. Resto in attesa di istruzioni. Grazie!",
+		"bizumInfoText": "Per questo servizio, la prenotazione si finalizza con un contatto personale. Procedi su WhatsApp per definire l'appuntamento e il pagamento direttamente con Guillermina.",
 		"bizumProceedButton": "Procedi su WhatsApp",
 		"youtubeSectionTitle": "Seguimi su YouTube",
 		"youtubeSectionText": "Non perderti i nuovi video e le lezioni complete. Iscriviti al canale per rimanere sempre aggiornato.",
@@ -222,10 +222,10 @@ const languages = {
 		"thankYouTitle": "Grazie! Il tuo pagamento è stato ricevuto.",
 		"thankYouText": "Per completare la prenotazione, segui questi due passaggi:",
 		"thankYouButtonForm": "1. Compila la tua Storia Clinica",
-		"thankYouButtonWP": "2. Contatta Maria per Fissare l'Appuntamento",
-		"whatsappMessageFisio": "Ciao Maria, ho appena effettuato il pagamento per una sessione di Fisioterapia e compilato il modulo clinico. Vorrei fissare l'appuntamento. Grazie!",
+		"thankYouButtonWP": "2. Contatta Guillermina per Fissare l'Appuntamento",
+		"whatsappMessageFisio": "Ciao Guille, ho appena effettuato il pagamento per una sessione di Fisioterapia e compilato il modulo clinico. Vorrei fissare l'appuntamento. Grazie!",
 		"bizumTitle": "Finalizza con Bizum",
-		"bizumInstructions": "Per completare, invia un Bizum al numero qui sotto. Successivamente, puoi contattare Maria su WhatsApp per fissare l'appuntamento.",
+		"bizumInstructions": "Per completare, invia un Bizum al numero qui sotto. Successivamente, puoi contattare Guillermina su WhatsApp per fissare l'appuntamento.",
 		"bizumAmount": "Importo:",
 		"bizumPhoneNumber": "Numero di Telefono:",
 		"bizumWhatsappButton": "Contatta su WhatsApp per Prenotare",
@@ -233,7 +233,7 @@ const languages = {
 		// --- NUOVI TESTI PER LA SEZIONE PACCHETTI ---
         "packagesEyebrow": "Percorsi Esclusivi",
         "packagesTitle": "Approfondisci il Tuo Percorso con i Nostri Pacchetti Video",
-        "packagesSubtitle": "Scegli il percorso più adatto a te. Accedi a collezioni di video on-demand per allenarti dove e quando vuoi, con la guida esperta di Maria.",
+        "packagesSubtitle": "Scegli il percorso più adatto a te. Accedi a collezioni di video on-demand per allenarti dove e quando vuoi, con la guida esperta di Guillermina.",
         "packageDiscoverButton": "Scopri di più",
         
         "package1Title": "Yoga & Mobilità Funzionale",
@@ -260,7 +260,7 @@ const languages = {
 		"whatsappModalOptionYoga": "Yoga",
 		"whatsappModalOptionFisio": "Fisioterapia",
 		"whatsappModalOptionBoth": "Entrambi",
-		"whatsappBaseMessage": "Ciao Maria, ti contatto dal tuo sito web. Sarei interessato/a a ricevere maggiori informazioni riguardo ",
+		"whatsappBaseMessage": "Ciao Guille, ti contatto dal tuo sito web. Sarei interessato/a a ricevere maggiori informazioni riguardo ",
 		"whatsappServiceYoga": "i tuoi servizi di Yoga.",
 		"whatsappServiceFisio": "i tuoi servizi di Fisioterapia.",
 		"whatsappServiceBoth": "i tuoi servizi combinati di Yoga e Fisioterapia.",
@@ -455,8 +455,8 @@ const languages = {
         "reviewFormNotes": "Note: Reviews submitted via this form will be moderated before publication. Thank you for sharing!",
 		"bookingForText": "You are booking:",
 		"bizumCTAButton": "Send Confirmation via WhatsApp",
-		"whatsappMessage": "Hi Maria, I'm contacting you from your website. I'd like to purchase the '[SERVICE_NAME]' service and pay with Bizum. I'm awaiting instructions. Thanks!",
-		"bizumInfoText": "For this service, the booking is finalized with personal contact. Proceed on WhatsApp to arrange your appointment and payment directly with Maria.",
+		"whatsappMessage": "Hi Guille, I'm contacting you from your website. I'd like to purchase the '[SERVICE_NAME]' service and pay with Bizum. I'm awaiting instructions. Thanks!",
+		"bizumInfoText": "For this service, the booking is finalized with personal contact. Proceed on WhatsApp to arrange your appointment and payment directly with Guillermina.",
 		"bizumProceedButton": "Proceed on WhatsApp",
 		"youtubeSectionTitle": "Follow me on YouTube",
 		"youtubeSectionText": "Don't miss new videos and full lessons. Subscribe to the channel to stay up to date.",
@@ -466,10 +466,10 @@ const languages = {
 		"thankYouTitle": "Thank you! Your payment has been received.",
 		"thankYouText": "To complete your booking, please follow these two steps:",
 		"thankYouButtonForm": "1. Fill out your Clinical History",
-		"thankYouButtonWP": "2. Contact Maria to Schedule the Appointment",
-		"whatsappMessageFisio": "Hi Maria, I have just paid for a Physiotherapy session and filled out the clinical form. I'd like to schedule the appointment. Thanks!",
+		"thankYouButtonWP": "2. Contact Guillermina to Schedule the Appointment",
+		"whatsappMessageFisio": "Hi Guille, I have just paid for a Physiotherapy session and filled out the clinical form. I'd like to schedule the appointment. Thanks!",
 		"bizumTitle": "Finalize with Bizum",
-		"bizumInstructions": "To complete your purchase, please send a Bizum to the number below. Afterwards, you can contact Maria on WhatsApp to schedule the appointment.",
+		"bizumInstructions": "To complete your purchase, please send a Bizum to the number below. Afterwards, you can contact Guillermina on WhatsApp to schedule the appointment.",
 		"bizumAmount": "Amount:",
 		"bizumPhoneNumber": "Phone Number:",
 		"bizumWhatsappButton": "Contact on WhatsApp to Book",
@@ -477,7 +477,7 @@ const languages = {
 		// --- NEW TEXTS FOR PACKAGES SECTION ---
         "packagesEyebrow": "Exclusive Paths",
         "packagesTitle": "Deepen Your Journey with Our Video Packages",
-        "packagesSubtitle": "Choose the path that suits you best. Access on-demand video collections to train wherever and whenever you want, with Maria's expert guidance.",
+        "packagesSubtitle": "Choose the path that suits you best. Access on-demand video collections to train wherever and whenever you want, with Guillermina's expert guidance.",
         "packageDiscoverButton": "Discover more",
 
         "package1Title": "Yoga & Functional Mobility",
@@ -506,7 +506,7 @@ const languages = {
 		"whatsappModalOptionYoga": "Yoga",
 		"whatsappModalOptionFisio": "Physiotherapy",
 		"whatsappModalOptionBoth": "Both",
-		"whatsappBaseMessage": "Hello Maria, I'm contacting you from your website. I would be interested in receiving more information about ",
+		"whatsappBaseMessage": "Hello Guille, I'm contacting you from your website. I would be interested in receiving more information about ",
 		"whatsappServiceYoga": "your Yoga services.",
 		"whatsappServiceFisio": "your Physiotherapy services.",
 		"whatsappServiceBoth": "your combined Yoga and Physiotherapy services.",
@@ -701,8 +701,8 @@ const languages = {
         "reviewFormNotes": "Nota: Las reseñas enviadas a través de este formulario serán moderadas antes de su publicación. ¡Gracias por compartir!",
 		"bookingForText": "Estás reservando:",
 		"bizumCTAButton": "Enviar Confirmación por WhatsApp",
-		"whatsappMessage": "Hola Maria, te contacto desde tu web. Me gustaría comprar el servicio '[NOMBRE_DEL_SERVICIO]' y pagar con Bizum. Quedo a la espera de instrucciones. ¡Gracias!",
-		"bizumInfoText": "Para este servicio, la reserva se finaliza con un contacto personal. Procede en WhatsApp para definir tu cita y el pago directamente con Maria.",
+		"whatsappMessage": "Hola Guille, te contacto desde tu web. Me gustaría comprar el servicio '[NOMBRE_DEL_SERVICIO]' y pagar con Bizum. Quedo a la espera de instrucciones. ¡Gracias!",
+		"bizumInfoText": "Para este servicio, la reserva se finaliza con un contacto personal. Procede en WhatsApp para definir tu cita y el pago directamente con Guillermina.",
 		"bizumProceedButton": "Proceder en WhatsApp",
 		"youtubeSectionTitle": "Sígueme en YouTube",
 		"youtubeSectionText": "No te pierdas los nuevos vídeos y las clases completas. Suscríbete al canal para mantenerte siempre al día.",
@@ -712,10 +712,10 @@ const languages = {
 		"thankYouTitle": "¡Gracias! Hemos recibido tu pago.",
 		"thankYouText": "Para completar tu reserva, por favor sigue estos dos pasos:",
 		"thankYouButtonForm": "1. Completa tu Historia Clínica",
-		"thankYouButtonWP": "2. Contacta a Maria para Agendar la Cita",
-		"whatsappMessageFisio": "Hola Maria, acabo de realizar el pago para una sesión de Fisioterapia y he completado el formulario clínico. Me gustaría agendar la cita. ¡Gracias!",
+		"thankYouButtonWP": "2. Contacta a Guillermina para Agendar la Cita",
+		"whatsappMessageFisio": "Hola Guille, acabo de realizar el pago para una sesión de Fisioterapia y he completado el formulario clínico. Me gustaría agendar la cita. ¡Gracias!",
 		"bizumTitle": "Finalizar con Bizum",
-		"bizumInstructions": "Para completar tu compra, envía un Bizum al número de abajo. Después, puedes contactar a Maria por WhatsApp para agendar la cita.",
+		"bizumInstructions": "Para completar tu compra, envía un Bizum al número de abajo. Después, puedes contactar a Guillermina por WhatsApp para agendar la cita.",
 		"bizumAmount": "Importe:",
 		"bizumPhoneNumber": "Número de Teléfono:",
 		"bizumWhatsappButton": "Contactar por WhatsApp para Reservar",
@@ -752,7 +752,7 @@ const languages = {
 		"whatsappModalOptionYoga": "Yoga",
 		"whatsappModalOptionFisio": "Fisioterapia",
 		"whatsappModalOptionBoth": "Ambos",
-		"whatsappBaseMessage": "Hola Maria, te contacto desde tu sitio web. Estaría interesado/a en recibir más información sobre ",
+		"whatsappBaseMessage": "Hola Guille, te contacto desde tu sitio web. Estaría interesado/a en recibir más información sobre ",
 		"whatsappServiceYoga": "tus servicios de Yoga.",
 		"whatsappServiceFisio": "tus servicios de Fisioterapia.",
 		"whatsappServiceBoth": "tus servicios combinados de Yoga y Fisioterapia.",
@@ -767,21 +767,22 @@ let currentLanguage = localStorage.getItem('preferredLanguage') || 'es';
 
 
 
-// Nel file script.js, sostituisci la vecchia funzione updateUITexts con questa:
 function updateUITexts(lang) {
-    // Seleziona TUTTI gli elementi con la chiave di traduzione, anche quelli dentro modali nascosti
     document.querySelectorAll('[data-translate-key]').forEach(element => {
         const key = element.dataset.translateKey;
-        // Controlla se la lingua e la chiave esistono nel nostro oggetto
+
         if (languages[lang] && languages[lang][key]) {
             const translation = languages[lang][key];
-            // Se l'elemento è una figcaption o la traduzione non contiene HTML, usa textContent per sicurezza
-            if (element.tagName === 'FIGCAPTION' || !translation.includes('<')) {
-                element.textContent = translation;
-            } else {
-                // Altrimenti, usa innerHTML per interpretare i tag (es. <strong>)
+
+            // --- LOGICA MIGLIORATA ---
+            // Usa innerHTML se la traduzione contiene un tag (<) O un'entità HTML (&)
+            // altrimenti usa textContent che è più sicuro.
+            if (translation.includes('<') || translation.includes('&')) {
                 element.innerHTML = translation;
+            } else {
+                element.textContent = translation;
             }
+            // --- FINE LOGICA MIGLIORATA ---
         }
     });
 }
@@ -2519,7 +2520,7 @@ const openPackageModal = (productCode) => {
         
         const bizumDescription = document.createElement('p');
         bizumDescription.style.textAlign = 'center';
-        const bizumMessage = encodeURIComponent(`Ciao Maria, vorrei acquistare il pacchetto "${packageTitleText}" tramite Bizum.`);
+        const bizumMessage = encodeURIComponent(`Ciao Guille, vorrei acquistare il pacchetto "${packageTitleText}" tramite Bizum.`);
         const bizumLink = `<a href="https://wa.me/5492983567655?text=${bizumMessage}" target="_blank">${languages[currentLanguage].payWithBizum}</a>`;
         bizumDescription.innerHTML = bizumLink;
 
