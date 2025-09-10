@@ -263,7 +263,8 @@ const languages = {
 		"whatsappBaseMessage": "Ciao Maria, ti contatto dal tuo sito web. Sarei interessato/a a ricevere maggiori informazioni riguardo ",
 		"whatsappServiceYoga": "i tuoi servizi di Yoga.",
 		"whatsappServiceFisio": "i tuoi servizi di Fisioterapia.",
-		"whatsappServiceBoth": "i tuoi servizi combinati di Yoga e Fisioterapia."
+		"whatsappServiceBoth": "i tuoi servizi combinati di Yoga e Fisioterapia.",
+		"reviewLoginError": "Per lasciare una recensione devi prima effettuare il login. Accedi e riprova."
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -508,7 +509,8 @@ const languages = {
 		"whatsappBaseMessage": "Hello Maria, I'm contacting you from your website. I would be interested in receiving more information about ",
 		"whatsappServiceYoga": "your Yoga services.",
 		"whatsappServiceFisio": "your Physiotherapy services.",
-		"whatsappServiceBoth": "your combined Yoga and Physiotherapy services."
+		"whatsappServiceBoth": "your combined Yoga and Physiotherapy services.",
+		"reviewLoginError": "You must be logged in to leave a review. Please log in and try again."
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -753,7 +755,8 @@ const languages = {
 		"whatsappBaseMessage": "Hola Maria, te contacto desde tu sitio web. Estaría interesado/a en recibir más información sobre ",
 		"whatsappServiceYoga": "tus servicios de Yoga.",
 		"whatsappServiceFisio": "tus servicios de Fisioterapia.",
-		"whatsappServiceBoth": "tus servicios combinados de Yoga y Fisioterapia."
+		"whatsappServiceBoth": "tus servicios combinados de Yoga y Fisioterapia.",
+		"reviewLoginError": "Debes iniciar sesión para dejar una reseña. Por favor, inicia sesión y vuelve a intentarlo."
 		
     }
 };
@@ -1049,42 +1052,50 @@ async function handleReviewSubmit(event) {
     submitButton.disabled = true;
 
     try {
-		// Prendi la sessione dell'utente per ottenere il token
-		const { data: { session } } = await supabase.auth.getSession();
-		if (!session) {
-			// Se l'utente non è loggato, mostra un errore o apri il modale di login
-			throw new Error("Devi effettuare il login per lasciare una recensione.");
-		}
-	
-		const response = await fetch('/.netlify/functions/submit-review', {
-			method: 'POST',
-			headers: { 
-				'Content-Type': 'application/json',
-				// Ecco dove "mostriamo il pass" di sicurezza
-				'Authorization': `Bearer ${session.access_token}`
-			},
-			body: JSON.stringify({ name, rating, comment }),
-		});
-	
-		if (!response.ok) {
-			let errorMsg = `Errore HTTP: ${response.status}`;
-			try {
-				const errorData = await response.json();
-				errorMsg = errorData.error || errorData.message || errorMsg;
-			} catch(e) { /* Ignora */ }
-			throw new Error(errorMsg);
-		}
-		messageDiv.textContent = 'Recensione inviata con successo! Sarà visibile dopo l\'approvazione.';
-		messageDiv.className = 'form-message success';
-		form.reset();
-	
-	} catch (error) {
-		console.error('Errore invio recensione:', error);
-		messageDiv.textContent = `Errore nell'invio della recensione: ${error.message}. Riprova più tardi.`;
-		messageDiv.className = 'form-message error';
-	} finally {
-		submitButton.disabled = false;
-	}
+        const { data: { session } } = await supabase.auth.getSession();
+
+        // --- INIZIO MODIFICA IMPORTANTE ---
+        // Controlliamo subito se l'utente è loggato
+        if (!session) {
+            // Se non è loggato, mostriamo il messaggio tradotto e usciamo
+            const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+            const errorMessage = languages[currentLang]?.reviewLoginError || languages['it'].reviewLoginError;
+
+            messageDiv.textContent = errorMessage;
+            messageDiv.className = 'form-message error';
+            submitButton.disabled = false;
+            return; // Interrompe la funzione qui
+        }
+        // --- FINE MODIFICA IMPORTANTE ---
+
+        const response = await fetch('/.netlify/functions/submit-review', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify({ name, rating, comment }),
+        });
+
+        if (!response.ok) {
+            let errorMsg = `Errore HTTP: ${response.status}`;
+            try {
+                const errorData = await response.json();
+                errorMsg = errorData.error || errorData.message || errorMsg;
+            } catch(e) { /* Ignora */ }
+            throw new Error(errorMsg);
+        }
+        messageDiv.textContent = 'Recensione inviata con successo! Sarà visibile dopo l\'approvazione.';
+        messageDiv.className = 'form-message success';
+        form.reset();
+
+    } catch (error) {
+        console.error('Errore invio recensione:', error);
+        messageDiv.textContent = `Si è verificato un errore: ${error.message}. Riprova più tardi.`;
+        messageDiv.className = 'form-message error';
+    } finally {
+        submitButton.disabled = false;
+    }
 }
 
 
