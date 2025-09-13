@@ -767,6 +767,82 @@ let currentLanguage = localStorage.getItem('preferredLanguage') || 'es';
 
 
 
+
+
+// AGGIUNGI QUESTE DUE NUOVE FUNZIONI ALL'INIZIO DI script.js
+
+// Funzione 1: Carica l'SDK di PayPal con il Client ID corretto
+async function loadPayPalSDK() {
+    try {
+        // Chiediamo al nostro backend la chiave corretta
+        const response = await fetch('/.netlify/functions/get-config');
+        if (!response.ok) throw new Error('Risposta del backend non valida');
+
+        const config = await response.json();
+        const clientId = config.paypalClientId;
+
+        if (!clientId) {
+            console.error('Client ID di PayPal non ricevuto dal backend.');
+            return;
+        }
+
+        // Creiamo un nuovo tag <script> dinamicamente
+        const script = document.createElement('script');
+        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=EUR&disable-funding=card,sepa,giropay&intent=capture`;
+
+        // Quando lo script è caricato, eseguiamo le funzioni che usano PayPal
+        script.onload = () => {
+            console.log('SDK di PayPal caricato correttamente.');
+            // Questa funzione attiverà tutte le funzionalità di PayPal
+            initializePayPalFeatures(); 
+        };
+
+        // Aggiungiamo lo script alla pagina per avviare il caricamento
+        document.head.appendChild(script);
+
+    } catch (error) {
+        console.error('Impossibile caricare la configurazione per PayPal:', error);
+    }
+}
+
+// in script.js, SOSTITUISCI la vecchia initializePayPalFeatures con questa
+
+function initializePayPalFeatures() {
+    console.log('Inizializzazione di tutti i pulsanti di pagamento PayPal...');
+
+    // =================================================================
+    // 1. ATTIVAZIONE DEI PACCHETTI VIDEO (pagina contenuti.html)
+    // =================================================================
+    // La logica per i pacchetti video (quelli con il modale) è già robusta
+    // perché la funzione `setupPayPalButton` attende il caricamento dell'SDK.
+    // Non dobbiamo fare nulla qui, funzionerà automaticamente.
+
+
+    // =================================================================
+    // 2. ATTIVAZIONE DEI PIANI DI SERVIZIO (pagina piani.html)
+    // =================================================================
+    // La funzione `populatePaymentButtons` aggiunge un listener che chiama
+    // `handlePayPalPurchase`. Dobbiamo solo assicurarci che `handlePayPalPurchase`
+    // funzioni correttamente ora. La funzione esistente va già bene
+    // perché il `paypal` object è ora disponibile globalmente.
+
+
+    // =================================================================
+    // 3. ATTIVAZIONE DELLE VIDEO LEZIONI SINGOLE (pagina contenuti.html)
+    // =================================================================
+    // Questa è la parte più importante da riattivare. La funzione
+    // `addPurchaseButtonListeners` aggiunge i listener ai pulsanti "Acquista".
+    // La chiamiamo qui per assicurarci che i listener vengano aggiunti
+    // solo dopo che PayPal è pronto.
+    if (document.getElementById('video-lessons-grid')) {
+        addPurchaseButtonListeners();
+    }
+}
+
+
+
+
+
 function updateUITexts(lang) {
     document.querySelectorAll('[data-translate-key]').forEach(element => {
         const key = element.dataset.translateKey;
@@ -2103,6 +2179,7 @@ async function loadAndDisplayVideos() {
 document.addEventListener('DOMContentLoaded', () => {
 	
 	console.log("DEBUG: DOM Caricato. Esecuzione script avviata.");
+	loadPayPalSDK();
 
     document.querySelectorAll('.location-selector').forEach(selector => {
         const planCard = selector.closest('.plan');
