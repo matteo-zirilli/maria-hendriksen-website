@@ -807,93 +807,93 @@ async function loadPayPalSDK() {
 
 // in script.js, SOSTITUISCI la vecchia initializePayPalFeatures con questa
 
-//function initializePayPalFeatures() {
-//    console.log('Inizializzazione di tutti i pulsanti di pagamento PayPal...');
-//
-//    // =================================================================
-//    // 1. ATTIVAZIONE DEI PACCHETTI VIDEO (pagina contenuti.html)
-//    // =================================================================
-//    // La logica per i pacchetti video (quelli con il modale) è già robusta
-//    // perché la funzione `setupPayPalButton` attende il caricamento dell'SDK.
-//    // Non dobbiamo fare nulla qui, funzionerà automaticamente.
-//
-//
-//    // =================================================================
-//    // 2. ATTIVAZIONE DEI PIANI DI SERVIZIO (pagina piani.html)
-//    // =================================================================
-//    // La funzione `populatePaymentButtons` aggiunge un listener che chiama
-//    // `handlePayPalPurchase`. Dobbiamo solo assicurarci che `handlePayPalPurchase`
-//    // funzioni correttamente ora. La funzione esistente va già bene
-//    // perché il `paypal` object è ora disponibile globalmente.
-//
-//
-//    // =================================================================
-//    // 3. ATTIVAZIONE DELLE VIDEO LEZIONI SINGOLE (pagina contenuti.html)
-//    // =================================================================
-//    // Questa è la parte più importante da riattivare. La funzione
-//    // `addPurchaseButtonListeners` aggiunge i listener ai pulsanti "Acquista".
-//    // La chiamiamo qui per assicurarci che i listener vengano aggiunti
-//    // solo dopo che PayPal è pronto.
-//    if (document.getElementById('video-lessons-grid')) {
-//        addPurchaseButtonListeners();
-//    }
-//}
+function initializePayPalFeatures() {
+    console.log('Inizializzazione di tutti i pulsanti di pagamento PayPal...');
+
+    // =================================================================
+    // 1. ATTIVAZIONE DEI PACCHETTI VIDEO (pagina contenuti.html)
+    // =================================================================
+    // La logica per i pacchetti video (quelli con il modale) è già robusta
+    // perché la funzione `setupPayPalButton` attende il caricamento dell'SDK.
+    // Non dobbiamo fare nulla qui, funzionerà automaticamente.
+
+
+    // =================================================================
+    // 2. ATTIVAZIONE DEI PIANI DI SERVIZIO (pagina piani.html)
+    // =================================================================
+    // La funzione `populatePaymentButtons` aggiunge un listener che chiama
+    // `handlePayPalPurchase`. Dobbiamo solo assicurarci che `handlePayPalPurchase`
+    // funzioni correttamente ora. La funzione esistente va già bene
+    // perché il `paypal` object è ora disponibile globalmente.
+
+
+    // =================================================================
+    // 3. ATTIVAZIONE DELLE VIDEO LEZIONI SINGOLE (pagina contenuti.html)
+    // =================================================================
+    // Questa è la parte più importante da riattivare. La funzione
+    // `addPurchaseButtonListeners` aggiunge i listener ai pulsanti "Acquista".
+    // La chiamiamo qui per assicurarci che i listener vengano aggiunti
+    // solo dopo che PayPal è pronto.
+    if (document.getElementById('video-lessons-grid')) {
+        addPurchaseButtonListeners();
+    }
+}
 
 
 
 
 // in script.js, SOSTITUISCI la funzione initializePayPalFeatures con QUESTA versione completa
 
-function initializePayPalFeatures() {
-    console.log('Inizializzazione di tutte le funzionalità PayPal...');
-
-    // =================================================================
-    // PARTE 1: LOGICA PER I PRODOTTI REALI
-    // Attiva i pulsanti "Acquista" per le video lezioni singole in contenuti.html
-    // =================================================================
-    if (document.getElementById('video-lessons-grid')) {
-        addPurchaseButtonListeners();
-    }
-
-    // Nota: La logica per i Piani di Servizio (piani.html) e i Pacchetti Video
-    // è già gestita correttamente all'interno delle funzioni che vengono chiamate
-    // quando apri i rispettivi modali di pagamento. Non dobbiamo aggiungere altro qui per loro.
-
-    // =================================================================
-    // PARTE 2: LOGICA PER IL PULSANTE DI TEST DA 1 CENTESIMO
-    // =================================================================
-    const paypalTestContainer = document.getElementById('paypal-test-container');
-    if (paypalTestContainer && typeof paypal !== 'undefined') {
-        paypal.Buttons({
-            // Funzione per creare l'ordine direttamente nel frontend
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: '0.01', // L'importo del pagamento
-                            currency_code: 'EUR'
-                        },
-                        description: 'Pagamento di test da 0.01 EUR'
-                    }]
-                });
-            },
-
-            // Funzione eseguita dopo l'approvazione del pagamento
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    // Messaggio di successo
-                    alert('Transazione di test completata con successo!\n\nID Transazione: ' + details.id);
-                });
-            },
-
-            // Funzione per gestire gli errori
-            onError: function(err) {
-                console.error('Errore durante il pagamento di test PayPal:', err);
-                alert('Si è verificato un errore durante il pagamento di test.');
-            }
-        }).render('#paypal-test-container');
-    }
-}
+//function initializePayPalFeatures() {
+//    console.log('Inizializzazione di tutte le funzionalità PayPal...');
+//
+//    // =================================================================
+//    // PARTE 1: LOGICA PER I PRODOTTI REALI
+//    // Attiva i pulsanti "Acquista" per le video lezioni singole in contenuti.html
+//    // =================================================================
+//    if (document.getElementById('video-lessons-grid')) {
+//        addPurchaseButtonListeners();
+//    }
+//
+//    // Nota: La logica per i Piani di Servizio (piani.html) e i Pacchetti Video
+//    // è già gestita correttamente all'interno delle funzioni che vengono chiamate
+//    // quando apri i rispettivi modali di pagamento. Non dobbiamo aggiungere altro qui per loro.
+//
+//    // =================================================================
+//    // PARTE 2: LOGICA PER IL PULSANTE DI TEST DA 1 CENTESIMO
+//    // =================================================================
+//    const paypalTestContainer = document.getElementById('paypal-test-container');
+//    if (paypalTestContainer && typeof paypal !== 'undefined') {
+//        paypal.Buttons({
+//            // Funzione per creare l'ordine direttamente nel frontend
+//            createOrder: function(data, actions) {
+//                return actions.order.create({
+//                    purchase_units: [{
+//                        amount: {
+//                            value: '0.01', // L'importo del pagamento
+//                            currency_code: 'EUR'
+//                        },
+//                        description: 'Pagamento di test da 0.01 EUR'
+//                    }]
+//                });
+//            },
+//
+//            // Funzione eseguita dopo l'approvazione del pagamento
+//            onApprove: function(data, actions) {
+//                return actions.order.capture().then(function(details) {
+//                    // Messaggio di successo
+//                    alert('Transazione di test completata con successo!\n\nID Transazione: ' + details.id);
+//                });
+//            },
+//
+//            // Funzione per gestire gli errori
+//            onError: function(err) {
+//                console.error('Errore durante il pagamento di test PayPal:', err);
+//                alert('Si è verificato un errore durante il pagamento di test.');
+//            }
+//        }).render('#paypal-test-container');
+//    }
+//}
 
 
 
@@ -1690,6 +1690,98 @@ function addWatchButtonListeners() {
     });
 }
 
+//async function handlePayPalBuyClick(event) {
+//    const button = event.target;
+//    const lessonId = button.dataset.lessonId;
+//    const price = button.dataset.price;
+//    const purchaseButtonsDiv = button.closest('.purchase-buttons');
+//    const payPalContainerId = `paypal-button-container-${lessonId}`;
+//    const payPalContainer = document.getElementById(payPalContainerId);
+//    const mpButton = purchaseButtonsDiv ? purchaseButtonsDiv.querySelector('.mercadopago-buy-button') : null;
+//
+//    if (!currentUser) {
+//        alert("Devi effettuare il login per acquistare.");
+//        openModal('login-modal');
+//        return;
+//    }
+//
+//     if (!supabase || !supabase.auth || typeof supabase.auth.getSession !== 'function') {
+//         console.error("Supabase client o auth non inizializzato correttamente.");
+//         alert("Errore: impossibile verificare l'autenticazione. Riprova più tardi.");
+//         return;
+//     }
+//     const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+//     if (sessionError || !session) {
+//         console.error("Errore nel recupero della sessione Supabase:", sessionError);
+//         alert("Errore: impossibile ottenere la sessione utente. Prova a fare logout e login.");
+//         return;
+//     }
+//     const accessToken = session.access_token;
+//
+//    console.log(`Avvio procedura acquisto PayPal: Lezione ID ${lessonId}, Prezzo ${price}`);
+//    button.disabled = true;
+//    button.textContent = 'Creazione ordine...';
+//    if (mpButton) mpButton.style.display = 'none';
+//    if (payPalContainer) {
+//        payPalContainer.innerHTML = '<p><em>Inizializzazione pagamento...</em></p>';
+//        payPalContainer.style.display = 'block';
+//    } else {
+//        console.error(`Container PayPal ${payPalContainerId} non trovato!`);
+//        alert(`Errore: Impossibile trovare l'area per il bottone di pagamento.`);
+//        button.disabled = false;
+//        button.textContent = 'Acquista con PayPal';
+//        if (mpButton) mpButton.style.display = 'block';
+//        return;
+//    }
+//
+//    try {
+//        const response = await fetch('/.netlify/functions/create-paypal-order', {
+//            method: 'POST',
+//            headers: {
+//                'Content-Type': 'application/json',
+//                'Authorization': `Bearer ${accessToken}`
+//            },
+//            body: JSON.stringify({ lessonId: lessonId })
+//        });
+//        if (!response.ok) {
+//            let errorData = { error: `Errore server (${response.status})` };
+//            try { errorData = await response.json(); } catch(e) { /* ignora */ }
+//            throw new Error(errorData.error || `Errore ${response.status} nella creazione ordine.`);
+//        }
+//        const orderData = await response.json();
+//        const orderID = orderData.orderId;
+//        if (!orderID) {
+//            throw new Error("ID Ordine PayPal non ricevuto dalla funzione backend.");
+//        }
+//        console.log("Ordine PayPal creato con ID:", orderID);
+//        button.style.display = 'none';
+//        renderPayPalButton(orderID, payPalContainerId, lessonId);
+//    } catch (error) {
+//        console.error("Errore durante la chiamata alla funzione Netlify o creazione ordine:", error);
+//        if (payPalContainer) {
+//             payPalContainer.innerHTML = `<p style="color:red;">Errore: ${error.message}</p>`;
+//        } else {
+//             alert(`Errore: ${error.message}`);
+//        }
+//        button.disabled = false;
+//        button.textContent = 'Acquista con PayPal';
+//        button.style.display = 'block';
+//        if (mpButton) mpButton.style.display = 'block';
+//        if (payPalContainer) setTimeout(() => { payPalContainer.style.display = 'none'; payPalContainer.innerHTML=''; }, 4000);
+//    }
+//}
+
+
+
+
+
+
+
+
+
+
+// in script.js, SOSTITUISCI la vecchia funzione handlePayPalBuyClick con QUESTA
+
 async function handlePayPalBuyClick(event) {
     const button = event.target;
     const lessonId = button.dataset.lessonId;
@@ -1705,23 +1797,11 @@ async function handlePayPalBuyClick(event) {
         return;
     }
 
-     if (!supabase || !supabase.auth || typeof supabase.auth.getSession !== 'function') {
-         console.error("Supabase client o auth non inizializzato correttamente.");
-         alert("Errore: impossibile verificare l'autenticazione. Riprova più tardi.");
-         return;
-     }
-     const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-     if (sessionError || !session) {
-         console.error("Errore nel recupero della sessione Supabase:", sessionError);
-         alert("Errore: impossibile ottenere la sessione utente. Prova a fare logout e login.");
-         return;
-     }
-     const accessToken = session.access_token;
-
     console.log(`Avvio procedura acquisto PayPal: Lezione ID ${lessonId}, Prezzo ${price}`);
     button.disabled = true;
     button.textContent = 'Creazione ordine...';
     if (mpButton) mpButton.style.display = 'none';
+
     if (payPalContainer) {
         payPalContainer.innerHTML = '<p><em>Inizializzazione pagamento...</em></p>';
         payPalContainer.style.display = 'block';
@@ -1735,33 +1815,50 @@ async function handlePayPalBuyClick(event) {
     }
 
     try {
+        // --- INIZIO DELLA CORREZIONE FONDAMENTALE ---
+        // Prima recuperiamo il token di accesso dalla sessione Supabase.
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+        // Se c'è un errore o la sessione non esiste, blocchiamo la procedura.
+        if (sessionError || !session) {
+            console.error("Errore nel recupero della sessione Supabase:", sessionError);
+            throw new Error("Impossibile ottenere la sessione utente. Prova a fare logout e login.");
+        }
+        const accessToken = session.access_token;
+        // --- FINE DELLA CORREZIONE FONDAMENTALE ---
+
+        // Ora che abbiamo il token, possiamo chiamare la funzione backend.
         const response = await fetch('/.netlify/functions/create-paypal-order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessToken}` // Usiamo il token appena recuperato
             },
             body: JSON.stringify({ lessonId: lessonId })
         });
+
         if (!response.ok) {
             let errorData = { error: `Errore server (${response.status})` };
-            try { errorData = await response.json(); } catch(e) { /* ignora */ }
+            try { errorData = await response.json(); } catch(e) {}
             throw new Error(errorData.error || `Errore ${response.status} nella creazione ordine.`);
         }
+
         const orderData = await response.json();
         const orderID = orderData.orderId;
         if (!orderID) {
             throw new Error("ID Ordine PayPal non ricevuto dalla funzione backend.");
         }
+
         console.log("Ordine PayPal creato con ID:", orderID);
         button.style.display = 'none';
         renderPayPalButton(orderID, payPalContainerId, lessonId);
+
     } catch (error) {
         console.error("Errore durante la chiamata alla funzione Netlify o creazione ordine:", error);
         if (payPalContainer) {
-             payPalContainer.innerHTML = `<p style="color:red;">Errore: ${error.message}</p>`;
+            payPalContainer.innerHTML = `<p style="color:red;">Errore: ${error.message}</p>`;
         } else {
-             alert(`Errore: ${error.message}`);
+            alert(`Errore: ${error.message}`);
         }
         button.disabled = false;
         button.textContent = 'Acquista con PayPal';
@@ -1770,6 +1867,30 @@ async function handlePayPalBuyClick(event) {
         if (payPalContainer) setTimeout(() => { payPalContainer.style.display = 'none'; payPalContainer.innerHTML=''; }, 4000);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 async function handleMercadoPagoBuyClick(event) {
      if (!currentUser) {
