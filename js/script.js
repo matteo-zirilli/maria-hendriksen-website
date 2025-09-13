@@ -807,38 +807,93 @@ async function loadPayPalSDK() {
 
 // in script.js, SOSTITUISCI la vecchia initializePayPalFeatures con questa
 
+//function initializePayPalFeatures() {
+//    console.log('Inizializzazione di tutti i pulsanti di pagamento PayPal...');
+//
+//    // =================================================================
+//    // 1. ATTIVAZIONE DEI PACCHETTI VIDEO (pagina contenuti.html)
+//    // =================================================================
+//    // La logica per i pacchetti video (quelli con il modale) è già robusta
+//    // perché la funzione `setupPayPalButton` attende il caricamento dell'SDK.
+//    // Non dobbiamo fare nulla qui, funzionerà automaticamente.
+//
+//
+//    // =================================================================
+//    // 2. ATTIVAZIONE DEI PIANI DI SERVIZIO (pagina piani.html)
+//    // =================================================================
+//    // La funzione `populatePaymentButtons` aggiunge un listener che chiama
+//    // `handlePayPalPurchase`. Dobbiamo solo assicurarci che `handlePayPalPurchase`
+//    // funzioni correttamente ora. La funzione esistente va già bene
+//    // perché il `paypal` object è ora disponibile globalmente.
+//
+//
+//    // =================================================================
+//    // 3. ATTIVAZIONE DELLE VIDEO LEZIONI SINGOLE (pagina contenuti.html)
+//    // =================================================================
+//    // Questa è la parte più importante da riattivare. La funzione
+//    // `addPurchaseButtonListeners` aggiunge i listener ai pulsanti "Acquista".
+//    // La chiamiamo qui per assicurarci che i listener vengano aggiunti
+//    // solo dopo che PayPal è pronto.
+//    if (document.getElementById('video-lessons-grid')) {
+//        addPurchaseButtonListeners();
+//    }
+//}
+
+
+
+
+// in script.js, SOSTITUISCI la funzione initializePayPalFeatures con QUESTA versione completa
+
 function initializePayPalFeatures() {
-    console.log('Inizializzazione di tutti i pulsanti di pagamento PayPal...');
+    console.log('Inizializzazione di tutte le funzionalità PayPal...');
 
     // =================================================================
-    // 1. ATTIVAZIONE DEI PACCHETTI VIDEO (pagina contenuti.html)
+    // PARTE 1: LOGICA PER I PRODOTTI REALI
+    // Attiva i pulsanti "Acquista" per le video lezioni singole in contenuti.html
     // =================================================================
-    // La logica per i pacchetti video (quelli con il modale) è già robusta
-    // perché la funzione `setupPayPalButton` attende il caricamento dell'SDK.
-    // Non dobbiamo fare nulla qui, funzionerà automaticamente.
-
-
-    // =================================================================
-    // 2. ATTIVAZIONE DEI PIANI DI SERVIZIO (pagina piani.html)
-    // =================================================================
-    // La funzione `populatePaymentButtons` aggiunge un listener che chiama
-    // `handlePayPalPurchase`. Dobbiamo solo assicurarci che `handlePayPalPurchase`
-    // funzioni correttamente ora. La funzione esistente va già bene
-    // perché il `paypal` object è ora disponibile globalmente.
-
-
-    // =================================================================
-    // 3. ATTIVAZIONE DELLE VIDEO LEZIONI SINGOLE (pagina contenuti.html)
-    // =================================================================
-    // Questa è la parte più importante da riattivare. La funzione
-    // `addPurchaseButtonListeners` aggiunge i listener ai pulsanti "Acquista".
-    // La chiamiamo qui per assicurarci che i listener vengano aggiunti
-    // solo dopo che PayPal è pronto.
     if (document.getElementById('video-lessons-grid')) {
         addPurchaseButtonListeners();
     }
-}
 
+    // Nota: La logica per i Piani di Servizio (piani.html) e i Pacchetti Video
+    // è già gestita correttamente all'interno delle funzioni che vengono chiamate
+    // quando apri i rispettivi modali di pagamento. Non dobbiamo aggiungere altro qui per loro.
+
+    // =================================================================
+    // PARTE 2: LOGICA PER IL PULSANTE DI TEST DA 1 CENTESIMO
+    // =================================================================
+    const paypalTestContainer = document.getElementById('paypal-test-container');
+    if (paypalTestContainer && typeof paypal !== 'undefined') {
+        paypal.Buttons({
+            // Funzione per creare l'ordine direttamente nel frontend
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '0.01', // L'importo del pagamento
+                            currency_code: 'EUR'
+                        },
+                        description: 'Pagamento di test da 0.01 EUR'
+                    }]
+                });
+            },
+
+            // Funzione eseguita dopo l'approvazione del pagamento
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Messaggio di successo
+                    alert('Transazione di test completata con successo!\n\nID Transazione: ' + details.id);
+                });
+            },
+
+            // Funzione per gestire gli errori
+            onError: function(err) {
+                console.error('Errore durante il pagamento di test PayPal:', err);
+                alert('Si è verificato un errore durante il pagamento di test.');
+            }
+        }).render('#paypal-test-container');
+    }
+}
 
 
 
