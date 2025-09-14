@@ -2902,6 +2902,11 @@ if (whatsappContactButton && interestModal) {
 							<p data-translate-key="paymentMethodLabel" style="text-align:center; font-weight: 500;">${translations.paymentMethodLabel || "Scegli un metodo di pagamento:"}</p>
 							<div id="paypal-group-container" style="margin-bottom: 15px;"></div>
 							<div id="mercadopago-group-container" style="margin-bottom: 15px;"></div>
+						
+							<button class="payment-button bizum" data-method="bizum">
+								<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 22px; width: auto;"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"></path><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"></path></svg>
+								<span>Bizum</span>
+							</button>
 						`;
 						
 						updateUITexts(currentLang); 
@@ -2912,6 +2917,12 @@ if (whatsappContactButton && interestModal) {
 						};
 						handlePayPalPurchase('paypal-group-container', options);
 						handleMercadoPagoPurchase('mercadopago-group-container', options);
+						
+						// Aggiungiamo il listener per il nuovo pulsante Bizum
+						const bizumButton = paymentContainer.querySelector('.payment-button.bizum');
+						if (bizumButton) {
+							bizumButton.addEventListener('click', () => handleBizumPurchase(options));
+						}
 					}
 				};
 	
@@ -2972,22 +2983,35 @@ if (whatsappContactButton && interestModal) {
 				}
 	
 				const paymentContainer = document.getElementById('modal-individual-payment-options');
+				// in script.js, dentro il listener per i bottoni individuali
+
 				if (productCode) {
 					paymentContainer.innerHTML = `
 						<p data-translate-key="paymentMethodLabel" style="text-align:center; font-weight: 500;">${translations.paymentMethodLabel || "Scegli un metodo di pagamento:"}</p>
 						<div id="paypal-individual-container" style="margin-bottom: 15px;"></div>
 						<div id="mercadopago-individual-container" style="margin-bottom: 15px;"></div>
+				
+						<button class="payment-button bizum" data-method="bizum">
+							<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 22px; width: auto;"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"></path><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"></path></svg>
+							<span>Bizum</span>
+						</button>
 					`;
-	
+				
 					const options = { productCode };
 					if (locationSelector) {
 						const radio = planCard.querySelector('input[type="radio"]:checked');
 						if (radio) options.location = radio.value;
 					}
-	
+				
 					handlePayPalPurchase('paypal-individual-container', options);
 					handleMercadoPagoPurchase('mercadopago-individual-container', options);
-	
+				
+					// Aggiungiamo il listener per il nuovo pulsante Bizum
+					const bizumButton = paymentContainer.querySelector('.payment-button.bizum');
+					if (bizumButton) {
+						bizumButton.addEventListener('click', () => handleBizumPurchase(options));
+					}
+				
 				} else {
 					paymentContainer.innerHTML = '<p>Opzioni di pagamento non disponibili.</p>';
 				}
