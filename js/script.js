@@ -2923,82 +2923,77 @@ if (whatsappContactButton && interestModal) {
     const allIndividualBookingButtons = document.querySelectorAll('.open-individual-booking-modal');
     const individualBookingModal = document.getElementById('individual-booking-modal');
 
-    if (allIndividualBookingButtons.length > 0 && individualBookingModal) {
-        allIndividualBookingButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
+    // in script.js, SOSTITUISCI il vecchio blocco per i piani individuali con QUESTO
+
+	if (allIndividualBookingButtons.length > 0 && individualBookingModal) {
+		allIndividualBookingButtons.forEach(button => {
+			button.addEventListener('click', (event) => {
 				const planCard = event.target.closest('.plan');
 				if (!planCard) return;
-			
-				// --- INIZIO DELLA CORREZIONE ---
-				// 1. Definiamo le traduzioni QUI, all'inizio della funzione.
+	
 				const currentLang = localStorage.getItem('preferredLanguage') || 'it';
 				const translations = languages[currentLang] || languages['it'];
-			
-				// 2. ORA possiamo usare 'translations' per ottenere il nome del servizio.
 				const serviceName = planCard.querySelector('h3').textContent;
-				// --- FINE DELLA CORREZIONE ---
-			
-				const productCode = planCard.querySelector('.location-selector')?.dataset.productCode || event.target.dataset.productCode;
-				let servicePriceText = '';
-			
+	
+				// --- INIZIO DELLA CORREZIONE FONDAMENTALE ---
+				// Logica robusta per trovare il productCode in ogni tipo di card
+				let productCode = null;
 				const locationSelector = planCard.querySelector('.location-selector');
 				if (locationSelector) {
-					const selectedLocationRadio = locationSelector.querySelector('input[type="radio"]:checked');
-					if(selectedLocationRadio) {
-						const locationValue = selectedLocationRadio.value;
+					productCode = locationSelector.dataset.productCode;
+				} else if (event.target.dataset.productCode) {
+					productCode = event.target.dataset.productCode;
+				}
+				// --- FINE DELLA CORREZIONE FONDAMENTALE ---
+	
+				let servicePriceText = '';
+				if (locationSelector) {
+					const selectedRadio = locationSelector.querySelector('input[type="radio"]:checked');
+					if (selectedRadio) {
+						const locationValue = selectedRadio.value;
 						const priceKey = `price${locationValue.charAt(0).toUpperCase() + locationValue.slice(1)}`;
 						const price = locationSelector.dataset[priceKey];
 						servicePriceText = `€${price}`;
-					} else {
-						servicePriceText = 'Prezzo non definito';
 					}
 				} else {
 					const priceElement = planCard.querySelector('.current-price');
 					servicePriceText = priceElement ? priceElement.textContent : 'N/D';
 				}
-			
+	
 				document.getElementById('modal-individual-service-price').textContent = servicePriceText;
-			
-				// Popola il titolo del modale (la variabile 'translations' esiste già)
 				document.getElementById('modal-individual-title').textContent = translations.individualBookingTitle || "Dettagli Prenotazione";
-			
-				// Popola il paragrafo con il nome del servizio
+	
 				const bookingInfoParagraph = document.getElementById('modal-booking-info');
 				if (bookingInfoParagraph) {
 					const bookingForText = translations.bookingForText || "Stai prenotando:";
 					bookingInfoParagraph.innerHTML = `${bookingForText} <strong>${serviceName}</strong>`;
 				}
-			
-				// --- NUOVA LOGICA PER IL MODALE INDIVIDUALE ---
+	
 				const paymentContainer = document.getElementById('modal-individual-payment-options');
 				if (productCode) {
-					// 1. Inseriamo i contenitori vuoti per i widget di pagamento
 					paymentContainer.innerHTML = `
+						<p data-translate-key="paymentMethodLabel" style="text-align:center; font-weight: 500;">${translations.paymentMethodLabel || "Scegli un metodo di pagamento:"}</p>
 						<div id="paypal-individual-container" style="margin-bottom: 15px;"></div>
 						<div id="mercadopago-individual-container" style="margin-bottom: 15px;"></div>
-						`;
-				
-					// 2. Chiamiamo le funzioni per disegnare i widget all'interno dei contenitori
+					`;
+	
 					const options = { productCode };
-					// Aggiungi la location se presente (per i servizi di Fisioterapia)
-					if (planCard.querySelector('.location-selector')) {
+					if (locationSelector) {
 						const radio = planCard.querySelector('input[type="radio"]:checked');
-						if (radio) {
-							options.location = radio.value;
-						}
+						if (radio) options.location = radio.value;
 					}
-				
+	
 					handlePayPalPurchase('paypal-individual-container', options);
 					handleMercadoPagoPurchase('mercadopago-individual-container', options);
-				
+	
 				} else {
 					paymentContainer.innerHTML = '<p>Opzioni di pagamento non disponibili.</p>';
 				}
-				
+	
 				openModal('individual-booking-modal');
 			});
-        });
-    }
+		});
+	}
 
 
 // --- Logica per il video di presentazione in homepage ---
