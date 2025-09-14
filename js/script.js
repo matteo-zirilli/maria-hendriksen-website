@@ -2845,88 +2845,83 @@ if (whatsappContactButton && interestModal) {
         });
     }
 
-    const allGroupBookingButtons = document.querySelectorAll('.open-group-booking-modal');
-    const groupBookingModal = document.getElementById('group-booking-modal');
+    // in script.js, SOSTITUISCI il vecchio blocco per i piani di gruppo con QUESTO
 
-    if (allGroupBookingButtons.length > 0 && groupBookingModal) {
-        
-        const participantsInput = groupBookingModal.querySelector('#modal-participants-input');
-        const calculatedPriceEl = groupBookingModal.querySelector('#modal-calculated-price');
-        const errorMessageEl = groupBookingModal.querySelector('#modal-participant-error');
-        const paymentOptionsContainer = groupBookingModal.querySelector('#modal-payment-options');
+		// in script.js, SOSTITUISCI il vecchio blocco per i piani di gruppo con QUESTO
 
-        let currentCardData = {};
-
-        const updateGroupPrice = () => {
-            const numParticipants = parseInt(participantsInput.value, 10);
-            const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-            const errorMessages = {
-                it: `Il numero minimo è ${currentCardData.minParticipants} partecipanti.`,
-                en: `The minimum is ${currentCardData.minParticipants} participants.`,
-                es: `El número mínimo es de ${currentCardData.minParticipants} participantes.`
-            };
-
-            if (isNaN(numParticipants) || numParticipants < currentCardData.minParticipants) {
-                errorMessageEl.textContent = errorMessages[currentLang] || errorMessages['it'];
-                errorMessageEl.style.display = 'block';
-                calculatedPriceEl.textContent = '-';
-                paymentOptionsContainer.style.visibility = 'hidden';
-            } else {
-                errorMessageEl.style.display = 'none';
-                const totalPrice = numParticipants * currentCardData.pricePerPerson;
-                const formattedPrice = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(totalPrice);
-                calculatedPriceEl.textContent = formattedPrice;
-                paymentOptionsContainer.style.visibility = 'visible';
-            }
-        };
-
-        allGroupBookingButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                const planCard = event.target.closest('.plan');
-                currentCardData = {
-                    productCode: planCard.dataset.productCode,
-                    pricePerPerson: parseFloat(planCard.dataset.pricePerPerson),
-                    minParticipants: parseInt(planCard.dataset.minParticipants, 10)
-                };
-
-                participantsInput.value = currentCardData.minParticipants;
-                participantsInput.min = currentCardData.minParticipants;
-                
-                // --- NUOVA LOGICA PER IL MODALE DI GRUPPO ---
-				const paymentOptionsContainer = groupBookingModal.querySelector('#modal-payment-options');
-				paymentOptionsContainer.innerHTML = `
-					<p data-translate-key="paymentMethodLabel">Scegli un metodo di pagamento:</p>
-					<div id="paypal-group-container" style="margin-bottom: 15px;"></div>
-					<div id="mercadopago-group-container" style="margin-bottom: 15px;"></div>
-					`;
-				
-				// Quando il numero di partecipanti cambia, aggiorniamo le opzioni di pagamento
-				const participantsInput = groupBookingModal.querySelector('#modal-participants-input');
-				const setupGroupPayments = () => {
-					const numParticipants = parseInt(participantsInput.value, 10);
-					const options = {
-						productCode: currentCardData.productCode,
-						participants: numParticipants
-					};
-					
-					// Controlla se il numero di partecipanti è valido prima di mostrare i bottoni
-					if (numParticipants >= currentCardData.minParticipants) {
+	const allGroupBookingButtons = document.querySelectorAll('.open-group-booking-modal');
+	const groupBookingModal = document.getElementById('group-booking-modal');
+	
+	if (allGroupBookingButtons.length > 0 && groupBookingModal) {
+		// Aggiungiamo un solo listener all'input, che gestirà gli aggiornamenti
+		const participantsInput = groupBookingModal.querySelector('#modal-participants-input');
+		let updateFunction; // Funzione di aggiornamento che definiremo al click
+	
+		// Pulisci i listener precedenti per sicurezza
+		const newInput = participantsInput.cloneNode(true);
+		participantsInput.parentNode.replaceChild(newInput, participantsInput);
+	
+		newInput.addEventListener('input', () => {
+			if (typeof updateFunction === 'function') {
+				updateFunction();
+			}
+		});
+	
+		allGroupBookingButtons.forEach(button => {
+			button.addEventListener('click', (event) => {
+				const planCard = event.target.closest('.plan');
+				if (!planCard) return;
+	
+				const cardData = {
+					productCode: planCard.dataset.productCode,
+					pricePerPerson: parseFloat(planCard.dataset.pricePerPerson),
+					minParticipants: parseInt(planCard.dataset.minParticipants, 10)
+				};
+	
+				const calculatedPriceEl = groupBookingModal.querySelector('#modal-calculated-price');
+				const errorMessageEl = groupBookingModal.querySelector('#modal-participant-error');
+				const paymentContainer = groupBookingModal.querySelector('#modal-payment-options');
+	
+				// Impostiamo i valori iniziali del modale
+				newInput.value = cardData.minParticipants;
+				newInput.min = cardData.minParticipants;
+	
+				// Definiamo cosa deve fare la nostra funzione di aggiornamento
+				updateFunction = () => {
+					const numParticipants = parseInt(newInput.value, 10); // Usa sempre newInput
+					const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+	
+					if (isNaN(numParticipants) || numParticipants < cardData.minParticipants) {
+						calculatedPriceEl.textContent = '-';
+						paymentContainer.innerHTML = '';
+					} else {
+						const totalPrice = numParticipants * cardData.pricePerPerson;
+						calculatedPriceEl.textContent = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(totalPrice);
+	
+						paymentContainer.innerHTML = `
+							<p data-translate-key="paymentMethodLabel">Scegli un metodo di pagamento:</p>
+							<div id="paypal-group-container" style="margin-bottom: 15px;"></div>
+							<div id="mercadopago-group-container" style="margin-bottom: 15px;"></div>
+						`;
+	
+						// --- CORREZIONE 1: Aggiungiamo la chiamata per tradurre il nuovo testo ---
+						updateUITexts(currentLang); 
+	
+						const options = {
+							productCode: cardData.productCode,
+							participants: numParticipants
+						};
 						handlePayPalPurchase('paypal-group-container', options);
 						handleMercadoPagoPurchase('mercadopago-group-container', options);
 					}
 				};
-				
-				// Aggiorna i pulsanti quando l'input cambia
-				participantsInput.addEventListener('change', setupGroupPayments);
-				
-				// Esegui la prima volta che il modale si apre
-				setupGroupPayments();
-				updateGroupPrice();
+	
+				// Eseguiamo l'aggiornamento la prima volta che il modale si apre
+				updateFunction();
 				openModal('group-booking-modal');
-            });
-        });
-        participantsInput.addEventListener('input', updateGroupPrice);
-    }
+			});
+		});
+	}
 
     // --- LOGICA PER PRENOTAZIONE INDIVIDUALE ---
     const allIndividualBookingButtons = document.querySelectorAll('.open-individual-booking-modal');
