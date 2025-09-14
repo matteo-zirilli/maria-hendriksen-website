@@ -2852,15 +2852,15 @@ if (whatsappContactButton && interestModal) {
 	const allGroupBookingButtons = document.querySelectorAll('.open-group-booking-modal');
 	const groupBookingModal = document.getElementById('group-booking-modal');
 	
+	// in script.js, SOSTITUISCI il vecchio blocco per i piani di gruppo con QUESTO
+
 	if (allGroupBookingButtons.length > 0 && groupBookingModal) {
-		// Aggiungiamo un solo listener all'input, che gestirà gli aggiornamenti
 		const participantsInput = groupBookingModal.querySelector('#modal-participants-input');
-		let updateFunction; // Funzione di aggiornamento che definiremo al click
+		let updateFunction; 
 	
-		// Pulisci i listener precedenti per sicurezza
 		const newInput = participantsInput.cloneNode(true);
 		participantsInput.parentNode.replaceChild(newInput, participantsInput);
-	
+		
 		newInput.addEventListener('input', () => {
 			if (typeof updateFunction === 'function') {
 				updateFunction();
@@ -2879,17 +2879,16 @@ if (whatsappContactButton && interestModal) {
 				};
 	
 				const calculatedPriceEl = groupBookingModal.querySelector('#modal-calculated-price');
-				const errorMessageEl = groupBookingModal.querySelector('#modal-participant-error');
 				const paymentContainer = groupBookingModal.querySelector('#modal-payment-options');
 	
-				// Impostiamo i valori iniziali del modale
 				newInput.value = cardData.minParticipants;
 				newInput.min = cardData.minParticipants;
 	
-				// Definiamo cosa deve fare la nostra funzione di aggiornamento
 				updateFunction = () => {
-					const numParticipants = parseInt(newInput.value, 10); // Usa sempre newInput
+					const numParticipants = parseInt(newInput.value, 10);
 					const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+					// Aggiungiamo la variabile translations qui
+					const translations = languages[currentLang] || languages['it'];
 	
 					if (isNaN(numParticipants) || numParticipants < cardData.minParticipants) {
 						calculatedPriceEl.textContent = '-';
@@ -2897,16 +2896,16 @@ if (whatsappContactButton && interestModal) {
 					} else {
 						const totalPrice = numParticipants * cardData.pricePerPerson;
 						calculatedPriceEl.textContent = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(totalPrice);
-	
+						
+						// --- ECCO LA RIGA CORRETTA ---
 						paymentContainer.innerHTML = `
-							<p data-translate-key="paymentMethodLabel">Scegli un metodo di pagamento:</p>
+							<p data-translate-key="paymentMethodLabel" style="text-align:center; font-weight: 500;">${translations.paymentMethodLabel || "Scegli un metodo di pagamento:"}</p>
 							<div id="paypal-group-container" style="margin-bottom: 15px;"></div>
 							<div id="mercadopago-group-container" style="margin-bottom: 15px;"></div>
 						`;
-	
-						// --- CORREZIONE 1: Aggiungiamo la chiamata per tradurre il nuovo testo ---
+						
 						updateUITexts(currentLang); 
-	
+						
 						const options = {
 							productCode: cardData.productCode,
 							participants: numParticipants
@@ -2916,7 +2915,6 @@ if (whatsappContactButton && interestModal) {
 					}
 				};
 	
-				// Eseguiamo l'aggiornamento la prima volta che il modale si apre
 				updateFunction();
 				openModal('group-booking-modal');
 			});
