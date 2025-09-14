@@ -34,7 +34,7 @@ exports.handler = async function(event, context) {
             .from('reviews')
             .insert([
                 // Ora includiamo anche l'ID dell'utente che ha lasciato la recensione
-                { user_id: userId, name: name, rating: rating, comment: comment, is_approved: false }
+                { user_id: userId, name: name, rating: rating, comment: comment, is_approved: true }
             ])
             .select();
 

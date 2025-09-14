@@ -52,11 +52,9 @@
 
     <main class="container">
         <section>
-            <h1 id="contentHeading">I Miei Contenuti</h1>
-            <p id="contentIntro">Esplora risorse, video e articoli dedicati allo Yoga e alla Fisioterapia per approfondire la tua pratica e il tuo percorso di benessere.</p>
+            <h1 id="contentHeading" data-translate-key="contentHeading">I Miei Contenuti</h1>
+            <p id="contentIntro" data-translate-key="contentIntro">Esplora risorse, video e articoli dedicati allo Yoga e alla Fisioterapia per approfondire la tua pratica e il tuo percorso di benessere.</p>
         </section>
-		
-		
 		
 		<section class="youtube-subscribe-section">
 			<h2 data-translate-key="youtubeSectionTitle">Seguimi su YouTube</h2>
@@ -67,12 +65,25 @@
 			</a>
 		</section>
 		
-		
-
         <section class="content-section">
 			<h2 id="contentYogaTitle" data-translate-key="contentYogaTitle">Contenuti Yoga</h2>
 			<div class="content-grid" id="yoga-videos-grid">
 				<p>Caricamento video in corso...</p>
+			</div>
+			
+			<div id="pacchetti-video" style="padding-top: 60px; padding-bottom: 50px;">
+			
+				<div style="text-align: left; max-width: 800px; margin-bottom: 40px;">
+					<p class="eyebrow-text" data-translate-key="packagesEyebrow">Percorsi Esclusivi</p>
+					<h2 id="packagesTitle" data-translate-key="packagesTitle">Approfondisci il Tuo Percorso con i Nostri Pacchetti Video</h2>
+					<p id="packagesSubtitle" data-translate-key="packagesSubtitle">
+						Scegli il percorso più adatto a te. Accedi a collezioni di video on-demand per allenarti dove e quando vuoi, con la guida esperta di Maria.
+					</p>
+				</div>
+			
+				<div id="packages-container" class="packages-grid">
+					</div>
+			
 			</div>
 		</section>
 		
@@ -83,76 +94,120 @@
 			</div>
 		</section>
 		
-		
         <section class="reviews-section">
            
+            <h2 id="reviewsHeading" data-translate-key="reviewsHeading">Dicono di Me / Recensioni</h2>
 
-            <h3 id="dynamicReviewsHeading">Le Vostre Recensioni</h3>
-            <div id="reviews-list-container">
-                <p>Caricamento recensioni...</p> </div>
+            <h3 id="testimonialGalleryHeading" data-translate-key="testimonialGalleryHeading">Alcune Testimonianze</h3>
+            <p id="testimonialGalleryIntro" data-translate-key="testimonialGalleryIntro">
+                Qui puoi vedere alcuni dei messaggi e delle esperienze condivise da chi ha seguito un percorso con me.
+            </p>
+			
+			
+			
+			
+            <div class="testimonial-carousel">
+				<div id="testimonial-track" class="testimonial-carousel__track">
+			
+					<div class="testimonial-carousel__item">
+						<img src="images/Recensione1_whatsapp.jpeg" alt="Testimonianza 1">
+					</div>
+					<div class="testimonial-carousel__item">
+						<img src="images/Recensione2_whatsapp.jpeg" alt="Testimonianza 2">
+					</div>
+					<div class="testimonial-carousel__item">
+						<img src="images/Recensione3_whatsapp.jpeg" alt="Testimonianza 3">
+					</div>
+					<div class="testimonial-carousel__item">
+						<img src="images/Recensione4_whatsapp.jpeg" alt="Testimonianza 4">
+					</div>
+					<div class="testimonial-carousel__item">
+						<img src="images/Recensione5_whatsapp.jpeg" alt="Testimonianza 5">
+					</div>
+					
+					<div class="testimonial-carousel__item">
+						<img src="images/Recensione6_whatsapp.jpeg" alt="Testimonianza 6">
+					</div>
+					
+					<div class="testimonial-carousel__item">
+						<img src="images/Recensione7_whatsapp.jpeg" alt="Testimonianza 7">
+					</div>
+					
+					<div class="testimonial-carousel__item">
+						<img src="images/Recensione8_whatsapp.jpeg" alt="Testimonianza 8">
+					</div>
+					
+				</div>
+				
+				
+				<button class="slider-arrow slider-arrow--prev" aria-label="Testimonianza precedente">&#10094;</button>
+				<button class="slider-arrow slider-arrow--next" aria-label="Prossima testimonianza">&#10095;</button>
+				
+				
+			</div>
 
             <hr style="margin: 30px 0;">
 
-            <h3 id="reviewFormHeading">Lascia la Tua Recensione</h3>
-            <p id="reviewFormIntro">
+            <h3 id="dynamicReviewsHeading" data-translate-key="dynamicReviewsHeading">Le Vostre Recensioni</h3>
+			<div class="reviews-slider"> <div class="reviews-slider__container"> <div id="reviews-list-container" class="reviews-slider__track"> <p>Caricamento recensioni...</p>
+					</div>
+				</div>
+				<button class="slider-arrow slider-arrow--prev" aria-label="Recensione precedente">&#10094;</button>
+				<button class="slider-arrow slider-arrow--next" aria-label="Prossima recensione">&#10095;</button>
+			</div>
+
+            <hr style="margin: 30px 0;">
+
+            <h3 id="reviewFormHeading" data-translate-key="reviewFormHeading">Lascia la Tua Recensione</h3>
+            <p id="reviewFormIntro" data-translate-key="reviewFormIntro">
                 Hai seguito delle lezioni o un percorso di fisioterapia con me? La tua opinione è preziosa! Compila il modulo
                 qui sotto per condividere la tua esperienza.
             </p>
 
             <form id="review-form">
-                <label for="reviewName" id="reviewLabelName">Il tuo nome (o come vuoi apparire):</label>
+                <label for="reviewName" id="reviewLabelName" data-translate-key="reviewLabelName">Il tuo nome (o come vuoi apparire):</label>
                 <input type="text" id="reviewName" name="nome" required>
 
-                <label for="reviewRating" id="reviewLabelRating">Valutazione (da 1 a 5 stelle):</label>
+                <label for="reviewRating" id="reviewLabelRating" data-translate-key="reviewLabelRating">Valutazione (da 1 a 5 stelle):</label>
                 <div class="star-rating">
 					<select id="reviewRating" name="valutazione_stelle" required>
-						<option value="" id="ratingOptionDefault">-- Seleziona Valutazione --</option>
-						<option value="5" id="ratingOption5">★★★★★ (Eccellente)</option>
-						<option value="4" id="ratingOption4">★★★★☆ (Molto Buono)</option>
-						<option value="3" id="ratingOption3">★★★☆☆ (Buono)</option>
-						<option value="2" id="ratingOption2">★★☆☆☆ (Sufficiente)</option>
-						<option value="1" id="ratingOption1">★☆☆☆☆ (Insufficiente)</option>
+						<option value="" id="ratingOptionDefault" data-translate-key="ratingOptionDefault">-- Seleziona Valutazione --</option>
+						<option value="5" id="ratingOption5" data-translate-key="ratingOption5">★★★★★ (Eccellente)</option>
+						<option value="4" id="ratingOption4" data-translate-key="ratingOption4">★★★★☆ (Molto Buono)</option>
+						<option value="3" id="ratingOption3" data-translate-key="ratingOption3">★★★☆☆ (Buono)</option>
+						<option value="2" id="ratingOption2" data-translate-key="ratingOption2">★★☆☆☆ (Sufficiente)</option>
+						<option value="1" id="ratingOption1" data-translate-key="ratingOption1">★☆☆☆☆ (Insufficiente)</option>
 					</select>
 				</div>
 
-                <label for="reviewComment" id="reviewLabelMessage">La tua recensione:</label>
+                <label for="reviewComment" id="reviewLabelMessage" data-translate-key="reviewLabelMessage">La tua recensione:</label>
                 <textarea id="reviewComment" name="messaggio_recensione" rows="5" required></textarea>
 
                 <div id="review-form-message" class="form-message" role="status" aria-live="polite"></div>
 
-                <button type="submit" id="reviewSubmitButton">Invia Recensione</button>
+                <button type="submit" id="reviewSubmitButton" data-translate-key="reviewSubmitButton">Invia Recensione</button>
 
-                <p class="review-form-notes" id="reviewFormNotes">
+                <p class="review-form-notes" id="reviewFormNotes" data-translate-key="reviewFormNotes">
                     Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per
                     la tua condivisione!
                 </p>
             </form>
-			
-			 <h2 id="reviewsHeading">Dicono di Me / Recensioni</h2>
-
-            <h3 id="testimonialGalleryHeading">Alcune Testimonianze</h3>
-            <p id="testimonialGalleryIntro">
-                Qui puoi vedere alcuni dei messaggi e delle esperienze condivise da chi ha seguito un percorso con me.
-            </p>
-            <div class="testimonial-gallery">
-                <div class="testimonial-image"><img src="images/Recensione1_whatsapp.jpeg" alt="Testimonianza cliente 1"></div>
-                <div class="testimonial-image"><img src="images/Recensione2_whatsapp.jpeg" alt="Testimonianza cliente 2"></div>
-                <div class="testimonial-image"><img src="images/Recensione3_whatsapp.jpeg" alt="Testimonianza cliente 3"></div>
-                <div class="testimonial-image"><img src="images/Recensione4_whatsapp.jpeg" alt="Testimonianza cliente 4"></div>
-                <div class="testimonial-image"><img src="images/Recensione5_whatsapp.jpeg" alt="Testimonianza cliente 5"></div>
-            </div>
-
-            <hr style="margin: 30px 0;">
         </section>
-        </main> <footer>
+    </main>
+    
+    <footer>
         <div class="container">
-            <p id="footerText">&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.</p>
+            <p id="footerText" data-translate-key="footerText">&copy; 2025 Maria Guillermina Hendriksen. Tutti i diritti riservati.</p>
         </div>
     </footer>
 
-    <script src="https://www.paypal.com/sdk/js?client-id=AUGpFj_tWjcdMsYD3RYGC2-_9EIlwhYVHfy5JlMt8eBu5ebS6u1SkaQ4OAuo_blThQYYTq3XAU0tCOVa&currency=EUR&disable-funding=card,sepa,giropay&intent=capture"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/script.js"></script>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+	<!-- <script src="https://www.paypal.com/sdk/js?client-id=AUGpFj_tWjcdMsYD3RYGC2-_9EIlwhYVHfy5JlMt8eBu5ebS6u1SkaQ4OAuo_blThQYYTq3XAU0tCOVa&currency=EUR&disable-funding=card,sepa,giropay&intent=capture"></script> codice per develop vecchia chiave-->
+	<!-- <script src="https://www.paypal.com/sdk/js?client-id=Acvt784qPKLuTAZWvtGD_r7N_0nQwx2ubaB0rxdvwoLjOoupqrsBcTLV6IH1ANJB9V1-Y9O7lFPn8wEo&currency=EUR&disable-funding=card,sepa,giropay&intent=capture"></script> codice per develop-->
+	<!--<script src="https://www.paypal.com/sdk/js?client-id=Aaw2CG5rEYhIRacnWWxY30eedguoQqMb4SKw-tx_dwvSGnIIGnpCgt1OIYnHn-kBDR_EldpRVcOsnitG&currency=EUR&disable-funding=card,sepa,giropay&intent=capture">-->
+	
+	<script src="js/script.js"></script>
 
     <div id="login-modal" class="auth-modal">
         <div class="modal-content">
@@ -184,5 +239,30 @@
             </form>
         </div>
     </div>
+	
+	<div id="package-modal" class="auth-modal">
+			<div class="modal-content">
+				<span class="close-button" id="close-package-modal">&times;</span>
+				<h3 id="modal-title"></h3>
+				<p id="modal-description"></p>
+				
+				<div class="modal-instructions">
+					<p data-translate-key="modalInstructions">
+						Per accedere, segui questi 2 passi: completa il pagamento e poi invia la richiesta di accesso. L'accesso verrà approvato entro 24 ore dalla verifica.
+					</p>
+				</div>
+		
+				<div class="modal-section">
+					<h4 data-translate-key="modalStep1">Passo 1: Scegli un metodo di pagamento</h4>
+					<div id="modal-payment-buttons" class="payment-buttons">
+						</div>
+				</div>
+		
+				<div class="modal-section">
+					<h4 data-translate-key="modalStep2">Passo 2: Richiedi l'accesso</h4>
+					<a href="#" id="modal-drive-link" class="cta-button" target="_blank" data-translate-key="modalRequestAccess">Richiedi Accesso alla Cartella</a>
+				</div>
+			</div>
+		</div>
     </body>
 </html>

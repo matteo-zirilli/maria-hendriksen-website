@@ -33,6 +33,12 @@ const languages = {
         "mainSubtitle": "Fisioterapista esperta e Istruttrice di Yoga certificata, dedicata al tuo benessere.",
         "ctaButton": "Scopri di più e Prenota",
         "signup-button": "Registrati",
+		"loginTitle": "Login",
+		"labelPassword": "Password:",
+		"loginButtonText": "Accedi",
+		"signupTitle": "Registrati",
+		"labelPasswordSignup": "Password (min. 6 caratteri):",
+		"signupButtonText": "Registrati",
         "mottoPart1": "Ascolta il tuo corpo.",
         "mottoPart2": "Respira nel presente.",
         "mottoPart3": "Muoviti verso il benessere.",
@@ -44,10 +50,12 @@ const languages = {
         "pageTitleAbout": "Chi Sono - Maria G. Hendriksen",
         "aboutHeading": "Chi Sono",
         "aboutQualifications": "Le mie qualifiche",
-        "Qualification1": "Laurea in Kinesiologia e Fisiatria conseguita presso l'Universidad Católica de La Plata, Argentina, con Apostilla de La Haya che ne certifica l'autenticità internazionale.",
+        "Qualification1": "Laurea in Fisioterapia e Fisiatria conseguita presso l'Universidad Católica de La Plata, Argentina.",
+		"Qualification2": "Certificazione come Istruttrice di Yoga presso la Federazione Argentina di Yoga.",
         "caption_degree_certificate": "Estratto del Certificato di Laurea",
+		"caption_degree_main": "Certificato di Laurea",
+		"caption_degree_main 2": "Certificato Istruttrice di Yoga",
         "caption_apostille": "Apostilla de La Haya",
-        "Qualification2": "Certificato Istruttrice di Yoga",
         "aboutP1": "Sono Maria Guillermina Hendriksen, una fisioterapista appassionata e istruttrice di Yoga con diversi anni di esperienza, maturata fin dalla laurea, nel campo del recupero funzionale e del benessere psicofisico.",
         "aboutP2": "La mia missione è aiutare le persone a ritrovare l'equilibrio tra corpo e mente, superare il dolore e migliorare la qualità della loro vita attraverso un approccio integrato e personalizzato.",
         "aboutFormationTitle": "Formazione e Filosofia",
@@ -203,8 +211,8 @@ const languages = {
         "reviewFormNotes": "Nota: Le recensioni inviate tramite questo modulo verranno moderate prima della pubblicazione. Grazie per la tua condivisione!",
 		"bookingForText": "Stai prenotando:",
 		"bizumCTAButton": "Invia Conferma via WhatsApp",
-		"whatsappMessage": "Ciao Maria, ti contatto dal tuo sito. Vorrei acquistare il servizio '[SERVICE_NAME]' e pagare con Bizum. Resto in attesa di istruzioni. Grazie!",
-		"bizumInfoText": "Per questo servizio, la prenotazione si finalizza con un contatto personale. Procedi su WhatsApp per definire l'appuntamento e il pagamento direttamente con Maria.",
+		"whatsappMessage": "Ciao Guille, ti contatto dal tuo sito. Vorrei acquistare il servizio '[SERVICE_NAME]' e pagare con Bizum. Resto in attesa di istruzioni. Grazie!",
+		"bizumInfoText": "Per questo servizio, la prenotazione si finalizza con un contatto personale. Procedi su WhatsApp per definire l'appuntamento e il pagamento direttamente con Guillermina.",
 		"bizumProceedButton": "Procedi su WhatsApp",
 		"youtubeSectionTitle": "Seguimi su YouTube",
 		"youtubeSectionText": "Non perderti i nuovi video e le lezioni complete. Iscriviti al canale per rimanere sempre aggiornato.",
@@ -214,14 +222,49 @@ const languages = {
 		"thankYouTitle": "Grazie! Il tuo pagamento è stato ricevuto.",
 		"thankYouText": "Per completare la prenotazione, segui questi due passaggi:",
 		"thankYouButtonForm": "1. Compila la tua Storia Clinica",
-		"thankYouButtonWP": "2. Contatta Maria per Fissare l'Appuntamento",
-		"whatsappMessageFisio": "Ciao Maria, ho appena effettuato il pagamento per una sessione di Fisioterapia e compilato il modulo clinico. Vorrei fissare l'appuntamento. Grazie!",
+		"thankYouButtonWP": "2. Contatta Guillermina per Fissare l'Appuntamento",
+		"whatsappMessageFisio": "Ciao Guille, ho appena effettuato il pagamento per una sessione di Fisioterapia e compilato il modulo clinico. Vorrei fissare l'appuntamento. Grazie!",
 		"bizumTitle": "Finalizza con Bizum",
-		"bizumInstructions": "Per completare, invia un Bizum al numero qui sotto. Successivamente, puoi contattare Maria su WhatsApp per fissare l'appuntamento.",
+		"bizumInstructions": "Per completare, invia un Bizum al numero qui sotto. Successivamente, puoi contattare Guillermina su WhatsApp per fissare l'appuntamento.",
 		"bizumAmount": "Importo:",
 		"bizumPhoneNumber": "Numero di Telefono:",
 		"bizumWhatsappButton": "Contatta su WhatsApp per Prenotare",
-		"bizumFormButton": "Compila Modulo Clinico"
+		"bizumFormButton": "Compila Modulo Clinico",
+		// --- NUOVI TESTI PER LA SEZIONE PACCHETTI ---
+        "packagesEyebrow": "Percorsi Esclusivi",
+        "packagesTitle": "Approfondisci il Tuo Percorso con i Nostri Pacchetti Video",
+        "packagesSubtitle": "Scegli il percorso più adatto a te. Accedi a collezioni di video on-demand per allenarti dove e quando vuoi, con la guida esperta di Guillermina.",
+        "packageDiscoverButton": "Scopri di più",
+        
+        "package1Title": "Yoga & Mobilità Funzionale",
+        "package1Desc": "Sblocca il tuo corpo e migliora la postura con questo percorso di 4 lezioni che fonde la consapevolezza dello Yoga con esercizi di mobilità funzionale. Ideale per chi cerca flessibilità e una nuova libertà di movimento.",
+        
+        "package2Title": "Le Basi dello Yoga",
+        "package2Desc": "Inizia o approfondisci il tuo viaggio nello Yoga con questo pacchetto di 2 lezioni essenziali. Pensato per principianti e intermedi, ti guiderà attraverso le fondamenta della pratica, costruendo forza ed equilibrio.",
+
+        "package3Title": "Allenamento Completo a Casa",
+        "package3Desc": "Trasforma il tuo spazio in una palestra con queste 4 lezioni di allenamento completo. Sfrutta bande elastiche e il tuo peso corporeo per un training efficace, completato da esercizi di recupero.",
+
+        "package4Title": "Immersione Totale nello Yoga",
+        "package4Desc": "La collezione definitiva per l'amante dello Yoga. Questo pacchetto di 10 video-lezioni ti accompagnerà attraverso diversi stili e livelli, da pratiche energizzanti a sequenze rilassanti, per un'esperienza completa.",
+        
+        "modalInstructions": "Per accedere, segui questi 2 passi: completa il pagamento e poi invia la richiesta di accesso. L'accesso verrà approvato entro 24 ore dalla verifica.",
+        "modalStep1": "Passo 1: Scegli un metodo di pagamento",
+        "modalStep2": "Passo 2: Richiedi l'accesso",
+        "modalRequestAccess": "Richiedi Accesso alla Cartella",
+		"payWithARS": "o paga in Pesos Argentini ({price}) con",
+		"payWithBizum": "o paga con Bizum via WhatsApp",
+		"heroContactPrompt": "Hai domande o preferisci un contatto diretto? Scrivimi, sarò felice di risponderti.",
+		"heroContactButton": "Contattami su WhatsApp",
+		"whatsappModalTitle": "Dimmi di più, a cosa sei interessato/a?",
+		"whatsappModalOptionYoga": "Yoga",
+		"whatsappModalOptionFisio": "Fisioterapia",
+		"whatsappModalOptionBoth": "Entrambi",
+		"whatsappBaseMessage": "Ciao Guille, ti contatto dal tuo sito web. Sarei interessato/a a ricevere maggiori informazioni riguardo ",
+		"whatsappServiceYoga": "i tuoi servizi di Yoga.",
+		"whatsappServiceFisio": "i tuoi servizi di Fisioterapia.",
+		"whatsappServiceBoth": "i tuoi servizi combinati di Yoga e Fisioterapia.",
+		"reviewLoginError": "Per lasciare una recensione devi prima effettuare il login. Accedi e riprova."
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -236,6 +279,12 @@ const languages = {
         "mainSubtitle": "Experienced Physiotherapist and Certified Yoga Instructor, dedicated to your well-being.",
         "ctaButton": "Learn More and Book",
         "signup-button": "Sign Up",
+		"loginTitle": "Login",
+		"labelPassword": "Password:",
+		"loginButtonText": "Log In",
+		"signupTitle": "Sign Up",
+		"labelPasswordSignup": "Password (min. 6 characters):",
+		"signupButtonText": "Sign Up",
         "mottoPart1": "Listen to your body.",
         "mottoPart2": "Breathe into the present.",
         "mottoPart3": "Move towards well-being.",
@@ -247,10 +296,12 @@ const languages = {
         "pageTitleAbout": "About Me - Maria G. Hendriksen",
         "aboutHeading": "About Me",
         "aboutQualifications": "My Qualifications",
-        "Qualification1": "Degree in Kinesiology and Physiatry obtained from the Universidad Católica de La Plata, Argentina, with Hague Apostille certifying its international authenticity.",
+        "Qualification1": "Degree in Physioterapy and physiatry obtained from the Universidad Católica de La Plata, Argentina.",
+		"Qualification2": "Yoga Instructor Certification from the Argentine Yoga Federation.",
+		"caption_degree_main": "Degree Certificate",
+		"caption_degree_main 2": "Yoga Instructor Certificate",
         "caption_degree_certificate": "Excerpt from Degree Certificate",
         "caption_apostille": "Haya Apostille",
-        "Qualification2": "Yoga Instructor Certificate",
         "aboutP1": "I am Maria Guillermina Hendriksen, a passionate physiotherapist and Yoga instructor with several years of experience, gained since graduation, in the field of functional recovery and psychophysical well-being.",
         "aboutP2": "My mission is to help people rediscover the balance between body and mind, overcome pain, and improve their quality of life through an integrated and personalized approach.",
         "aboutFormationTitle": "Training and Philosophy",
@@ -404,8 +455,8 @@ const languages = {
         "reviewFormNotes": "Note: Reviews submitted via this form will be moderated before publication. Thank you for sharing!",
 		"bookingForText": "You are booking:",
 		"bizumCTAButton": "Send Confirmation via WhatsApp",
-		"whatsappMessage": "Hi Maria, I'm contacting you from your website. I'd like to purchase the '[SERVICE_NAME]' service and pay with Bizum. I'm awaiting instructions. Thanks!",
-		"bizumInfoText": "For this service, the booking is finalized with personal contact. Proceed on WhatsApp to arrange your appointment and payment directly with Maria.",
+		"whatsappMessage": "Hi Guille, I'm contacting you from your website. I'd like to purchase the '[SERVICE_NAME]' service and pay with Bizum. I'm awaiting instructions. Thanks!",
+		"bizumInfoText": "For this service, the booking is finalized with personal contact. Proceed on WhatsApp to arrange your appointment and payment directly with Guillermina.",
 		"bizumProceedButton": "Proceed on WhatsApp",
 		"youtubeSectionTitle": "Follow me on YouTube",
 		"youtubeSectionText": "Don't miss new videos and full lessons. Subscribe to the channel to stay up to date.",
@@ -415,14 +466,51 @@ const languages = {
 		"thankYouTitle": "Thank you! Your payment has been received.",
 		"thankYouText": "To complete your booking, please follow these two steps:",
 		"thankYouButtonForm": "1. Fill out your Clinical History",
-		"thankYouButtonWP": "2. Contact Maria to Schedule the Appointment",
-		"whatsappMessageFisio": "Hi Maria, I have just paid for a Physiotherapy session and filled out the clinical form. I'd like to schedule the appointment. Thanks!",
+		"thankYouButtonWP": "2. Contact Guillermina to Schedule the Appointment",
+		"whatsappMessageFisio": "Hi Guille, I have just paid for a Physiotherapy session and filled out the clinical form. I'd like to schedule the appointment. Thanks!",
 		"bizumTitle": "Finalize with Bizum",
-		"bizumInstructions": "To complete your purchase, please send a Bizum to the number below. Afterwards, you can contact Maria on WhatsApp to schedule the appointment.",
+		"bizumInstructions": "To complete your purchase, please send a Bizum to the number below. Afterwards, you can contact Guillermina on WhatsApp to schedule the appointment.",
 		"bizumAmount": "Amount:",
 		"bizumPhoneNumber": "Phone Number:",
 		"bizumWhatsappButton": "Contact on WhatsApp to Book",
-		"bizumFormButton": "Fill Out Clinical Form"
+		"bizumFormButton": "Fill Out Clinical Form",
+		// --- NEW TEXTS FOR PACKAGES SECTION ---
+        "packagesEyebrow": "Exclusive Paths",
+        "packagesTitle": "Deepen Your Journey with Our Video Packages",
+        "packagesSubtitle": "Choose the path that suits you best. Access on-demand video collections to train wherever and whenever you want, with Guillermina's expert guidance.",
+        "packageDiscoverButton": "Discover more",
+
+        "package1Title": "Yoga & Functional Mobility",
+        "package1Desc": "Unlock your body and improve your posture with this 4-lesson journey that blends Yoga awareness with functional mobility exercises. Ideal for those seeking flexibility and a new freedom of movement.",
+
+        "package2Title": "The Basics of Yoga",
+        "package2Desc": "Begin or deepen your Yoga journey with this package of 2 essential lessons. Designed for beginners and intermediates, it will guide you through the foundations of the practice, building strength and balance.",
+
+        "package3Title": "Complete Home Workout",
+        "package3Desc": "Transform your space into a personal gym with these 4 complete workout lessons. Use resistance bands and your body weight for an effective training session, complete with recovery exercises.",
+
+        "package4Title": "Total Yoga Immersion",
+        "package4Desc": "The ultimate collection for the Yoga lover. This package of 10 video lessons will guide you through different styles and levels, from energizing practices to relaxing sequences, for a complete experience.",
+
+        "modalInstructions": "To gain access, follow these 2 steps: complete the payment and then submit the access request. Access will be granted within 24 hours of verification.",
+        "modalStep1": "Step 1: Choose a payment method",
+        "modalStep2": "Step 2: Request access",
+        "modalRequestAccess": "Request Access to Folder",
+		"planYogaInd5Feat1": "5 individual lessons (60 min/each)",
+		"planYogaInd5Feat2": "Discount on the total price",
+		"payWithARS": "or pay in Argentine Pesos ({price}) with",
+		"payWithBizum": "or pay with Bizum via WhatsApp",
+		"heroContactPrompt": "Do you have questions or prefer direct contact? Write to me, I'll be happy to reply.",
+		"heroContactButton": "Contact me on WhatsApp",
+		"whatsappModalTitle": "Tell me more, what are you interested in?",
+		"whatsappModalOptionYoga": "Yoga",
+		"whatsappModalOptionFisio": "Physiotherapy",
+		"whatsappModalOptionBoth": "Both",
+		"whatsappBaseMessage": "Hello Guille, I'm contacting you from your website. I would be interested in receiving more information about ",
+		"whatsappServiceYoga": "your Yoga services.",
+		"whatsappServiceFisio": "your Physiotherapy services.",
+		"whatsappServiceBoth": "your combined Yoga and Physiotherapy services.",
+		"reviewLoginError": "You must be logged in to leave a review. Please log in and try again."
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -437,6 +525,12 @@ const languages = {
         "mainSubtitle": "Fisioterapeuta experta e Instructora de Yoga certificada, dedicada a tu bienestar.",
         "ctaButton": "Descubre Más y Reserva",
         "signup-button": "Regístrate",
+		"loginTitle": "Iniciar Sesión",
+		"labelPassword": "Contraseña:",
+		"loginButtonText": "Acceder",
+		"signupTitle": "Regístrate",
+		"labelPasswordSignup": "Contraseña (mín. 6 caracteres):",
+		"signupButtonText": "Registrarse",
         "mottoPart1": "Escucha a tu cuerpo.",
         "mottoPart2": "Respira en el presente.",
         "mottoPart3": "Muévete hacia el bienestar.",
@@ -448,10 +542,12 @@ const languages = {
         "pageTitleAbout": "Sobre Mí - Maria G. Hendriksen",
         "aboutHeading": "Sobre Mí",
         "aboutQualifications": "Mis Cualificaciones",
-        "Qualification1": "Licenciatura en Kinesiología y Fisiatría obtenida en la Universidad Católica de La Plata, Argentina, con Apostilla de La Haya que certifica su autenticidad internacional.",
+        "Qualification1": "Licenciatura en Kinesiología y Fisiatría obtenida en la Universidad Católica de La Plata, Argentina.",
+		"Qualification2": "Certificación como Instructora de Yoga por la Federación Argentina de Yoga.",
+		"caption_degree_main": "Certificado de Grado",
+		"caption_degree_main 2": "Certificado de Instructora de Yoga",
         "caption_degree_certificate": "Extracto del Certificado de Grado",
         "caption_apostille": "Apostilla de La Haya",
-        "Qualification2": "Certificado de Instructora de Yoga",
         "aboutP1": "Soy Maria Guillermina Hendriksen, una fisioterapeuta apasionada e instructora de Yoga con varios años de experiencia, adquirida desde la graduación, en el campo de la recuperación funcional y el bienestar psicofísico.",
         "aboutP2": "Mi misión es ayudar a las personas a reencontrar el equilibrio entre cuerpo y mente, superar el dolor y mejorar la calidad de su vida a través de un enfoque integrado y personalizado.",
         "aboutFormationTitle": "Formación y Filosofía",
@@ -605,8 +701,8 @@ const languages = {
         "reviewFormNotes": "Nota: Las reseñas enviadas a través de este formulario serán moderadas antes de su publicación. ¡Gracias por compartir!",
 		"bookingForText": "Estás reservando:",
 		"bizumCTAButton": "Enviar Confirmación por WhatsApp",
-		"whatsappMessage": "Hola Maria, te contacto desde tu web. Me gustaría comprar el servicio '[NOMBRE_DEL_SERVICIO]' y pagar con Bizum. Quedo a la espera de instrucciones. ¡Gracias!",
-		"bizumInfoText": "Para este servicio, la reserva se finaliza con un contacto personal. Procede en WhatsApp para definir tu cita y el pago directamente con Maria.",
+		"whatsappMessage": "Hola Guille, te contacto desde tu web. Me gustaría comprar el servicio '[NOMBRE_DEL_SERVICIO]' y pagar con Bizum. Quedo a la espera de instrucciones. ¡Gracias!",
+		"bizumInfoText": "Para este servicio, la reserva se finaliza con un contacto personal. Procede en WhatsApp para definir tu cita y el pago directamente con Guillermina.",
 		"bizumProceedButton": "Proceder en WhatsApp",
 		"youtubeSectionTitle": "Sígueme en YouTube",
 		"youtubeSectionText": "No te pierdas los nuevos vídeos y las clases completas. Suscríbete al canal para mantenerte siempre al día.",
@@ -616,17 +712,213 @@ const languages = {
 		"thankYouTitle": "¡Gracias! Hemos recibido tu pago.",
 		"thankYouText": "Para completar tu reserva, por favor sigue estos dos pasos:",
 		"thankYouButtonForm": "1. Completa tu Historia Clínica",
-		"thankYouButtonWP": "2. Contacta a Maria para Agendar la Cita",
-		"whatsappMessageFisio": "Hola Maria, acabo de realizar el pago para una sesión de Fisioterapia y he completado el formulario clínico. Me gustaría agendar la cita. ¡Gracias!",
+		"thankYouButtonWP": "2. Contacta a Guillermina para Agendar la Cita",
+		"whatsappMessageFisio": "Hola Guille, acabo de realizar el pago para una sesión de Fisioterapia y he completado el formulario clínico. Me gustaría agendar la cita. ¡Gracias!",
 		"bizumTitle": "Finalizar con Bizum",
-		"bizumInstructions": "Para completar tu compra, envía un Bizum al número de abajo. Después, puedes contactar a Maria por WhatsApp para agendar la cita.",
+		"bizumInstructions": "Para completar tu compra, envía un Bizum al número de abajo. Después, puedes contactar a Guillermina por WhatsApp para agendar la cita.",
 		"bizumAmount": "Importe:",
 		"bizumPhoneNumber": "Número de Teléfono:",
 		"bizumWhatsappButton": "Contactar por WhatsApp para Reservar",
-		"bizumFormButton": "Completar Formulario Clínico"
+		"bizumFormButton": "Completar Formulario Clínico",
+		// --- NEW TEXTS FOR PACKAGES SECTION ---
+        "packagesEyebrow": "Recorridos Exclusivos",
+        "packagesTitle": "Profundiza Tu Camino con Nuestros Paquetes de Vídeo",
+        "packagesSubtitle": "Elige el recorrido que mejor se adapte a ti. Accede a colecciones de vídeos bajo demanda para entrenar donde y cuando quieras, con la guía experta de María.",
+        "packageDiscoverButton": "Descubre más",
+
+        "package1Title": "Yoga y Movilidad Funcional",
+        "package1Desc": "Desbloquea tu cuerpo y mejora tu postura con este recorrido de 4 clases que fusiona la conciencia del Yoga con ejercicios de movilidad funcional. Ideal para quienes buscan flexibilidad y una nueva libertad de movimiento.",
+
+        "package2Title": "Las Bases del Yoga",
+        "package2Desc": "Inicia o profundiza tu viaje en el Yoga con este paquete de 2 clases esenciales. Diseñado para principiantes e intermedios, te guiará a través de los fundamentos de la práctica, construyendo fuerza y equilibrio.",
+
+        "package3Title": "Entrenamiento Completo en Casa",
+        "package3Desc": "Transforma tu espacio en un gimnasio con estas 4 clases de entrenamiento completo. Utiliza bandas elásticas y tu peso corporal para un training efectivo, complementado con ejercicios de recuperación.",
+
+        "package4Title": "Inmersión Total en el Yoga",
+        "package4Desc": "La colección definitiva para el amante del Yoga. Este paquete de 10 video-clases te acompañará a través de diferentes estilos y niveles, desde prácticas energizantes hasta secuencias relajantes, para una experiencia completa.",
+
+        "modalInstructions": "Para acceder, sigue estos 2 pasos: completa el pago y luego envía la solicitud de acceso. El acceso se aprobará dentro de las 24 horas posteriores a la verificación.",
+        "modalStep1": "Paso 1: Elige un método de pago",
+        "modalStep2": "Paso 2: Solicita el acceso",
+        "modalRequestAccess": "Solicitar Acceso a la Carpeta",
+		"planYogaInd5Feat1": "5 clases individuales (60 min/cada una)",
+		"planYogaInd5Feat2": "Descuento sobre el total",
+		"payWithARS": "o paga en Pesos Argentinos ({price}) con",
+		"payWithBizum": "o paga con Bizum vía WhatsApp",
+		"heroContactPrompt": "¿Tienes preguntas o prefieres un contacto directo? Escríbeme, estaré encantada de responderte.",
+		"heroContactButton": "Contáctame por WhatsApp",
+		"whatsappModalTitle": "Cuéntame más, ¿en qué estás interesado/a?",
+		"whatsappModalOptionYoga": "Yoga",
+		"whatsappModalOptionFisio": "Fisioterapia",
+		"whatsappModalOptionBoth": "Ambos",
+		"whatsappBaseMessage": "Hola Guille, te contacto desde tu sitio web. Estaría interesado/a en recibir más información sobre ",
+		"whatsappServiceYoga": "tus servicios de Yoga.",
+		"whatsappServiceFisio": "tus servicios de Fisioterapia.",
+		"whatsappServiceBoth": "tus servicios combinados de Yoga y Fisioterapia.",
+		"reviewLoginError": "Debes iniciar sesión para dejar una reseña. Por favor, inicia sesión y vuelve a intentarlo."
 		
     }
 };
+
+
+
+let currentLanguage = localStorage.getItem('preferredLanguage') || 'es';
+
+
+
+
+
+// AGGIUNGI QUESTE DUE NUOVE FUNZIONI ALL'INIZIO DI script.js
+
+// Funzione 1: Carica l'SDK di PayPal con il Client ID corretto
+async function loadPayPalSDK() {
+    try {
+        // Chiediamo al nostro backend la chiave corretta
+        const response = await fetch('/.netlify/functions/get-config');
+        if (!response.ok) throw new Error('Risposta del backend non valida');
+
+        const config = await response.json();
+        const clientId = config.paypalClientId;
+
+        if (!clientId) {
+            console.error('Client ID di PayPal non ricevuto dal backend.');
+            return;
+        }
+
+        // Creiamo un nuovo tag <script> dinamicamente
+        const script = document.createElement('script');
+        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=EUR&disable-funding=card,sepa,giropay&intent=capture`;
+
+        // Quando lo script è caricato, eseguiamo le funzioni che usano PayPal
+        script.onload = () => {
+            console.log('SDK di PayPal caricato correttamente.');
+            // Questa funzione attiverà tutte le funzionalità di PayPal
+            initializePayPalFeatures(); 
+        };
+
+        // Aggiungiamo lo script alla pagina per avviare il caricamento
+        document.head.appendChild(script);
+
+    } catch (error) {
+        console.error('Impossibile caricare la configurazione per PayPal:', error);
+    }
+}
+
+// in script.js, SOSTITUISCI la vecchia initializePayPalFeatures con questa
+
+function initializePayPalFeatures() {
+    console.log('Inizializzazione di tutti i pulsanti di pagamento PayPal...');
+
+    // =================================================================
+    // 1. ATTIVAZIONE DEI PACCHETTI VIDEO (pagina contenuti.html)
+    // =================================================================
+    // La logica per i pacchetti video (quelli con il modale) è già robusta
+    // perché la funzione `setupPayPalButton` attende il caricamento dell'SDK.
+    // Non dobbiamo fare nulla qui, funzionerà automaticamente.
+
+
+    // =================================================================
+    // 2. ATTIVAZIONE DEI PIANI DI SERVIZIO (pagina piani.html)
+    // =================================================================
+    // La funzione `populatePaymentButtons` aggiunge un listener che chiama
+    // `handlePayPalPurchase`. Dobbiamo solo assicurarci che `handlePayPalPurchase`
+    // funzioni correttamente ora. La funzione esistente va già bene
+    // perché il `paypal` object è ora disponibile globalmente.
+
+
+    // =================================================================
+    // 3. ATTIVAZIONE DELLE VIDEO LEZIONI SINGOLE (pagina contenuti.html)
+    // =================================================================
+    // Questa è la parte più importante da riattivare. La funzione
+    // `addPurchaseButtonListeners` aggiunge i listener ai pulsanti "Acquista".
+    // La chiamiamo qui per assicurarci che i listener vengano aggiunti
+    // solo dopo che PayPal è pronto.
+    if (document.getElementById('video-lessons-grid')) {
+        addPurchaseButtonListeners();
+    }
+}
+
+
+
+
+// in script.js, SOSTITUISCI la funzione initializePayPalFeatures con QUESTA versione completa
+
+//function initializePayPalFeatures() {
+//    console.log('Inizializzazione di tutte le funzionalità PayPal...');
+//
+//    // =================================================================
+//    // PARTE 1: LOGICA PER I PRODOTTI REALI
+//    // Attiva i pulsanti "Acquista" per le video lezioni singole in contenuti.html
+//    // =================================================================
+//    if (document.getElementById('video-lessons-grid')) {
+//        addPurchaseButtonListeners();
+//    }
+//
+//    // Nota: La logica per i Piani di Servizio (piani.html) e i Pacchetti Video
+//    // è già gestita correttamente all'interno delle funzioni che vengono chiamate
+//    // quando apri i rispettivi modali di pagamento. Non dobbiamo aggiungere altro qui per loro.
+//
+//    // =================================================================
+//    // PARTE 2: LOGICA PER IL PULSANTE DI TEST DA 1 CENTESIMO
+//    // =================================================================
+//    const paypalTestContainer = document.getElementById('paypal-test-container');
+//    if (paypalTestContainer && typeof paypal !== 'undefined') {
+//        paypal.Buttons({
+//            // Funzione per creare l'ordine direttamente nel frontend
+//            createOrder: function(data, actions) {
+//                return actions.order.create({
+//                    purchase_units: [{
+//                        amount: {
+//                            value: '0.01', // L'importo del pagamento
+//                            currency_code: 'EUR'
+//                        },
+//                        description: 'Pagamento di test da 0.01 EUR'
+//                    }]
+//                });
+//            },
+//
+//            // Funzione eseguita dopo l'approvazione del pagamento
+//            onApprove: function(data, actions) {
+//                return actions.order.capture().then(function(details) {
+//                    // Messaggio di successo
+//                    alert('Transazione di test completata con successo!\n\nID Transazione: ' + details.id);
+//                });
+//            },
+//
+//            // Funzione per gestire gli errori
+//            onError: function(err) {
+//                console.error('Errore durante il pagamento di test PayPal:', err);
+//                alert('Si è verificato un errore durante il pagamento di test.');
+//            }
+//        }).render('#paypal-test-container');
+//    }
+//}
+
+
+
+
+function updateUITexts(lang) {
+    document.querySelectorAll('[data-translate-key]').forEach(element => {
+        const key = element.dataset.translateKey;
+
+        if (languages[lang] && languages[lang][key]) {
+            const translation = languages[lang][key];
+
+            // --- LOGICA MIGLIORATA ---
+            // Usa innerHTML se la traduzione contiene un tag (<) O un'entità HTML (&)
+            // altrimenti usa textContent che è più sicuro.
+            if (translation.includes('<') || translation.includes('&')) {
+                element.innerHTML = translation;
+            } else {
+                element.textContent = translation;
+            }
+            // --- FINE LOGICA MIGLIORATA ---
+        }
+    });
+}
+
+
 
 // --- INIZIALIZZAZIONE SUPABASE ---
 const SUPABASE_URL = 'https://kmnowyskoyordmndfdae.supabase.co';
@@ -646,41 +938,64 @@ try {
 
 let currentUser = null;
 
+
+
+
+
+
+
+
+// ===================================================================
+// ============= FUNZIONE MANCANTE PER L'AUTENTICAZIONE =============
+// ===================================================================
+// Incolla questa funzione vicino alle altre funzioni di autenticazione
+
+async function getSupabaseToken() {
+    const { data, error } = await supabase.auth.getSession();
+    if (error) {
+        console.error('Errore nel recuperare la sessione:', error);
+        return null;
+    }
+    if (data.session) {
+        return data.session.access_token;
+    }
+    return null;
+}
+
+// ===================================================================
+
+
+
+
 // -----------------------------------------------------------
 //               FUNZIONI DI UTILITÀ (Lingua, Stelle, Modali)
 // -----------------------------------------------------------
 
+// In script.js, usa questa come versione finale e definitiva di changeLanguage
+
 function changeLanguage(lang) {
-     if (!languages || !languages[lang]) {
+    if (!languages || !languages[lang]) {
         console.error("Lingua non supportata o oggetto 'languages' non definito:", lang);
         return;
-     }
-    document.documentElement.lang = lang;
-    for (const key in languages[lang]) {
-        const elementById = document.getElementById(key);
-        if (elementById) {
-            if (elementById.tagName === 'OPTION') {
-                elementById.textContent = languages[lang][key];
-            } else if (key.startsWith('pageTitle')) {
-                document.title = languages[lang][key];
-            } else {
-                elementById.innerHTML = languages[lang][key];
-            }
-        }
     }
-    document.querySelectorAll('[data-translate-key]').forEach(element => {
-        const key = element.dataset.translateKey;
-        if (languages[lang] && languages[lang][key]) {
-            if (element.tagName === 'FIGCAPTION' || !languages[lang][key].includes('<')) {
-                 element.textContent = languages[lang][key];
-            } else {
-                 element.innerHTML = languages[lang][key];
-            }
-        }
-    });
+    
+    document.documentElement.lang = lang;
+    
+    // --- PARTE RIMOSSA ---
+    // Abbiamo eliminato il vecchio ciclo "for (const key in languages[lang])" che creava conflitti.
+    // ----------------------
+
+    // AGGIUNTO: Aggiorniamo la variabile globale qui, per coerenza in tutto lo script.
+    currentLanguage = lang;
+
+    // MANTENUTO E CENTRALE: Questa è ora l'unica funzione che si occupa di modificare i testi.
+    updateUITexts(lang);
+
+    // MANTENUTO: Salvataggio e aggiornamento del pulsante attivo.
     localStorage.setItem('preferredLanguage', lang);
     if (typeof updateActiveButton === 'function') { updateActiveButton(lang); }
 
+    // MANTENUTO: Tutta la tua logica specifica per le varie sezioni, che è corretta.
     const videoElement = document.getElementById('presentationVideo');
     if (videoElement) {
         let videoSrc = '';
@@ -692,31 +1007,23 @@ function changeLanguage(lang) {
         if (videoElement.getAttribute('src') !== videoSrc) {
             videoElement.src = videoSrc;
             videoElement.load();
-            console.log(`Video source changed to: ${videoSrc}`);
         }
     }
-	
-	const videoGrid = document.getElementById('video-lessons-grid');
+    
+    const videoGrid = document.getElementById('video-lessons-grid');
     if (videoGrid && (!currentUser || currentUser === null)) {
         if (typeof displayLoginMessage === 'function') {
-            console.log("Lingua cambiata, utente non loggato, richiamo displayLoginMessage per aggiornare il prompt.");
             displayLoginMessage();
         }
     }
-	
-	
-	// Alla fine della funzione changeLanguage(lang)...
-
-	// Se ci troviamo nella pagina dei contenuti, ricarica i video per aggiornare le traduzioni
-	if (document.getElementById('yoga-videos-grid')) {
-		loadAndDisplayVideos();
-	}
-	
-	
-	// Se ci troviamo in una pagina con le recensioni, ricaricale per aggiornare le traduzioni
-	if (document.getElementById('reviews-list-container')) {
-		loadReviews();
-	}
+    
+    if (document.getElementById('yoga-videos-grid')) {
+        loadAndDisplayVideos();
+    }
+    
+    if (document.getElementById('reviews-list-container')) {
+        loadReviews();
+    }
 }
 
 function updateActiveButton(lang) {
@@ -803,23 +1110,29 @@ function showAlert(message) {
 //               FUNZIONI SPECIFICHE (Recensioni, Autenticazione, Contenuti Video)
 // -----------------------------------------------------------
 
+// SOSTITUISCI la vecchia funzione loadReviews con questa
 async function loadReviews() {
     const container = document.getElementById('reviews-list-container');
     if (!container) return;
+
     container.innerHTML = '<p>Caricamento recensioni in corso...</p>';
+
     try {
         const response = await fetch('/.netlify/functions/get-reviews');
         if (!response.ok) throw new Error(`Errore HTTP: ${response.status}`);
+
         const reviews = await response.json();
-        container.innerHTML = '';
+        container.innerHTML = ''; 
+
         if (!reviews || reviews.length === 0) {
             const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-			const noReviewsText = languages[currentLang]?.noReviewsYet || languages['it'].noReviewsYet;
-			container.innerHTML = `<p>${noReviewsText}</p>`;
+            const noReviewsText = languages[currentLang]?.noReviewsYet || languages['it'].noReviewsYet;
+            container.innerHTML = `<p>${noReviewsText}</p>`;
             return;
         }
+
         reviews.forEach(review => {
-             const reviewElement = document.createElement('div');
+            const reviewElement = document.createElement('div');
             reviewElement.className = 'review-item';
             const reviewDate = new Date(review.created_at).toLocaleDateString('it-IT', {
                 year: 'numeric', month: 'long', day: 'numeric'
@@ -836,11 +1149,17 @@ async function loadReviews() {
             `;
             container.appendChild(reviewElement);
         });
+
+        // Avvia la logica del carosello solo dopo aver caricato le recensioni
+        setupReviewsSlider();
+
     } catch (error) {
         console.error('Errore nel caricamento delle recensioni:', error);
         container.innerHTML = '<p>Spiacenti, non è stato possibile caricare le recensioni al momento.</p>';
     }
 }
+
+
 
 async function handleReviewSubmit(event) {
     event.preventDefault();
@@ -865,43 +1184,256 @@ async function handleReviewSubmit(event) {
     submitButton.disabled = true;
 
     try {
-		// Prendi la sessione dell'utente per ottenere il token
-		const { data: { session } } = await supabase.auth.getSession();
-		if (!session) {
-			// Se l'utente non è loggato, mostra un errore o apri il modale di login
-			throw new Error("Devi effettuare il login per lasciare una recensione.");
-		}
-	
-		const response = await fetch('/.netlify/functions/submit-review', {
-			method: 'POST',
-			headers: { 
-				'Content-Type': 'application/json',
-				// Ecco dove "mostriamo il pass" di sicurezza
-				'Authorization': `Bearer ${session.access_token}`
-			},
-			body: JSON.stringify({ name, rating, comment }),
-		});
-	
-		if (!response.ok) {
-			let errorMsg = `Errore HTTP: ${response.status}`;
-			try {
-				const errorData = await response.json();
-				errorMsg = errorData.error || errorData.message || errorMsg;
-			} catch(e) { /* Ignora */ }
-			throw new Error(errorMsg);
-		}
-		messageDiv.textContent = 'Recensione inviata con successo! Sarà visibile dopo l\'approvazione.';
-		messageDiv.className = 'form-message success';
-		form.reset();
-	
-	} catch (error) {
-		console.error('Errore invio recensione:', error);
-		messageDiv.textContent = `Errore nell'invio della recensione: ${error.message}. Riprova più tardi.`;
-		messageDiv.className = 'form-message error';
-	} finally {
-		submitButton.disabled = false;
-	}
+        const { data: { session } } = await supabase.auth.getSession();
+
+        // --- INIZIO MODIFICA IMPORTANTE ---
+        // Controlliamo subito se l'utente è loggato
+        if (!session) {
+            // Se non è loggato, mostriamo il messaggio tradotto e usciamo
+            const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+            const errorMessage = languages[currentLang]?.reviewLoginError || languages['it'].reviewLoginError;
+
+            messageDiv.textContent = errorMessage;
+            messageDiv.className = 'form-message error';
+            submitButton.disabled = false;
+            return; // Interrompe la funzione qui
+        }
+        // --- FINE MODIFICA IMPORTANTE ---
+
+        const response = await fetch('/.netlify/functions/submit-review', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify({ name, rating, comment }),
+        });
+
+        if (!response.ok) {
+            let errorMsg = `Errore HTTP: ${response.status}`;
+            try {
+                const errorData = await response.json();
+                errorMsg = errorData.error || errorData.message || errorMsg;
+            } catch(e) { /* Ignora */ }
+            throw new Error(errorMsg);
+        }
+        messageDiv.textContent = 'Recensione inviata con successo! Sarà visibile dopo l\'approvazione.';
+        messageDiv.className = 'form-message success';
+        form.reset();
+
+    } catch (error) {
+        console.error('Errore invio recensione:', error);
+        messageDiv.textContent = `Si è verificato un errore: ${error.message}. Riprova più tardi.`;
+        messageDiv.className = 'form-message error';
+    } finally {
+        submitButton.disabled = false;
+    }
 }
+
+
+
+
+
+
+
+
+
+// AGGIUNGI QUESTO NUOVO BLOCCO ALLA FINE DI script.js
+
+// in script.js, SOSTITUISCI la vecchia setupReviewsSlider con questa
+
+function setupReviewsSlider() {
+    const slider = document.querySelector('.reviews-slider');
+    if (!slider) return;
+
+    const track = slider.querySelector('.reviews-slider__track');
+    const prevButton = slider.querySelector('.slider-arrow--prev');
+    const nextButton = slider.querySelector('.slider-arrow--next');
+    const slides = Array.from(track.children);
+    let slideInterval; // Variabile per gestire l'autoplay
+
+    if (slides.length <= 1) {
+        prevButton.classList.add('is-hidden');
+        nextButton.classList.add('is-hidden');
+        return;
+    }
+
+    let currentIndex = 0;
+
+    const getSlidesPerPage = () => {
+        if (window.innerWidth >= 1024) return 3;
+        if (window.innerWidth >= 768) return 2;
+        return 1;
+    };
+
+    const updateArrows = () => {
+        const slidesPerPage = getSlidesPerPage();
+        prevButton.classList.toggle('is-hidden', currentIndex === 0);
+        nextButton.classList.toggle('is-hidden', currentIndex >= slides.length - slidesPerPage);
+    };
+
+    const moveToSlide = (targetIndex) => {
+        const slidesPerPage = getSlidesPerPage();
+        const maxIndex = slides.length - slidesPerPage;
+
+        if (targetIndex < 0) targetIndex = 0;
+        if (targetIndex > maxIndex) targetIndex = maxIndex;
+
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        const gap = 20;
+        track.style.transform = `translateX(-${targetIndex * (slideWidth + gap)}px)`;
+        currentIndex = targetIndex;
+        updateArrows();
+    };
+
+    // --- LOGICA PER L'AUTOPLAY (AGGIUNTA) ---
+
+    const autoPlay = () => {
+        const slidesPerPage = getSlidesPerPage();
+        let nextIndex = currentIndex + 1;
+        // Se arriva alla fine, torna all'inizio
+        if (nextIndex > slides.length - slidesPerPage) {
+            nextIndex = 0;
+        }
+        moveToSlide(nextIndex);
+    };
+
+    const startAutoPlay = () => {
+        stopAutoPlay();
+        slideInterval = setInterval(autoPlay, 5000); // Cambia slide ogni 5 secondi
+    };
+
+    const stopAutoPlay = () => {
+        clearInterval(slideInterval);
+    };
+
+    nextButton.addEventListener('click', () => {
+        stopAutoPlay();
+        moveToSlide(currentIndex + 1);
+        startAutoPlay();
+    });
+
+    prevButton.addEventListener('click', () => {
+        stopAutoPlay();
+        moveToSlide(currentIndex - 1);
+        startAutoPlay();
+    });
+
+    slider.addEventListener('mouseenter', stopAutoPlay);
+    slider.addEventListener('mouseleave', startAutoPlay);
+
+    // --- FINE LOGICA AUTOPLAY ---
+
+    // Avvio iniziale
+    updateArrows();
+    startAutoPlay(); // Fa partire l'autoplay al caricamento della pagina
+    window.addEventListener('resize', () => moveToSlide(currentIndex));
+}
+
+
+
+
+
+// AGGIUNGI QUESTA NUOVA FUNZIONE ALLA FINE DI script.js
+
+
+// in script.js, SOSTITUISCI la vecchia setupTestimonialsSlider con questa
+
+function setupTestimonialsSlider() {
+    const slider = document.querySelector('.testimonial-carousel');
+    if (!slider) return;
+
+    const track = slider.querySelector('.testimonial-carousel__track');
+    const prevButton = slider.querySelector('.slider-arrow--prev');
+    const nextButton = slider.querySelector('.slider-arrow--next');
+    const slides = Array.from(track.children);
+    let slideInterval; // Variabile per gestire l'autoplay
+
+    if (slides.length <= 1) { // Se c'è una sola immagine, nascondi le frecce
+        prevButton.classList.add('is-hidden');
+        nextButton.classList.add('is-hidden');
+        return;
+    }
+
+    let currentIndex = 0;
+
+    const getSlidesPerPage = () => {
+        if (window.innerWidth >= 1024) return 3;
+        if (window.innerWidth >= 768) return 2;
+        return 1;
+    };
+
+    const updateArrows = () => {
+        const slidesPerPage = getSlidesPerPage();
+        prevButton.classList.toggle('is-hidden', currentIndex === 0);
+        nextButton.classList.toggle('is-hidden', currentIndex >= slides.length - slidesPerPage);
+    };
+
+    const moveToSlide = (targetIndex) => {
+        const slidesPerPage = getSlidesPerPage();
+        const maxIndex = slides.length - slidesPerPage;
+
+        if (targetIndex < 0) targetIndex = 0;
+        if (targetIndex > maxIndex) targetIndex = maxIndex;
+
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        const gap = 20;
+        track.style.transform = `translateX(-${targetIndex * (slideWidth + gap)}px)`;
+        currentIndex = targetIndex;
+        updateArrows();
+    };
+
+    // --- NUOVA LOGICA PER L'AUTOPLAY ---
+
+    // Funzione che fa partire lo scorrimento automatico
+    const startAutoPlay = () => {
+        stopAutoPlay(); // Prima fermiamo qualsiasi autoplay precedente per sicurezza
+        slideInterval = setInterval(() => {
+            const slidesPerPage = getSlidesPerPage();
+            let nextIndex = currentIndex + 1;
+            // Se arriva alla fine, torna all'inizio
+            if (nextIndex > slides.length - slidesPerPage) {
+                nextIndex = 0;
+            }
+            moveToSlide(nextIndex);
+        }, 4000); // Cambia immagine ogni 4 secondi (puoi modificare questo valore)
+    };
+
+    // Funzione che ferma lo scorrimento
+    const stopAutoPlay = () => {
+        clearInterval(slideInterval);
+    };
+
+    // Quando l'utente clicca le frecce, ferma l'autoplay e riavvialo dopo un po'
+    nextButton.addEventListener('click', () => {
+        stopAutoPlay();
+        moveToSlide(currentIndex + 1);
+        startAutoPlay();
+    });
+
+    prevButton.addEventListener('click', () => {
+        stopAutoPlay();
+        moveToSlide(currentIndex - 1);
+        startAutoPlay();
+    });
+
+    // Ferma l'autoplay quando il mouse è sopra il carosello
+    slider.addEventListener('mouseenter', stopAutoPlay);
+    // Riavvia l'autoplay quando il mouse esce
+    slider.addEventListener('mouseleave', startAutoPlay);
+
+    // --- FINE NUOVA LOGICA ---
+
+    // Avvio iniziale
+    updateArrows();
+    startAutoPlay(); // Fa partire l'autoplay al caricamento della pagina
+    window.addEventListener('resize', () => moveToSlide(currentIndex));
+}
+
+
+
+
+
 
 function updateAuthStateUI(user) {
     const guestInfo = document.getElementById('guest-info');
@@ -1158,6 +1690,15 @@ function addWatchButtonListeners() {
     });
 }
 
+
+
+
+
+
+
+
+// in script.js, SOSTITUISCI la vecchia funzione handlePayPalBuyClick con QUESTA
+
 async function handlePayPalBuyClick(event) {
     const button = event.target;
     const lessonId = button.dataset.lessonId;
@@ -1173,23 +1714,11 @@ async function handlePayPalBuyClick(event) {
         return;
     }
 
-     if (!supabase || !supabase.auth || typeof supabase.auth.getSession !== 'function') {
-         console.error("Supabase client o auth non inizializzato correttamente.");
-         alert("Errore: impossibile verificare l'autenticazione. Riprova più tardi.");
-         return;
-     }
-     const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-     if (sessionError || !session) {
-         console.error("Errore nel recupero della sessione Supabase:", sessionError);
-         alert("Errore: impossibile ottenere la sessione utente. Prova a fare logout e login.");
-         return;
-     }
-     const accessToken = session.access_token;
-
     console.log(`Avvio procedura acquisto PayPal: Lezione ID ${lessonId}, Prezzo ${price}`);
     button.disabled = true;
     button.textContent = 'Creazione ordine...';
     if (mpButton) mpButton.style.display = 'none';
+
     if (payPalContainer) {
         payPalContainer.innerHTML = '<p><em>Inizializzazione pagamento...</em></p>';
         payPalContainer.style.display = 'block';
@@ -1203,33 +1732,50 @@ async function handlePayPalBuyClick(event) {
     }
 
     try {
+        // --- INIZIO DELLA CORREZIONE FONDAMENTALE ---
+        // Prima recuperiamo il token di accesso dalla sessione Supabase.
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+        // Se c'è un errore o la sessione non esiste, blocchiamo la procedura.
+        if (sessionError || !session) {
+            console.error("Errore nel recupero della sessione Supabase:", sessionError);
+            throw new Error("Impossibile ottenere la sessione utente. Prova a fare logout e login.");
+        }
+        const accessToken = session.access_token;
+        // --- FINE DELLA CORREZIONE FONDAMENTALE ---
+
+        // Ora che abbiamo il token, possiamo chiamare la funzione backend.
         const response = await fetch('/.netlify/functions/create-paypal-order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessToken}` // Usiamo il token appena recuperato
             },
             body: JSON.stringify({ lessonId: lessonId })
         });
+
         if (!response.ok) {
             let errorData = { error: `Errore server (${response.status})` };
-            try { errorData = await response.json(); } catch(e) { /* ignora */ }
+            try { errorData = await response.json(); } catch(e) {}
             throw new Error(errorData.error || `Errore ${response.status} nella creazione ordine.`);
         }
+
         const orderData = await response.json();
         const orderID = orderData.orderId;
         if (!orderID) {
             throw new Error("ID Ordine PayPal non ricevuto dalla funzione backend.");
         }
+
         console.log("Ordine PayPal creato con ID:", orderID);
         button.style.display = 'none';
         renderPayPalButton(orderID, payPalContainerId, lessonId);
+
     } catch (error) {
         console.error("Errore durante la chiamata alla funzione Netlify o creazione ordine:", error);
         if (payPalContainer) {
-             payPalContainer.innerHTML = `<p style="color:red;">Errore: ${error.message}</p>`;
+            payPalContainer.innerHTML = `<p style="color:red;">Errore: ${error.message}</p>`;
         } else {
-             alert(`Errore: ${error.message}`);
+            alert(`Errore: ${error.message}`);
         }
         button.disabled = false;
         button.textContent = 'Acquista con PayPal';
@@ -1238,6 +1784,30 @@ async function handlePayPalBuyClick(event) {
         if (payPalContainer) setTimeout(() => { payPalContainer.style.display = 'none'; payPalContainer.innerHTML=''; }, 4000);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 async function handleMercadoPagoBuyClick(event) {
      if (!currentUser) {
@@ -1571,24 +2141,23 @@ async function handleMercadoPagoPurchase(options) {
 // --- NUOVE FUNZIONI PER LA PAGINA CONTENUTI (VIDEO DINAMICI) ---
 // ===================================================================
 
-// Funzione per creare e aprire il modale del video
-// Sostituisci la vecchia funzione openVideoModal con questa
+// Nel file script.js, SOSTITUISCI la vecchia funzione openVideoModal con questa
+
 function openVideoModal(videoUrl) {
     // Rimuovi eventuali modali rimasti aperti per errore
     const existingModal = document.getElementById('video-modal');
     if (existingModal) existingModal.remove();
 
     let videoId = null;
-    try {
-        const url = new URL(videoUrl);
-        videoId = url.hostname.includes('youtube.com') ? url.searchParams.get('v') : url.pathname.slice(1);
-    } catch (e) {
-        console.error("URL del video non valido:", videoUrl);
-        return;
+    if (videoUrl) {
+        // Ho reso questa parte più robusta per catturare tutti i tipi di link YouTube
+        const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        const match = videoUrl.match(youtubeRegex);
+        if (match && match[1]) videoId = match[1];
     }
 
     if (!videoId) {
-        alert("Impossibile trovare l'ID del video di YouTube.");
+        console.error("ID del video di YouTube non trovato o URL non valido:", videoUrl);
         return;
     }
 
@@ -1598,7 +2167,7 @@ function openVideoModal(videoUrl) {
                 <span id="close-video-button" class="close-button" style="color: white; top: 0px; right: 15px; font-size: 40px; z-index: 10;">&times;</span>
                 <div style="position: relative; padding-bottom: 56.25%; height: 0;">
                     <iframe 
-                        src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                        src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1" 
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen
@@ -1608,16 +2177,14 @@ function openVideoModal(videoUrl) {
             </div>
         </div>
     `;
-
+    
     document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-    // Aggiungi un listener per la chiusura più robusto
     document.getElementById('close-video-button').addEventListener('click', () => {
         const modal = document.getElementById('video-modal');
         if (modal) modal.remove();
     });
-
-    // Bonus: chiudi anche cliccando sullo sfondo scuro
+    
     document.getElementById('video-modal').addEventListener('click', (event) => {
         if (event.target.id === 'video-modal') {
              const modal = document.getElementById('video-modal');
@@ -1705,6 +2272,7 @@ async function loadAndDisplayVideos() {
 document.addEventListener('DOMContentLoaded', () => {
 	
 	console.log("DEBUG: DOM Caricato. Esecuzione script avviata.");
+	loadPayPalSDK();
 
     document.querySelectorAll('.location-selector').forEach(selector => {
         const planCard = selector.closest('.plan');
@@ -1930,6 +2498,312 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 	
 	
+	// ===================================================================
+// ============= LOGICA PER CARICARE I PACCHETTI VIDEO =============
+// ===================================================================
+
+// Controlla se siamo sulla pagina dei contenuti per eseguire questa logica
+if (document.getElementById('packages-container')) {
+
+    // --- VARIABILI E COSTANTI INIZIALI ---
+    const productCodes = ['PK_YOGA_01', 'PK_YOGA_02', 'PK_YOGA_03', 'PK_YOGA_04'];
+    const packagesContainer = document.getElementById('packages-container');
+    const modal = document.getElementById('package-modal');
+    const closeModalButton = document.getElementById('close-package-modal');
+    const WHATSAPP_NUMBER = '5492983567655';
+    let packagesData = [];
+
+    // --- DETTAGLI STATICI DEI PACCHETTI ---
+    const packageDetails = {
+        'PK_YOGA_01': { titleKey: 'package1Title', descKey: 'package1Desc', image: 'images/package-yoga-mobility.jpg', driveLink: 'https://drive.google.com/drive/folders/1T9h6fXci7UMMmKqdrQw7o7PnOQmwQKdc?usp=sharing' },
+        'PK_YOGA_02': { titleKey: 'package2Title', descKey: 'package2Desc', image: 'images/package-yoga-basics.jpg', driveLink: 'https://drive.google.com/drive/folders/1mrVU_D5dvCO1x_lJNG8bwr-WbvfllYnj?usp=sharing' },
+        'PK_YOGA_03': { titleKey: 'package3Title', descKey: 'package3Desc', image: 'images/package-home-workout.jpg', driveLink: 'https://drive.google.com/drive/folders/10TBwm11l3XN3C28reEkS95Wlro65HW3i?usp=sharing' },
+        'PK_YOGA_04': { titleKey: 'package4Title', descKey: 'package4Desc', image: 'images/package-yoga-immersion.jpg', driveLink: 'https://drive.google.com/drive/folders/1_NcYRNsSk6Sj0IW6YyxAecRa8qp6ude0?usp=sharing' }
+    };
+
+    // --- FUNZIONE ROBUSTA PER PAYPAL (CON AUTENTICAZIONE E ATTESA SDK) ---
+    // In script.js, SOSTITUISCI la vecchia funzione setupPayPalButton
+
+	const setupPayPalButton = (containerId, productCode) => {
+		const maxTries = 15; let currentTry = 0;
+		const interval = setInterval(async () => {
+			const container = document.getElementById(containerId);
+			if (!container) { clearInterval(interval); return; }
+	
+			if (typeof paypal !== 'undefined' && typeof getSupabaseToken === 'function') {
+				clearInterval(interval);
+				try {
+					const token = await getSupabaseToken();
+					if (!token) throw new Error("Utente non autenticato.");
+	
+					paypal.Buttons({
+						createOrder: async () => {
+							if (!productCode) throw new Error("Codice prodotto mancante per PayPal.");
+							const response = await fetch('/.netlify/functions/create-paypal-order', {
+								method: 'POST',
+								headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+								// --- CORREZIONE QUI ---
+								body: JSON.stringify({ productCode: productCode })
+							});
+							const data = await response.json();
+							if (!response.ok) throw new Error(data.error || 'Errore server PayPal');
+							return data.orderId;
+						},
+						onApprove: async (data) => {
+							const captureToken = await getSupabaseToken();
+							const response = await fetch('/.netlify/functions/capture-paypal-order', {
+								method: 'POST',
+								headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${captureToken}` },
+								// --- CORREZIONE ANCHE QUI PER SICUREZZA ---
+								body: JSON.stringify({ orderId: data.orderID, productCode: productCode })
+							});
+							const details = await response.json();
+							if (!response.ok) throw new Error(details.error || 'Errore nella finalizzazione del pagamento');
+	
+							alert('Pagamento completato con successo! Riceverai accesso a breve.');
+							closePackageModal();
+						},
+						onError: (err) => {
+							console.error("Errore SDK PayPal:", err);
+							container.innerHTML = `<p class="error-message">Errore durante il pagamento con PayPal.</p>`;
+						}
+					}).render('#' + containerId);
+				} catch (error) {
+					console.error("Errore durante il setup di PayPal:", error);
+					container.innerHTML = `<p class="error-message">${error.message}</p>`;
+				}
+			} else if (currentTry++ >= maxTries) {
+				clearInterval(interval);
+				console.error("Timeout: L'SDK di PayPal non è stato caricato in tempo.");
+				container.innerHTML = `<p class="error-message">Il servizio di pagamento PayPal non è al momento disponibile. Riprova più tardi.</p>`;
+			}
+		}, 200);
+	};
+
+   // In script.js, SOSTITUISCI la vecchia funzione setupMercadoPagoButton
+
+	const setupMercadoPagoButton = (containerId, productCode, title) => {
+		const maxTries = 15; let currentTry = 0;
+		const interval = setInterval(async () => {
+			const container = document.getElementById(containerId);
+			if (!container) { clearInterval(interval); return; }
+	
+			if (typeof MercadoPago !== 'undefined' && typeof getSupabaseToken === 'function') {
+				clearInterval(interval);
+				try {
+					const token = await getSupabaseToken();
+					if (!token) throw new Error("Utente non autenticato.");
+					if (!productCode) throw new Error("Codice prodotto mancante per MercadoPago.");
+	
+					const response = await fetch('/.netlify/functions/create-mercadopago-preference', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+						// --- CORREZIONE QUI ---
+						body: JSON.stringify({ productCode: productCode, title: title })
+					});
+					const preference = await response.json();
+					if (!response.ok) throw new Error(preference.error || `Errore dal server: ${response.statusText}`);
+	
+					const mp = new MercadoPago(preference.publicKey);
+					mp.bricks().create("wallet", containerId, {
+						initialization: { preferenceId: preference.preferenceId },
+						customization: { texts: { valueProp: 'smart_option' } }
+					});
+				} catch (error) {
+					console.error("Errore nella creazione della preferenza MercadoPago:", error);
+					container.innerHTML = `<p class="error-message">${error.message}</p>`;
+				}
+			} else if (currentTry++ >= maxTries) {
+				clearInterval(interval);
+				console.error("Timeout: L'SDK di MercadoPago non è stato caricato in tempo.");
+				container.innerHTML = `<p class="error-message">Il servizio di pagamento MercadoPago non è al momento disponibile. Riprova più tardi.</p>`;
+			}
+		}, 200);
+	};
+
+    // --- FUNZIONE PER POPOLARE LE CARD (invariata) ---
+    const populatePackageCards = (packages) => {
+        if (!packagesContainer) return;
+        packagesContainer.innerHTML = '';
+        const sortedPackages = productCodes.map(code => packages.find(p => p.product_code === code));
+        sortedPackages.forEach(pkg => {
+            if (!pkg) return;
+            const details = packageDetails[pkg.product_code];
+            const card = document.createElement('div');
+            card.className = 'package-card';
+            card.innerHTML = `
+                <img src="${details.image}" alt="Immagine Pacchetto" class="package-image" style="object-fit: cover;">
+                <div class="package-content">
+                    <h3 class="package-title" data-translate-key="${details.titleKey}">[Caricamento...]</h3>
+                    <p class="package-description" data-translate-key="${details.descKey}">[Caricamento...]</p>
+                    <div class="package-price">
+                        <span class="price-eur">€${pkg.price_eur}</span>
+                    </div>
+                    <button class="cta-button package-button" data-product-code="${pkg.product_code}">
+                        <span data-translate-key="packageDiscoverButton">Scopri di più</span>
+                    </button>
+                </div>
+            `;
+            packagesContainer.appendChild(card);
+        });
+        setTimeout(() => {
+            updateUITexts(currentLanguage);
+        }, 0);
+    };
+
+// In script.js, SOSTITUISCI la funzione openPackageModal con questa versione
+
+const openPackageModal = (productCode) => {
+    const selectedPackage = packagesData.find(p => p.product_code === productCode);
+    if (!selectedPackage) {
+        console.error("Dati del pacchetto non trovati per il productCode:", productCode);
+        return;
+    }
+
+    const details = packageDetails[productCode];
+    if (!details) {
+        console.error("Dettagli statici non trovati per il productCode:", productCode);
+        return;
+    }
+
+    document.getElementById('modal-title').setAttribute('data-translate-key', details.titleKey);
+    document.getElementById('modal-description').setAttribute('data-translate-key', details.descKey);
+    document.getElementById('modal-drive-link').href = details.driveLink;
+    
+    const paymentButtonsContainer = document.getElementById('modal-payment-buttons');
+    paymentButtonsContainer.innerHTML = '';
+
+    if (currentUser) {
+        const packageTitleText = languages[currentLanguage][details.titleKey] || details.titleKey;
+        
+        const payPalContainer = document.createElement('div');
+        payPalContainer.id = `paypal-button-container-${productCode}`;
+        
+        const mpPriceLabel = document.createElement('p');
+        mpPriceLabel.style.textAlign = 'center';
+        const arsPriceText = `<strong style="color: #009ee3;">ARS $${selectedPackage.price_ars}</strong>`;
+        mpPriceLabel.innerHTML = languages[currentLanguage].payWithARS.replace('{price}', arsPriceText);
+        
+        // Creiamo il contenitore per il bottone "Brick" di MercadoPago
+        const mercadoPagoContainer = document.createElement('div');
+        mercadoPagoContainer.id = `mercadopago-container-${productCode}`;
+        
+        const bizumDescription = document.createElement('p');
+        bizumDescription.style.textAlign = 'center';
+        const bizumMessage = encodeURIComponent(`Ciao Guille, vorrei acquistare il pacchetto "${packageTitleText}" tramite Bizum.`);
+        const bizumLink = `<a href="https://wa.me/5492983567655?text=${bizumMessage}" target="_blank">${languages[currentLanguage].payWithBizum}</a>`;
+        bizumDescription.innerHTML = bizumLink;
+
+        paymentButtonsContainer.appendChild(payPalContainer);
+        paymentButtonsContainer.appendChild(mpPriceLabel);
+        paymentButtonsContainer.appendChild(mercadoPagoContainer);
+        paymentButtonsContainer.appendChild(bizumDescription);
+
+        // Chiamiamo le funzioni di setup originali
+        setupPayPalButton(payPalContainer.id, productCode);
+        setupMercadoPagoButton(mercadoPagoContainer.id, productCode, packageTitleText);
+
+    } else {
+        paymentButtonsContainer.innerHTML = `<p class="error-message" data-translate-key="loginToPurchase"></p>`;
+    }
+    
+    modal.style.display = 'flex';
+    updateUITexts(currentLanguage);
+};
+
+    const closePackageModal = () => {
+        modal.style.display = 'none';
+    };
+
+    const fetchPackages = async () => {
+        try {
+            const { data, error } = await supabase.from('services').select('*').in('product_code', productCodes);
+            if (error) throw error;
+            packagesData = data;
+            populatePackageCards(data);
+        } catch (err) {
+            console.error('Errore imprevisto durante il fetch dei pacchetti:', err);
+        }
+    };
+
+    packagesContainer.addEventListener('click', (event) => {
+        const button = event.target.closest('.package-button');
+        if (button) {
+            openPackageModal(button.dataset.productCode);
+        }
+    });
+    closeModalButton.addEventListener('click', closePackageModal);
+
+    fetchPackages();
+}
+
+
+
+// Inserisci questo blocco di codice in script.js, dentro DOMContentLoaded
+
+// --- Logica per il nuovo pulsante WhatsApp in Homepage ---
+const whatsappContactButton = document.getElementById('whatsapp-contact-button');
+const interestModal = document.getElementById('interest-modal');
+
+if (whatsappContactButton && interestModal) {
+    // 1. Apri il modale al click del pulsante principale
+    whatsappContactButton.addEventListener('click', () => {
+        openModal('interest-modal');
+    });
+
+    // 2. Gestisci il click sulle opzioni di interesse
+    const choiceButtons = interestModal.querySelectorAll('.modal-choice-button');
+    choiceButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const interest = button.dataset.interest; // "Yoga", "Fisioterapia", o "Both"
+            
+            // Recupera la lingua corrente per costruire il messaggio corretto
+            const lang = localStorage.getItem('preferredLanguage') || 'it';
+            const translations = languages[lang] || languages['it'];
+
+            // Costruisci il messaggio finale
+            let serviceMessage = '';
+            if (interest === 'Yoga') {
+                serviceMessage = translations.whatsappServiceYoga;
+            } else if (interest === 'Fisioterapia') {
+                serviceMessage = translations.whatsappServiceFisio;
+            } else if (interest === 'Both') {
+                serviceMessage = translations.whatsappServiceBoth;
+            }
+
+            const fullMessage = translations.whatsappBaseMessage + serviceMessage;
+
+            // Prendi il numero di telefono dalle costanti globali
+            const whatsappNumber = CONTACT_INFO.whatsapp;
+            
+            // Crea il link e aprilo in una nuova scheda
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(fullMessage)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            // Chiudi il modale
+            closeModal('interest-modal');
+        });
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// ===================================================================
+// ============= FINE LOGICA CARICAMENTO PACCHETTI =============
+// ===================================================================
+
+	
+	
+	
 	
 	
     const hamburgerButton = document.getElementById('hamburger-menu');
@@ -2102,7 +2976,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const presentationContainer = document.getElementById('presentation-video-container');
 if (presentationContainer) {
     
-    const videoPresentazioneURL = "https://www.youtube.com/watch?v=7orJ-qrnXnY";
+    const videoPresentazioneURL = "https://www.youtube.com/watch?v=-vF0UrqYfxs";
 
     const getYoutubeId = (url) => {
         if (!url) return null;
@@ -2137,55 +3011,7 @@ if (presentationContainer) {
     }
 }
 
-// SOSTITUISCI LA VECCHIA openVideoModal CON QUESTA VERSIONE AGGIORNATA
-function openVideoModal(videoUrl) {
-    const existingModal = document.getElementById('video-modal');
-    if (existingModal) existingModal.remove();
-
-    let videoId = null;
-    if (videoUrl) {
-        const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-        const match = videoUrl.match(youtubeRegex);
-        if (match && match[1]) videoId = match[1];
-    }
-
-    if (!videoId) {
-        console.error("ID del video di YouTube non trovato o URL non valido:", videoUrl);
-        return;
-    }
-
-    const modalHTML = `
-        <div id="video-modal" class="auth-modal" style="display:flex; align-items:center; justify-content:center;">
-            <div class="modal-content" style="max-width: 900px; width: 90%; padding: 0; background-color: black; border-radius: 8px; overflow: hidden;">
-                <span id="close-video-button" class="close-button" style="color: white; top: 0px; right: 15px; font-size: 40px; z-index: 10;">&times;</span>
-                <div style="position: relative; padding-bottom: 56.25%; height: 0;">
-                    <iframe 
-                        src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                    </iframe>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-
-    document.getElementById('close-video-button').addEventListener('click', () => {
-        const modal = document.getElementById('video-modal');
-        if (modal) modal.remove();
-    });
-    
-    document.getElementById('video-modal').addEventListener('click', (event) => {
-        if (event.target.id === 'video-modal') {
-             const modal = document.getElementById('video-modal');
-             if (modal) modal.remove();
-        }
-    });
-}
-
+	setupTestimonialsSlider(); 
 }); // --- Chiusura di DOMContentLoaded ---
 
 // --- Aggiungi qui le funzioni di pagamento (populatePaymentButtons, handlePayPalPurchase, renderPayPalButtons) ---
@@ -2193,14 +3019,26 @@ function openVideoModal(videoUrl) {
 // --- FUNZIONI DI PAGAMENTO (FASE 2) ---
 // ===================================================================
 
+// in script.js, SOSTITUISCI la vecchia funzione populatePaymentButtons con QUESTA
+
 function populatePaymentButtons(productCode, containerId = 'modal-payment-options') {
     const paymentContainer = document.getElementById(containerId);
     if (!paymentContainer) return;
 
+    // --- NUOVO BLOCCO CON LOGHI UFFICIALI ---
     const buttons = {
-        paypal: { text: "PayPal", icon: `<svg viewBox="0 0 96 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.56 26.5h8.84L21.32 3.8H12.5L9.9 20.38c-.12 1.08-.2 1.8-.24 2.14H9.6c.32-1.2.6-2.4.84-3.64L12.56 0H3.32L0 26.5h7.56Z" fill="#253B80"/><path d="M43.32 26.5h7.56L47.56 3.8h-7.56l3.32 22.7Z" fill="#253B80"/><path d="M51.12 3.8h-6.76c-2.44 0-4.6.48-6.48 1.44-1.88.96-3.32 2.36-4.32 4.2-.92 1.76-1.4 3.8-1.4 6.12 0 2.92.56 5.36 1.68 7.32 1.12 2 2.76 3.48 4.92 4.44 2.16.96 4.72 1.44 7.68 1.44h2.52c.4 0 .68-.04.84-.12.16-.08.28-.2.36-.36l.2-.44.88-6.12h-5.4c-1.48 0-2.6-.28-3.36-.84-.8-.56-1.16-1.4-1.08-2.52.08-1.4.92-2.12 2.52-2.12h8.24l2.04-14.08Zm-5.32 16.56c-.48 1.32-1.2 1.96-2.16 1.96-1.2 0-2.12-.52-2.76-1.56-.64-1.04-.92-2.32-.84-3.84.08-1.8.6-3.2 1.56-4.2s2.24-1.56 3.84-1.56h4.48l-.84 5.92-3.28 3.08Z" fill="#179BD7"/><path d="M69.84 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76 1.48-1.56 3.32-2.56 5.52-3s4.4-.64 6.6-.64c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#253B80"/><path d="M89.36 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76C79.8 1.64 81.64.64 83.84.2S88.08 0 90.28 0c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#179BD7"/></svg>` },
-        mercadopago: { text: "Mercado Pago", icon: `<svg viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.6 8.56a2.64 2.64 0 0 0-2.1-2.24L22.99 2.1a.44.44 0 0 0-.4 0L9.08 6.32a2.64 2.64 0 0 0-2.1 2.24L5.1 14.8a2.64 2.64 0 0 0 2.52 3.02h25.4a2.64 2.64 0 0 0 2.52-3.02l-1.92-6.24Z" fill="#00AEEF"/></svg>` },
-        bizum: { text: "Bizum", icon: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"/></svg>` }
+        paypal: { 
+            text: "PayPal", 
+            icon: `<svg viewBox="0 0 96 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.56 26.5h8.84L21.32 3.8H12.5L9.9 20.38c-.12 1.08-.2 1.8-.24 2.14H9.6c.32-1.2.6-2.4.84-3.64L12.56 0H3.32L0 26.5h7.56Z" fill="#253B80"/><path d="M43.32 26.5h7.56L47.56 3.8h-7.56l3.32 22.7Z" fill="#253B80"/><path d="M51.12 3.8h-6.76c-2.44 0-4.6.48-6.48 1.44-1.88.96-3.32 2.36-4.32 4.2-.92 1.76-1.4 3.8-1.4 6.12 0 2.92.56 5.36 1.68 7.32 1.12 2 2.76 3.48 4.92 4.44 2.16.96 4.72 1.44 7.68 1.44h2.52c.4 0 .68-.04.84-.12.16-.08.28-.2.36-.36l.2-.44.88-6.12h-5.4c-1.48 0-2.6-.28-3.36-.84-.8-.56-1.16-1.4-1.08-2.52.08-1.4.92-2.12 2.52-2.12h8.24l2.04-14.08Zm-5.32 16.56c-.48 1.32-1.2 1.96-2.16 1.96-1.2 0-2.12-.52-2.76-1.56-.64-1.04-.92-2.32-.84-3.84.08-1.8.6-3.2 1.56-4.2s2.24-1.56 3.84-1.56h4.48l-.84 5.92-3.28 3.08Z" fill="#179BD7"/><path d="M69.84 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76 1.48-1.56 3.32-2.56 5.52-3s4.4-.64 6.6-.64c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#253B80"/><path d="M89.36 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76C79.8 1.64 81.64.64 83.84.2S88.08 0 90.28 0c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#179BD7"/></svg>` 
+        },
+        mercadopago: { 
+            text: "Mercado Pago", 
+            icon: `<svg viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.6 8.56a2.64 2.64 0 0 0-2.1-2.24L22.99 2.1a.44.44 0 0 0-.4 0L9.08 6.32a2.64 2.64 0 0 0-2.1 2.24L5.1 14.8a2.64 2.64 0 0 0 2.52 3.02h25.4a2.64 2.64 0 0 0 2.52-3.02l-1.92-6.24Z" fill="#00AEEF"/></svg>` 
+        },
+        bizum: { 
+            text: "Bizum", 
+            icon: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"/></svg>` 
+        }
     };
 
     let buttonsHTML = '';
@@ -2229,16 +3067,16 @@ function populatePaymentButtons(productCode, containerId = 'modal-payment-option
                     }
                 }
             }
-            
+
             if (method === 'paypal') {
-				if (typeof handlePayPalPurchase === 'function') handlePayPalPurchase(options);
-			} else if (method === 'bizum') {
-				if (typeof handleBizumPurchase === 'function') handleBizumPurchase(options);
-			} else if (method === 'mercadopago') { // <-- AGGIUNGI QUESTO BLOCCO
-				if (typeof handleMercadoPagoPurchase === 'function') handleMercadoPagoPurchase(options);
-			} else {
-				alert(`Il pagamento con ${buttons[method].text} non è ancora disponibile.`);
-			}
+                if (typeof handlePayPalPurchase === 'function') handlePayPalPurchase(options);
+            } else if (method === 'bizum') {
+                if (typeof handleBizumPurchase === 'function') handleBizumPurchase(options);
+            } else if (method === 'mercadopago') {
+                if (typeof handleMercadoPagoPurchase === 'function') handleMercadoPagoPurchase(options);
+            } else {
+                alert(`Il pagamento con ${buttons[method].text} non è ancora disponibile.`);
+            }
         });
     });
 }
@@ -2405,3 +3243,10 @@ if (supabase) {
 } else {
     console.warn("Supabase client non disponibile, onAuthStateChange non verrà monitorato.");
 }
+
+
+
+
+
+
+

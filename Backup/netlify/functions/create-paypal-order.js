@@ -7,10 +7,21 @@ const paypal = require('@paypal/checkout-server-sdk');
 // --- Inizializzazione Client ---
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
+// in create-paypal-order.js
+
+// --- NUOVA FUNZIONE DINAMICA PER L'AMBIENTE ---
 function environment() {
     let clientId = process.env.PAYPAL_CLIENT_ID;
     let clientSecret = process.env.PAYPAL_CLIENT_SECRET;
-    return new paypal.core.SandboxEnvironment(clientId, clientSecret); // Usa Sandbox per i test
+
+    // Controlla la variabile NODE_ENV per decidere quale ambiente usare
+    if (process.env.NODE_ENV === 'production') {
+        console.log('--- ESECUZIONE IN MODALITÀ LIVE ---');
+        return new paypal.core.LiveEnvironment(clientId, clientSecret);
+    } else {
+        console.log('--- ESECUZIONE IN MODALITÀ SANDBOX ---');
+        return new paypal.core.SandboxEnvironment(clientId, clientSecret);
+    }
 }
 function client() {
     return new paypal.core.PayPalHttpClient(environment());

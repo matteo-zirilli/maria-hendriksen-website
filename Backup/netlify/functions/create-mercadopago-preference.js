@@ -77,7 +77,16 @@ exports.handler = async (event, context) => {
         const preference = new Preference(client);
         const result = await preference.create({ body: preferenceBody });
 
-        return { statusCode: 200, body: JSON.stringify({ init_point: result.init_point }) };
+        // Sostituisci la vecchia riga con questa
+
+		return {
+			statusCode: 200,
+			body: JSON.stringify({
+				init_point: result.init_point,
+				preferenceId: result.id, // Includiamo anche il preferenceId, è una buona pratica
+				publicKey: process.env.MERCADOPAGO_ARG_PUBLIC_KEY
+			})
+		};
 
     } catch (error) {
         console.error("ERRORE GRAVE in create-mercadopago-preference:", error);

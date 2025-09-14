@@ -492,9 +492,12 @@ main section {
     box-shadow: 0 6px F12px rgba(0,0,0,0.09);
     border-color: var(--colore-primario);
 }
+/* in style.css */
+
 .payment-button svg {
-    width: 20px;
-    height: 20px;
+    height: 24px;   /* Impostiamo un'altezza fissa per coerenza */
+    width: auto;    /* La larghezza si adatterà per mantenere le proporzioni */
+    max-width: 80px;/* Impediamo al logo di PayPal di diventare troppo largo */
 }
 
 .content-grid {
