@@ -2076,11 +2076,20 @@ async function handleBizumPurchase(options) {
 
 // Funzione per avviare il pagamento con Mercado Pago
 // in script.js, SOSTITUISCI la vecchia handleMercadoPagoPurchase con questa
+// in script.js
 async function handleMercadoPagoPurchase(containerId, options) {
-    if (!currentUser) return;
-
     const container = document.getElementById(containerId);
     if (!container) return;
+
+    // --- CORREZIONE FONDAMENTALE ---
+    if (!currentUser) {
+        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+        const loginMessage = languages[currentLang]?.loginToPurchase || 'Devi effettuare il login per poter acquistare.';
+        container.innerHTML = `<p class="error-message">${loginMessage}</p>`;
+        return;
+    }
+    // --- FINE CORREZIONE ---
+
     container.innerHTML = '<p><em>Inizializzazione Mercado Pago...</em></p>';
 
     const currentLang = localStorage.getItem('preferredLanguage') || 'it';
@@ -2103,8 +2112,8 @@ async function handleMercadoPagoPurchase(containerId, options) {
 
         const preference = await response.json();
         const mp = new MercadoPago(preference.publicKey);
-
-        container.innerHTML = ''; // Pulisci prima di renderizzare
+        
+        container.innerHTML = ''; 
         mp.bricks().create("wallet", containerId, {
             initialization: { preferenceId: preference.preferenceId },
             customization: { texts: { valueProp: 'smart_option' } }
@@ -3070,11 +3079,21 @@ if (presentationContainer) {
 
 
 // in script.js, SOSTITUISCI la vecchia handlePayPalPurchase con questa
+// in script.js
 async function handlePayPalPurchase(containerId, options) {
-    if (!currentUser) return; // Controllo di sicurezza
-
     const container = document.getElementById(containerId);
     if (!container) return;
+
+    // --- CORREZIONE FONDAMENTALE ---
+    // Se l'utente non è loggato, mostriamo un messaggio e ci fermiamo.
+    if (!currentUser) {
+        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+        const loginMessage = languages[currentLang]?.loginToPurchase || 'Devi effettuare il login per poter acquistare.';
+        container.innerHTML = `<p class="error-message">${loginMessage}</p>`;
+        return;
+    }
+    // --- FINE CORREZIONE ---
+
     container.innerHTML = '<p><em>Inizializzazione PayPal...</em></p>';
 
     try {
@@ -3095,16 +3114,15 @@ async function handlePayPalPurchase(containerId, options) {
         const orderData = await response.json();
         if (!orderData.orderId) throw new Error("ID Ordine non ricevuto.");
 
-        container.innerHTML = ''; // Pulisci il contenitore
+        container.innerHTML = ''; 
         paypal.Buttons({
             createOrder: (data, actions) => orderData.orderId,
             onApprove: (data, actions) => {
-                // ... (La logica di approvazione che avevamo in renderPayPalButtons) ...
-                // Per ora mostriamo un semplice messaggio di successo
-                alert("Pagamento approvato! La logica di reindirizzamento verrà gestita qui.");
-                console.log("Dettagli approvazione:", data);
-                closeModal('individual-booking-modal');
-                closeModal('group-booking-modal');
+                const paymentOptions = document.querySelector('.auth-modal[style*="display: flex"] .payment-options-container');
+                if(paymentOptions) paymentOptions.innerHTML = `<p style="font-weight:bold; text-align:center;">Elaborazione pagamento in corso...</p>`;
+                
+                // Chiama la funzione di cattura e salvataggio
+                captureAndSavePayPalOrder(data.orderID, options.productCode);
             },
             onError: (err) => {
                 console.error("Errore PayPal SDK:", err);
@@ -3117,6 +3135,67 @@ async function handlePayPalPurchase(containerId, options) {
         container.innerHTML = `<p style="color:red;">${error.message}</p>`;
     }
 }
+
+
+
+
+
+
+
+
+
+
+// AGGIUNGI QUESTA FUNZIONE DI SUPPORTO
+async function captureAndSavePayPalOrder(orderID, productCode) {
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) throw new Error("Sessione utente non trovata per la finalizzazione.");
+
+        const response = await fetch('/.netlify/functions/capture-paypal-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+            body: JSON.stringify({ orderID, productCode })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Errore nella registrazione del pagamento.');
+        }
+
+        // Se tutto va bene, reindirizza o mostra messaggio di successo
+        setTimeout(() => {
+            let redirectUrl = '';
+            if (productCode.startsWith('FISIO')) { redirectUrl = 'grazie-fisio.html'; }
+            else { window.location.reload(); } // Ricarica la pagina per aggiornare lo stato
+            if (redirectUrl) window.location.href = redirectUrl;
+        }, 3000);
+
+    } catch (error) {
+        console.error("Errore in captureAndSavePayPalOrder:", error);
+        alert(`Si è verificato un errore dopo l'approvazione: ${error.message}. Contatta l'assistenza.`);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function renderPayPalButtons(orderId, productCode) {
     const paymentOptions = document.querySelector('.auth-modal[style*="display: flex"] .payment-options-container');
