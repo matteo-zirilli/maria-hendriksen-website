@@ -264,7 +264,10 @@ const languages = {
 		"whatsappServiceYoga": "i tuoi servizi di Yoga.",
 		"whatsappServiceFisio": "i tuoi servizi di Fisioterapia.",
 		"whatsappServiceBoth": "i tuoi servizi combinati di Yoga e Fisioterapia.",
-		"reviewLoginError": "Per lasciare una recensione devi prima effettuare il login. Accedi e riprova."
+		"reviewLoginError": "Per lasciare una recensione devi prima effettuare il login. Accedi e riprova.",
+		// Dentro l'oggetto languages.it, aggiungi queste righe
+		"loginToPurchasePayPal": "Devi effettuare il login per pagare con PayPal.",
+		"loginToPurchaseMercadoPago": "Devi effettuare il login per pagare con Mercado Pago."
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -510,7 +513,10 @@ const languages = {
 		"whatsappServiceYoga": "your Yoga services.",
 		"whatsappServiceFisio": "your Physiotherapy services.",
 		"whatsappServiceBoth": "your combined Yoga and Physiotherapy services.",
-		"reviewLoginError": "You must be logged in to leave a review. Please log in and try again."
+		"reviewLoginError": "You must be logged in to leave a review. Please log in and try again.",
+		// Dentro l'oggetto languages.en, aggiungi queste righe
+		"loginToPurchasePayPal": "You must log in to pay with PayPal.",
+		"loginToPurchaseMercadoPago": "You must log in to pay with Mercado Pago."
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -756,7 +762,10 @@ const languages = {
 		"whatsappServiceYoga": "tus servicios de Yoga.",
 		"whatsappServiceFisio": "tus servicios de Fisioterapia.",
 		"whatsappServiceBoth": "tus servicios combinados de Yoga y Fisioterapia.",
-		"reviewLoginError": "Debes iniciar sesión para dejar una reseña. Por favor, inicia sesión y vuelve a intentarlo."
+		"reviewLoginError": "Debes iniciar sesión para dejar una reseña. Por favor, inicia sesión y vuelve a intentarlo.",
+		// Dentro l'oggetto languages.es, aggiungi queste righe
+		"loginToPurchasePayPal": "Debes iniciar sesión para pagar con PayPal.",
+		"loginToPurchaseMercadoPago": "Debes iniciar sesión para pagar con Mercado Pago."
 		
     }
 };
@@ -2083,11 +2092,12 @@ async function handleMercadoPagoPurchase(containerId, options) {
 
     // --- CORREZIONE FONDAMENTALE ---
     if (!currentUser) {
-        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-        const loginMessage = languages[currentLang]?.loginToPurchase || 'Devi effettuare il login per poter acquistare.';
-        container.innerHTML = `<p class="error-message">${loginMessage}</p>`;
-        return;
-    }
+		const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+		// Usa la nuova chiave di traduzione specifica per Mercado Pago
+		const loginMessage = languages[currentLang]?.loginToPurchaseMercadoPago || 'Devi effettuare il login per pagare con Mercado Pago.';
+		container.innerHTML = `<p class="error-message">${loginMessage}</p>`;
+		return;
+	}
     // --- FINE CORREZIONE ---
 
     container.innerHTML = '<p><em>Inizializzazione Mercado Pago...</em></p>';
@@ -3103,12 +3113,14 @@ async function handlePayPalPurchase(containerId, options) {
 
     // --- CORREZIONE FONDAMENTALE ---
     // Se l'utente non è loggato, mostriamo un messaggio e ci fermiamo.
-    if (!currentUser) {
-        const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-        const loginMessage = languages[currentLang]?.loginToPurchase || 'Devi effettuare il login per poter acquistare.';
-        container.innerHTML = `<p class="error-message">${loginMessage}</p>`;
-        return;
-    }
+    // Dentro la funzione handlePayPalPurchase
+	if (!currentUser) {
+		const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+		// Usa la nuova chiave di traduzione specifica per PayPal
+		const loginMessage = languages[currentLang]?.loginToPurchasePayPal || 'Devi effettuare il login per pagare con PayPal.';
+		container.innerHTML = `<p class="error-message">${loginMessage}</p>`;
+		return;
+	}
     // --- FINE CORREZIONE ---
 
     container.innerHTML = '<p><em>Inizializzazione PayPal...</em></p>';
