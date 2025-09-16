@@ -10,7 +10,7 @@ const BOOKING_LINKS = {
 const GOOGLE_FORM_LINKS = {
     it: "https://forms.gle/316vmw2ndJMNjUd96",
     en: "https://forms.gle/fM56ACC7sLGJDTbX6",
-    es: "https://forms.gle/kawL6aVzq8YY26H66"
+    es: "https://forms.gle/vLPLRfKHH6FPAjzz6"
 };
 
 
