@@ -246,7 +246,7 @@ const languages = {
         "package3Desc": "Trasforma il tuo spazio in una palestra con queste 4 lezioni di allenamento completo. Sfrutta bande elastiche e il tuo peso corporeo per un training efficace, completato da esercizi di recupero.",
 
         "package4Title": "Immersione Totale nello Yoga",
-        "package4Desc": "La collezione definitiva per l'amante dello Yoga. Questo pacchetto di 10 video-lezioni ti accompagnerà attraverso diversi stili e livelli, da pratiche energizzanti a sequenze rilassanti, per un'esperienza completa.",
+        "package4Desc": "La collezione definitiva per l'amante dello Yoga. Questo pacchetto di 11 video-lezioni ti accompagnerà attraverso diversi stili e livelli, da pratiche energizzanti a sequenze rilassanti, per un'esperienza completa.",
         
         "modalInstructions": "Per accedere, segui questi 2 passi: completa il pagamento e poi invia la richiesta di accesso. L'accesso verrà approvato entro 24 ore dalla verifica.",
         "modalStep1": "Passo 1: Scegli un metodo di pagamento",
@@ -493,7 +493,7 @@ const languages = {
         "package3Desc": "Transform your space into a personal gym with these 4 complete workout lessons. Use resistance bands and your body weight for an effective training session, complete with recovery exercises.",
 
         "package4Title": "Total Yoga Immersion",
-        "package4Desc": "The ultimate collection for the Yoga lover. This package of 10 video lessons will guide you through different styles and levels, from energizing practices to relaxing sequences, for a complete experience.",
+        "package4Desc": "The ultimate collection for the Yoga lover. This package of 11 video lessons will guide you through different styles and levels, from energizing practices to relaxing sequences, for a complete experience.",
 
         "modalInstructions": "To gain access, follow these 2 steps: complete the payment and then submit the access request. Access will be granted within 24 hours of verification.",
         "modalStep1": "Step 1: Choose a payment method",
@@ -742,7 +742,7 @@ const languages = {
         "package3Desc": "Transforma tu espacio en un gimnasio con estas 4 clases de entrenamiento completo. Utiliza bandas elásticas y tu peso corporal para un training efectivo, complementado con ejercicios de recuperación.",
 
         "package4Title": "Inmersión Total en el Yoga",
-        "package4Desc": "La colección definitiva para el amante del Yoga. Este paquete de 10 video-clases te acompañará a través de diferentes estilos y niveles, desde prácticas energizantes hasta secuencias relajantes, para una experiencia completa.",
+        "package4Desc": "La colección definitiva para el amante del Yoga. Este paquete de 11 video-clases te acompañará a través de diferentes estilos y niveles, desde prácticas energizantes hasta secuencias relajantes, para una experiencia completa.",
 
         "modalInstructions": "Para acceder, sigue estos 2 pasos: completa el pago y luego envía la solicitud de acceso. El acceso se aprobará dentro de las 24 horas posteriores a la verificación.",
         "modalStep1": "Paso 1: Elige un método de pago",
