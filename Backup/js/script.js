@@ -10,7 +10,7 @@ const BOOKING_LINKS = {
 const GOOGLE_FORM_LINKS = {
     it: "https://forms.gle/316vmw2ndJMNjUd96",
     en: "https://forms.gle/fM56ACC7sLGJDTbX6",
-    es: "https://forms.gle/kawL6aVzq8YY26H66"
+    es: "https://forms.gle/vLPLRfKHH6FPAjzz6"
 };
 
 
@@ -246,7 +246,7 @@ const languages = {
         "package3Desc": "Trasforma il tuo spazio in una palestra con queste 4 lezioni di allenamento completo. Sfrutta bande elastiche e il tuo peso corporeo per un training efficace, completato da esercizi di recupero.",
 
         "package4Title": "Immersione Totale nello Yoga",
-        "package4Desc": "La collezione definitiva per l'amante dello Yoga. Questo pacchetto di 10 video-lezioni ti accompagnerà attraverso diversi stili e livelli, da pratiche energizzanti a sequenze rilassanti, per un'esperienza completa.",
+        "package4Desc": "La collezione definitiva per l'amante dello Yoga. Questo pacchetto di 11 video-lezioni ti accompagnerà attraverso diversi stili e livelli, da pratiche energizzanti a sequenze rilassanti, per un'esperienza completa.",
         
         "modalInstructions": "Per accedere, segui questi 2 passi: completa il pagamento e poi invia la richiesta di accesso. L'accesso verrà approvato entro 24 ore dalla verifica.",
         "modalStep1": "Passo 1: Scegli un metodo di pagamento",
@@ -264,7 +264,10 @@ const languages = {
 		"whatsappServiceYoga": "i tuoi servizi di Yoga.",
 		"whatsappServiceFisio": "i tuoi servizi di Fisioterapia.",
 		"whatsappServiceBoth": "i tuoi servizi combinati di Yoga e Fisioterapia.",
-		"reviewLoginError": "Per lasciare una recensione devi prima effettuare il login. Accedi e riprova."
+		"reviewLoginError": "Per lasciare una recensione devi prima effettuare il login. Accedi e riprova.",
+		// Dentro l'oggetto languages.it, aggiungi queste righe
+		"loginToPurchasePayPal": "Devi effettuare il login per pagare con PayPal.",
+		"loginToPurchaseMercadoPago": "Devi effettuare il login per pagare con Mercado Pago."
     },
     en: {
         "pageTitle": "Maria Guillermina Hendriksen - Physiotherapy and Yoga",
@@ -490,7 +493,7 @@ const languages = {
         "package3Desc": "Transform your space into a personal gym with these 4 complete workout lessons. Use resistance bands and your body weight for an effective training session, complete with recovery exercises.",
 
         "package4Title": "Total Yoga Immersion",
-        "package4Desc": "The ultimate collection for the Yoga lover. This package of 10 video lessons will guide you through different styles and levels, from energizing practices to relaxing sequences, for a complete experience.",
+        "package4Desc": "The ultimate collection for the Yoga lover. This package of 11 video lessons will guide you through different styles and levels, from energizing practices to relaxing sequences, for a complete experience.",
 
         "modalInstructions": "To gain access, follow these 2 steps: complete the payment and then submit the access request. Access will be granted within 24 hours of verification.",
         "modalStep1": "Step 1: Choose a payment method",
@@ -510,7 +513,10 @@ const languages = {
 		"whatsappServiceYoga": "your Yoga services.",
 		"whatsappServiceFisio": "your Physiotherapy services.",
 		"whatsappServiceBoth": "your combined Yoga and Physiotherapy services.",
-		"reviewLoginError": "You must be logged in to leave a review. Please log in and try again."
+		"reviewLoginError": "You must be logged in to leave a review. Please log in and try again.",
+		// Dentro l'oggetto languages.en, aggiungi queste righe
+		"loginToPurchasePayPal": "You must log in to pay with PayPal.",
+		"loginToPurchaseMercadoPago": "You must log in to pay with Mercado Pago."
     },
     es: {
         "pageTitle": "Maria Guillermina Hendriksen - Fisioterapia y Yoga",
@@ -736,7 +742,7 @@ const languages = {
         "package3Desc": "Transforma tu espacio en un gimnasio con estas 4 clases de entrenamiento completo. Utiliza bandas elásticas y tu peso corporal para un training efectivo, complementado con ejercicios de recuperación.",
 
         "package4Title": "Inmersión Total en el Yoga",
-        "package4Desc": "La colección definitiva para el amante del Yoga. Este paquete de 10 video-clases te acompañará a través de diferentes estilos y niveles, desde prácticas energizantes hasta secuencias relajantes, para una experiencia completa.",
+        "package4Desc": "La colección definitiva para el amante del Yoga. Este paquete de 11 video-clases te acompañará a través de diferentes estilos y niveles, desde prácticas energizantes hasta secuencias relajantes, para una experiencia completa.",
 
         "modalInstructions": "Para acceder, sigue estos 2 pasos: completa el pago y luego envía la solicitud de acceso. El acceso se aprobará dentro de las 24 horas posteriores a la verificación.",
         "modalStep1": "Paso 1: Elige un método de pago",
@@ -756,7 +762,10 @@ const languages = {
 		"whatsappServiceYoga": "tus servicios de Yoga.",
 		"whatsappServiceFisio": "tus servicios de Fisioterapia.",
 		"whatsappServiceBoth": "tus servicios combinados de Yoga y Fisioterapia.",
-		"reviewLoginError": "Debes iniciar sesión para dejar una reseña. Por favor, inicia sesión y vuelve a intentarlo."
+		"reviewLoginError": "Debes iniciar sesión para dejar una reseña. Por favor, inicia sesión y vuelve a intentarlo.",
+		// Dentro l'oggetto languages.es, aggiungi queste righe
+		"loginToPurchasePayPal": "Debes iniciar sesión para pagar con PayPal.",
+		"loginToPurchaseMercadoPago": "Debes iniciar sesión para pagar con Mercado Pago."
 		
     }
 };
@@ -2075,29 +2084,26 @@ async function handleBizumPurchase(options) {
 ////////////////////////////////funzione MercadoPago///////////////////////////
 
 // Funzione per avviare il pagamento con Mercado Pago
-async function handleMercadoPagoPurchase(options) {
-    // Blocco di controllo utente non loggato - VERSIONE DEFINITIVA
-	if (!currentUser) {
-		// 1. Chiudiamo i modali di pagamento aperti
-		closeModal('individual-booking-modal');
-		closeModal('group-booking-modal');
-	
-		// 2. Prendiamo il messaggio tradotto
-		const currentLang = localStorage.getItem('preferredLanguage') || 'es';
-		const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
-	
-		// 3. Mostriamo il nostro avviso personalizzato INVECE di alert()
-		showAlert(alertMessage);
-	
-		return; // Interrompe la funzione di pagamento
-	}
+// in script.js, SOSTITUISCI la vecchia handleMercadoPagoPurchase con questa
+// in script.js
+async function handleMercadoPagoPurchase(containerId, options) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
 
-    const modal = document.querySelector('.auth-modal[style*="display: flex"]');
-    const button = modal.querySelector('.payment-button.mercadopago');
-    button.disabled = true;
-    button.innerHTML += ' <span>(Inizializzazione...)</span>';
-	const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-	options.lang = currentLang;
+    // --- CORREZIONE FONDAMENTALE ---
+    if (!currentUser) {
+		const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+		// Usa la nuova chiave di traduzione specifica per Mercado Pago
+		const loginMessage = languages[currentLang]?.loginToPurchaseMercadoPago || 'Devi effettuare il login per pagare con Mercado Pago.';
+		container.innerHTML = `<p class="error-message">${loginMessage}</p>`;
+		return;
+	}
+    // --- FINE CORREZIONE ---
+
+    container.innerHTML = '<p><em>Inizializzazione Mercado Pago...</em></p>';
+
+    const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+    options.lang = currentLang;
 
     try {
         const { data: { session } } = await supabase.auth.getSession();
@@ -2105,26 +2111,27 @@ async function handleMercadoPagoPurchase(options) {
 
         const response = await fetch('/.netlify/functions/create-mercadopago-preference', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${session.access_token}`
-            },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
             body: JSON.stringify(options)
         });
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.error || 'Errore nella creazione della preferenza di pagamento.');
+            throw new Error(errorData.error || 'Errore nella creazione della preferenza.');
         }
 
-        const data = await response.json();
-        // Reindirizza l'utente alla pagina di checkout di Mercado Pago
-        window.location.href = data.init_point;
+        const preference = await response.json();
+        const mp = new MercadoPago(preference.publicKey);
+        
+        container.innerHTML = ''; 
+        mp.bricks().create("wallet", containerId, {
+            initialization: { preferenceId: preference.preferenceId },
+            customization: { texts: { valueProp: 'smart_option' } }
+        });
 
     } catch (error) {
-        alert(`Si è verificato un errore: ${error.message}`);
-        button.disabled = false;
-        button.querySelector('span').textContent = 'Mercado Pago';
+        console.error("Errore in handleMercadoPagoPurchase:", error);
+        container.innerHTML = `<p style="color:red;">${error.message}</p>`;
     }
 }
 
@@ -2848,126 +2855,181 @@ if (whatsappContactButton && interestModal) {
         });
     }
 
-    const allGroupBookingButtons = document.querySelectorAll('.open-group-booking-modal');
-    const groupBookingModal = document.getElementById('group-booking-modal');
+    // in script.js, SOSTITUISCI il vecchio blocco per i piani di gruppo con QUESTO
 
-    if (allGroupBookingButtons.length > 0 && groupBookingModal) {
-        
-        const participantsInput = groupBookingModal.querySelector('#modal-participants-input');
-        const calculatedPriceEl = groupBookingModal.querySelector('#modal-calculated-price');
-        const errorMessageEl = groupBookingModal.querySelector('#modal-participant-error');
-        const paymentOptionsContainer = groupBookingModal.querySelector('#modal-payment-options');
+		// in script.js, SOSTITUISCI il vecchio blocco per i piani di gruppo con QUESTO
 
-        let currentCardData = {};
+	const allGroupBookingButtons = document.querySelectorAll('.open-group-booking-modal');
+	const groupBookingModal = document.getElementById('group-booking-modal');
+	
+	// in script.js, SOSTITUISCI il vecchio blocco per i piani di gruppo con QUESTO
 
-        const updateGroupPrice = () => {
-            const numParticipants = parseInt(participantsInput.value, 10);
-            const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-            const errorMessages = {
-                it: `Il numero minimo è ${currentCardData.minParticipants} partecipanti.`,
-                en: `The minimum is ${currentCardData.minParticipants} participants.`,
-                es: `El número mínimo es de ${currentCardData.minParticipants} participantes.`
-            };
-
-            if (isNaN(numParticipants) || numParticipants < currentCardData.minParticipants) {
-                errorMessageEl.textContent = errorMessages[currentLang] || errorMessages['it'];
-                errorMessageEl.style.display = 'block';
-                calculatedPriceEl.textContent = '-';
-                paymentOptionsContainer.style.visibility = 'hidden';
-            } else {
-                errorMessageEl.style.display = 'none';
-                const totalPrice = numParticipants * currentCardData.pricePerPerson;
-                const formattedPrice = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(totalPrice);
-                calculatedPriceEl.textContent = formattedPrice;
-                paymentOptionsContainer.style.visibility = 'visible';
-            }
-        };
-
-        allGroupBookingButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                const planCard = event.target.closest('.plan');
-                currentCardData = {
-                    productCode: planCard.dataset.productCode,
-                    pricePerPerson: parseFloat(planCard.dataset.pricePerPerson),
-                    minParticipants: parseInt(planCard.dataset.minParticipants, 10)
-                };
-
-                participantsInput.value = currentCardData.minParticipants;
-                participantsInput.min = currentCardData.minParticipants;
-                
-                if (typeof populatePaymentButtons === 'function') {
-                    populatePaymentButtons(currentCardData.productCode, 'modal-payment-options');
-                }
-                
-                updateGroupPrice();
-                openModal('group-booking-modal');
-            });
-        });
-        participantsInput.addEventListener('input', updateGroupPrice);
-    }
+	if (allGroupBookingButtons.length > 0 && groupBookingModal) {
+		const participantsInput = groupBookingModal.querySelector('#modal-participants-input');
+		let updateFunction; 
+	
+		const newInput = participantsInput.cloneNode(true);
+		participantsInput.parentNode.replaceChild(newInput, participantsInput);
+		
+		newInput.addEventListener('input', () => {
+			if (typeof updateFunction === 'function') {
+				updateFunction();
+			}
+		});
+	
+		allGroupBookingButtons.forEach(button => {
+			button.addEventListener('click', (event) => {
+				const planCard = event.target.closest('.plan');
+				if (!planCard) return;
+	
+				const cardData = {
+					productCode: planCard.dataset.productCode,
+					pricePerPerson: parseFloat(planCard.dataset.pricePerPerson),
+					minParticipants: parseInt(planCard.dataset.minParticipants, 10)
+				};
+	
+				const calculatedPriceEl = groupBookingModal.querySelector('#modal-calculated-price');
+				const paymentContainer = groupBookingModal.querySelector('#modal-payment-options');
+	
+				newInput.value = cardData.minParticipants;
+				newInput.min = cardData.minParticipants;
+	
+				updateFunction = () => {
+					const numParticipants = parseInt(newInput.value, 10);
+					const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+					// Aggiungiamo la variabile translations qui
+					const translations = languages[currentLang] || languages['it'];
+	
+					if (isNaN(numParticipants) || numParticipants < cardData.minParticipants) {
+						calculatedPriceEl.textContent = '-';
+						paymentContainer.innerHTML = '';
+					} else {
+						const totalPrice = numParticipants * cardData.pricePerPerson;
+						calculatedPriceEl.textContent = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(totalPrice);
+						
+						// --- ECCO LA RIGA CORRETTA ---
+						paymentContainer.innerHTML = `
+							<p data-translate-key="paymentMethodLabel" style="text-align:center; font-weight: 500;">${translations.paymentMethodLabel || "Scegli un metodo di pagamento:"}</p>
+							<div id="paypal-group-container" style="margin-bottom: 15px;"></div>
+							<div id="mercadopago-group-container" style="margin-bottom: 15px;"></div>
+						
+							<button class="payment-button bizum" data-method="bizum">
+								<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 22px; width: auto;"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"></path><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"></path></svg>
+								<span>Bizum</span>
+							</button>
+						`;
+						
+						updateUITexts(currentLang); 
+						
+						const options = {
+							productCode: cardData.productCode,
+							participants: numParticipants
+						};
+						handlePayPalPurchase('paypal-group-container', options);
+						handleMercadoPagoPurchase('mercadopago-group-container', options);
+						
+						// Aggiungiamo il listener per il nuovo pulsante Bizum
+						const bizumButton = paymentContainer.querySelector('.payment-button.bizum');
+						if (bizumButton) {
+							bizumButton.addEventListener('click', () => handleBizumPurchase(options));
+						}
+					}
+				};
+	
+				updateFunction();
+				openModal('group-booking-modal');
+			});
+		});
+	}
 
     // --- LOGICA PER PRENOTAZIONE INDIVIDUALE ---
     const allIndividualBookingButtons = document.querySelectorAll('.open-individual-booking-modal');
     const individualBookingModal = document.getElementById('individual-booking-modal');
 
-    if (allIndividualBookingButtons.length > 0 && individualBookingModal) {
-        allIndividualBookingButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
+    // in script.js, SOSTITUISCI il vecchio blocco per i piani individuali con QUESTO
+
+	if (allIndividualBookingButtons.length > 0 && individualBookingModal) {
+		allIndividualBookingButtons.forEach(button => {
+			button.addEventListener('click', (event) => {
 				const planCard = event.target.closest('.plan');
 				if (!planCard) return;
-			
-				// --- INIZIO DELLA CORREZIONE ---
-				// 1. Definiamo le traduzioni QUI, all'inizio della funzione.
+	
 				const currentLang = localStorage.getItem('preferredLanguage') || 'it';
 				const translations = languages[currentLang] || languages['it'];
-			
-				// 2. ORA possiamo usare 'translations' per ottenere il nome del servizio.
 				const serviceName = planCard.querySelector('h3').textContent;
-				// --- FINE DELLA CORREZIONE ---
-			
-				const productCode = planCard.querySelector('.location-selector')?.dataset.productCode || event.target.dataset.productCode;
-				let servicePriceText = '';
-			
+	
+				// --- INIZIO DELLA CORREZIONE FONDAMENTALE ---
+				// Logica robusta per trovare il productCode in ogni tipo di card
+				let productCode = null;
 				const locationSelector = planCard.querySelector('.location-selector');
 				if (locationSelector) {
-					const selectedLocationRadio = locationSelector.querySelector('input[type="radio"]:checked');
-					if(selectedLocationRadio) {
-						const locationValue = selectedLocationRadio.value;
+					productCode = locationSelector.dataset.productCode;
+				} else if (event.target.dataset.productCode) {
+					productCode = event.target.dataset.productCode;
+				}
+				// --- FINE DELLA CORREZIONE FONDAMENTALE ---
+	
+				let servicePriceText = '';
+				if (locationSelector) {
+					const selectedRadio = locationSelector.querySelector('input[type="radio"]:checked');
+					if (selectedRadio) {
+						const locationValue = selectedRadio.value;
 						const priceKey = `price${locationValue.charAt(0).toUpperCase() + locationValue.slice(1)}`;
 						const price = locationSelector.dataset[priceKey];
 						servicePriceText = `€${price}`;
-					} else {
-						servicePriceText = 'Prezzo non definito';
 					}
 				} else {
 					const priceElement = planCard.querySelector('.current-price');
 					servicePriceText = priceElement ? priceElement.textContent : 'N/D';
 				}
-			
+	
 				document.getElementById('modal-individual-service-price').textContent = servicePriceText;
-			
-				// Popola il titolo del modale (la variabile 'translations' esiste già)
 				document.getElementById('modal-individual-title').textContent = translations.individualBookingTitle || "Dettagli Prenotazione";
-			
-				// Popola il paragrafo con il nome del servizio
+	
 				const bookingInfoParagraph = document.getElementById('modal-booking-info');
 				if (bookingInfoParagraph) {
 					const bookingForText = translations.bookingForText || "Stai prenotando:";
 					bookingInfoParagraph.innerHTML = `${bookingForText} <strong>${serviceName}</strong>`;
 				}
-			
+	
 				const paymentContainer = document.getElementById('modal-individual-payment-options');
-				if (typeof populatePaymentButtons === 'function' && productCode) {
-					paymentContainer.innerHTML = ''; 
-					populatePaymentButtons(productCode, 'modal-individual-payment-options');
+				// in script.js, dentro il listener per i bottoni individuali
+
+				if (productCode) {
+					paymentContainer.innerHTML = `
+						<p data-translate-key="paymentMethodLabel" style="text-align:center; font-weight: 500;">${translations.paymentMethodLabel || "Scegli un metodo di pagamento:"}</p>
+						<div id="paypal-individual-container" style="margin-bottom: 15px;"></div>
+						<div id="mercadopago-individual-container" style="margin-bottom: 15px;"></div>
+				
+						<button class="payment-button bizum" data-method="bizum">
+							<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 22px; width: auto;"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"></path><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"></path></svg>
+							<span>Bizum</span>
+						</button>
+					`;
+				
+					const options = { productCode };
+					if (locationSelector) {
+						const radio = planCard.querySelector('input[type="radio"]:checked');
+						if (radio) options.location = radio.value;
+					}
+				
+					handlePayPalPurchase('paypal-individual-container', options);
+					handleMercadoPagoPurchase('mercadopago-individual-container', options);
+				
+					// Aggiungiamo il listener per il nuovo pulsante Bizum
+					const bizumButton = paymentContainer.querySelector('.payment-button.bizum');
+					if (bizumButton) {
+						bizumButton.addEventListener('click', () => handleBizumPurchase(options));
+					}
+				
 				} else {
 					paymentContainer.innerHTML = '<p>Opzioni di pagamento non disponibili.</p>';
 				}
-			
+	
 				openModal('individual-booking-modal');
 			});
-        });
-    }
+		});
+	}
 
 
 // --- Logica per il video di presentazione in homepage ---
@@ -3019,118 +3081,150 @@ if (presentationContainer) {
 // --- FUNZIONI DI PAGAMENTO (FASE 2) ---
 // ===================================================================
 
-// in script.js, SOSTITUISCI la vecchia funzione populatePaymentButtons con QUESTA
 
-function populatePaymentButtons(productCode, containerId = 'modal-payment-options') {
-    const paymentContainer = document.getElementById(containerId);
-    if (!paymentContainer) return;
 
-    // --- NUOVO BLOCCO CON LOGHI UFFICIALI ---
-    const buttons = {
-        paypal: { 
-            text: "PayPal", 
-            icon: `<svg viewBox="0 0 96 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.56 26.5h8.84L21.32 3.8H12.5L9.9 20.38c-.12 1.08-.2 1.8-.24 2.14H9.6c.32-1.2.6-2.4.84-3.64L12.56 0H3.32L0 26.5h7.56Z" fill="#253B80"/><path d="M43.32 26.5h7.56L47.56 3.8h-7.56l3.32 22.7Z" fill="#253B80"/><path d="M51.12 3.8h-6.76c-2.44 0-4.6.48-6.48 1.44-1.88.96-3.32 2.36-4.32 4.2-.92 1.76-1.4 3.8-1.4 6.12 0 2.92.56 5.36 1.68 7.32 1.12 2 2.76 3.48 4.92 4.44 2.16.96 4.72 1.44 7.68 1.44h2.52c.4 0 .68-.04.84-.12.16-.08.28-.2.36-.36l.2-.44.88-6.12h-5.4c-1.48 0-2.6-.28-3.36-.84-.8-.56-1.16-1.4-1.08-2.52.08-1.4.92-2.12 2.52-2.12h8.24l2.04-14.08Zm-5.32 16.56c-.48 1.32-1.2 1.96-2.16 1.96-1.2 0-2.12-.52-2.76-1.56-.64-1.04-.92-2.32-.84-3.84.08-1.8.6-3.2 1.56-4.2s2.24-1.56 3.84-1.56h4.48l-.84 5.92-3.28 3.08Z" fill="#179BD7"/><path d="M69.84 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76 1.48-1.56 3.32-2.56 5.52-3s4.4-.64 6.6-.64c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#253B80"/><path d="M89.36 8.76c-1.4-1.12-3.16-1.68-5.28-1.68-1.4 0-2.6.28-3.6.84-.96.56-1.68 1.36-2.16 2.4-.48 1.04-.72 2.2-.72 3.48 0 1.8.64 3.2 1.92 4.2 1.28 1 2.96 1.48 5.04 1.48 1.4 0 2.8-.2 4.2-.64l.92.16c-1.36 2-3.24 3-5.64 3-2.12 0-3.92-.6-5.4-1.8-1.48-1.2-2.44-2.8-2.88-4.84-.44-2.12-.44-4.36 0-6.72.44-2.28 1.4-4.2 2.88-5.76C79.8 1.64 81.64.64 83.84.2S88.08 0 90.28 0c4.6 0 8.16 1.2 10.68 3.6Zm-1.84 6.8c.12-.92.04-1.8-.24-2.6-.28-.8-.72-1.48-1.32-2.04-.6-.56-1.32-.96-2.16-1.2-.84-.24-1.72-.36-2.64-.36-2.48 0-4.24.8-5.28 2.4s-1.56 3.56-1.56 5.88c0 .64.04 1.24.12 1.8.08.56.2 1.1.4 1.56.2.48.44.88.76 1.2.32.32.68.56 1.08.72.4.16.8.24 1.2.24 1.88 0 3.44-.64 4.68-1.92.4-.4.72-.88 1-1.44.24-.56.4-1.16.48-1.8Z" fill="#179BD7"/></svg>` 
-        },
-        mercadopago: { 
-            text: "Mercado Pago", 
-            icon: `<svg viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.6 8.56a2.64 2.64 0 0 0-2.1-2.24L22.99 2.1a.44.44 0 0 0-.4 0L9.08 6.32a2.64 2.64 0 0 0-2.1 2.24L5.1 14.8a2.64 2.64 0 0 0 2.52 3.02h25.4a2.64 2.64 0 0 0 2.52-3.02l-1.92-6.24Z" fill="#00AEEF"/></svg>` 
-        },
-        bizum: { 
-            text: "Bizum", 
-            icon: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#FF7B00" d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path fill="#fff" d="m161.4 153.2-25-25V89.4h16.8v34.4l22 22-13.8 13.8ZM94.6 102.8l25-25v38.8H102.8V82.2l-22 22 13.8 13.8Z"/></svg>` 
-        }
-    };
 
-    let buttonsHTML = '';
-    for (const key in buttons) {
-        buttonsHTML += `<button class="payment-button ${key}" data-method="${key}">${buttons[key].icon} <span>${buttons[key].text}</span></button>`;
-    }
-    const currentLang = localStorage.getItem('preferredLanguage') || 'it';
-    const labelText = languages[currentLang]?.paymentMethodLabel || languages['it'].paymentMethodLabel;
-    paymentContainer.innerHTML = `<p data-translate-key="paymentMethodLabel">${labelText}</p>` + buttonsHTML;
 
-    paymentContainer.querySelectorAll('.payment-button').forEach(button => {
-        button.addEventListener('click', (event) => {
-            const method = event.currentTarget.dataset.method;
-            const modal = event.currentTarget.closest('.auth-modal');
-            let options = { productCode };
 
-            if (modal.id === 'group-booking-modal') {
-                options.participants = parseInt(modal.querySelector('#modal-participants-input').value, 10);
-            } else if (modal.id === 'individual-booking-modal') {
-                const planCard = document.querySelector(`.open-individual-booking-modal[data-product-code="${productCode}"]`)?.closest('.plan') 
-                            || document.querySelector(`.location-selector[data-product-code="${productCode}"]`)?.closest('.plan');
-                if (planCard && planCard.querySelector('.location-selector')) {
-                    const radio = planCard.querySelector('input[type="radio"]:checked');
-                    if (radio) {
-                        options.location = radio.value;
-                    }
-                }
-            }
 
-            if (method === 'paypal') {
-                if (typeof handlePayPalPurchase === 'function') handlePayPalPurchase(options);
-            } else if (method === 'bizum') {
-                if (typeof handleBizumPurchase === 'function') handleBizumPurchase(options);
-            } else if (method === 'mercadopago') {
-                if (typeof handleMercadoPagoPurchase === 'function') handleMercadoPagoPurchase(options);
-            } else {
-                alert(`Il pagamento con ${buttons[method].text} non è ancora disponibile.`);
-            }
-        });
-    });
-}
 
-async function handlePayPalPurchase(options) {
-    // Blocco di controllo utente non loggato - VERSIONE DEFINITIVA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// in script.js, SOSTITUISCI la vecchia handlePayPalPurchase con questa
+// in script.js
+async function handlePayPalPurchase(containerId, options) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    // --- CORREZIONE FONDAMENTALE ---
+    // Se l'utente non è loggato, mostriamo un messaggio e ci fermiamo.
+    // Dentro la funzione handlePayPalPurchase
 	if (!currentUser) {
-		// 1. Chiudiamo i modali di pagamento aperti
-		closeModal('individual-booking-modal');
-		closeModal('group-booking-modal');
-	
-		// 2. Prendiamo il messaggio tradotto
-		const currentLang = localStorage.getItem('preferredLanguage') || 'es';
-		const alertMessage = languages[currentLang]?.loginToPurchase || languages['es'].loginToPurchase;
-	
-		// 3. Mostriamo il nostro avviso personalizzato INVECE di alert()
-		showAlert(alertMessage);
-	
-		return; // Interrompe la funzione di pagamento
+		const currentLang = localStorage.getItem('preferredLanguage') || 'it';
+		// Usa la nuova chiave di traduzione specifica per PayPal
+		const loginMessage = languages[currentLang]?.loginToPurchasePayPal || 'Devi effettuare il login per pagare con PayPal.';
+		container.innerHTML = `<p class="error-message">${loginMessage}</p>`;
+		return;
 	}
+    // --- FINE CORREZIONE ---
 
-    console.log("Avvio acquisto PayPal con opzioni:", options);
+    container.innerHTML = '<p><em>Inizializzazione PayPal...</em></p>';
 
     try {
         const { data: { session } } = await supabase.auth.getSession();
-        if (!session) throw new Error("Sessione utente non trovata. Prova a fare di nuovo il login.");
+        if (!session) throw new Error("Sessione utente non trovata.");
 
         const response = await fetch('/.netlify/functions/create-paypal-order', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${session.access_token}`
-            },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
             body: JSON.stringify(options)
         });
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.error || `Errore dal server: ${response.status}`);
+            throw new Error(errorData.error || `Errore server: ${response.status}`);
         }
 
         const orderData = await response.json();
-        if (!orderData.orderId) throw new Error("ID Ordine PayPal non ricevuto dal backend.");
+        if (!orderData.orderId) throw new Error("ID Ordine non ricevuto.");
 
-        console.log("Ordine PayPal creato con ID:", orderData.orderId);
-        if (typeof renderPayPalButtons === 'function') {
-            renderPayPalButtons(orderData.orderId, options.productCode);
-        }
+        container.innerHTML = ''; 
+        paypal.Buttons({
+            createOrder: (data, actions) => orderData.orderId,
+            onApprove: (data, actions) => {
+                const paymentOptions = document.querySelector('.auth-modal[style*="display: flex"] .payment-options-container');
+                if(paymentOptions) paymentOptions.innerHTML = `<p style="font-weight:bold; text-align:center;">Elaborazione pagamento in corso...</p>`;
+                
+                // Chiama la funzione di cattura e salvataggio
+                captureAndSavePayPalOrder(data.orderID, options.productCode);
+            },
+            onError: (err) => {
+                console.error("Errore PayPal SDK:", err);
+                container.innerHTML = `<p style="color:red;">Errore durante il pagamento. Riprova.</p>`;
+            }
+        }).render(`#${containerId}`);
 
     } catch (error) {
         console.error("Errore in handlePayPalPurchase:", error);
-        alert(`Si è verificato un errore: ${error.message}`);
+        container.innerHTML = `<p style="color:red;">${error.message}</p>`;
     }
 }
+
+
+
+
+
+
+
+
+
+
+// AGGIUNGI QUESTA FUNZIONE DI SUPPORTO
+async function captureAndSavePayPalOrder(orderID, productCode) {
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) throw new Error("Sessione utente non trovata per la finalizzazione.");
+
+        const response = await fetch('/.netlify/functions/capture-paypal-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+            body: JSON.stringify({ orderID, productCode })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Errore nella registrazione del pagamento.');
+        }
+
+        // Se tutto va bene, reindirizza o mostra messaggio di successo
+        setTimeout(() => {
+            let redirectUrl = '';
+            if (productCode.startsWith('FISIO')) { redirectUrl = 'grazie-fisio.html'; }
+            else { window.location.reload(); } // Ricarica la pagina per aggiornare lo stato
+            if (redirectUrl) window.location.href = redirectUrl;
+        }, 3000);
+
+    } catch (error) {
+        console.error("Errore in captureAndSavePayPalOrder:", error);
+        alert(`Si è verificato un errore dopo l'approvazione: ${error.message}. Contatta l'assistenza.`);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function renderPayPalButtons(orderId, productCode) {
     const paymentOptions = document.querySelector('.auth-modal[style*="display: flex"] .payment-options-container');

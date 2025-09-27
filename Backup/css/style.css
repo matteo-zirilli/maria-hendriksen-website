@@ -454,7 +454,7 @@ main section {
 .current-price {
     font-size: 1.8em;
     font-weight: 700;
-    color: var(--colore-primario);
+    color: #A17A66;
     margin: 0;
     line-height: 1.2;
 }
