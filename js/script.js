@@ -2219,35 +2219,78 @@ async function loadAndDisplayVideos() {
         
         const currentLang = localStorage.getItem('preferredLanguage') || 'it';
 
-        videos.forEach(video => {
-            // Seleziona titolo e descrizione in base alla lingua
-            let title = video.name;
-            let description = video.description;
-            if (currentLang === 'en' && video.name_en) title = video.name_en;
-            if (currentLang === 'es' && video.name_es) title = video.name_es;
-            if (currentLang === 'en' && video.description_en) description = video.description_en;
-            if (currentLang === 'es' && video.description_es) description = video.description_es;
+   //     videos.forEach(video => {
+   //         // Seleziona titolo e descrizione in base alla lingua
+   //         let title = video.name;
+   //         let description = video.description;
+   //         if (currentLang === 'en' && video.name_en) title = video.name_en;
+   //         if (currentLang === 'es' && video.name_es) title = video.name_es;
+   //         if (currentLang === 'en' && video.description_en) description = video.description_en;
+   //         if (currentLang === 'es' && video.description_es) description = video.description_es;
+   //
+   //         // Crea l'HTML per la card del video
+   //         const videoCardHTML = `
+   //             <div class="content-item" data-video-url="${video.video_url}" style="cursor: pointer;">
+   //                 <div class="content-thumbnail">
+   //                     <img src="https://img.youtube.com/vi/${new URL(video.video_url).searchParams.get('v')}/maxresdefault.jpg" alt="Anteprima per ${title}">
+   //                 </div>
+   //                 <div class="content-text">
+   //                     <h3 class="content-title">${title}</h3>
+   //                     <p class="content-description">${description || ''}</p>
+   //                 </div>
+   //             </div>
+   //         `;
+   //
+   //         // Aggiungi la card alla griglia corretta
+   //         if (video.category === 'yoga') {
+   //             yogaGrid.innerHTML += videoCardHTML;
+   //         } else if (video.category === 'fisioterapia') {
+   //             fisioGrid.innerHTML += videoCardHTML;
+   //         }
+   //     });
+   
+   
+   
+		// in script.js, SOSTITUISCI il vecchio ciclo forEach con QUESTO
 
-            // Crea l'HTML per la card del video
-            const videoCardHTML = `
-                <div class="content-item" data-video-url="${video.video_url}" style="cursor: pointer;">
-                    <div class="content-thumbnail">
-                        <img src="https://img.youtube.com/vi/${new URL(video.video_url).searchParams.get('v')}/maxresdefault.jpg" alt="Anteprima per ${title}">
-                    </div>
-                    <div class="content-text">
-                        <h3 class="content-title">${title}</h3>
-                        <p class="content-description">${description || ''}</p>
-                    </div>
-                </div>
-            `;
-
-            // Aggiungi la card alla griglia corretta
-            if (video.category === 'yoga') {
-                yogaGrid.innerHTML += videoCardHTML;
-            } else if (video.category === 'fisioterapia') {
-                fisioGrid.innerHTML += videoCardHTML;
-            }
-        });
+		videos.forEach(video => {
+			// Seleziona titolo e descrizione in base alla lingua
+			let title = video.name;
+			let description = video.description;
+			if (currentLang === 'en' && video.name_en) title = video.name_en;
+			if (currentLang === 'es' && video.name_es) title = video.name_es;
+			if (currentLang === 'en' && video.description_en) description = video.description_en;
+			if (currentLang === 'es' && video.description_es) description = video.description_es;
+		
+			// Estrai l'ID del video
+			const videoId = new URL(video.video_url).searchParams.get('v');
+		
+			// --- INIZIO DELLA CORREZIONE ---
+			// Aggiungiamo un timestamp all'URL della miniatura per forzare l'aggiornamento della cache
+			const timestamp = new Date().getTime();
+			const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg?t=${timestamp}`;
+			// --- FINE DELLA CORREZIONE ---
+		
+			// Crea l'HTML per la card del video usando il nuovo URL
+			const videoCardHTML = `
+				<div class="content-item" data-video-url="${video.video_url}" style="cursor: pointer;">
+					<div class="content-thumbnail">
+						<img src="${thumbnailUrl}" alt="Anteprima per ${title}">
+					</div>
+					<div class="content-text">
+						<h3 class="content-title">${title}</h3>
+						<p class="content-description">${description || ''}</p>
+					</div>
+				</div>
+			`;
+		
+			// Aggiungi la card alla griglia corretta
+			if (video.category === 'yoga') {
+				yogaGrid.innerHTML += videoCardHTML;
+			} else if (video.category === 'fisioterapia') {
+				fisioGrid.innerHTML += videoCardHTML;
+			}
+		});
 
         // Aggiungi gli event listener a tutte le card create
         document.querySelectorAll('.content-item[data-video-url]').forEach(card => {
