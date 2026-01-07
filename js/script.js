@@ -15,7 +15,7 @@ const GOOGLE_FORM_LINKS = {
 
 
 const CONTACT_INFO = {
-    whatsapp: "+5492983567655", // Numero Argentino per WhatsApp
+    whatsapp: "+34641234679", // Numero Business per WhatsApp
     phone: "+34641234679"       // Numero Spagnolo per Chiamate
 };
 
@@ -165,7 +165,7 @@ const languages = {
         "submitButton": "Invia Messaggio",
         "directContactTitle": "Contatti Diretti",
         "directContactInfo": "Puoi contattarmi anche tramite:",
-        "contactWhatsapp": "WhatsApp: <a href=\"https://wa.me/5492983567655\" target=\"_blank\">+54 9 2983 567655</a>",
+        "contactWhatsapp": "WhatsApp: <a href=\"https://wa.me/34641234679\" target=\"_blank\">+34 641 234 679</a>",
         "contactInstagram": "Instagram: <a href=\"https://www.instagram.com/yoguikine?igsh=dDk4bGc3Zm81MWx2\" target=\"_blank\" rel=\"noopener noreferrer\">@yoguikine</a>",
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
         "contactPhone": "Cellulare: <a href=\"tel:+34641234679\">+34 641234679</a>",
@@ -412,7 +412,7 @@ const languages = {
         "submitButton": "Send Message",
         "directContactTitle": "Direct Contacts",
         "directContactInfo": "You can also contact me via:",
-        "contactWhatsapp": "WhatsApp: <a href=\"https://wa.me/5492983567655\" target=\"_blank\">+54 9 2983 567655</a>",
+        "contactWhatsapp": "WhatsApp: <a href=\"https://wa.me/34641234679\" target=\"_blank\">+34 641 234 679</a>",
         "contactInstagram": "Instagram: <a href=\"https://www.instagram.com/yoguikine?igsh=dDk4bGc3Zm81MWx2\" target=\"_blank\" rel=\"noopener noreferrer\">@yoguikine</a>",
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
         "contactPhone": "Phone: <a href=\"tel:+34641234679\">+34 641234679</a>",
@@ -661,7 +661,7 @@ const languages = {
         "submitButton": "Enviar Mensaje",
         "directContactTitle": "Contactos Directos",
         "directContactInfo": "También puedes contactarme vía:",
-        "contactWhatsapp": "WhatsApp: <a href=\"https://wa.me/5492983567655\" target=\"_blank\">+54 9 2983 567655</a>",
+        "contactWhatsapp": "WhatsApp: <a href=\"https://wa.me/34641234679\" target=\"_blank\">+34 641 234 679</a>",
         "contactInstagram": "Instagram: <a href=\"https://www.instagram.com/yoguikine?igsh=dDk4bGc3Zm81MWx2\" target=\"_blank\" rel=\"noopener noreferrer\">@yoguikine</a>",
         "contactEmail": "Email: <a href=\"mailto:guillerminadn@gmail.com\">guillerminadn@gmail.com</a>",
         "contactPhone": "Teléfono: <a href=\"tel:+34641234679\">+34 641234679</a>",
@@ -2521,7 +2521,7 @@ if (document.getElementById('packages-container')) {
     const packagesContainer = document.getElementById('packages-container');
     const modal = document.getElementById('package-modal');
     const closeModalButton = document.getElementById('close-package-modal');
-    const WHATSAPP_NUMBER = '5492983567655';
+    const WHATSAPP_NUMBER = '34641234679';
     let packagesData = [];
 
     // --- DETTAGLI STATICI DEI PACCHETTI ---
@@ -2702,7 +2702,7 @@ const openPackageModal = (productCode) => {
         const bizumDescription = document.createElement('p');
         bizumDescription.style.textAlign = 'center';
         const bizumMessage = encodeURIComponent(`Ciao Guille, vorrei acquistare il pacchetto "${packageTitleText}" tramite Bizum.`);
-        const bizumLink = `<a href="https://wa.me/5492983567655?text=${bizumMessage}" target="_blank">${languages[currentLanguage].payWithBizum}</a>`;
+        const bizumLink = `<a href="https://wa.me/34641234679?text=${bizumMessage}" target="_blank">${languages[currentLanguage].payWithBizum}</a>`;
         bizumDescription.innerHTML = bizumLink;
 
         paymentButtonsContainer.appendChild(payPalContainer);
