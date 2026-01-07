@@ -930,16 +930,17 @@ function updateUITexts(lang) {
 
 
 // --- INIZIALIZZAZIONE SUPABASE ---
-const SUPABASE_URL = 'https://kmnowyskoyordmndfdae.supabase.co';
+const SUPABASE_URL = 'https://kmnowyskoyordmndfdae.supabaseClient.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imttbm93eXNrb3lvcmRtbmRmZGFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyNzUwMTEsImV4cCI6MjA2MTg1MTAxMX0.MdcRpTPTGC8e5wSeqp7chqhP0fsaW50VtiuN2y26eiw';
 
-let supabase = null;
+let supabaseClient = null; // Abbiamo cambiato nome qui
 try {
     if (window.supabase) {
-       supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+       // Usiamo 'window.supabase' (la libreria) per riempire la NOSTRA variabile
+       supabaseClient = window.supabaseClient.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
        console.log("Supabase client initialized.");
     } else {
-       console.error("Supabase library not found. Make sure it's included in your HTML before script.js");
+       console.error("Supabase library not found.");
     }
 } catch (error) {
     console.error("Error initializing Supabase:", error);
@@ -960,7 +961,7 @@ let currentUser = null;
 // Incolla questa funzione vicino alle altre funzioni di autenticazione
 
 async function getSupabaseToken() {
-    const { data, error } = await supabase.auth.getSession();
+    const { data, error } = await supabaseClient.auth.getSession();
     if (error) {
         console.error('Errore nel recuperare la sessione:', error);
         return null;
@@ -1193,7 +1194,7 @@ async function handleReviewSubmit(event) {
     submitButton.disabled = true;
 
     try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await supabaseClient.auth.getSession();
 
         // --- INIZIO MODIFICA IMPORTANTE ---
         // Controlliamo subito se l'utente è loggato
@@ -1477,7 +1478,7 @@ async function checkInitialAuthState() {
     }
     try {
         console.log("Checking initial auth state...");
-        const { data: { session }, error } = await supabase.auth.getSession();
+        const { data: { session }, error } = await supabaseClient.auth.getSession();
          if (error) {
             console.warn("Error getting initial session:", error.message);
             currentUser = null;
@@ -1742,8 +1743,8 @@ async function handlePayPalBuyClick(event) {
 
     try {
         // --- INIZIO DELLA CORREZIONE FONDAMENTALE ---
-        // Prima recuperiamo il token di accesso dalla sessione Supabase.
-        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        // Prima recuperiamo il token di accesso dalla sessione supabaseClient.
+        const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
 
         // Se c'è un errore o la sessione non esiste, blocchiamo la procedura.
         if (sessionError || !session) {
@@ -1926,7 +1927,7 @@ async function handleBizumPurchase(options) {
 
     // --- 1. REGISTRAZIONE IMMEDIATA IN BACKGROUND ---
     try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await supabaseClient.auth.getSession();
         if (session) {
             fetch('/.netlify/functions/record-manual-payment', {
                 method: 'POST',
@@ -2043,7 +2044,7 @@ async function handleBizumPurchase(options) {
 //    // --- 4. Aggiungi l'azione di salvataggio al click ---
 //    document.getElementById('whatsapp-confirm-button').addEventListener('click', async () => {
 //        try {
-//            const { data: { session } } = await supabase.auth.getSession();
+//            const { data: { session } } = await supabaseClient.auth.getSession();
 //            if (!session) return; // Non bloccare l'utente se la sessione non è pronta
 //
 //            // Chiama la funzione backend per registrare il pagamento come "pending"
@@ -2106,7 +2107,7 @@ async function handleMercadoPagoPurchase(containerId, options) {
     options.lang = currentLang;
 
     try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await supabaseClient.auth.getSession();
         if (!session) throw new Error("Sessione utente non trovata.");
 
         const response = await fetch('/.netlify/functions/create-mercadopago-preference', {
@@ -2227,7 +2228,7 @@ async function loadAndDisplayVideos() {
             if (currentLang === 'es' && video.name_es) title = video.name_es;
             if (currentLang === 'en' && video.description_en) description = video.description_en;
             if (currentLang === 'es' && video.description_es) description = video.description_es;
-
+   
             // Crea l'HTML per la card del video
             const videoCardHTML = `
                 <div class="content-item" data-video-url="${video.video_url}" style="cursor: pointer;">
@@ -2240,7 +2241,7 @@ async function loadAndDisplayVideos() {
                     </div>
                 </div>
             `;
-
+   
             // Aggiungi la card alla griglia corretta
             if (video.category === 'yoga') {
                 yogaGrid.innerHTML += videoCardHTML;
@@ -2248,6 +2249,9 @@ async function loadAndDisplayVideos() {
                 fisioGrid.innerHTML += videoCardHTML;
             }
         });
+   
+   
+
 
         // Aggiungi gli event listener a tutte le card create
         document.querySelectorAll('.content-item[data-video-url]').forEach(card => {
@@ -2383,7 +2387,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!supabase) return;
         logoutButton.disabled = true;
         logoutButton.textContent = 'Uscendo...';
-        const { error } = await supabase.auth.signOut();
+        const { error } = await supabaseClient.auth.signOut();
         if (error) {
             console.error("Error logging out:", error);
             alert(`Errore durante il logout: ${error.message}`);
@@ -2402,7 +2406,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('login-password').value;
         const submitButton = loginForm.querySelector('button[type="submit"]');
         if(submitButton) submitButton.disabled = true;
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
         if (error) {
             console.error("Login error:", error);
             if(loginErrorP) loginErrorP.textContent = `Credenziali non valide. Riprova.`;
@@ -2422,7 +2426,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('signup-password').value;
         const submitButton = signupForm.querySelector('button[type="submit"]');
          if(submitButton) submitButton.disabled = true;
-        const { data, error } = await supabase.auth.signUp({ email, password });
+        const { data, error } = await supabaseClient.auth.signUp({ email, password });
         if (error) {
             console.error("Signup error:", error);
              if(signupErrorP) signupErrorP.textContent = `Errore Registrazione: ${error.message}`;
@@ -2724,7 +2728,7 @@ const openPackageModal = (productCode) => {
 
     const fetchPackages = async () => {
         try {
-            const { data, error } = await supabase.from('services').select('*').in('product_code', productCodes);
+            const { data, error } = await supabaseClient.from('services').select('*').in('product_code', productCodes);
             if (error) throw error;
             packagesData = data;
             populatePackageCards(data);
@@ -3126,7 +3130,7 @@ async function handlePayPalPurchase(containerId, options) {
     container.innerHTML = '<p><em>Inizializzazione PayPal...</em></p>';
 
     try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await supabaseClient.auth.getSession();
         if (!session) throw new Error("Sessione utente non trovata.");
 
         const response = await fetch('/.netlify/functions/create-paypal-order', {
@@ -3177,7 +3181,7 @@ async function handlePayPalPurchase(containerId, options) {
 // AGGIUNGI QUESTA FUNZIONE DI SUPPORTO
 async function captureAndSavePayPalOrder(orderID, productCode) {
     try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await supabaseClient.auth.getSession();
         if (!session) throw new Error("Sessione utente non trovata per la finalizzazione.");
 
         const response = await fetch('/.netlify/functions/capture-paypal-order', {
@@ -3247,7 +3251,7 @@ function renderPayPalButtons(orderId, productCode) {
 			}
 		
 			try {
-				const { data: { session } } = await supabase.auth.getSession();
+				const { data: { session } } = await supabaseClient.auth.getSession();
 				if (!session) throw new Error("Sessione utente non trovata.");
 		
 				// Chiama la nostra nuova funzione backend per catturare e salvare
@@ -3318,7 +3322,7 @@ function renderPayPalButtons(orderId, productCode) {
 // -----------------------------------------------------------
 
 if (supabase) {
-    supabase.auth.onAuthStateChange((event, session) => {
+    supabaseClient.auth.onAuthStateChange((event, session) => {
         console.log('Auth Event:', event, session);
         currentUser = session?.user ?? null;
 
