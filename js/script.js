@@ -937,7 +937,7 @@ let supabaseClient = null; // Abbiamo cambiato nome qui
 try {
     if (window.supabase) {
        // Usiamo 'window.supabase' (la libreria) per riempire la NOSTRA variabile
-       supabaseClient = window.supabaseClient.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+       supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
        console.log("Supabase client initialized.");
     } else {
        console.error("Supabase library not found.");
@@ -1546,7 +1546,7 @@ async function fetchVideoLessons() {
         return [];
     }
     try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('video_lessons')
             .select('*')
             .order('created_at', { ascending: true });
