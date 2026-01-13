@@ -930,7 +930,7 @@ function updateUITexts(lang) {
 
 
 // --- INIZIALIZZAZIONE SUPABASE ---
-const SUPABASE_URL = 'https://kmnowyskoyordmndfdae.supabaseClient.co';
+const SUPABASE_URL = 'https://kmnowyskoyordmndfdae.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imttbm93eXNrb3lvcmRtbmRmZGFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyNzUwMTEsImV4cCI6MjA2MTg1MTAxMX0.MdcRpTPTGC8e5wSeqp7chqhP0fsaW50VtiuN2y26eiw';
 
 let supabaseClient = null; // Abbiamo cambiato nome qui
@@ -1470,7 +1470,7 @@ function updateAuthStateUI(user) {
 }
 
 async function checkInitialAuthState() {
-    if (!supabase) {
+    if (!supabaseClient) {
         console.warn("Supabase non inizializzato, impossibile controllare stato auth iniziale.");
         updateAuthStateUI(null);
         initializePageBasedOnAuthState(null);
@@ -1541,7 +1541,7 @@ function displayLoginMessage() {
 }
 
 async function fetchVideoLessons() {
-    if (!supabase) {
+    if (!supabaseClient) {
         console.error("Supabase client non disponibile per fetchVideoLessons");
         return [];
     }
@@ -1563,12 +1563,12 @@ async function fetchVideoLessons() {
 }
 
 async function fetchUserPurchases(userId) {
-    if (!supabase || !userId) {
+    if (!supabaseClient || !userId) {
          console.error("Supabase client o User ID non disponibili per fetchUserPurchases");
          return [];
     }
     try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('purchases')
             .select('lesson_id')
             .eq('user_id', userId)
@@ -3321,7 +3321,7 @@ function renderPayPalButtons(orderId, productCode) {
 //               LISTENER GLOBALI (es. Auth State Change)
 // -----------------------------------------------------------
 
-if (supabase) {
+if (supabaseClient) {
     supabaseClient.auth.onAuthStateChange((event, session) => {
         console.log('Auth Event:', event, session);
         currentUser = session?.user ?? null;
